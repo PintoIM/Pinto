@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PintoChat</RootNamespace>
+    <AssemblyName>PintoChat</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Launch|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Launch\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assets.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FatalErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FatalErrorForm.Designer.cs">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InWindowPopupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InWindowPopupControl.Designer.cs">
+      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Notification\NotificationIconType.cs" />
+    <Compile Include="General\Contact.cs" />
+    <Compile Include="General\InWindowPopupController.cs" />
+    <Compile Include="General\UserStatus.cs" />
+    <Compile Include="Networking\NetworkManager.cs" />
+    <Compile Include="General\ContactsManager.cs" />
+    <Compile Include="Controls\TextBoxWithPlaceholderSupport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogConnectToServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogConnectToServerForm.Designer.cs">
+      <DependentUpon>DialogConnectToServerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logo.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Builtin\EnglishLanguage.cs" />
+    <Compile Include="Localization\Language.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="Forms\Notification\Notification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Notification\Notification.Designer.cs">
+      <DependentUpon>Notification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Notification\NotificationButtonType.cs" />
+    <Compile Include="Forms\Notification\NotificationOkButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Notification\NotificationUtil.cs" />
+    <Compile Include="Forms\Notification\NotificationYesNoButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
+    <Compile Include="Networking\NetworkClient.cs" />
+    <Compile Include="Networking\IPacket.cs" />
+    <Compile Include="Networking\PacketTyping.cs" />
+    <Compile Include="Networking\PacketMessage.cs" />
+    <Compile Include="Networking\PacketLogout.cs" />
+    <Compile Include="Networking\PacketLogin.cs" />
+    <Compile Include="Networking\NetworkHandler.cs" />
+    <Compile Include="Networking\Packets.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sounds.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sounds.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Statuses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Statuses.resx</DependentUpon>
+    </Compile>
+    <Compile Include="General\User.cs" />
+    <EmbeddedResource Include="Assets.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Assets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogConnectToServerForm.resx">
+      <DependentUpon>DialogConnectToServerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FatalErrorForm.resx">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InWindowPopupControl.resx">
+      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logo.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Logo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Notification\Notification.resx">
+      <DependentUpon>Notification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Notification\NotificationOkButton.resx">
+      <DependentUpon>NotificationOkButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Notification\NotificationYesNoButton.resx">
+      <DependentUpon>NotificationYesNoButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Sounds.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sounds.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statuses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Statuses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Assets\ADDCONTACT_DISABLED.png" />
+    <Content Include="Resources\Assets\ADDCONTACT_ENABLED.png" />
+    <Content Include="Resources\Assets\CONTACT.png" />
+    <Content Include="Resources\Assets\ENDCALL_DISABLED.png" />
+    <Content Include="Resources\Assets\ENDCALL_ENABLED.png" />
+    <Content Include="Resources\Assets\HISTORY_DISABLED.png" />
+    <Content Include="Resources\Assets\HISTORY_ENABLED.png" />
+    <Content Include="Resources\Assets\HOUSE.png" />
+    <Content Include="Resources\Assets\HOUSE_LOCKED.png" />
+    <Content Include="Resources\Assets\IM_DISABLED.png" />
+    <Content Include="Resources\Assets\IM_ENABLED.png" />
+    <Content Include="Resources\Assets\INFO_DISABLED.png" />
+    <Content Include="Resources\Assets\INFO_ENABLED.png" />
+    <Content Include="Resources\Assets\LOCK_DISABLED.png" />
+    <Content Include="Resources\Assets\LOCK_ENABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_DISABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_ENABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_MUTED.png" />
+    <Content Include="Resources\Assets\MISSEDCALLS.png" />
+    <Content Include="Resources\Assets\PAUSECALL_DISABLED.png" />
+    <Content Include="Resources\Assets\PAUSECALL_ENABLED.png" />
+    <Content Include="Resources\Assets\PLUS_DISABLED.png" />
+    <Content Include="Resources\Assets\PLUS_ENABLED.png" />
+    <Content Include="Resources\Assets\REMOVECONTACT_DISABLED.png" />
+    <Content Include="Resources\Assets\REMOVECONTACT_ENABLED.png" />
+    <Content Include="Resources\Assets\RESUMECALL.png" />
+    <Content Include="Resources\Assets\SEARCH_DISABLED.png" />
+    <Content Include="Resources\Assets\SEARCH_ENABLED.png" />
+    <Content Include="Resources\Assets\SECONDARY_INFO.png" />
+    <Content Include="Resources\Assets\STAR.png" />
+    <Content Include="Resources\Assets\STARTCALL_DISABLED.png" />
+    <Content Include="Resources\Assets\STARTCALL_ENABLED.png" />
+    <Content Include="Resources\Assets\TRASHCAN_DISABLED.png" />
+    <Content Include="Resources\Assets\TRASHCAN_ENABLED.png" />
+    <Content Include="Resources\Assets\WARNING.png" />
+    <Content Include="Resources\Logo\LOADING.gif" />
+    <Content Include="Resources\Logo\LOGO.png" />
+    <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
+    <Content Include="Resources\Logo\LOGO_LARGE.png" />
+    <Content Include="Resources\Sounds\BUSY.WAV" />
+    <Content Include="Resources\Sounds\CALL_ERROR1.WAV" />
+    <Content Include="Resources\Sounds\CALL_ERROR2.WAV" />
+    <Content Include="Resources\Sounds\CALL_IN.WAV" />
+    <Content Include="Resources\Sounds\CALL_INIT.WAV" />
+    <Content Include="Resources\Sounds\CALL_OUT.WAV" />
+    <Content Include="Resources\Sounds\CALL_RECONNECT_CONTINUOUS.WAV" />
+    <Content Include="Resources\Sounds\CALL_RECONNECT_FRONT.WAV" />
+    <Content Include="Resources\Sounds\FORWARDED.WAV" />
+    <Content Include="Resources\Sounds\FT_COMPLETE.WAV" />
+    <Content Include="Resources\Sounds\FT_FAILED.WAV" />
+    <Content Include="Resources\Sounds\HANGUP.WAV" />
+    <Content Include="Resources\Sounds\HOLD.WAV" />
+    <Content Include="Resources\Sounds\IM.WAV" />
+    <Content Include="Resources\Sounds\IM_ACC.WAV" />
+    <Content Include="Resources\Sounds\IM_SENT.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_AUTH.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_CONTACTS.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_FILE.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_VOICEMAIL.WAV" />
+    <Content Include="Resources\Sounds\KNOCKING.WAV" />
+    <Content Include="Resources\Sounds\LOGIN.WAV" />
+    <Content Include="Resources\Sounds\LOGOUT.WAV" />
+    <Content Include="Resources\Sounds\OFFLINE.WAV" />
+    <Content Include="Resources\Sounds\ONLINE.WAV" />
+    <Content Include="Resources\Sounds\RESUME.WAV" />
+    <Content Include="Resources\Sounds\SEND_VM.WAV" />
+    <Content Include="Resources\Sounds\USER_ADDED.WAV" />
+    <Content Include="Resources\Sounds\USER_LEFT.WAV" />
+    <Content Include="Resources\Sounds\VC_BEEP_1.WAV" />
+    <Content Include="Resources\Statuses\AFK.png" />
+    <Content Include="Resources\Statuses\AWAY.png" />
+    <Content Include="Resources\Statuses\BUSY.png" />
+    <Content Include="Resources\Statuses\INVISIBLE.png" />
+    <Content Include="Resources\Statuses\OFFLINE.png" />
+    <Content Include="Resources\Statuses\ONLINE.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
