@@ -50,7 +50,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::PintoChat.Assets.WARNING;
+            this.pictureBox2.Image = global::PintoNS.Assets.WARNING;
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);

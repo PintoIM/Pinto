@@ -227,7 +227,7 @@ namespace PintoNS
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = global::PintoChat.Logo.LOADING;
+            this.pictureBox1.Image = global::PintoNS.Logo.LOADING;
             this.pictureBox1.Location = new System.Drawing.Point(68, 65);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
@@ -260,7 +260,7 @@ namespace PintoNS
             // 
             this.tsddbStatusBarStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsddbStatusBarStatus.Enabled = false;
-            this.tsddbStatusBarStatus.Image = global::PintoChat.Statuses.OFFLINE;
+            this.tsddbStatusBarStatus.Image = global::PintoNS.Statuses.OFFLINE;
             this.tsddbStatusBarStatus.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbStatusBarStatus.Name = "tsddbStatusBarStatus";
             this.tsddbStatusBarStatus.ShowDropDownArrow = false;
@@ -332,7 +332,7 @@ namespace PintoNS
             // 
             this.btnEndCall.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnEndCall.Enabled = false;
-            this.btnEndCall.Image = global::PintoChat.Assets.ENDCALL_DISABLED;
+            this.btnEndCall.Image = global::PintoNS.Assets.ENDCALL_DISABLED;
             this.btnEndCall.Location = new System.Drawing.Point(164, 351);
             this.btnEndCall.Name = "btnEndCall";
             this.btnEndCall.Size = new System.Drawing.Size(32, 32);
@@ -344,7 +344,7 @@ namespace PintoNS
             // 
             this.btnStartCall.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnStartCall.Enabled = false;
-            this.btnStartCall.Image = global::PintoChat.Assets.STARTCALL_DISABLED;
+            this.btnStartCall.Image = global::PintoNS.Assets.STARTCALL_DISABLED;
             this.btnStartCall.Location = new System.Drawing.Point(68, 351);
             this.btnStartCall.Name = "btnStartCall";
             this.btnStartCall.Size = new System.Drawing.Size(32, 32);

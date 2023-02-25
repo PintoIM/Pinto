@@ -38,7 +38,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::PintoChat.Logo.LOGO;
+            this.pictureBox1.Image = global::PintoNS.Logo.LOGO;
             this.pictureBox1.Location = new System.Drawing.Point(85, 16);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 64);
@@ -80,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PintoChat.Logo.LOGO_BACKGROUND;
+            this.BackgroundImage = global::PintoNS.Logo.LOGO_BACKGROUND;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(240, 217);
             this.Controls.Add(this.label3);
