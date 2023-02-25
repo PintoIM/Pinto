@@ -1,5 +1,5 @@
-﻿using PintoChat.Controls;
-using PintoChat.Forms;
+﻿using PintoNS.Controls;
+using PintoNS.Forms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

@@ -1,5 +1,5 @@
-﻿using PintoChat.Forms;
-using PintoChat.Forms.Notification;
+﻿using PintoNS.Forms;
+using PintoNS.Forms.Notification;
 using PintoNS;
 using System;
 using System.Collections.Generic;

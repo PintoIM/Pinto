@@ -1,4 +1,4 @@
-﻿using PintoChat.Forms;
+﻿using PintoNS.Forms;
 using PintoNS;
 using System;
 using System.Collections.Generic;

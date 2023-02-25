@@ -1,6 +1,6 @@
-﻿using PintoChat.Localization;
-using PintoChat.Networking;
-using PintoChat;
+﻿using PintoNS.Localization;
+using PintoNS.Networking;
+using PintoNS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,10 +9,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using PintoChat.Forms.Notification;
+using PintoNS.Forms.Notification;
 using System.Threading.Tasks;
-using PintoChat.Forms;
-using PintoChat.General;
+using PintoNS.Forms;
+using PintoNS.General;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Media;
 
