@@ -29,6 +29,10 @@ The code you see here is for PintoChat, a more prototype-ish version of the clie
 - Secure protocol communication
 - Fully customizable interface
 
+# 🖥️ Server
+Looking for a server implementation?<br>
+[Here](https://github.com/vlOd2/PintoServer) you can find an official implementation
+
 # 👨‍💻 Contributing
 You may proceed with the following steps if you wish to contribute to this project
 
