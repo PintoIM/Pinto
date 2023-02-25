@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PintoChat.Networking
+namespace PintoNS.Networking
 {
     public class ConnectionException : Exception 
     {

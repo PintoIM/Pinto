@@ -1,4 +1,4 @@
-﻿namespace PintoChat.Forms
+﻿namespace PintoNS.Forms
 {
     partial class MessageForm
     {

@@ -1,4 +1,4 @@
-﻿namespace PintoChat.Controls
+﻿namespace PintoNS.Controls
 {
     partial class InWindowPopupControl
     {

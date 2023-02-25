@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PintoChat.Networking
+namespace PintoNS.Networking
 {
     public class PacketTyping : IPacket
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PintoChat {
+namespace PintoNS {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PintoChat {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PintoChat.Statuses", typeof(Statuses).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PintoNS.Statuses", typeof(Statuses).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

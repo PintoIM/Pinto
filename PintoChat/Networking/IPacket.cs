@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PintoChat.Networking
+namespace PintoNS.Networking
 {
     public interface IPacket
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PintoChat.General
+namespace PintoNS.General
 {
     public class ContactsManager
     {

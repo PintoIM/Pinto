@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace PintoChat.Networking
+namespace PintoNS.Networking
 {
     public class NetworkHandler
     {

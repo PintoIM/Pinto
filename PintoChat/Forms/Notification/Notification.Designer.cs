@@ -1,4 +1,4 @@
-﻿namespace PintoChat.Forms.Notification
+﻿namespace PintoNS.Forms.Notification
 {
     partial class Notification
     {

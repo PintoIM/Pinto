@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PintoChat.Forms
+namespace PintoNS.Forms
 {
     public partial class FatalErrorForm : Form
     {

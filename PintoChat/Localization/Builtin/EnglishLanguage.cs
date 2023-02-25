@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PintoChat.Localization.Builtin
+namespace PintoNS.Localization.Builtin
 {
     public class EnglishLanguage : Language
     {

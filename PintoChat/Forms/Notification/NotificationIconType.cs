@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PintoChat.Forms.Notification
+namespace PintoNS.Forms.Notification
 {
     public enum NotificationIconType
     {

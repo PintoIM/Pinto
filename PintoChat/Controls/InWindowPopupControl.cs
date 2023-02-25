@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PintoChat.Controls
+namespace PintoNS.Controls
 {
     public partial class InWindowPopupControl : UserControl
     {

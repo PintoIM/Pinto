@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PintoChat.General
+namespace PintoNS.General
 {
     public class User
     {

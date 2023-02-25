@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PintoChat</RootNamespace>
-    <AssemblyName>PintoChat</AssemblyName>
+    <RootNamespace>PintoNS</RootNamespace>
+    <AssemblyName>Pinto</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
