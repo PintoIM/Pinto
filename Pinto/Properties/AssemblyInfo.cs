@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PintoChat")]
-[assembly: AssemblyDescription("A simple IM client")]
+[assembly: AssemblyTitle("Pinto")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PintoChat")]
+[assembly: AssemblyProduct("Pinto")]
 [assembly: AssemblyCopyright("vlOd")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
