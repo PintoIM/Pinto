@@ -53,7 +53,7 @@ namespace PintoNS.General
                 ClosePopup(popup);
             };
             popup.Parent = form;
-            popup.Width = form.Width - 5;
+            popup.Width = form.Width - 15;
             popup.Height = 21;
             popup.Location = new Point(0, GetYPosForNew());
             popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
