@@ -69,27 +69,13 @@ namespace PintoNS.Networking
             IsConnected = false;
         }
 
-        public async Task SendPacket(IPacket packet) 
+        public void SendPacket(IPacket packet) 
         {
-            MemoryStream stream = new MemoryStream(new byte[packet.GetLength()]);
-            BinaryWriter writer = new BinaryWriter(stream);
+            BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
+            writer.Write((byte)packet.GetID());
             packet.Write(writer);
-
             writer.Flush();
-            byte[] data = new byte[] { (byte)packet.GetID() }.Concat(stream.ToArray()).ToArray();
-            writer.Close();
-
-            await SendData(data);
-        }
-
-        public async Task SendData(byte[] data)
-        {
-            try
-            {
-                if (tcpStream != null)
-                    await tcpStream.WriteAsync(data, 0, data.Length);
-            }
-            catch { }
+            writer.Dispose();
         }
 
         private void ReadThread_Func() 
@@ -105,21 +91,9 @@ namespace PintoNS.Networking
                     {
                         if (packet != null)
                         {
-                            int packetSize = packet.GetLength();
-                            byte[] buffer = new byte[packetSize];
-
-                            int readBytesTotal = 0;
-                            int readBytes = readBytesTotal = tcpStream.Read(buffer, 0, packetSize);
-;
-                            while (readBytesTotal < packetSize)
-                            {
-                                readBytes = tcpStream.Read(buffer, readBytesTotal, packetSize - readBytesTotal);
-                                readBytesTotal += readBytes;
-                            }
-
-                            BinaryReader reader = new BinaryReader(new MemoryStream(buffer), Encoding.UTF8);
+                            BinaryReader reader = new BinaryReader(tcpStream, Encoding.UTF8, true);
                             packet.Read(reader);
-                            reader.Close();
+                            reader.Dispose();
                             ReceivedPacket.Invoke(packet);
                         }
                         else

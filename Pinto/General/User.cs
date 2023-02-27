@@ -9,7 +9,6 @@ namespace PintoNS.General
 {
     public class User
     {
-        public int ID;
         public string Name;
         public UserStatus Status;
 
@@ -27,6 +26,23 @@ namespace PintoNS.General
                     return Statuses.INVISIBLE;
                 default:
                     return Statuses.OFFLINE;
+            }
+        }
+
+        public static string StatusToText(UserStatus status)
+        {
+            switch (status)
+            {
+                case UserStatus.ONLINE:
+                    return "Online";
+                case UserStatus.AWAY:
+                    return "Away";
+                case UserStatus.BUSY:
+                    return "Busy";
+                case UserStatus.INVISIBLE:
+                    return "Invisible";
+                default:
+                    return "Offline";
             }
         }
     }

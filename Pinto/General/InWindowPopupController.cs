@@ -14,7 +14,7 @@ namespace PintoNS.General
     {
         private Form form;
         private int baseY;
-        private Dictionary<InWindowPopupControl, int> popups = new Dictionary<InWindowPopupControl, int>();
+        private List<InWindowPopupControl> popups = new List<InWindowPopupControl>();
 
         public InWindowPopupController(Form form, int baseY)
         {
@@ -26,7 +26,7 @@ namespace PintoNS.General
         {
             int y = baseY;
 
-            foreach (InWindowPopupControl popup in popups.Keys)
+            foreach (InWindowPopupControl popup in popups.ToArray())
             {
                 y += popup.Height;
             }
@@ -38,14 +38,14 @@ namespace PintoNS.General
         {
             int y = baseY;
 
-            foreach (InWindowPopupControl popup in popups.Keys)
+            foreach (InWindowPopupControl popup in popups.ToArray())
             {
                 popup.Location = new Point(0, y);
                 y += popup.Height;
             }
         }
 
-        public void CreatePopup(string text, int maxTime)
+        public void CreatePopup(string text)
         {
             InWindowPopupControl popup = new InWindowPopupControl(text);
             popup.btnClose.Click += (object sender, EventArgs e) =>
@@ -59,7 +59,7 @@ namespace PintoNS.General
             popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             popup.Show();
             popup.BringToFront();
-            popups.Add(popup, maxTime);
+            popups.Add(popup);
         }
 
         public void ClosePopup(InWindowPopupControl popup)
@@ -73,7 +73,7 @@ namespace PintoNS.General
 
         public void ClearPopups()
         {
-            foreach (InWindowPopupControl popup in popups.Keys)
+            foreach (InWindowPopupControl popup in popups.ToArray())
             {
                 popup.Hide();
                 popup.Dispose();

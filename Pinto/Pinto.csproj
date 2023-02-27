@@ -134,6 +134,11 @@
     <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\IPacket.cs" />
+    <Compile Include="Networking\PacketStatus.cs" />
+    <Compile Include="Networking\PacketRemoveContact.cs" />
+    <Compile Include="Networking\PacketInWindowPopup.cs" />
+    <Compile Include="Networking\PacketAddContact.cs" />
+    <Compile Include="Networking\PacketRegister.cs" />
     <Compile Include="Networking\PacketTyping.cs" />
     <Compile Include="Networking\PacketMessage.cs" />
     <Compile Include="Networking\PacketLogout.cs" />

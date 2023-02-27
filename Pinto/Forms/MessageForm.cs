@@ -24,7 +24,7 @@ namespace PintoNS.Forms
             InitializeComponent();
             this.mainForm = mainForm;
             Receiver = receiver;
-            Text = $"Pinto! - Instant Messaging - {Receiver.Name} (User ID {receiver.ID})";
+            Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
         }
 
         public void WriteMessage(string msg, Color color, bool newLine = true)
@@ -88,7 +88,7 @@ namespace PintoNS.Forms
             rtxtInput.Clear();
             if (mainForm.NetManager != null) 
             {
-                await mainForm.NetManager.NetHandler.SendMessagePacket(input);
+                await mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
             }
         }
 

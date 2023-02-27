@@ -20,23 +20,17 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            Usernames = reader.ReadUTF8String().Trim();
+            Usernames = reader.ReadUTF8String();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF8String(Usernames.PadRight(256));
+            writer.WriteUTF8String(Usernames);
         }
 
         public int GetID()
         {
-            return 3;
-        }
-
-        public int GetLength()
-        {
-            // User names
-            return (512 + 2);
+            return 4;
         }
     }
 }

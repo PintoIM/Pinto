@@ -38,9 +38,9 @@
             this.btnBlock = new System.Windows.Forms.Button();
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -74,8 +74,10 @@
             this.rtxtMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtxtMessages.BackColor = System.Drawing.SystemColors.Window;
             this.rtxtMessages.Location = new System.Drawing.Point(12, 75);
             this.rtxtMessages.Name = "rtxtMessages";
+            this.rtxtMessages.ReadOnly = true;
             this.rtxtMessages.Size = new System.Drawing.Size(410, 202);
             this.rtxtMessages.TabIndex = 2;
             this.rtxtMessages.Text = "";
@@ -145,6 +147,13 @@
             this.tsddbMenuBarHelp.Text = "Help";
             this.tsddbMenuBarHelp.ToolTipText = "Help";
             // 
+            // tsmiMenuBarHelpAbout
+            // 
+            this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.tsmiMenuBarHelpAbout.Text = "About";
+            this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
+            // 
             // ssStatusStrip
             // 
             this.ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -159,13 +168,6 @@
             // 
             this.tsslStatusBarTypingList.Name = "tsslStatusBarTypingList";
             this.tsslStatusBarTypingList.Size = new System.Drawing.Size(0, 17);
-            // 
-            // tsmiMenuBarHelpAbout
-            // 
-            this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarHelpAbout.Text = "About";
-            this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
             // MessageForm
             // 

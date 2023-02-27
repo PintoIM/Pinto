@@ -37,17 +37,25 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpContacts);
+            OnStatusChange(UserStatus.ONLINE);
             dgvContacts.Rows.Clear();
             ContactsMgr = new ContactsManager(this);
             MessageForms = new List<MessageForm>();
             new SoundPlayer(Sounds.LOGIN).Play();
-            ContactsMgr.AddContact(new Contact() { ID = 0, Status = UserStatus.ONLINE, Name = "Public Chat" });
+        }
+
+        internal void OnStatusChange(UserStatus status) 
+        {
+            tsddbStatusBarStatus.Enabled = status != UserStatus.OFFLINE;
+            tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
+            tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
         }
 
         internal void OnLogout(bool noSound = false) 
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpLogin);
+            OnStatusChange(UserStatus.OFFLINE);
 
             if (MessageForms != null && MessageForms.Count > 0) 
             {
@@ -102,15 +110,15 @@ namespace PintoNS
             CurrentAccount = null;
         }
         
-        public MessageForm GetMessageFormFromReceiverID(int id) 
+        public MessageForm GetMessageFormFromReceiverName(string name) 
         {
             foreach (MessageForm msgForm in MessageForms.ToArray()) 
             {
-                if (msgForm.Receiver.ID == id)
+                if (msgForm.Receiver.Name == name)
                     return msgForm;
             }
 
-            MessageForm messageForm = new MessageForm(this, ContactsMgr.GetContact(0));
+            MessageForm messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
             MessageForms.Add(messageForm);
             messageForm.Show();
 
@@ -129,12 +137,12 @@ namespace PintoNS
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int contactID = ContactsMgr.GetContactIDFromRow(e.RowIndex);
-            Contact contact = ContactsMgr.GetContact(contactID);
+            string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+            Contact contact = ContactsMgr.GetContact(contactName);
 
-            if (contactID != -1 && contact != null) 
+            if (contactName != null && contact != null) 
             {
-                MessageForm messageForm = GetMessageFormFromReceiverID(contactID);
+                MessageForm messageForm = GetMessageFormFromReceiverName(contactName);
                 messageForm.WindowState = FormWindowState.Normal;
                 messageForm.BringToFront();
                 messageForm.Focus();

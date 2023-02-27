@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
@@ -20,9 +21,10 @@ namespace PintoNS.Networking
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
 
-        public static void WriteUTF8String(this BinaryWriter writer, string str) 
+        public static void WriteUTF8String(this BinaryWriter writer, string str)
         {
             writer.WriteBE((short)str.Length);
+            if (str.Length < 1) return;
             writer.Write(Encoding.UTF8.GetBytes(str));
         }
 
@@ -39,8 +41,7 @@ namespace PintoNS.Networking
         public static string ReadUTF8String(this BinaryReader reader)
         {
             short length = reader.ReadBEShort();
-            if (length < 0) 
-                return "";
+            if (length < 1) return "";
             byte[] buffer = new byte[length];
             reader.Read(buffer, 0, length);
             return Encoding.UTF8.GetString(buffer);

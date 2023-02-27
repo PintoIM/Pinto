@@ -40,9 +40,6 @@ namespace PintoNS
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpContacts = new System.Windows.Forms.TabPage();
             this.dgvContacts = new System.Windows.Forms.DataGridView();
-            this.contactID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactStatus = new System.Windows.Forms.DataGridViewImageColumn();
-            this.contactName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpConnecting = new System.Windows.Forms.TabPage();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -55,10 +52,12 @@ namespace PintoNS
             this.tsmiMenuBarFileLogOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactStatus = new System.Windows.Forms.DataGridViewImageColumn();
+            this.contactName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
             this.tpContacts.SuspendLayout();
@@ -163,7 +162,6 @@ namespace PintoNS
             this.dgvContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvContacts.ColumnHeadersVisible = false;
             this.dgvContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.contactID,
             this.contactStatus,
             this.contactName});
             this.dgvContacts.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -177,30 +175,6 @@ namespace PintoNS
             this.dgvContacts.Size = new System.Drawing.Size(252, 237);
             this.dgvContacts.TabIndex = 0;
             this.dgvContacts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContacts_CellDoubleClick);
-            // 
-            // contactID
-            // 
-            this.contactID.HeaderText = "Contact ID";
-            this.contactID.Name = "contactID";
-            this.contactID.ReadOnly = true;
-            this.contactID.Visible = false;
-            // 
-            // contactStatus
-            // 
-            this.contactStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.contactStatus.FillWeight = 24F;
-            this.contactStatus.HeaderText = "Contact Status";
-            this.contactStatus.Name = "contactStatus";
-            this.contactStatus.ReadOnly = true;
-            this.contactStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.contactStatus.Width = 24;
-            // 
-            // contactName
-            // 
-            this.contactName.FillWeight = 84F;
-            this.contactName.HeaderText = "Contact Name";
-            this.contactName.Name = "contactName";
-            this.contactName.ReadOnly = true;
             // 
             // tpConnecting
             // 
@@ -302,7 +276,7 @@ namespace PintoNS
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(115, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
@@ -327,6 +301,13 @@ namespace PintoNS
             this.tsddbMenuBarHelp.ShowDropDownArrow = false;
             this.tsddbMenuBarHelp.Size = new System.Drawing.Size(36, 22);
             this.tsddbMenuBarHelp.Text = "Help";
+            // 
+            // tsmiMenuBarHelpAbout
+            // 
+            this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.tsmiMenuBarHelpAbout.Text = "About";
+            this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
             // btnEndCall
             // 
@@ -368,12 +349,22 @@ namespace PintoNS
             this.txtSearchBox.Text = "Type the username of the person you want to call";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             // 
-            // tsmiMenuBarHelpAbout
+            // contactStatus
             // 
-            this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarHelpAbout.Text = "About";
-            this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
+            this.contactStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.contactStatus.FillWeight = 24F;
+            this.contactStatus.HeaderText = "Contact Status";
+            this.contactStatus.Name = "contactStatus";
+            this.contactStatus.ReadOnly = true;
+            this.contactStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.contactStatus.Width = 24;
+            // 
+            // contactName
+            // 
+            this.contactName.FillWeight = 84F;
+            this.contactName.HeaderText = "Contact Name";
+            this.contactName.Name = "contactName";
+            this.contactName.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -428,9 +419,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarHelp;
         private System.Windows.Forms.ToolStrip tsMenuBar;
         private System.Windows.Forms.TabPage tpContacts;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactID;
-        private System.Windows.Forms.DataGridViewImageColumn contactStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactName;
         public System.Windows.Forms.DataGridView dgvContacts;
         private System.Windows.Forms.LinkLabel llLogin;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileLogOut;
@@ -438,5 +426,7 @@ namespace PintoNS
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lConnectingStatus;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
+        private System.Windows.Forms.DataGridViewImageColumn contactStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contactName;
     }
 }

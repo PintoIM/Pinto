@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PintoNS.General;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Networking
 {
-    public class PacketMessage : IPacket
+    public class PacketStatus : IPacket
     {
         public string ContactName { get; protected set; }
-        public string Message { get; protected set; }
+        public UserStatus Status { get; protected set; }
 
-        public PacketMessage() { }
+        public PacketStatus() { }
 
-        public PacketMessage(string contactName, string message)
+        public PacketStatus(string contactName, UserStatus status)
         {
             ContactName = contactName;
-            Message = message;
+            Status = status;
         }
 
         public void Read(BinaryReader reader)
         {
             ContactName = reader.ReadUTF8String();
-            Message = reader.ReadUTF8String();
+            Status = (UserStatus) reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WriteUTF8String(ContactName);
-            writer.WriteUTF8String(Message);
+            writer.WriteBE((int) Status);
         }
 
         public int GetID()
         {
-            return 3;
+            return 8;
         }
     }
 }

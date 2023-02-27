@@ -14,9 +14,14 @@ namespace PintoNS.Networking
         static Packets() 
         {
             PacketMap.Add(0, typeof(PacketLogin));
-            PacketMap.Add(1, typeof(PacketLogout));
-            PacketMap.Add(2, typeof(PacketMessage));
-            PacketMap.Add(3, typeof(PacketTyping));
+            PacketMap.Add(1, typeof(PacketRegister));
+            PacketMap.Add(2, typeof(PacketLogout));
+            PacketMap.Add(3, typeof(PacketMessage));
+            PacketMap.Add(4, typeof(PacketTyping));
+            PacketMap.Add(5, typeof(PacketInWindowPopup));
+            PacketMap.Add(6, typeof(PacketAddContact));
+            PacketMap.Add(7, typeof(PacketRemoveContact));
+            PacketMap.Add(8, typeof(PacketStatus));
         }
 
         public static IPacket GetPacketByID(int id) 

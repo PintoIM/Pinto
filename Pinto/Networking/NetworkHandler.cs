@@ -9,6 +9,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Windows.Forms;
+using PintoNS.General;
 
 namespace PintoNS.Networking
 {
@@ -28,21 +30,29 @@ namespace PintoNS.Networking
 
         public void HandlePacket(IPacket packet) 
         {
-            if (packet.GetID() == 0)
+            switch (packet.GetID()) 
             {
-                HandleLoginPacket((PacketLogin)packet);
-            }
-            else if (packet.GetID() == 1) 
-            {
-                HandleLogoutPacket((PacketLogout)packet);
-            }
-            else if (packet.GetID() == 2)
-            {
-                HandleMessagePacket((PacketMessage)packet);
-            }
-            else if (packet.GetID() == 3)
-            {
-                HandleTypingPacket((PacketTyping)packet);
+                case 0:
+                    HandleLoginPacket((PacketLogin)packet);
+                    break;
+                case 2:
+                    HandleLogoutPacket((PacketLogout)packet);
+                    break;
+                case 3:
+                    HandleMessagePacket((PacketMessage)packet);
+                    break;
+                case 5:
+                    HandleInWindowPopupPacket((PacketInWindowPopup)packet);
+                    break;
+                case 6:
+                    HandleAddContactPacket((PacketAddContact)packet);
+                    break;
+                case 7:
+                    HandleRemoveContactPacket((PacketRemoveContact)packet);
+                    break;
+                case 8:
+                    HandleStatusPacket((PacketStatus)packet);
+                    break;
             }
         }
 
@@ -51,10 +61,7 @@ namespace PintoNS.Networking
             LoggedIn = true;
             mainForm.Invoke(new Action(() => 
             {
-                mainForm.PopupController.CreatePopup("This version of Pinto! still uses the old networking code." +
-                    " You will need to use \"Public Chat\" to comunicate on this server.", 0);
                 mainForm.OnLogin();
-                NotificationUtil.ShowNotification(mainForm, packet.SessionID, packet.Name);
             }));
         }
 
@@ -73,35 +80,67 @@ namespace PintoNS.Networking
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.GetMessageFormFromReceiverID(0).WriteMessage(packet.Message, Color.Black);
+                mainForm.GetMessageFormFromReceiverName(packet.ContactName).WriteMessage(packet.Message, Color.Black);
             }));
         }
 
-        private void HandleTypingPacket(PacketTyping packet)
+        private void HandleInWindowPopupPacket(PacketInWindowPopup packet)
         {
-            string usernames = packet.Usernames;
             mainForm.Invoke(new Action(() =>
             {
-                if (usernames.Length > 0)
-                    mainForm.GetMessageFormFromReceiverID(0).tsslStatusBarTypingList.Text = $"{usernames} are typing...";
+                mainForm.PopupController.CreatePopup(packet.Message);
+            }));
+        }
+
+        private void HandleAddContactPacket(PacketAddContact packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = UserStatus.OFFLINE });
+            }));
+        }
+
+        private void HandleRemoveContactPacket(PacketRemoveContact packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.ContactsMgr.RemoveContact(mainForm.ContactsMgr.GetContact(packet.ContactName));
+            }));
+        }
+
+        private void HandleStatusPacket(PacketStatus packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                if (string.IsNullOrWhiteSpace(packet.ContactName))
+                    mainForm.OnStatusChange(packet.Status);
                 else
-                    mainForm.GetMessageFormFromReceiverID(0).tsslStatusBarTypingList.Text = $"";
+                    mainForm.ContactsMgr.UpdateContact(new Contact() { Name = packet.ContactName, Status = packet.Status });
             }));
         }
 
         public async Task SendLoginPacket(byte protocolVersion, string name, string sessionID) 
         {
-            await networkClient.SendPacket(new PacketLogin(protocolVersion, name, sessionID));
+            await Task.Run(new Action(() => 
+            {
+                networkClient.SendPacket(new PacketLogin(protocolVersion, name, sessionID));
+            }));
         }
 
-        public async Task SendMessagePacket(string message)
+        public async Task SendMessagePacket(string contactName, string message)
         {
-            await networkClient.SendPacket(new PacketMessage(message));
+            await Task.Run(new Action(() =>
+            {
+                networkClient.SendPacket(new PacketMessage(contactName, message));
+            }));
         }
 
         public async Task SendTypingPacket(bool isTyping)
         {
-            await networkClient.SendPacket(new PacketTyping(isTyping ? "Pinto!" : ""));
+            await Task.Run(new Action(() =>
+            {
+                networkClient.SendPacket(new PacketTyping(isTyping ? "Pinto!" : ""));
+            }));
         }
     }
 }

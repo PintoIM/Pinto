@@ -14,6 +14,5 @@ namespace PintoNS.Networking
         void Write(BinaryWriter writer);
         void Read(BinaryReader reader);
         int GetID();
-        int GetLength();      
     }
 }
