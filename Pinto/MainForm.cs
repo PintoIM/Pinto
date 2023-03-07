@@ -23,6 +23,7 @@ namespace PintoNS
         public readonly LocalizationManager LocalizationMgr = new LocalizationManager();
         public ContactsManager ContactsMgr;
         public InWindowPopupController PopupController;
+        public PopupController NotifController;
         public User CurrentAccount;
         public NetworkManager NetManager;
         public List<MessageForm> MessageForms;
@@ -31,6 +32,7 @@ namespace PintoNS
         {
             InitializeComponent();
             PopupController = new InWindowPopupController(this, 70);
+            NotifController = new PopupController();
         }
 
         internal void OnLogin() 
@@ -151,7 +153,7 @@ namespace PintoNS
 
         private void llLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new DialogConnectToServerForm(this).ShowDialog();
+            new UsingPintoForm(this).ShowDialog();
         }
 
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)

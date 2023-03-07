@@ -213,6 +213,16 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LOGIN_PLACEHOLDER {
+            get {
+                object obj = ResourceManager.GetObject("LOGIN_PLACEHOLDER", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MICROPHONE_DISABLED {
             get {
                 object obj = ResourceManager.GetObject("MICROPHONE_DISABLED", resourceCulture);

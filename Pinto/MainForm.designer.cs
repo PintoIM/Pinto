@@ -33,6 +33,7 @@ namespace PintoNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pQuickActionBar = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tcTabs = new System.Windows.Forms.TabControl();
@@ -40,6 +41,8 @@ namespace PintoNS
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpContacts = new System.Windows.Forms.TabPage();
             this.dgvContacts = new System.Windows.Forms.DataGridView();
+            this.contactStatus = new System.Windows.Forms.DataGridViewImageColumn();
+            this.contactName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpConnecting = new System.Windows.Forms.TabPage();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -53,11 +56,10 @@ namespace PintoNS
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
-            this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.contactStatus = new System.Windows.Forms.DataGridViewImageColumn();
-            this.contactName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
             this.tpContacts.SuspendLayout();
@@ -74,10 +76,21 @@ namespace PintoNS
             // 
             this.pQuickActionBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pQuickActionBar.Controls.Add(this.label1);
             this.pQuickActionBar.Location = new System.Drawing.Point(0, 24);
             this.pQuickActionBar.Name = "pQuickActionBar";
             this.pQuickActionBar.Size = new System.Drawing.Size(269, 24);
             this.pQuickActionBar.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(65, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Quick actions coming soon";
             // 
             // tabPage1
             // 
@@ -175,6 +188,23 @@ namespace PintoNS
             this.dgvContacts.Size = new System.Drawing.Size(252, 237);
             this.dgvContacts.TabIndex = 0;
             this.dgvContacts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContacts_CellDoubleClick);
+            // 
+            // contactStatus
+            // 
+            this.contactStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.contactStatus.FillWeight = 24F;
+            this.contactStatus.HeaderText = "Contact Status";
+            this.contactStatus.Name = "contactStatus";
+            this.contactStatus.ReadOnly = true;
+            this.contactStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.contactStatus.Width = 24;
+            // 
+            // contactName
+            // 
+            this.contactName.FillWeight = 84F;
+            this.contactName.HeaderText = "Contact Name";
+            this.contactName.Name = "contactName";
+            this.contactName.ReadOnly = true;
             // 
             // tpConnecting
             // 
@@ -309,6 +339,22 @@ namespace PintoNS
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
+            // txtSearchBox
+            // 
+            this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchBox.BackColor = System.Drawing.Color.White;
+            this.txtSearchBox.Enabled = false;
+            this.txtSearchBox.ForeColor = System.Drawing.Color.DimGray;
+            this.txtSearchBox.Location = new System.Drawing.Point(3, 315);
+            this.txtSearchBox.Name = "txtSearchBox";
+            this.txtSearchBox.PlaceholderText = "Type the username of the person you want to call";
+            this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
+            this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
+            this.txtSearchBox.TabIndex = 4;
+            this.txtSearchBox.Text = "Type the username of the person you want to call";
+            this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
+            // 
             // btnEndCall
             // 
             this.btnEndCall.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -333,39 +379,6 @@ namespace PintoNS
             this.btnStartCall.TabIndex = 5;
             this.btnStartCall.TabStop = false;
             // 
-            // txtSearchBox
-            // 
-            this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchBox.BackColor = System.Drawing.Color.White;
-            this.txtSearchBox.Enabled = false;
-            this.txtSearchBox.ForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Location = new System.Drawing.Point(3, 315);
-            this.txtSearchBox.Name = "txtSearchBox";
-            this.txtSearchBox.PlaceholderText = "Type the username of the person you want to call";
-            this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
-            this.txtSearchBox.TabIndex = 4;
-            this.txtSearchBox.Text = "Type the username of the person you want to call";
-            this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
-            // 
-            // contactStatus
-            // 
-            this.contactStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.contactStatus.FillWeight = 24F;
-            this.contactStatus.HeaderText = "Contact Status";
-            this.contactStatus.Name = "contactStatus";
-            this.contactStatus.ReadOnly = true;
-            this.contactStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.contactStatus.Width = 24;
-            // 
-            // contactName
-            // 
-            this.contactName.FillWeight = 84F;
-            this.contactName.HeaderText = "Contact Name";
-            this.contactName.Name = "contactName";
-            this.contactName.ReadOnly = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +396,8 @@ namespace PintoNS
             this.Text = "Pinto!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.pQuickActionBar.ResumeLayout(false);
+            this.pQuickActionBar.PerformLayout();
             this.tcTabs.ResumeLayout(false);
             this.tpLogin.ResumeLayout(false);
             this.tpLogin.PerformLayout();
@@ -428,5 +443,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
         private System.Windows.Forms.DataGridViewImageColumn contactStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactName;
+        private System.Windows.Forms.Label label1;
     }
 }

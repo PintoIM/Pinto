@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace PintoNS.Networking
 {
@@ -55,7 +56,15 @@ namespace PintoNS.Networking
 
         public async Task Login(string username, string password) 
         {
-            await NetHandler.SendLoginPacket(11, username, password);
+            string passwordHash = BitConverter.ToString(
+                new SHA256Managed()
+                .ComputeHash
+                (Encoding
+                .UTF8
+                .GetBytes(password)))
+                .Replace("-", "")
+                .ToLower();
+            await NetHandler.SendLoginPacket(11, username, passwordHash);
         }
 
         private void NetClient_ReceivedPacket(IPacket packet)

@@ -46,6 +46,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +58,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets.Designer.cs">
@@ -82,8 +84,21 @@
     <Compile Include="Controls\InWindowPopupControl.Designer.cs">
       <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PopupForm.Designer.cs">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Notification\NotificationIconType.cs" />
+    <Compile Include="Forms\ViewAllPopupContentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
+      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="General\Contact.cs" />
+    <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
     <Compile Include="General\UserStatus.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
@@ -91,11 +106,11 @@
     <Compile Include="Controls\TextBoxWithPlaceholderSupport.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\DialogConnectToServerForm.cs">
+    <Compile Include="Forms\UsingPintoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DialogConnectToServerForm.Designer.cs">
-      <DependentUpon>DialogConnectToServerForm.cs</DependentUpon>
+    <Compile Include="Forms\UsingPintoForm.Designer.cs">
+      <DependentUpon>UsingPintoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MessageForm.cs">
       <SubType>Form</SubType>
@@ -165,8 +180,11 @@
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DialogConnectToServerForm.resx">
-      <DependentUpon>DialogConnectToServerForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PopupForm.resx">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsingPintoForm.resx">
+      <DependentUpon>UsingPintoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FatalErrorForm.resx">
       <DependentUpon>FatalErrorForm.cs</DependentUpon>
@@ -176,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ViewAllPopupContentForm.resx">
+      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -240,6 +261,7 @@
     <Content Include="Resources\Assets\INFO_ENABLED.png" />
     <Content Include="Resources\Assets\LOCK_DISABLED.png" />
     <Content Include="Resources\Assets\LOCK_ENABLED.png" />
+    <Content Include="Resources\Assets\LOGIN_PLACEHOLDER.png" />
     <Content Include="Resources\Assets\MICROPHONE_DISABLED.png" />
     <Content Include="Resources\Assets\MICROPHONE_ENABLED.png" />
     <Content Include="Resources\Assets\MICROPHONE_MUTED.png" />

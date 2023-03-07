@@ -13,11 +13,11 @@ using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {
-    public partial class DialogConnectToServerForm : Form
+    public partial class UsingPintoForm : Form
     {
         private MainForm mainForm;
 
-        public DialogConnectToServerForm(MainForm mainForm)
+        public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
