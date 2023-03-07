@@ -35,12 +35,6 @@ namespace PintoNS.Forms
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            if (string.IsNullOrWhiteSpace(ip) || !IPAddress.TryParse(ip, out _))
-            {
-                NotificationUtil.ShowNotification(this,"An invalid IP address was specified!", "Error", NotificationIconType.ERROR);
-                return;
-            }
-
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 NotificationUtil.ShowNotification(this, "Blank username or password! The server might reject this...", 

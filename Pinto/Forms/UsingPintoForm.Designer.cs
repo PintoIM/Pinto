@@ -40,10 +40,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pLoginControls = new System.Windows.Forms.Panel();
-            this.llForgotPassword = new System.Windows.Forms.LinkLabel();
-            this.cbSavePassword = new System.Windows.Forms.CheckBox();
-            this.rbCreate = new System.Windows.Forms.RadioButton();
             this.rbLogin = new System.Windows.Forms.RadioButton();
+            this.rbCreate = new System.Windows.Forms.RadioButton();
+            this.cbSavePassword = new System.Windows.Forms.CheckBox();
+            this.llForgotPassword = new System.Windows.Forms.LinkLabel();
             this.lStatus = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
@@ -77,7 +77,7 @@
             this.txtIP.Name = "txtIP";
             this.txtIP.Size = new System.Drawing.Size(106, 20);
             this.txtIP.TabIndex = 2;
-            this.txtIP.Text = "127.0.0.1";
+            this.txtIP.Text = "192.168.1.100";
             // 
             // nudPort
             // 
@@ -174,15 +174,29 @@
             this.pLoginControls.Size = new System.Drawing.Size(348, 184);
             this.pLoginControls.TabIndex = 10;
             // 
-            // llForgotPassword
+            // rbLogin
             // 
-            this.llForgotPassword.AutoSize = true;
-            this.llForgotPassword.Location = new System.Drawing.Point(20, 116);
-            this.llForgotPassword.Name = "llForgotPassword";
-            this.llForgotPassword.Size = new System.Drawing.Size(114, 13);
-            this.llForgotPassword.TabIndex = 10;
-            this.llForgotPassword.TabStop = true;
-            this.llForgotPassword.Text = "Forgot your password?";
+            this.rbLogin.AutoSize = true;
+            this.rbLogin.Checked = true;
+            this.rbLogin.Enabled = false;
+            this.rbLogin.Location = new System.Drawing.Point(23, 34);
+            this.rbLogin.Name = "rbLogin";
+            this.rbLogin.Size = new System.Drawing.Size(170, 17);
+            this.rbLogin.TabIndex = 13;
+            this.rbLogin.TabStop = true;
+            this.rbLogin.Text = "I already have a Pinto account";
+            this.rbLogin.UseVisualStyleBackColor = true;
+            // 
+            // rbCreate
+            // 
+            this.rbCreate.AutoSize = true;
+            this.rbCreate.Enabled = false;
+            this.rbCreate.Location = new System.Drawing.Point(22, 11);
+            this.rbCreate.Name = "rbCreate";
+            this.rbCreate.Size = new System.Drawing.Size(224, 17);
+            this.rbCreate.TabIndex = 12;
+            this.rbCreate.Text = "I would like to create a new Pinto account";
+            this.rbCreate.UseVisualStyleBackColor = true;
             // 
             // cbSavePassword
             // 
@@ -197,29 +211,15 @@
             this.cbSavePassword.Text = "Store my password on this computer";
             this.cbSavePassword.UseVisualStyleBackColor = true;
             // 
-            // rbCreate
+            // llForgotPassword
             // 
-            this.rbCreate.AutoSize = true;
-            this.rbCreate.Enabled = false;
-            this.rbCreate.Location = new System.Drawing.Point(22, 11);
-            this.rbCreate.Name = "rbCreate";
-            this.rbCreate.Size = new System.Drawing.Size(224, 17);
-            this.rbCreate.TabIndex = 12;
-            this.rbCreate.Text = "I would like to create a new Pinto account";
-            this.rbCreate.UseVisualStyleBackColor = true;
-            // 
-            // rbLogin
-            // 
-            this.rbLogin.AutoSize = true;
-            this.rbLogin.Checked = true;
-            this.rbLogin.Enabled = false;
-            this.rbLogin.Location = new System.Drawing.Point(23, 34);
-            this.rbLogin.Name = "rbLogin";
-            this.rbLogin.Size = new System.Drawing.Size(170, 17);
-            this.rbLogin.TabIndex = 13;
-            this.rbLogin.TabStop = true;
-            this.rbLogin.Text = "I already have a Pinto account";
-            this.rbLogin.UseVisualStyleBackColor = true;
+            this.llForgotPassword.AutoSize = true;
+            this.llForgotPassword.Location = new System.Drawing.Point(20, 116);
+            this.llForgotPassword.Name = "llForgotPassword";
+            this.llForgotPassword.Size = new System.Drawing.Size(114, 13);
+            this.llForgotPassword.TabIndex = 10;
+            this.llForgotPassword.TabStop = true;
+            this.llForgotPassword.Text = "Forgot your password?";
             // 
             // lStatus
             // 

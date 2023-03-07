@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using PintoNS.General;
 
 namespace PintoNS.Networking
 {
@@ -65,6 +66,11 @@ namespace PintoNS.Networking
                 .Replace("-", "")
                 .ToLower();
             await NetHandler.SendLoginPacket(11, username, passwordHash);
+        }
+
+        public async Task ChangeStatus(UserStatus status) 
+        {
+            await NetHandler.SendStatusPacket(status);
         }
 
         private void NetClient_ReceivedPacket(IPacket packet)

@@ -165,5 +165,29 @@ namespace PintoNS
         {
             new AboutForm().Show();
         }
+
+        private async void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            await NetManager.ChangeStatus(UserStatus.ONLINE);
+        }
+
+        private async void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            await NetManager.ChangeStatus(UserStatus.AWAY);
+        }
+
+        private async void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            await NetManager.ChangeStatus(UserStatus.BUSY);
+        }
+
+        private async void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            await NetManager.ChangeStatus(UserStatus.INVISIBLE);
+        }
     }
 }

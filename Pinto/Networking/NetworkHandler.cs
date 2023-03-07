@@ -142,5 +142,13 @@ namespace PintoNS.Networking
                 networkClient.SendPacket(new PacketTyping(isTyping ? "Pinto!" : ""));
             }));
         }
+
+        public async Task SendStatusPacket(UserStatus status)
+        {
+            await Task.Run(new Action(() =>
+            {
+                networkClient.SendPacket(new PacketStatus("", status));
+            }));
+        }
     }
 }

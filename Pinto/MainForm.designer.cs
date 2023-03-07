@@ -56,9 +56,13 @@ namespace PintoNS
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
+            this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
+            this.tsmiStatusBarStatusOnline = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusAway = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -263,6 +267,11 @@ namespace PintoNS
             // tsddbStatusBarStatus
             // 
             this.tsddbStatusBarStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsddbStatusBarStatus.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiStatusBarStatusOnline,
+            this.tsmiStatusBarStatusAway,
+            this.tsmiStatusBarStatusBusy,
+            this.tsmiStatusBarStatusInvisible});
             this.tsddbStatusBarStatus.Enabled = false;
             this.tsddbStatusBarStatus.Image = global::PintoNS.Statuses.OFFLINE;
             this.tsddbStatusBarStatus.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -306,7 +315,7 @@ namespace PintoNS
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(115, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
@@ -335,25 +344,9 @@ namespace PintoNS
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(107, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
-            // 
-            // txtSearchBox
-            // 
-            this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearchBox.BackColor = System.Drawing.Color.White;
-            this.txtSearchBox.Enabled = false;
-            this.txtSearchBox.ForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Location = new System.Drawing.Point(3, 315);
-            this.txtSearchBox.Name = "txtSearchBox";
-            this.txtSearchBox.PlaceholderText = "Type the username of the person you want to call";
-            this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
-            this.txtSearchBox.TabIndex = 4;
-            this.txtSearchBox.Text = "Type the username of the person you want to call";
-            this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             // 
             // btnEndCall
             // 
@@ -378,6 +371,50 @@ namespace PintoNS
             this.btnStartCall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btnStartCall.TabIndex = 5;
             this.btnStartCall.TabStop = false;
+            // 
+            // txtSearchBox
+            // 
+            this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchBox.BackColor = System.Drawing.Color.White;
+            this.txtSearchBox.Enabled = false;
+            this.txtSearchBox.ForeColor = System.Drawing.Color.DimGray;
+            this.txtSearchBox.Location = new System.Drawing.Point(3, 315);
+            this.txtSearchBox.Name = "txtSearchBox";
+            this.txtSearchBox.PlaceholderText = "Type the username of the person you want to call";
+            this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
+            this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
+            this.txtSearchBox.TabIndex = 4;
+            this.txtSearchBox.Text = "Type the username of the person you want to call";
+            this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
+            // 
+            // tsmiStatusBarStatusOnline
+            // 
+            this.tsmiStatusBarStatusOnline.Name = "tsmiStatusBarStatusOnline";
+            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusOnline.Text = "Online";
+            this.tsmiStatusBarStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            // 
+            // tsmiStatusBarStatusAway
+            // 
+            this.tsmiStatusBarStatusAway.Name = "tsmiStatusBarStatusAway";
+            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusAway.Text = "Away";
+            this.tsmiStatusBarStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            // 
+            // tsmiStatusBarStatusBusy
+            // 
+            this.tsmiStatusBarStatusBusy.Name = "tsmiStatusBarStatusBusy";
+            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusBusy.Text = "Busy";
+            this.tsmiStatusBarStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            // 
+            // tsmiStatusBarStatusInvisible
+            // 
+            this.tsmiStatusBarStatusInvisible.Name = "tsmiStatusBarStatusInvisible";
+            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusInvisible.Text = "Invisible";
+            this.tsmiStatusBarStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
             // MainForm
             // 
@@ -444,5 +481,9 @@ namespace PintoNS
         private System.Windows.Forms.DataGridViewImageColumn contactStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusOnline;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusAway;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusBusy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusInvisible;
     }
 }
