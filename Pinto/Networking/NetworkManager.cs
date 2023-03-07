@@ -65,12 +65,12 @@ namespace PintoNS.Networking
                 .GetBytes(password)))
                 .Replace("-", "")
                 .ToLower();
-            await NetHandler.SendLoginPacket(11, username, passwordHash);
+            NetHandler.SendLoginPacket(11, username, passwordHash);
         }
 
-        public async Task ChangeStatus(UserStatus status) 
+        public void ChangeStatus(UserStatus status) 
         {
-            await NetHandler.SendStatusPacket(status);
+            NetHandler.SendStatusPacket(status);
         }
 
         private void NetClient_ReceivedPacket(IPacket packet)

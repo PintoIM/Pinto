@@ -96,6 +96,7 @@
             this.MinimumSize = new System.Drawing.Size(256, 256);
             this.Name = "AboutForm";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pinto! - About";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

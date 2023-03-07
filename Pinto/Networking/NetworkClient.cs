@@ -24,8 +24,10 @@ namespace PintoNS.Networking
         private TcpClient tcpClient;
         private NetworkStream tcpStream;
         private Thread readThread;
+        private Thread sendThread;
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
+        private LinkedList<IPacket> packetSendQueue = new LinkedList<IPacket>();
 
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -41,6 +43,8 @@ namespace PintoNS.Networking
                 tcpStream = tcpClient.GetStream();
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
                 readThread.Start();
+                sendThread = new Thread(new ThreadStart(SendThread_Func));
+                sendThread.Start();
 
                 return (true, null);
             }
@@ -61,6 +65,7 @@ namespace PintoNS.Networking
             tcpClient = null;
             tcpStream = null;
             readThread = null;
+            sendThread = null;
 
             if (IsConnected && !ignoreDisconnectReasonValue) 
             {
@@ -69,13 +74,39 @@ namespace PintoNS.Networking
             IsConnected = false;
         }
 
-        public void SendPacket(IPacket packet) 
+        public void AddToSendQueue(IPacket packet) 
         {
-            BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
-            writer.Write((byte)packet.GetID());
-            packet.Write(writer);
-            writer.Flush();
-            writer.Dispose();
+            if (!IsConnected) return;
+            packetSendQueue.AddLast(packet);
+        }
+
+        public void ClearSendQueue() 
+        {
+            packetSendQueue.Clear();
+        }
+
+        public void FlushSendQueue() 
+        {
+            if (!IsConnected) return;
+
+            foreach (IPacket packet in packetSendQueue.ToArray()) 
+            {
+                try
+                {
+                    if (!IsConnected) return;
+                    if (packet == null) continue;
+                    BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
+                    writer.Write((byte)packet.GetID());
+                    packet.Write(writer);
+                    writer.Flush();
+                    writer.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                packetSendQueue.Remove(packet);
+            }
         }
 
         private void ReadThread_Func() 
@@ -105,6 +136,8 @@ namespace PintoNS.Networking
                     {
                         throw new ConnectionException("Server disconnect");
                     }
+
+                    Thread.Sleep(1);
                 }
                 catch (Exception ex)
                 {
@@ -118,6 +151,15 @@ namespace PintoNS.Networking
                     }
                     return;
                 }
+            }
+        }
+
+        private void SendThread_Func() 
+        {
+            while (IsConnected) 
+            {
+                FlushSendQueue();
+                Thread.Sleep(1);
             }
         }
     }

@@ -43,6 +43,7 @@ namespace PintoNS
             dgvContacts.Rows.Clear();
             ContactsMgr = new ContactsManager(this);
             MessageForms = new List<MessageForm>();
+            txtSearchBox.Enabled = true;
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
@@ -70,6 +71,7 @@ namespace PintoNS
 
             ContactsMgr = null;
             MessageForms = null;
+            txtSearchBox.Enabled = false;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -166,28 +168,28 @@ namespace PintoNS
             new AboutForm().Show();
         }
 
-        private async void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
+        private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            await NetManager.ChangeStatus(UserStatus.ONLINE);
+            NetManager.ChangeStatus(UserStatus.ONLINE);
         }
 
-        private async void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
+        private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            await NetManager.ChangeStatus(UserStatus.AWAY);
+            NetManager.ChangeStatus(UserStatus.AWAY);
         }
 
-        private async void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
+        private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            await NetManager.ChangeStatus(UserStatus.BUSY);
+            NetManager.ChangeStatus(UserStatus.BUSY);
         }
 
-        private async void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
+        private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            await NetManager.ChangeStatus(UserStatus.INVISIBLE);
+            NetManager.ChangeStatus(UserStatus.INVISIBLE);
         }
     }
 }

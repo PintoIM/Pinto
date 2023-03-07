@@ -119,36 +119,24 @@ namespace PintoNS.Networking
             }));
         }
 
-        public async Task SendLoginPacket(byte protocolVersion, string name, string sessionID) 
+        public void SendLoginPacket(byte protocolVersion, string name, string sessionID) 
         {
-            await Task.Run(new Action(() => 
-            {
-                networkClient.SendPacket(new PacketLogin(protocolVersion, name, sessionID));
-            }));
+            networkClient.AddToSendQueue(new PacketLogin(protocolVersion, name, sessionID));
         }
 
-        public async Task SendMessagePacket(string contactName, string message)
+        public void SendMessagePacket(string contactName, string message)
         {
-            await Task.Run(new Action(() =>
-            {
-                networkClient.SendPacket(new PacketMessage(contactName, message));
-            }));
+            networkClient.AddToSendQueue(new PacketMessage(contactName, message));
         }
 
-        public async Task SendTypingPacket(bool isTyping)
+        public void SendTypingPacket(bool isTyping)
         {
-            await Task.Run(new Action(() =>
-            {
-                networkClient.SendPacket(new PacketTyping(isTyping ? "Pinto!" : ""));
-            }));
+            networkClient.AddToSendQueue(new PacketTyping(isTyping ? "Pinto!" : ""));
         }
 
-        public async Task SendStatusPacket(UserStatus status)
+        public void SendStatusPacket(UserStatus status)
         {
-            await Task.Run(new Action(() =>
-            {
-                networkClient.SendPacket(new PacketStatus("", status));
-            }));
+            networkClient.AddToSendQueue(new PacketStatus("", status));
         }
     }
 }

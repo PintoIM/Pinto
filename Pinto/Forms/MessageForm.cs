@@ -54,7 +54,7 @@ namespace PintoNS.Forms
             rtxtMessages.ScrollToCaret();
         }
 
-        private async void rtxtInput_TextChanged(object sender, EventArgs e)
+        private void rtxtInput_TextChanged(object sender, EventArgs e)
         {
             if (mainForm.NetManager == null) return;
             string text = rtxtInput.Text;
@@ -62,16 +62,16 @@ namespace PintoNS.Forms
             if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
             {
                 isTypingLastStatus = true;
-                await mainForm.NetManager.NetHandler.SendTypingPacket(true);
+                mainForm.NetManager.NetHandler.SendTypingPacket(true);
             }
             else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
             {
                 isTypingLastStatus = false;
-                await mainForm.NetManager.NetHandler.SendTypingPacket(false);
+                mainForm.NetManager.NetHandler.SendTypingPacket(false);
             }
         }
 
-        private async void btnSend_Click(object sender, EventArgs e)
+        private void btnSend_Click(object sender, EventArgs e)
         {
             string input = rtxtInput.Text
                 .Replace("\n", string.Empty)
@@ -88,7 +88,7 @@ namespace PintoNS.Forms
             rtxtInput.Clear();
             if (mainForm.NetManager != null) 
             {
-                await mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
+                mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
             }
         }
 
