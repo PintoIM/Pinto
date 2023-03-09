@@ -189,7 +189,13 @@ namespace PintoNS
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            NetManager.ChangeStatus(UserStatus.INVISIBLE);
+            NotificationUtil.ShowPromptNotification(this, "If you choose to change your status to invisible," +
+                " your contacts will not be able to send you messages. Are you sure you want to continue?", "Status change confirmation", 
+                NotificationIconType.WARNING, false, (NotificationButtonType button) => 
+            {
+                if (button == NotificationButtonType.YES)
+                    NetManager.ChangeStatus(UserStatus.INVISIBLE);
+            });
         }
     }
 }

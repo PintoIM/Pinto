@@ -49,6 +49,10 @@ namespace PintoNS
             this.ilTabImages = new System.Windows.Forms.ImageList(this.components);
             this.ssStatusBar = new System.Windows.Forms.StatusStrip();
             this.tsddbStatusBarStatus = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiStatusBarStatusOnline = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusAway = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStatusBarStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.tsslStatusBarStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -59,10 +63,6 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiStatusBarStatusOnline = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiStatusBarStatusAway = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiStatusBarStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiStatusBarStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -280,6 +280,38 @@ namespace PintoNS
             this.tsddbStatusBarStatus.Size = new System.Drawing.Size(20, 20);
             this.tsddbStatusBarStatus.Text = "Status";
             // 
+            // tsmiStatusBarStatusOnline
+            // 
+            this.tsmiStatusBarStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
+            this.tsmiStatusBarStatusOnline.Name = "tsmiStatusBarStatusOnline";
+            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusOnline.Text = "Online";
+            this.tsmiStatusBarStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            // 
+            // tsmiStatusBarStatusAway
+            // 
+            this.tsmiStatusBarStatusAway.Image = global::PintoNS.Statuses.AWAY;
+            this.tsmiStatusBarStatusAway.Name = "tsmiStatusBarStatusAway";
+            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusAway.Text = "Away";
+            this.tsmiStatusBarStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            // 
+            // tsmiStatusBarStatusBusy
+            // 
+            this.tsmiStatusBarStatusBusy.Image = global::PintoNS.Statuses.BUSY;
+            this.tsmiStatusBarStatusBusy.Name = "tsmiStatusBarStatusBusy";
+            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusBusy.Text = "Busy";
+            this.tsmiStatusBarStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            // 
+            // tsmiStatusBarStatusInvisible
+            // 
+            this.tsmiStatusBarStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
+            this.tsmiStatusBarStatusInvisible.Name = "tsmiStatusBarStatusInvisible";
+            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusInvisible.Text = "Invisible";
+            this.tsmiStatusBarStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
+            // 
             // tsslStatusBarStatusText
             // 
             this.tsslStatusBarStatusText.Name = "tsslStatusBarStatusText";
@@ -315,7 +347,7 @@ namespace PintoNS
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(115, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
@@ -344,7 +376,7 @@ namespace PintoNS
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(107, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -387,34 +419,6 @@ namespace PintoNS
             this.txtSearchBox.TabIndex = 4;
             this.txtSearchBox.Text = "Type the username of the person you want to call";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
-            // 
-            // tsmiStatusBarStatusOnline
-            // 
-            this.tsmiStatusBarStatusOnline.Name = "tsmiStatusBarStatusOnline";
-            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(180, 22);
-            this.tsmiStatusBarStatusOnline.Text = "Online";
-            this.tsmiStatusBarStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
-            // 
-            // tsmiStatusBarStatusAway
-            // 
-            this.tsmiStatusBarStatusAway.Name = "tsmiStatusBarStatusAway";
-            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(180, 22);
-            this.tsmiStatusBarStatusAway.Text = "Away";
-            this.tsmiStatusBarStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
-            // 
-            // tsmiStatusBarStatusBusy
-            // 
-            this.tsmiStatusBarStatusBusy.Name = "tsmiStatusBarStatusBusy";
-            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(180, 22);
-            this.tsmiStatusBarStatusBusy.Text = "Busy";
-            this.tsmiStatusBarStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
-            // 
-            // tsmiStatusBarStatusInvisible
-            // 
-            this.tsmiStatusBarStatusInvisible.Name = "tsmiStatusBarStatusInvisible";
-            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(180, 22);
-            this.tsmiStatusBarStatusInvisible.Text = "Invisible";
-            this.tsmiStatusBarStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
             // MainForm
             // 
