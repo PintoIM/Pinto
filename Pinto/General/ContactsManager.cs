@@ -108,7 +108,7 @@ namespace PintoNS.General
             if (GetContact(contact.Name) != null)
             {
                 UpdateContactListEntry(contact);
-                contacts.Remove(contact);
+                contacts.Remove(GetContact(contact.Name));
                 contacts.Add(contact);
             }
         }

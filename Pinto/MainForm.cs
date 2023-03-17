@@ -13,8 +13,8 @@ using PintoNS.Forms.Notification;
 using System.Threading.Tasks;
 using PintoNS.Forms;
 using PintoNS.General;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Media;
+using System.Net.Sockets;
 
 namespace PintoNS
 {
@@ -22,17 +22,22 @@ namespace PintoNS
     {
         public readonly LocalizationManager LocalizationMgr = new LocalizationManager();
         public ContactsManager ContactsMgr;
-        public InWindowPopupController PopupController;
-        public PopupController NotifController;
-        public User CurrentAccount;
+        public InWindowPopupController InWindowPopupController;
+        public PopupController PopupController;
         public NetworkManager NetManager;
+        public User CurrentUser;
         public List<MessageForm> MessageForms;
-
+        public AudioRecorderPlayer AudioRecPlyr;
+        public bool InCall;
+        public string CallTarget;
+        public UdpClient CallClient;
+        
         public MainForm()
         {
             InitializeComponent();
-            PopupController = new InWindowPopupController(this, 70);
-            NotifController = new PopupController();
+            InWindowPopupController = new InWindowPopupController(this, 70);
+            PopupController = new PopupController();
+            AudioRecPlyr = new AudioRecorderPlayer();
         }
 
         internal void OnLogin() 
@@ -40,10 +45,13 @@ namespace PintoNS
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpContacts);
             OnStatusChange(UserStatus.ONLINE);
+
             dgvContacts.Rows.Clear();
             ContactsMgr = new ContactsManager(this);
             MessageForms = new List<MessageForm>();
             txtSearchBox.Enabled = true;
+            Text = $"Pinto! - {CurrentUser.Name}";
+
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
@@ -71,10 +79,43 @@ namespace PintoNS
 
             ContactsMgr = null;
             MessageForms = null;
+            CurrentUser = null;
+            btnStartCall.Enabled = false;
+            btnStartCall.Image = Assets.STARTCALL_DISABLED;
+            btnEndCall.Enabled = false;
+            btnEndCall.Image = Assets.ENDCALL_DISABLED;
             txtSearchBox.Enabled = false;
+            Text = "Pinto!";
+            InCall = false;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
+        }
+
+        internal void OnCallStart()
+        {
+            InCall = true;
+
+            btnStartCall.Enabled = false;
+            btnStartCall.Image = Assets.STARTCALL_DISABLED;
+            btnEndCall.Enabled = true;
+            btnEndCall.Image = Assets.ENDCALL_ENABLED;
+
+            lCallTarget.Text = $"In call with {CallTarget}";
+            tpCall.Text = CallTarget;
+
+            tcTabs.TabPages.Add(tpCall);
+            tcTabs.SelectedTab = tpCall;
+        }
+
+        internal void OnCallStop()
+        {
+            InCall = false;
+            btnEndCall.Enabled = false;
+            btnEndCall.Image = Assets.ENDCALL_DISABLED;
+            lCallTarget.Text = $"In call with";
+            tcTabs.SelectedTab = tpContacts;
+            tcTabs.TabPages.Remove(tpCall);
         }
 
         public async Task Connect(string ip, int port, string username, string password) 
@@ -82,7 +123,6 @@ namespace PintoNS
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
             lConnectingStatus.Text = "Connecting...";
-            await Task.Delay(1000);
 
             NetManager = new NetworkManager(this);
             (bool, Exception) connectResult = await NetManager.Connect(ip, port);
@@ -95,8 +135,32 @@ namespace PintoNS
             }
             else 
             {
+                CurrentUser = new User() { Name = username };
                 lConnectingStatus.Text = "Authenticating...";
-                await NetManager.Login(username, password);
+                NetManager.Login(username, password);
+            }
+        }
+
+        public async Task ConnectRegister(string ip, int port, string username, string password)
+        {
+            tcTabs.TabPages.Clear();
+            tcTabs.TabPages.Add(tpConnecting);
+            lConnectingStatus.Text = "Connecting...";
+
+            NetManager = new NetworkManager(this);
+            (bool, Exception) connectResult = await NetManager.Connect(ip, port);
+
+            if (!connectResult.Item1)
+            {
+                Disconnect();
+                NotificationUtil.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
+                    $" {connectResult.Item2.Message}", "Connection Error", NotificationIconType.ERROR);
+            }
+            else
+            {
+                CurrentUser = new User() { Name = username };
+                lConnectingStatus.Text = "Registering...";
+                NetManager.Register(username, password);
             }
         }
 
@@ -111,7 +175,6 @@ namespace PintoNS
             }
             OnLogout(!wasLoggedIn);
             NetManager = null;
-            CurrentAccount = null;
         }
         
         public MessageForm GetMessageFormFromReceiverName(string name) 
@@ -160,6 +223,7 @@ namespace PintoNS
 
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
         {
+            if (NetManager == null) return;
             Disconnect();
         }
 
@@ -196,6 +260,60 @@ namespace PintoNS
                 if (button == NotificationButtonType.YES)
                     NetManager.ChangeStatus(UserStatus.INVISIBLE);
             });
+        }
+
+        private void tsmiMenuBarFileAddContact_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            AddContactForm addContactForm = new AddContactForm(this);
+            addContactForm.ShowDialog();
+        }
+
+        private void tsmiMenuBarFileRemoveContact_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            if (dgvContacts.SelectedRows.Count < 1)
+            {
+                NotificationUtil.ShowNotification(this, "You have not selected any contact!", "Error", NotificationIconType.ERROR);
+                return;
+            }
+            string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
+            NetManager.NetHandler.SendRemoveContactPacket(contactName);
+        }
+
+        private void dgvContacts_SelectionChanged(object sender, EventArgs e)
+        {
+            if (InCall) return;
+
+            if (dgvContacts.SelectedRows.Count > 0)
+            {
+                btnStartCall.Enabled = true;
+                btnStartCall.Image = Assets.STARTCALL_ENABLED;
+            }
+            else
+            {
+                btnStartCall.Enabled = false;
+                btnStartCall.Image = Assets.STARTCALL_DISABLED;
+            }
+        }
+
+        private void btnStartCall_Click(object sender, EventArgs e)
+        {
+            if (InCall) return;
+
+            string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
+            Contact contact = ContactsMgr.GetContact(contactName);
+
+            if (contact.Status == UserStatus.OFFLINE) return;
+
+            CallTarget = contactName;
+            OnCallStart();
+        }
+
+        private void btnEndCall_Click(object sender, EventArgs e)
+        {
+            if (!InCall) return;
+            OnCallStop();
         }
     }
 }

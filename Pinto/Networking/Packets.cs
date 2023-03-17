@@ -22,6 +22,11 @@ namespace PintoNS.Networking
             PacketMap.Add(6, typeof(PacketAddContact));
             PacketMap.Add(7, typeof(PacketRemoveContact));
             PacketMap.Add(8, typeof(PacketStatus));
+            PacketMap.Add(9, typeof(PacketContactRequest));
+            PacketMap.Add(10, typeof(PacketClearContacts));
+            PacketMap.Add(11, typeof(PacketSendCallRequest));
+            PacketMap.Add(12, typeof(PacketCallPartyInfo));
+            PacketMap.Add(13, typeof(PacketEndCall));
         }
 
         public static IPacket GetPacketByID(int id) 

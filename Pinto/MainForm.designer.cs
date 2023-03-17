@@ -56,12 +56,18 @@ namespace PintoNS
             this.tsslStatusBarStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarFileAddContact = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuBarFileRemoveContact = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileLogOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
+            this.tpCall = new System.Windows.Forms.TabPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lCallTarget = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
@@ -74,6 +80,8 @@ namespace PintoNS
             this.tsMenuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnEndCall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStartCall)).BeginInit();
+            this.tpCall.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pQuickActionBar
@@ -122,8 +130,9 @@ namespace PintoNS
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcTabs.Controls.Add(this.tpLogin);
-            this.tcTabs.Controls.Add(this.tpContacts);
             this.tcTabs.Controls.Add(this.tpConnecting);
+            this.tcTabs.Controls.Add(this.tpContacts);
+            this.tcTabs.Controls.Add(this.tpCall);
             this.tcTabs.ImageList = this.ilTabImages;
             this.tcTabs.Location = new System.Drawing.Point(3, 47);
             this.tcTabs.Name = "tcTabs";
@@ -192,6 +201,7 @@ namespace PintoNS
             this.dgvContacts.Size = new System.Drawing.Size(252, 237);
             this.dgvContacts.TabIndex = 0;
             this.dgvContacts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContacts_CellDoubleClick);
+            this.dgvContacts.SelectionChanged += new System.EventHandler(this.dgvContacts_SelectionChanged);
             // 
             // contactStatus
             // 
@@ -284,7 +294,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
             this.tsmiStatusBarStatusOnline.Name = "tsmiStatusBarStatusOnline";
-            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(117, 22);
             this.tsmiStatusBarStatusOnline.Text = "Online";
             this.tsmiStatusBarStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
             // 
@@ -292,7 +302,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusAway.Image = global::PintoNS.Statuses.AWAY;
             this.tsmiStatusBarStatusAway.Name = "tsmiStatusBarStatusAway";
-            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(117, 22);
             this.tsmiStatusBarStatusAway.Text = "Away";
             this.tsmiStatusBarStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
             // 
@@ -300,7 +310,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusBusy.Image = global::PintoNS.Statuses.BUSY;
             this.tsmiStatusBarStatusBusy.Name = "tsmiStatusBarStatusBusy";
-            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(117, 22);
             this.tsmiStatusBarStatusBusy.Text = "Busy";
             this.tsmiStatusBarStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
             // 
@@ -308,7 +318,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
             this.tsmiStatusBarStatusInvisible.Name = "tsmiStatusBarStatusInvisible";
-            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(180, 22);
+            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(117, 22);
             this.tsmiStatusBarStatusInvisible.Text = "Invisible";
             this.tsmiStatusBarStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
@@ -336,6 +346,8 @@ namespace PintoNS
             // 
             this.tsddbMenuBarFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMenuBarFileAddContact,
+            this.tsmiMenuBarFileRemoveContact,
             this.tsmiMenuBarFileLogOut});
             this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -344,10 +356,24 @@ namespace PintoNS
             this.tsddbMenuBarFile.Size = new System.Drawing.Size(29, 22);
             this.tsddbMenuBarFile.Text = "File";
             // 
+            // tsmiMenuBarFileAddContact
+            // 
+            this.tsmiMenuBarFileAddContact.Name = "tsmiMenuBarFileAddContact";
+            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileAddContact.Text = "Add contact";
+            this.tsmiMenuBarFileAddContact.Click += new System.EventHandler(this.tsmiMenuBarFileAddContact_Click);
+            // 
+            // tsmiMenuBarFileRemoveContact
+            // 
+            this.tsmiMenuBarFileRemoveContact.Name = "tsmiMenuBarFileRemoveContact";
+            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileRemoveContact.Text = "Remove contact";
+            this.tsmiMenuBarFileRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarFileRemoveContact_Click);
+            // 
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(115, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(160, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
@@ -391,6 +417,7 @@ namespace PintoNS
             this.btnEndCall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btnEndCall.TabIndex = 6;
             this.btnEndCall.TabStop = false;
+            this.btnEndCall.Click += new System.EventHandler(this.btnEndCall_Click);
             // 
             // btnStartCall
             // 
@@ -403,6 +430,52 @@ namespace PintoNS
             this.btnStartCall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btnStartCall.TabIndex = 5;
             this.btnStartCall.TabStop = false;
+            this.btnStartCall.Click += new System.EventHandler(this.btnStartCall_Click);
+            // 
+            // tpCall
+            // 
+            this.tpCall.Controls.Add(this.label2);
+            this.tpCall.Controls.Add(this.lCallTarget);
+            this.tpCall.Controls.Add(this.pictureBox2);
+            this.tpCall.ImageKey = "RESUMECALL.png";
+            this.tpCall.Location = new System.Drawing.Point(4, 23);
+            this.tpCall.Name = "tpCall";
+            this.tpCall.Padding = new System.Windows.Forms.Padding(3);
+            this.tpCall.Size = new System.Drawing.Size(258, 243);
+            this.tpCall.TabIndex = 3;
+            this.tpCall.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox2.Image = global::PintoNS.Logo.LOGO;
+            this.pictureBox2.Location = new System.Drawing.Point(83, 24);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // lCallTarget
+            // 
+            this.lCallTarget.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lCallTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lCallTarget.Location = new System.Drawing.Point(45, 139);
+            this.lCallTarget.Name = "lCallTarget";
+            this.lCallTarget.Size = new System.Drawing.Size(176, 23);
+            this.lCallTarget.TabIndex = 1;
+            this.lCallTarget.Text = "In call with";
+            this.lCallTarget.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.Location = new System.Drawing.Point(46, 166);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(175, 23);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Call duration 0:00";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtSearchBox
             // 
@@ -452,6 +525,8 @@ namespace PintoNS
             this.tsMenuBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnEndCall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStartCall)).EndInit();
+            this.tpCall.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -489,5 +564,11 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusAway;
         private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusBusy;
         private System.Windows.Forms.ToolStripMenuItem tsmiStatusBarStatusInvisible;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileAddContact;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileRemoveContact;
+        private System.Windows.Forms.TabPage tpCall;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label lCallTarget;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -18,6 +18,7 @@ namespace PintoNS.Forms
         private MainForm mainForm;
         public Contact Receiver;
         private bool isTypingLastStatus;
+        public bool HasBeenInactive;
 
         public MessageForm(MainForm mainForm, Contact receiver)
         {
@@ -100,6 +101,11 @@ namespace PintoNS.Forms
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
         {
             new AboutForm().Show();
+        }
+
+        private void MessageForm_Activated(object sender, EventArgs e)
+        {
+            HasBeenInactive = false;
         }
     }
 }

@@ -183,6 +183,7 @@
             this.Controls.Add(this.tsMenuBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MessageForm";
+            this.Activated += new System.EventHandler(this.MessageForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessageForm_FormClosing);
             this.tsMenuBar.ResumeLayout(false);
             this.tsMenuBar.PerformLayout();

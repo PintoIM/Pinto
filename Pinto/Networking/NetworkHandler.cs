@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Windows.Forms;
 using PintoNS.General;
+using System.Media;
 
 namespace PintoNS.Networking
 {
@@ -19,8 +20,6 @@ namespace PintoNS.Networking
         private MainForm mainForm;
         private NetworkClient networkClient;
         public bool LoggedIn;
-        public string ServerName;
-        public string ServerMOTD;
 
         public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
         {
@@ -53,6 +52,12 @@ namespace PintoNS.Networking
                 case 8:
                     HandleStatusPacket((PacketStatus)packet);
                     break;
+                case 9:
+                    HandleContactRequestPacket((PacketContactRequest)packet);
+                    break;
+                case 10:
+                    HandleClearContactsPacket();
+                    break;
             }
         }
 
@@ -80,7 +85,16 @@ namespace PintoNS.Networking
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.GetMessageFormFromReceiverName(packet.ContactName).WriteMessage(packet.Message, Color.Black);
+                MessageForm messageForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName);
+                messageForm.WriteMessage(packet.Message, Color.Black);
+
+                if (Form.ActiveForm != messageForm && !messageForm.HasBeenInactive)
+                {
+                    messageForm.HasBeenInactive = true;
+                    mainForm.PopupController.CreatePopup($"Received a new message from {packet.ContactName}!", 
+                        "New message");
+                    new SoundPlayer() { Stream = Sounds.IM }.Play();
+                }
             }));
         }
 
@@ -88,7 +102,7 @@ namespace PintoNS.Networking
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.PopupController.CreatePopup(packet.Message);
+                mainForm.InWindowPopupController.CreatePopup(packet.Message);
             }));
         }
 
@@ -115,13 +129,58 @@ namespace PintoNS.Networking
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
                     mainForm.OnStatusChange(packet.Status);
                 else
+                {
+                    Contact contact = mainForm.ContactsMgr.GetContact(packet.ContactName);
+
+                    if (packet.Status == UserStatus.OFFLINE && contact.Status != UserStatus.OFFLINE)
+                    {
+                        mainForm.PopupController.CreatePopup($"{packet.ContactName} is now offline",
+                            "Status change");
+                        new SoundPlayer() { Stream = Sounds.OFFLINE }.Play();
+                    }
+                    else if (packet.Status != UserStatus.OFFLINE && contact.Status == UserStatus.OFFLINE)
+                    {
+                        mainForm.PopupController.CreatePopup($"{packet.ContactName} is now online",
+                            "Status change");
+                        new SoundPlayer() { Stream = Sounds.ONLINE }.Play();
+                    }
+
                     mainForm.ContactsMgr.UpdateContact(new Contact() { Name = packet.ContactName, Status = packet.Status });
+                }
+            }));
+        }
+
+        private void HandleContactRequestPacket(PacketContactRequest packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                NotificationUtil.ShowPromptNotification(mainForm,
+                    $"{packet.ContactName} wants to add you to their contact list. Proceed?", "Contact request",
+                    NotificationIconType.QUESTION, true,
+                    (NotificationButtonType button) =>
+                    {
+                        SendContactRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
+                    });
+            }));
+        }
+
+        private void HandleClearContactsPacket()
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.dgvContacts.Rows.Clear();
+                mainForm.ContactsMgr = new ContactsManager(mainForm);
             }));
         }
 
         public void SendLoginPacket(byte protocolVersion, string name, string sessionID) 
         {
             networkClient.AddToSendQueue(new PacketLogin(protocolVersion, name, sessionID));
+        }
+
+        public void SendRegisterPacket(string name, string sessionID)
+        {
+            networkClient.AddToSendQueue(new PacketRegister(name, sessionID));
         }
 
         public void SendMessagePacket(string contactName, string message)
@@ -137,6 +196,21 @@ namespace PintoNS.Networking
         public void SendStatusPacket(UserStatus status)
         {
             networkClient.AddToSendQueue(new PacketStatus("", status));
+        }
+
+        public void SendContactRequestPacket(string name, bool approved)
+        {
+            networkClient.AddToSendQueue(new PacketContactRequest($"{name}:{(approved ? "yes" : "no")}"));
+        }
+
+        public void SendAddContactPacket(string name)
+        {
+            networkClient.AddToSendQueue(new PacketAddContact(name));
+        }
+
+        public void SendRemoveContactPacket(string name)
+        {
+            networkClient.AddToSendQueue(new PacketRemoveContact(name));
         }
     }
 }

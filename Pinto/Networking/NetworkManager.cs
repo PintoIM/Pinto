@@ -55,7 +55,7 @@ namespace PintoNS.Networking
             IsActive = false;
         }
 
-        public async Task Login(string username, string password) 
+        public void Login(string username, string password) 
         {
             string passwordHash = BitConverter.ToString(
                 new SHA256Managed()
@@ -66,6 +66,19 @@ namespace PintoNS.Networking
                 .Replace("-", "")
                 .ToLower();
             NetHandler.SendLoginPacket(11, username, passwordHash);
+        }
+
+        public void Register(string username, string password)
+        {
+            string passwordHash = BitConverter.ToString(
+                new SHA256Managed()
+                .ComputeHash
+                (Encoding
+                .UTF8
+                .GetBytes(password)))
+                .Replace("-", "")
+                .ToLower();
+            NetHandler.SendRegisterPacket(username, passwordHash);
         }
 
         public void ChangeStatus(UserStatus status) 
