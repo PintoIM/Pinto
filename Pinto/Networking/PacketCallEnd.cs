@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Networking
 {
-    public class PacketEndCall : IPacket
+    public class PacketCallEnd : IPacket
     {
-        public PacketEndCall() { }
+        public PacketCallEnd() { }
 
         public void Read(BinaryReader reader)
         {
@@ -21,7 +21,7 @@ namespace PintoNS.Networking
 
         public int GetID()
         {
-            return 13;
+            return 14;
         }
     }
 }

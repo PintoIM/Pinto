@@ -93,6 +93,8 @@ namespace PintoNS.Networking
 
         private void NetClient_Disconnected(string reason)
         {
+            Program.Console.WriteMessage($"[Networking] Disconnected: {reason}");
+
             bool wasActive = IsActive;
             IsActive = false;
 

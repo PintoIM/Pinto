@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Windows.Forms;
 using PintoNS.General;
 using System.Media;
+using System.Net;
 
 namespace PintoNS.Networking
 {
@@ -29,6 +30,9 @@ namespace PintoNS.Networking
 
         public void HandlePacket(IPacket packet) 
         {
+            Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
+                $" ({packet.GetID()})");
+
             switch (packet.GetID()) 
             {
                 case 0:
@@ -58,6 +62,15 @@ namespace PintoNS.Networking
                 case 10:
                     HandleClearContactsPacket();
                     break;
+                case 12:
+                    HandleCallRequestPacket((PacketCallRequest)packet);
+                    break;
+                case 13:
+                    HandleCallPartyInfoPacket((PacketCallPartyInfo)packet);
+                    break;
+                case 14:
+                    HandleCallEndPacket();
+                    break;
             }
         }
 
@@ -73,6 +86,7 @@ namespace PintoNS.Networking
         private void HandleLogoutPacket(PacketLogout packet)
         {
             mainForm.NetManager.IsActive = false;
+            Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason}");
             mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason}");
             mainForm.Invoke(new Action(() =>
             {
@@ -108,6 +122,7 @@ namespace PintoNS.Networking
 
         private void HandleAddContactPacket(PacketAddContact packet)
         {
+            Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
                 mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = UserStatus.OFFLINE });
@@ -116,6 +131,7 @@ namespace PintoNS.Networking
 
         private void HandleRemoveContactPacket(PacketRemoveContact packet)
         {
+            Program.Console.WriteMessage($"[Contacts] Removing {packet.ContactName} from the contact list...");
             mainForm.Invoke(new Action(() =>
             {
                 mainForm.ContactsMgr.RemoveContact(mainForm.ContactsMgr.GetContact(packet.ContactName));
@@ -124,6 +140,10 @@ namespace PintoNS.Networking
 
         private void HandleStatusPacket(PacketStatus packet)
         {
+            Program.Console.WriteMessage(
+                $"[General] Status change: " +
+                $"{(string.IsNullOrWhiteSpace(packet.ContactName) ? "SELF" : packet.ContactName)} -> {packet.Status}");
+
             mainForm.Invoke(new Action(() =>
             {
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
@@ -152,6 +172,7 @@ namespace PintoNS.Networking
 
         private void HandleContactRequestPacket(PacketContactRequest packet)
         {
+            Program.Console.WriteMessage($"[Networking] Received contact request from {packet.ContactName}");
             mainForm.Invoke(new Action(() =>
             {
                 NotificationUtil.ShowPromptNotification(mainForm,
@@ -166,10 +187,48 @@ namespace PintoNS.Networking
 
         private void HandleClearContactsPacket()
         {
+            Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
             mainForm.Invoke(new Action(() =>
             {
                 mainForm.dgvContacts.Rows.Clear();
                 mainForm.ContactsMgr = new ContactsManager(mainForm);
+            }));
+        }
+
+        private void HandleCallRequestPacket(PacketCallRequest packet)
+        {
+            Program.Console.WriteMessage($"[Networking] Received call request from {packet.ContactName}");
+            mainForm.Invoke(new Action(() =>
+             {
+                 NotificationUtil.ShowPromptNotification(mainForm,
+                     $"{packet.ContactName} wants to start a call. Proceed?", "Call request",
+                     NotificationIconType.QUESTION, true,
+                     (NotificationButtonType button) =>
+                     {
+                         SendCallRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
+
+                         if (button == NotificationButtonType.YES)
+                         {
+                             mainForm.CallTarget = packet.ContactName;
+                             mainForm.OnCallStart();
+                         }
+                     });
+             }));
+        }
+
+        private void HandleCallPartyInfoPacket(PacketCallPartyInfo packet)
+        {
+            Program.Console.WriteMessage($"[Networking] Received other call party info:" +
+                $" {packet.IPAddress}:{packet.Port}");
+            mainForm.CallTargetIP = new IPEndPoint(IPAddress.Parse(packet.IPAddress), 2704);
+        }
+
+        private void HandleCallEndPacket()
+        {
+            Program.Console.WriteMessage("[Networking] Ending call...");
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.OnCallStop();
             }));
         }
 
@@ -211,6 +270,26 @@ namespace PintoNS.Networking
         public void SendRemoveContactPacket(string name)
         {
             networkClient.AddToSendQueue(new PacketRemoveContact(name));
+        }
+
+        public void SendCallStartPacket(string name)
+        {
+            networkClient.AddToSendQueue(new PacketCallStart(name));
+        }
+
+        public void SendCallRequestPacket(string name, bool approved)
+        {
+            networkClient.AddToSendQueue(new PacketCallRequest($"{name}:{(approved ? "yes" : "no")}"));
+        }
+
+        public void SendCallPartyInfoPacket(int port)
+        {
+            networkClient.AddToSendQueue(new PacketCallPartyInfo("", port));
+        }
+
+        public void SendCallEndPacket()
+        {
+            networkClient.AddToSendQueue(new PacketCallEnd());
         }
     }
 }

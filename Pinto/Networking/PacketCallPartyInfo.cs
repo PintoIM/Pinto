@@ -10,27 +10,31 @@ namespace PintoNS.Networking
     public class PacketCallPartyInfo : IPacket
     {
         public string IPAddress { get; protected set; }
+        public int Port { get; protected set; }
 
         public PacketCallPartyInfo() { }
 
-        public PacketCallPartyInfo(string ipaddress)
+        public PacketCallPartyInfo(string ipaddress, int port)
         {
             IPAddress = ipaddress;
+            Port = port;
         }
 
         public void Read(BinaryReader reader)
         {
             IPAddress = reader.ReadUTF8String();
+            Port = reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WriteUTF8String(IPAddress);
+            writer.WriteBE(Port);
         }
 
         public int GetID()
         {
-            return 12;
+            return 13;
         }
     }
 }

@@ -10,12 +10,16 @@ namespace PintoNS
 {
     public static class Program
     {
+        public static ConsoleForm Console;
+
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Console = new ConsoleForm();
+            Console.Show();
             Application.Run(new MainForm());
         }
 

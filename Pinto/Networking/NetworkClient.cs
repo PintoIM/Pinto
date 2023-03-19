@@ -77,6 +77,8 @@ namespace PintoNS.Networking
         public void AddToSendQueue(IPacket packet) 
         {
             if (!IsConnected) return;
+            Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
+                $" ({packet.GetID()}) to the send queue");
             packetSendQueue.AddLast(packet);
         }
 

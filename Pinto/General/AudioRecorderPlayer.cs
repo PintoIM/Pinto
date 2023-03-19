@@ -11,6 +11,7 @@ namespace PintoNS.General
 {
     public class AudioRecorderPlayer
     {
+        private bool isPlaying;
         private Thread audioPlayerThread;
         private BufferedWaveProvider playBuffer;
         private MemoryStream sound;
@@ -34,6 +35,7 @@ namespace PintoNS.General
             waveIn.StartRecording();
 
             audioPlayerThread = new Thread(new ThreadStart(AudioPlayerThread_Func));
+            isPlaying = true;
             audioPlayerThread.Start();
         }
 
@@ -49,6 +51,7 @@ namespace PintoNS.General
             if (waveOut != null) waveOut.Dispose();
             waveIn = null;
             waveOut = null;
+            isPlaying = false;
         }
 
         public void Play(byte[] data)
@@ -62,7 +65,7 @@ namespace PintoNS.General
             waveOut.Init(playBuffer);
             waveOut.Play();
 
-            while (true)
+            while (isPlaying)
             {
                 Thread.Sleep(1);
             }

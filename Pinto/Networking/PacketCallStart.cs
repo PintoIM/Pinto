@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Networking
 {
-    public class PacketSendCallRequest : IPacket
+    public class PacketCallStart : IPacket
     {
         public string ContactName { get; protected set; }
 
-        public PacketSendCallRequest() { }
+        public PacketCallStart() { }
 
-        public PacketSendCallRequest(string contactName)
+        public PacketCallStart(string contactName)
         {
             ContactName = contactName;
         }
