@@ -310,7 +310,6 @@ namespace PintoNS
 
         private void llLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Program.Console.WriteMessage("Showing UsingPintoForm...");
             new UsingPintoForm(this).ShowDialog();
         }
 
@@ -322,35 +321,34 @@ namespace PintoNS
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
         {
-            Program.Console.WriteMessage("Showing AboutForm...");
             new AboutForm().Show();
         }
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            Program.Console.WriteMessage("Changing status...");
+            Program.Console.WriteMessage("[General] Changing status...");
             NetManager.ChangeStatus(UserStatus.ONLINE);
         }
 
         private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            Program.Console.WriteMessage("Changing status...");
+            Program.Console.WriteMessage("[General] Changing status...");
             NetManager.ChangeStatus(UserStatus.AWAY);
         }
 
         private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            Program.Console.WriteMessage("Changing status...");
+            Program.Console.WriteMessage("[General] Changing status...");
             NetManager.ChangeStatus(UserStatus.BUSY);
         }
 
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            Program.Console.WriteMessage("Changing status...");
+            Program.Console.WriteMessage("[General] Changing status...");
             NotificationUtil.ShowPromptNotification(this, "If you choose to change your status to invisible," +
                 " your contacts will not be able to send you messages. Are you sure you want to continue?", "Status change confirmation", 
                 NotificationIconType.WARNING, false, (NotificationButtonType button) => 
@@ -363,7 +361,6 @@ namespace PintoNS
         private void tsmiMenuBarFileAddContact_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
-            Program.Console.WriteMessage("Showing AddContactForm...");
             AddContactForm addContactForm = new AddContactForm(this);
             addContactForm.ShowDialog();
         }
@@ -404,7 +401,7 @@ namespace PintoNS
             Contact contact = ContactsMgr.GetContact(contactName);
 
             CallTarget = contactName;
-            Program.Console.WriteMessage("Starting call...");
+            Program.Console.WriteMessage("[General] Starting call...");
             OnCallStart();
 
             new SoundPlayer(Sounds.CALL_INIT).Play();
