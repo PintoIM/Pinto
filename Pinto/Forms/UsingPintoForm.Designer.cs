@@ -97,7 +97,7 @@
             this.txtIP.Name = "txtIP";
             this.txtIP.Size = new System.Drawing.Size(106, 20);
             this.txtIP.TabIndex = 2;
-            this.txtIP.Text = "192.168.56.1";
+            this.txtIP.Text = "127.0.0.1";
             // 
             // nudPort
             // 
@@ -145,6 +145,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(119, 20);
             this.txtUsername.TabIndex = 6;
+            this.txtUsername.Text = "example";
             // 
             // txtPassword
             // 
@@ -152,6 +153,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(119, 20);
             this.txtPassword.TabIndex = 7;
+            this.txtPassword.Text = "example";
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // label3
