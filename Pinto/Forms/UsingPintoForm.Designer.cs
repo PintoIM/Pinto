@@ -97,7 +97,7 @@
             this.txtIP.Name = "txtIP";
             this.txtIP.Size = new System.Drawing.Size(106, 20);
             this.txtIP.TabIndex = 2;
-            this.txtIP.Text = "192.168.1.100";
+            this.txtIP.Text = "192.168.56.1";
             // 
             // nudPort
             // 
@@ -357,7 +357,7 @@
             this.txtRegisterIP.Name = "txtRegisterIP";
             this.txtRegisterIP.Size = new System.Drawing.Size(106, 20);
             this.txtRegisterIP.TabIndex = 2;
-            this.txtRegisterIP.Text = "192.168.1.100";
+            this.txtRegisterIP.Text = "192.168.56.1";
             // 
             // label8
             // 
