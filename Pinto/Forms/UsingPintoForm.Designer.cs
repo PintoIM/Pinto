@@ -45,7 +45,7 @@
             this.cbSavePassword = new System.Windows.Forms.CheckBox();
             this.llForgotPassword = new System.Windows.Forms.LinkLabel();
             this.lStatus = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbAd = new System.Windows.Forms.PictureBox();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
             this.tpRegister = new System.Windows.Forms.TabPage();
@@ -61,9 +61,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtRegisterUsername = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoginControls.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAd)).BeginInit();
             this.tcSections.SuspendLayout();
             this.tpMain.SuspendLayout();
             this.tpRegister.SuspendLayout();
@@ -153,7 +155,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(119, 20);
             this.txtPassword.TabIndex = 7;
-            this.txtPassword.Text = "example";
+            this.txtPassword.Text = "1234";
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // label3
@@ -249,15 +251,15 @@
             this.lStatus.TabIndex = 11;
             this.lStatus.Text = "Using Pinto";
             // 
-            // pictureBox1
+            // pbAd
             // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Image = global::PintoNS.Assets.LOGIN_PLACEHOLDER;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 244);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(348, 136);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.pbAd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbAd.Location = new System.Drawing.Point(21, 244);
+            this.pbAd.Name = "pbAd";
+            this.pbAd.Size = new System.Drawing.Size(348, 136);
+            this.pbAd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbAd.TabIndex = 12;
+            this.pbAd.TabStop = false;
             // 
             // tcSections
             // 
@@ -272,7 +274,9 @@
             // 
             // tpMain
             // 
-            this.tpMain.Controls.Add(this.pictureBox1);
+            this.tpMain.Controls.Add(this.label11);
+            this.tpMain.Controls.Add(this.label10);
+            this.tpMain.Controls.Add(this.pbAd);
             this.tpMain.Controls.Add(this.lStatus);
             this.tpMain.Controls.Add(this.btnCancel);
             this.tpMain.Controls.Add(this.pLoginControls);
@@ -359,7 +363,7 @@
             this.txtRegisterIP.Name = "txtRegisterIP";
             this.txtRegisterIP.Size = new System.Drawing.Size(106, 20);
             this.txtRegisterIP.TabIndex = 2;
-            this.txtRegisterIP.Text = "192.168.56.1";
+            this.txtRegisterIP.Text = "127.0.0.1";
             // 
             // label8
             // 
@@ -398,6 +402,7 @@
             this.txtRegisterPassword.Name = "txtRegisterPassword";
             this.txtRegisterPassword.Size = new System.Drawing.Size(119, 20);
             this.txtRegisterPassword.TabIndex = 7;
+            this.txtRegisterPassword.Text = "1234";
             this.txtRegisterPassword.UseSystemPasswordChar = true;
             // 
             // label9
@@ -415,6 +420,7 @@
             this.txtRegisterUsername.Name = "txtRegisterUsername";
             this.txtRegisterUsername.Size = new System.Drawing.Size(119, 20);
             this.txtRegisterUsername.TabIndex = 6;
+            this.txtRegisterUsername.Text = "example";
             // 
             // btnRegister
             // 
@@ -425,6 +431,24 @@
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(31, 253);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(120, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Nothing to see here yet!";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(31, 266);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "This is just a placeholder!";
             // 
             // UsingPintoForm
             // 
@@ -444,7 +468,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             this.pLoginControls.ResumeLayout(false);
             this.pLoginControls.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAd)).EndInit();
             this.tcSections.ResumeLayout(false);
             this.tpMain.ResumeLayout(false);
             this.tpMain.PerformLayout();
@@ -475,7 +499,7 @@
         private System.Windows.Forms.RadioButton rbLogin;
         private System.Windows.Forms.RadioButton rbCreate;
         private System.Windows.Forms.Label lStatus;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbAd;
         private System.Windows.Forms.TabControl tcSections;
         private System.Windows.Forms.TabPage tpMain;
         private System.Windows.Forms.TabPage tpRegister;
@@ -491,5 +515,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtRegisterUsername;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

@@ -146,7 +146,7 @@ namespace PintoNS.Networking
                     if (!(ex is IOException || ex is ConnectionException))
                     {
                         Disconnect($"Internal error -> {ex.Message}");
-                        Program.Console.WriteMessage(ex.ToString());
+                        Program.Console.WriteMessage($"Internal error: {ex}");
                     }
                     else 
                     {
