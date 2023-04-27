@@ -143,7 +143,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage(
                 $"[General] Status change: " +
                 $"{(string.IsNullOrWhiteSpace(packet.ContactName) ? "SELF" : packet.ContactName)} -> {packet.Status}");
-
+            
             mainForm.Invoke(new Action(() =>
             {
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
@@ -151,6 +151,13 @@ namespace PintoNS.Networking
                 else
                 {
                     Contact contact = mainForm.ContactsMgr.GetContact(packet.ContactName);
+
+                    if (contact == null) 
+                    {
+                        Program.Console.WriteMessage($"[General] Received invalid status change" +
+                            $", \"{packet.ContactName}\" is not a valid contact!");
+                        return;
+                    }
 
                     if (packet.Status == UserStatus.OFFLINE && contact.Status != UserStatus.OFFLINE)
                     {
