@@ -27,10 +27,10 @@ namespace PintoNS
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
         public NetworkManager NetManager;
-        public User CurrentUser;
+        public User CurrentUser = new User();
         public List<MessageForm> MessageForms;
-        public AudioRecorderPlayer AudioRecPlyr;
         /*
+        public AudioRecorderPlayer AudioRecPlyr;
         public bool InCall;
         public string CallTarget;
         public UdpClient CallClient;
@@ -64,6 +64,8 @@ namespace PintoNS
             tsddbStatusBarStatus.Enabled = status != UserStatus.OFFLINE;
             tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
+            CurrentUser.Status = status;
+            SyncTray();
         }
 
         internal void OnLogout(bool noSound = false) 
@@ -83,7 +85,6 @@ namespace PintoNS
 
             ContactsMgr = null;
             MessageForms = null;
-            CurrentUser = null;
             btnStartCall.Enabled = false;
             btnStartCall.Image = Assets.STARTCALL_DISABLED;
             btnEndCall.Enabled = false;
@@ -96,6 +97,15 @@ namespace PintoNS
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
+        }
+
+        public void SyncTray()
+        {
+            niTray.Visible = true;
+            niTray.Icon = User.StatusToIcon(CurrentUser.Status);
+            niTray.Text = $"Pinto! - " + 
+                (CurrentUser.Status != UserStatus.OFFLINE ? 
+                User.StatusToText(CurrentUser.Status) : "Not logged in");
         }
 
         /*
@@ -213,7 +223,7 @@ namespace PintoNS
             }
             else 
             {
-                CurrentUser = new User() { Name = username };
+                CurrentUser.Name = username;
                 lConnectingStatus.Text = "Authenticating...";
                 NetManager.Login(username, password);
             }
@@ -238,7 +248,7 @@ namespace PintoNS
             }
             else
             {
-                CurrentUser = new User() { Name = username };
+                CurrentUser.Name = username;
                 lConnectingStatus.Text = "Registering...";
                 NetManager.Register(username, password);
             }
@@ -434,6 +444,28 @@ namespace PintoNS
                 Program.Console.Hide();
             else
                 Program.Console.Show();
+        }
+
+        private void tsmiTrayExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized) 
+            {
+                Hide();
+                NotificationUtil.ShowNotification(null, 
+                    "Pinto! has been minimized to the system tray!" +
+                    " You can restore Pinto! by clicking on the system tray icon!", "Minimization Notice");
+            }
+        }
+
+        private void niTray_MouseClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
         }
     }
 }

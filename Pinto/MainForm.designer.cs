@@ -67,10 +67,12 @@ namespace PintoNS
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
+            this.cmsTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -84,6 +86,7 @@ namespace PintoNS
             this.tsMenuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnEndCall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStartCall)).BeginInit();
+            this.cmsTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // pQuickActionBar
@@ -461,6 +464,11 @@ namespace PintoNS
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
+            // niTray
+            // 
+            this.niTray.ContextMenuStrip = this.cmsTray;
+            this.niTray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.niTray_MouseClick);
+            // 
             // btnEndCall
             // 
             this.btnEndCall.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -487,6 +495,20 @@ namespace PintoNS
             this.btnStartCall.TabStop = false;
             this.btnStartCall.Click += new System.EventHandler(this.btnStartCall_Click);
             // 
+            // cmsTray
+            // 
+            this.cmsTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTrayExit});
+            this.cmsTray.Name = "cmsTray";
+            this.cmsTray.Size = new System.Drawing.Size(94, 26);
+            // 
+            // tsmiTrayExit
+            // 
+            this.tsmiTrayExit.Name = "tsmiTrayExit";
+            this.tsmiTrayExit.Size = new System.Drawing.Size(93, 22);
+            this.tsmiTrayExit.Text = "Exit";
+            this.tsmiTrayExit.Click += new System.EventHandler(this.tsmiTrayExit_Click);
+            // 
             // txtSearchBox
             // 
             this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -503,11 +525,6 @@ namespace PintoNS
             this.txtSearchBox.TabIndex = 4;
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
-            // 
-            // niTray
-            // 
-            this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
-            this.niTray.Visible = true;
             // 
             // MainForm
             // 
@@ -526,6 +543,7 @@ namespace PintoNS
             this.Text = "Pinto!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.pQuickActionBar.ResumeLayout(false);
             this.pQuickActionBar.PerformLayout();
             this.tcTabs.ResumeLayout(false);
@@ -543,6 +561,7 @@ namespace PintoNS
             this.tsMenuBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnEndCall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnStartCall)).EndInit();
+            this.cmsTray.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,5 +607,7 @@ namespace PintoNS
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpToggleConsole;
         private System.Windows.Forms.NotifyIcon niTray;
+        private System.Windows.Forms.ContextMenuStrip cmsTray;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayExit;
     }
 }

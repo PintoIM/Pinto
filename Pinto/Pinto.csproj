@@ -372,11 +372,17 @@
     <Content Include="Resources\Sounds\USER_ADDED.WAV" />
     <Content Include="Resources\Sounds\USER_LEFT.WAV" />
     <Content Include="Resources\Sounds\VC_BEEP_1.WAV" />
+    <Content Include="Resources\Statuses\AFK.ico" />
     <Content Include="Resources\Statuses\AFK.png" />
+    <Content Include="Resources\Statuses\AWAY.ico" />
     <Content Include="Resources\Statuses\AWAY.png" />
+    <Content Include="Resources\Statuses\BUSY.ico" />
     <Content Include="Resources\Statuses\BUSY.png" />
+    <Content Include="Resources\Statuses\INVISIBLE.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.png" />
+    <Content Include="Resources\Statuses\OFFLINE.ico" />
     <Content Include="Resources\Statuses\OFFLINE.png" />
+    <Content Include="Resources\Statuses\ONLINE.ico" />
     <Content Include="Resources\Statuses\ONLINE.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

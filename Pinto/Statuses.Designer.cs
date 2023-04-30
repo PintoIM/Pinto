@@ -19,7 +19,7 @@ namespace PintoNS {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Statuses {
@@ -71,12 +71,32 @@ namespace PintoNS {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AFK1 {
+            get {
+                object obj = ResourceManager.GetObject("AFK1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AWAY {
             get {
                 object obj = ResourceManager.GetObject("AWAY", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon AWAY1 {
+            get {
+                object obj = ResourceManager.GetObject("AWAY1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -91,12 +111,32 @@ namespace PintoNS {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon BUSY1 {
+            get {
+                object obj = ResourceManager.GetObject("BUSY1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap INVISIBLE {
             get {
                 object obj = ResourceManager.GetObject("INVISIBLE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon INVISIBLE1 {
+            get {
+                object obj = ResourceManager.GetObject("INVISIBLE1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -111,12 +151,32 @@ namespace PintoNS {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon OFFLINE1 {
+            get {
+                object obj = ResourceManager.GetObject("OFFLINE1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ONLINE {
             get {
                 object obj = ResourceManager.GetObject("ONLINE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ONLINE1 {
+            get {
+                object obj = ResourceManager.GetObject("ONLINE1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }
