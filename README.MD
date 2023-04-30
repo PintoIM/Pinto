@@ -12,8 +12,6 @@ A modernish IM client inspired by Skype 0.97
 
 # 📃 Note
 Pinto! IM is not finished and will take a lot of time to be fully perfected and done
-<br>
-The code you see here is for PintoChat, a more prototype-ish version of the client, it will be used as the code base for the normal cient
 
 # 📌 Information
 - Written in C# (.NET Framework 4.7.2)
