@@ -68,7 +68,7 @@ namespace PintoNS
             SyncTray();
         }
 
-        internal void OnLogout(bool noSound = false) 
+        internal void OnLogout(bool noSound = false)
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpLogin);
@@ -105,7 +105,7 @@ namespace PintoNS
             niTray.Icon = User.StatusToIcon(CurrentUser.Status);
             niTray.Text = $"Pinto! - " + 
                 (CurrentUser.Status != UserStatus.OFFLINE ? 
-                User.StatusToText(CurrentUser.Status) : "Not logged in");
+                $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
         }
 
         /*
@@ -462,7 +462,7 @@ namespace PintoNS
             }
         }
 
-        private void niTray_MouseClick(object sender, MouseEventArgs e)
+        private void niTray_DoubleClick(object sender, EventArgs e)
         {
             Show();
             WindowState = FormWindowState.Normal;
