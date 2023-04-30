@@ -47,8 +47,17 @@ namespace PintoNS.General
 
         public void Stop()
         {
-            if (waveIn != null) waveIn.Dispose();
-            if (waveOut != null) waveOut.Dispose();
+            try
+            {
+                if (waveIn != null) waveIn.Dispose();
+            }
+            catch (Exception) { }
+            try
+            {
+                if (waveOut != null) waveOut.Dispose();
+            }
+            catch (Exception) { }
+            
             waveIn = null;
             waveOut = null;
             isPlaying = false;

@@ -26,15 +26,20 @@ namespace PintoNS.Networking
         public void Read(BinaryReader reader)
         {
             ProtocolVersion = reader.ReadByte();
-            Name = reader.ReadUTF8String();
-            PasswordHash = reader.ReadUTF8String();
+            Name = reader.ReadASCIIString();
+            PasswordHash = reader.ReadASCIIString();
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.Write(ProtocolVersion);  
-            writer.WriteUTF8String(Name);
-            writer.WriteUTF8String(PasswordHash);
+            writer.WriteASCIIString(Name);
+            writer.WriteASCIIString(PasswordHash);
+        }
+
+        public void Handle(NetworkHandler netHandler)
+        {
+            netHandler.HandleLoginPacket(this);
         }
 
         public int GetID()

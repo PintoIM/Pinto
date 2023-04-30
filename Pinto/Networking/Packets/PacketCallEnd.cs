@@ -19,6 +19,11 @@ namespace PintoNS.Networking
         {
         }
 
+        public void Handle(NetworkHandler netHandler)
+        {
+            //netHandler.HandleCallEndPacket();
+        }
+
         public int GetID()
         {
             return 14;

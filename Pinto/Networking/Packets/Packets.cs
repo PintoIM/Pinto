@@ -17,17 +17,17 @@ namespace PintoNS.Networking
             PacketMap.Add(1, typeof(PacketRegister));
             PacketMap.Add(2, typeof(PacketLogout));
             PacketMap.Add(3, typeof(PacketMessage));
-            PacketMap.Add(4, typeof(PacketTyping));
             PacketMap.Add(5, typeof(PacketInWindowPopup));
             PacketMap.Add(6, typeof(PacketAddContact));
             PacketMap.Add(7, typeof(PacketRemoveContact));
             PacketMap.Add(8, typeof(PacketStatus));
             PacketMap.Add(9, typeof(PacketContactRequest));
             PacketMap.Add(10, typeof(PacketClearContacts));
+            /*
             PacketMap.Add(11, typeof(PacketCallStart));
             PacketMap.Add(12, typeof(PacketCallRequest));
             PacketMap.Add(13, typeof(PacketCallPartyInfo));
-            PacketMap.Add(14, typeof(PacketCallEnd));
+            PacketMap.Add(14, typeof(PacketCallEnd));*/
         }
 
         public static IPacket GetPacketByID(int id) 

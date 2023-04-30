@@ -18,7 +18,7 @@ namespace PintoNS.Controls
         public Color TextForeColor { get { return textForeColor; } set { textForeColor = value; } }
         public Color PlaceholderTextForeColor { get { return placeholderTextForeColor; } set { placeholderTextForeColor = value; } }
 
-        private void ChangeTextDisplayed() 
+        public void ChangeTextDisplayed() 
         {
             if (isFocused)
             {

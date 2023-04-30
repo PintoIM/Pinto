@@ -65,11 +65,12 @@ namespace PintoNS
             this.tsmiMenuBarFileLogOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiMenuBarHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
+            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -446,10 +447,17 @@ namespace PintoNS
             this.tsddbMenuBarHelp.Size = new System.Drawing.Size(36, 22);
             this.tsddbMenuBarHelp.Text = "Help";
             // 
+            // tsmiMenuBarHelpToggleConsole
+            // 
+            this.tsmiMenuBarHelpToggleConsole.Name = "tsmiMenuBarHelpToggleConsole";
+            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(153, 22);
+            this.tsmiMenuBarHelpToggleConsole.Text = "Toggle console";
+            this.tsmiMenuBarHelpToggleConsole.Click += new System.EventHandler(this.tsmiMenuBarHelpToggleConsole_Click);
+            // 
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(153, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -483,24 +491,23 @@ namespace PintoNS
             // 
             this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.txtSearchBox.BackColor = System.Drawing.Color.White;
             this.txtSearchBox.Enabled = false;
             this.txtSearchBox.ForeColor = System.Drawing.Color.DimGray;
             this.txtSearchBox.Location = new System.Drawing.Point(3, 315);
             this.txtSearchBox.Name = "txtSearchBox";
-            this.txtSearchBox.PlaceholderText = "Type the username of the person you want to call";
+            this.txtSearchBox.PlaceholderText = "Type the username you would like to search for";
             this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
             this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
             this.txtSearchBox.TabIndex = 4;
-            this.txtSearchBox.Text = "Type the username of the person you want to call";
+            this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             // 
-            // tsmiMenuBarHelpToggleConsole
+            // niTray
             // 
-            this.tsmiMenuBarHelpToggleConsole.Name = "tsmiMenuBarHelpToggleConsole";
-            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarHelpToggleConsole.Text = "Toggle console";
-            this.tsmiMenuBarHelpToggleConsole.Click += new System.EventHandler(this.tsmiMenuBarHelpToggleConsole_Click);
+            this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
+            this.niTray.Visible = true;
             // 
             // MainForm
             // 
@@ -580,5 +587,6 @@ namespace PintoNS
         private System.Windows.Forms.Label lCallTarget;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpToggleConsole;
+        private System.Windows.Forms.NotifyIcon niTray;
     }
 }

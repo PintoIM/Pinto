@@ -30,11 +30,12 @@ namespace PintoNS
         public User CurrentUser;
         public List<MessageForm> MessageForms;
         public AudioRecorderPlayer AudioRecPlyr;
+        /*
         public bool InCall;
         public string CallTarget;
         public UdpClient CallClient;
         public IPEndPoint CallTargetIP;
-        public Thread CallReceiveThread;
+        public Thread CallReceiveThread;*/
         
         public MainForm()
         {
@@ -87,14 +88,17 @@ namespace PintoNS
             btnStartCall.Image = Assets.STARTCALL_DISABLED;
             btnEndCall.Enabled = false;
             btnEndCall.Image = Assets.ENDCALL_DISABLED;
+            txtSearchBox.Text = "";
+            txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
             Text = "Pinto!";
-            InCall = false;
+            //InCall = false;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
         }
 
+        /*
         internal void OnCallStart()
         {
             InCall = true;
@@ -158,8 +162,11 @@ namespace PintoNS
 
         internal void OnCallStop()
         {
-            CallClient.Client.Close();
-            CallClient.Close();
+            if (CallClient != null && CallClient.Client != null) 
+            {
+                CallClient.Client.Close();
+                CallClient.Close();
+            }
             AudioRecPlyr.Stop();
 
             InCall = false;
@@ -185,7 +192,7 @@ namespace PintoNS
             lCallTarget.Text = $"In call with";
             tcTabs.SelectedTab = tpContacts;
             tcTabs.TabPages.Remove(tpCall);
-        }
+        }*/
 
         public async Task Connect(string ip, int port, string username, string password) 
         {
@@ -269,13 +276,14 @@ namespace PintoNS
             return messageForm;
         }
 
+        /*
         public void EndCall()
         {
             if (!InCall) return;
             Program.Console.WriteMessage("[General] Ending call...");
             NetManager.NetHandler.SendCallEndPacket();
             OnCallStop();
-        }
+        }*/
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -286,11 +294,12 @@ namespace PintoNS
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.Console.WriteMessage("Quitting...");
+            /*
             if (InCall)
             {
                 OnCallStop();
                 NetManager.NetHandler.SendCallEndPacket();
-            }
+            }*/
             Disconnect();
         }
 
@@ -379,6 +388,7 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
+            /*
             if (InCall) return;
 
             if (dgvContacts.SelectedRows.Count > 0)
@@ -390,11 +400,12 @@ namespace PintoNS
             {
                 btnStartCall.Enabled = false;
                 btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }
+            }*/
         }
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
+            /*
             if (InCall) return;
 
             string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
@@ -408,11 +419,13 @@ namespace PintoNS
             NetManager.NetHandler.SendCallStartPacket(contactName);
             if (CallClient != null && CallClient.Client != null && CallClient.Client.LocalEndPoint != null)
                 NetManager.NetHandler.SendCallPartyInfoPacket(((IPEndPoint)CallClient.Client.LocalEndPoint).Port);
+            else
+                Program.Console.WriteMessage("[Networking] Unable to send the UDP client port!");*/
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
-            EndCall();
+            //EndCall();
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)

@@ -20,12 +20,17 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadUTF8String();
+            ContactName = reader.ReadASCIIString();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF8String(ContactName);
+            writer.WriteASCIIString(ContactName);
+        }
+
+        public void Handle(NetworkHandler netHandler)
+        {
+            //netHandler.HandleCallRequestPacket(this);
         }
 
         public int GetID()

@@ -81,6 +81,7 @@
             this.rtxtMessages.Size = new System.Drawing.Size(410, 202);
             this.rtxtMessages.TabIndex = 2;
             this.rtxtMessages.Text = "";
+            this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
             this.rtxtMessages.TextChanged += new System.EventHandler(this.rtxtMessages_TextChanged);
             // 
             // btnTalk
@@ -98,6 +99,7 @@
             this.btnTalk.Text = "Talk";
             this.btnTalk.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTalk.UseVisualStyleBackColor = false;
+            this.btnTalk.Click += new System.EventHandler(this.btnTalk_Click);
             // 
             // ilButtons
             // 
@@ -121,6 +123,7 @@
             this.btnBlock.Text = "Block";
             this.btnBlock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBlock.UseVisualStyleBackColor = false;
+            this.btnBlock.Click += new System.EventHandler(this.btnBlock_Click);
             // 
             // tsMenuBar
             // 

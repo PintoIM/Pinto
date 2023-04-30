@@ -24,15 +24,18 @@ namespace PintoNS.Forms
 
         public void WriteMessage(string msg, Color color, bool newLine = true)
         {
-            if (Disposing || IsDisposed) return;
-
-            Invoke(new Action(() =>
+            Invoke(new Action(() => 
             {
-                rtxtLog.SelectionStart = rtxtLog.TextLength;
-                rtxtLog.SelectionLength = 0;
-                rtxtLog.SelectionColor = color;
-                rtxtLog.AppendText(msg + (newLine ? Environment.NewLine : ""));
-                rtxtLog.SelectionColor = rtxtLog.ForeColor;
+                if (Disposing || IsDisposed) return;
+
+                Invoke(new Action(() =>
+                {
+                    rtxtLog.SelectionStart = rtxtLog.TextLength;
+                    rtxtLog.SelectionLength = 0;
+                    rtxtLog.SelectionColor = color;
+                    rtxtLog.AppendText(msg + (newLine ? Environment.NewLine : ""));
+                    rtxtLog.SelectionColor = rtxtLog.ForeColor;
+                }));
             }));
         }
 

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PintoNS.Forms
 {
@@ -63,12 +64,12 @@ namespace PintoNS.Forms
             if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
             {
                 isTypingLastStatus = true;
-                mainForm.NetManager.NetHandler.SendTypingPacket(true);
+                //mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, true);
             }
             else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
             {
                 isTypingLastStatus = false;
-                mainForm.NetManager.NetHandler.SendTypingPacket(false);
+                //mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
             }
         }
 
@@ -106,6 +107,27 @@ namespace PintoNS.Forms
         private void MessageForm_Activated(object sender, EventArgs e)
         {
             HasBeenInactive = false;
+        }
+
+        private void rtxtMessages_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
+        }
+
+        private void btnTalk_Click(object sender, EventArgs e)
+        {
+            NotificationUtil.ShowNotification(this,
+                "This option is unavailable in this version!",
+                "Option Unavailable",
+                NotificationIconType.WARNING);
+        }
+
+        private void btnBlock_Click(object sender, EventArgs e)
+        {
+            NotificationUtil.ShowNotification(this,
+                "This option is unavailable in this version!",
+                "Option Unavailable",
+                NotificationIconType.WARNING);
         }
     }
 }

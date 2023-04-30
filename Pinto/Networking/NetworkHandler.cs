@@ -32,49 +32,10 @@ namespace PintoNS.Networking
         {
             Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
                 $" ({packet.GetID()})");
-
-            switch (packet.GetID()) 
-            {
-                case 0:
-                    HandleLoginPacket((PacketLogin)packet);
-                    break;
-                case 2:
-                    HandleLogoutPacket((PacketLogout)packet);
-                    break;
-                case 3:
-                    HandleMessagePacket((PacketMessage)packet);
-                    break;
-                case 5:
-                    HandleInWindowPopupPacket((PacketInWindowPopup)packet);
-                    break;
-                case 6:
-                    HandleAddContactPacket((PacketAddContact)packet);
-                    break;
-                case 7:
-                    HandleRemoveContactPacket((PacketRemoveContact)packet);
-                    break;
-                case 8:
-                    HandleStatusPacket((PacketStatus)packet);
-                    break;
-                case 9:
-                    HandleContactRequestPacket((PacketContactRequest)packet);
-                    break;
-                case 10:
-                    HandleClearContactsPacket();
-                    break;
-                case 12:
-                    HandleCallRequestPacket((PacketCallRequest)packet);
-                    break;
-                case 13:
-                    HandleCallPartyInfoPacket((PacketCallPartyInfo)packet);
-                    break;
-                case 14:
-                    HandleCallEndPacket();
-                    break;
-            }
+            packet.Handle(this);
         }
-
-        private void HandleLoginPacket(PacketLogin packet) 
+        
+        public void HandleLoginPacket(PacketLogin packet) 
         {
             LoggedIn = true;
             mainForm.Invoke(new Action(() => 
@@ -83,7 +44,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleLogoutPacket(PacketLogout packet)
+        public void HandleLogoutPacket(PacketLogout packet)
         {
             mainForm.NetManager.IsActive = false;
             Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason}");
@@ -95,7 +56,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleMessagePacket(PacketMessage packet) 
+        public void HandleMessagePacket(PacketMessage packet) 
         {
             mainForm.Invoke(new Action(() =>
             {
@@ -112,7 +73,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleInWindowPopupPacket(PacketInWindowPopup packet)
+        public void HandleInWindowPopupPacket(PacketInWindowPopup packet)
         {
             mainForm.Invoke(new Action(() =>
             {
@@ -120,7 +81,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleAddContactPacket(PacketAddContact packet)
+        public void HandleAddContactPacket(PacketAddContact packet)
         {
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
@@ -129,7 +90,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleRemoveContactPacket(PacketRemoveContact packet)
+        public void HandleRemoveContactPacket(PacketRemoveContact packet)
         {
             Program.Console.WriteMessage($"[Contacts] Removing {packet.ContactName} from the contact list...");
             mainForm.Invoke(new Action(() =>
@@ -138,7 +99,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleStatusPacket(PacketStatus packet)
+        public void HandleStatusPacket(PacketStatus packet)
         {
             Program.Console.WriteMessage(
                 $"[General] Status change: " +
@@ -177,7 +138,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleContactRequestPacket(PacketContactRequest packet)
+        public void HandleContactRequestPacket(PacketContactRequest packet)
         {
             Program.Console.WriteMessage($"[Networking] Received contact request from {packet.ContactName}");
             mainForm.Invoke(new Action(() =>
@@ -192,7 +153,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleClearContactsPacket()
+        public void HandleClearContactsPacket()
         {
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
             mainForm.Invoke(new Action(() =>
@@ -202,42 +163,48 @@ namespace PintoNS.Networking
             }));
         }
 
-        private void HandleCallRequestPacket(PacketCallRequest packet)
-        {
-            Program.Console.WriteMessage($"[Networking] Received call request from {packet.ContactName}");
+        /*
+        public void HandleCallRequestPacket(PacketCallRequest packet)
+        {            Program.Console.WriteMessage($"[Networking] Received call request from {packet.ContactName}");
             mainForm.Invoke(new Action(() =>
-             {
-                 NotificationUtil.ShowPromptNotification(mainForm,
-                     $"{packet.ContactName} wants to start a call. Proceed?", "Call request",
-                     NotificationIconType.QUESTION, true,
-                     (NotificationButtonType button) =>
-                     {
-                         SendCallRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
+            {
+                NotificationUtil.ShowPromptNotification(mainForm,
+                    $"{packet.ContactName} wants to start a call. Proceed?", "Call request",
+                    NotificationIconType.QUESTION, true,
+                    (NotificationButtonType button) =>
+                    {
+                        SendCallRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
 
-                         if (button == NotificationButtonType.YES)
-                         {
-                             mainForm.CallTarget = packet.ContactName;
-                             mainForm.OnCallStart();
-                         }
-                     });
-             }));
+                        if (button == NotificationButtonType.YES)
+                        {
+                            mainForm.CallTarget = packet.ContactName;
+                            mainForm.OnCallStart();
+                            if (mainForm.CallClient != null &&
+                                mainForm.CallClient.Client != null &&
+                                mainForm.CallClient.Client.LocalEndPoint != null)
+                                SendCallPartyInfoPacket(((IPEndPoint)mainForm.CallClient.Client.LocalEndPoint).Port);
+                            else
+                                Program.Console.WriteMessage("[Networking] Unable to send the UDP client port!");
+                        }
+                    });
+            }));
         }
 
-        private void HandleCallPartyInfoPacket(PacketCallPartyInfo packet)
+        public void HandleCallPartyInfoPacket(PacketCallPartyInfo packet)
         {
             Program.Console.WriteMessage($"[Networking] Received other call party info:" +
                 $" {packet.IPAddress}:{packet.Port}");
             mainForm.CallTargetIP = new IPEndPoint(IPAddress.Parse(packet.IPAddress), 2704);
         }
 
-        private void HandleCallEndPacket()
+        public void HandleCallEndPacket()
         {
             Program.Console.WriteMessage("[Networking] Ending call...");
             mainForm.Invoke(new Action(() =>
             {
                 mainForm.OnCallStop();
             }));
-        }
+        }*/
 
         public void SendLoginPacket(byte protocolVersion, string name, string sessionID) 
         {
@@ -252,11 +219,6 @@ namespace PintoNS.Networking
         public void SendMessagePacket(string contactName, string message)
         {
             networkClient.AddToSendQueue(new PacketMessage(contactName, message));
-        }
-
-        public void SendTypingPacket(bool isTyping)
-        {
-            networkClient.AddToSendQueue(new PacketTyping(isTyping ? "Pinto!" : ""));
         }
 
         public void SendStatusPacket(UserStatus status)

@@ -36,47 +36,59 @@ namespace PintoNS.General
 
         public void UpdatePopupPositions() 
         {
-            int y = baseY;
-
-            foreach (InWindowPopupControl popup in popups.ToArray())
+            form.Invoke(new Action(() =>
             {
-                popup.Location = new Point(0, y);
-                y += popup.Height;
-            }
+                int y = baseY;
+
+                foreach (InWindowPopupControl popup in popups.ToArray())
+                {
+                    popup.Location = new Point(0, y);
+                    y += popup.Height;
+                }
+            }));
         }
 
         public void CreatePopup(string text)
         {
-            InWindowPopupControl popup = new InWindowPopupControl(text);
-            popup.btnClose.Click += (object sender, EventArgs e) =>
+            form.Invoke(new Action(() => 
             {
-                ClosePopup(popup);
-            };
-            popup.Parent = form;
-            popup.Width = form.Width - 15;
-            popup.Height = 21;
-            popup.Location = new Point(0, GetYPosForNew());
-            popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            popup.Show();
-            popup.BringToFront();
-            popups.Add(popup);
+                InWindowPopupControl popup = new InWindowPopupControl(text);
+                popup.btnClose.Click += (object sender, EventArgs e) =>
+                {
+                    ClosePopup(popup);
+                };
+                popup.Parent = form;
+                popup.Width = form.Width - 15;
+                popup.Height = 21;
+                popup.Location = new Point(0, GetYPosForNew());
+                popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                popup.Show();
+                popup.BringToFront();
+                popups.Add(popup);
+            }));
         }
 
         public void ClosePopup(InWindowPopupControl popup)
         {
-            if (popup == null) return;
-            popup.Hide();
-            popup.Dispose();
-            popups.Remove(popup);
-            UpdatePopupPositions();
+            form.Invoke(new Action(() =>
+            {
+                if (popup == null) return;
+                popup.Hide();
+                popup.Dispose();
+                popups.Remove(popup);
+                UpdatePopupPositions();
+            }));
         }
 
         public void ClearPopups()
         {
             foreach (InWindowPopupControl popup in popups.ToArray())
             {
-                popup.Hide();
-                popup.Dispose();
+                form.Invoke(new Action(() =>
+                {
+                    popup.Hide();
+                    popup.Dispose();
+                }));
             }
 
             popups.Clear();

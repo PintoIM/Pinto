@@ -13,6 +13,7 @@ namespace PintoNS.Networking
     {
         void Write(BinaryWriter writer);
         void Read(BinaryReader reader);
+        void Handle(NetworkHandler netHandler);
         int GetID();
     }
 }

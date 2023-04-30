@@ -7,30 +7,35 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Networking
 {
-    public class PacketAddContact : IPacket
+    public class PacketContactRequest : IPacket
     {
         public string ContactName { get; protected set; }
 
-        public PacketAddContact() { }
+        public PacketContactRequest() { }
 
-        public PacketAddContact(string contactName)
+        public PacketContactRequest(string contactName)
         {
             ContactName = contactName;
         }
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadUTF8String();
+            ContactName = reader.ReadASCIIString();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF8String(ContactName);
+            writer.WriteASCIIString(ContactName);
+        }
+
+        public void Handle(NetworkHandler netHandler)
+        {
+            netHandler.HandleContactRequestPacket(this);
         }
 
         public int GetID()
         {
-            return 6;
+            return 9;
         }
     }
 }

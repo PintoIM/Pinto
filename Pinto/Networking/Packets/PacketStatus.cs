@@ -23,14 +23,19 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadUTF8String();
+            ContactName = reader.ReadASCIIString();
             Status = (UserStatus) reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF8String(ContactName);
+            writer.WriteASCIIString(ContactName);
             writer.WriteBE((int) Status);
+        }
+
+        public void Handle(NetworkHandler netHandler)
+        {
+            netHandler.HandleStatusPacket(this);
         }
 
         public int GetID()

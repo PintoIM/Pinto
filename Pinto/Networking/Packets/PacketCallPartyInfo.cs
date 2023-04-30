@@ -22,14 +22,19 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            IPAddress = reader.ReadUTF8String();
+            IPAddress = reader.ReadASCIIString();
             Port = reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF8String(IPAddress);
+            writer.WriteASCIIString(IPAddress);
             writer.WriteBE(Port);
+        }
+
+        public void Handle(NetworkHandler netHandler)
+        {
+            //netHandler.HandleCallPartyInfoPacket(this);
         }
 
         public int GetID()

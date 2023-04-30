@@ -35,11 +35,11 @@
             this.nudPort = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pLoginControls = new System.Windows.Forms.Panel();
+            this.txtUsername = new System.Windows.Forms.ComboBox();
             this.rbLogin = new System.Windows.Forms.RadioButton();
             this.rbCreate = new System.Windows.Forms.RadioButton();
             this.cbSavePassword = new System.Windows.Forms.CheckBox();
@@ -48,6 +48,8 @@
             this.pbAd = new System.Windows.Forms.PictureBox();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpMain = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.tpRegister = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.btnRegisterBack = new System.Windows.Forms.Button();
@@ -61,8 +63,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtRegisterUsername = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoginControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAd)).BeginInit();
@@ -141,14 +141,6 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Port:";
             // 
-            // txtUsername
-            // 
-            this.txtUsername.Location = new System.Drawing.Point(83, 62);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(119, 20);
-            this.txtUsername.TabIndex = 6;
-            this.txtUsername.Text = "example";
-            // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(83, 89);
@@ -179,6 +171,7 @@
             // pLoginControls
             // 
             this.pLoginControls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLoginControls.Controls.Add(this.txtUsername);
             this.pLoginControls.Controls.Add(this.rbLogin);
             this.pLoginControls.Controls.Add(this.rbCreate);
             this.pLoginControls.Controls.Add(this.cbSavePassword);
@@ -190,11 +183,21 @@
             this.pLoginControls.Controls.Add(this.nudPort);
             this.pLoginControls.Controls.Add(this.txtPassword);
             this.pLoginControls.Controls.Add(this.label2);
-            this.pLoginControls.Controls.Add(this.txtUsername);
             this.pLoginControls.Location = new System.Drawing.Point(21, 47);
             this.pLoginControls.Name = "pLoginControls";
             this.pLoginControls.Size = new System.Drawing.Size(348, 184);
             this.pLoginControls.TabIndex = 10;
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.FormattingEnabled = true;
+            this.txtUsername.Items.AddRange(new object[] {
+            "example",
+            "vlod"});
+            this.txtUsername.Location = new System.Drawing.Point(83, 62);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(119, 21);
+            this.txtUsername.TabIndex = 14;
             // 
             // rbLogin
             // 
@@ -288,6 +291,24 @@
             this.tpMain.TabIndex = 0;
             this.tpMain.Text = "Main";
             this.tpMain.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(31, 266);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "This is just a placeholder!";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(31, 253);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(120, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Nothing to see here yet!";
             // 
             // tpRegister
             // 
@@ -432,24 +453,6 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(31, 253);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Nothing to see here yet!";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(31, 266);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "This is just a placeholder!";
-            // 
             // UsingPintoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,7 +492,6 @@
         private System.Windows.Forms.NumericUpDown nudPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -517,5 +519,6 @@
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox txtUsername;
     }
 }

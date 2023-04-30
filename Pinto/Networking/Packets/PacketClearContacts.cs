@@ -17,6 +17,11 @@ namespace PintoNS.Networking
         {
         }
 
+        public void Handle(NetworkHandler netHandler)
+        {
+            netHandler.HandleClearContactsPacket();
+        }
+
         public int GetID()
         {
             return 10;
