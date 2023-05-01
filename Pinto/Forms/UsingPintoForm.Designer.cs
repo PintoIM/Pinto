@@ -233,10 +233,12 @@
             this.cbSavePassword.TabIndex = 11;
             this.cbSavePassword.Text = "Store my password on this computer";
             this.cbSavePassword.UseVisualStyleBackColor = true;
+            this.cbSavePassword.CheckedChanged += new System.EventHandler(this.cbSavePassword_CheckedChanged);
             // 
             // llForgotPassword
             // 
             this.llForgotPassword.AutoSize = true;
+            this.llForgotPassword.Enabled = false;
             this.llForgotPassword.Location = new System.Drawing.Point(20, 116);
             this.llForgotPassword.Name = "llForgotPassword";
             this.llForgotPassword.Size = new System.Drawing.Size(114, 13);

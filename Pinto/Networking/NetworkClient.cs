@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PintoNS.Forms.Notification;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace PintoNS.Networking
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private LinkedList<IPacket> packetSendQueue = new LinkedList<IPacket>();
+        private object sendQueueLock = new object();
 
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -66,7 +68,7 @@ namespace PintoNS.Networking
             tcpStream = null;
             readThread = null;
             sendThread = null;
-
+            
             if (IsConnected && !ignoreDisconnectReasonValue) 
             {
                 Disconnected.Invoke(reason);
@@ -77,37 +79,51 @@ namespace PintoNS.Networking
         public void AddToSendQueue(IPacket packet) 
         {
             if (!IsConnected) return;
-            Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
-                $" ({packet.GetID()}) to the send queue");
-            packetSendQueue.AddLast(packet);
+            lock (sendQueueLock) 
+            {
+                Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
+                    $" ({packet.GetID()}) to the send queue");
+                packetSendQueue.AddLast(packet);
+            }
         }
 
         public void ClearSendQueue() 
         {
-            packetSendQueue.Clear();
+            lock (sendQueueLock)
+                packetSendQueue.Clear();
         }
 
         public void FlushSendQueue() 
         {
             if (!IsConnected) return;
 
-            foreach (IPacket packet in packetSendQueue.ToArray()) 
+            lock (sendQueueLock) 
             {
-                try
+                foreach (IPacket packet in packetSendQueue.ToArray())
                 {
-                    if (!IsConnected) return;
-                    if (packet == null) continue;
-                    BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
-                    writer.Write((byte)packet.GetID());
-                    packet.Write(writer);
-                    writer.Flush();
-                    writer.Dispose();
+                    packetSendQueue.Remove(packet);
+                    try
+                    {
+                        if (!IsConnected) return;
+                        if (packet == null) continue;
+                        BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
+                        writer.Write((byte)packet.GetID());
+                        packet.Write(writer);
+                        writer.Flush();
+                        writer.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        Disconnect($"Internal error -> {ex.Message}");
+                        Program.Console.WriteMessage($"[Networking]" + 
+                            $" Unable to send packet {packet.GetID()}: {ex}");
+                        MsgBox.ShowNotification(null,
+                            "An internal error has occured! For more information," +
+                            " check the console (Help > Toggle Console)",
+                            "Internal Error",
+                            MsgBoxIconType.ERROR);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"{ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                packetSendQueue.Remove(packet);
             }
         }
 
@@ -147,6 +163,11 @@ namespace PintoNS.Networking
                     {
                         Disconnect($"Internal error -> {ex.Message}");
                         Program.Console.WriteMessage($"Internal error: {ex}");
+                        MsgBox.ShowNotification(null, 
+                            "An internal error has occured! For more information," +
+                            " check the console (Help > Toggle Console)", 
+                            "Internal Error", 
+                            MsgBoxIconType.ERROR);
                     }
                     else 
                     {
@@ -161,7 +182,8 @@ namespace PintoNS.Networking
         {
             while (IsConnected) 
             {
-                FlushSendQueue();
+                lock (sendQueueLock)
+                    FlushSendQueue();
                 Thread.Sleep(1);
             }
         }

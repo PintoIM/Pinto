@@ -17,11 +17,14 @@ using System.Media;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using System.IO;
 
 namespace PintoNS
 {
     public partial class MainForm : Form
     {
+        public readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData), "Pinto!");
         public readonly LocalizationManager LocalizationMgr = new LocalizationManager();
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
@@ -224,8 +227,8 @@ namespace PintoNS
             {
                 Disconnect();
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                NotificationUtil.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
-                    $" {connectResult.Item2.Message}", "Connection Error", NotificationIconType.ERROR);
+                MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
+                    $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
             else 
             {
@@ -249,8 +252,8 @@ namespace PintoNS
             {
                 Disconnect();
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                NotificationUtil.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
-                    $" {connectResult.Item2.Message}", "Connection Error", NotificationIconType.ERROR);
+                MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
+                    $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
             else
             {
@@ -305,6 +308,10 @@ namespace PintoNS
         {
             Program.Console.WriteMessage("Performing first time initialization...");
             OnLogout(true);
+            if (!Directory.Exists(DataFolder)) 
+            {
+                Directory.CreateDirectory(DataFolder);
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -374,11 +381,11 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NotificationUtil.ShowPromptNotification(this, "If you choose to change your status to invisible," +
+            MsgBox.ShowPromptNotification(this, "If you choose to change your status to invisible," +
                 " your contacts will not be able to send you messages. Are you sure you want to continue?", "Status change confirmation", 
-                NotificationIconType.WARNING, false, (NotificationButtonType button) => 
+                MsgBoxIconType.WARNING, false, (MsgBoxButtonType button) => 
             {
-                if (button == NotificationButtonType.YES)
+                if (button == MsgBoxButtonType.YES)
                     NetManager.ChangeStatus(UserStatus.INVISIBLE);
             });
         }
@@ -395,7 +402,7 @@ namespace PintoNS
             if (NetManager == null) return;
             if (dgvContacts.SelectedRows.Count < 1)
             {
-                NotificationUtil.ShowNotification(this, "You have not selected any contact!", "Error", NotificationIconType.ERROR);
+                MsgBox.ShowNotification(this, "You have not selected any contact!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
             string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);

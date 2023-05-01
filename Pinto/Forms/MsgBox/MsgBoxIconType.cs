@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Forms.Notification
 {
-    public enum NotificationIconType
+    public enum MsgBoxIconType
     {
         INFORMATION,
         QUESTION,

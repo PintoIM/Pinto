@@ -25,7 +25,7 @@ namespace PintoNS.Forms
         {
             if (string.IsNullOrWhiteSpace(txtContactName.Text))
             {
-                NotificationUtil.ShowNotification(this, "Invalid username!", "Error", NotificationIconType.ERROR);
+                MsgBox.ShowNotification(this, "Invalid username!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
             Close();

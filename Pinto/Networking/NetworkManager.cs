@@ -104,7 +104,7 @@ namespace PintoNS.Networking
                 {
                     mainForm.Disconnect();
                     if (!NetHandler.LoggedIn && wasActive)
-                        NotificationUtil.ShowNotification(mainForm, reason, "Error", NotificationIconType.ERROR);
+                        MsgBox.ShowNotification(mainForm, reason, "Error", MsgBoxIconType.ERROR);
                 }));
             }
 

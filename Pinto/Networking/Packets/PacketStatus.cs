@@ -23,13 +23,13 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadUTF16String();
+            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
             Status = (UserStatus) reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF16String(ContactName);
+            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
             writer.WriteBE((int) Status);
         }
 

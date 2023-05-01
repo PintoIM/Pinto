@@ -11,6 +11,8 @@ namespace PintoNS.Networking
 {
     public static class BinaryWriterReaderExtensions
     {
+        public const int USERNAME_MAX = 16;
+
         public static void WriteBE(this BinaryWriter writer, short value) 
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
@@ -21,11 +23,15 @@ namespace PintoNS.Networking
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
 
-        public static void WriteUTF16String(this BinaryWriter writer, string str)
+        public static void WritePintoString(this BinaryWriter writer, string str, int maxLength)
         {
+            if (str.Length > maxLength)
+                str = str.Substring(0, maxLength);
             byte[] stringData = Encoding.BigEndianUnicode.GetBytes(str);
-            writer.WriteBE((short)stringData.Length);
+            
+            writer.WriteBE(stringData.Length);
             if (stringData.Length < 1) return;
+
             writer.Write(stringData);
         }
 
@@ -39,13 +45,21 @@ namespace PintoNS.Networking
             return IPAddress.NetworkToHostOrder(reader.ReadInt32());
         }
 
-        public static string ReadUTF16String(this BinaryReader reader)
+        public static string ReadPintoString(this BinaryReader reader, int maxLength)
         {
-            short length = reader.ReadBEShort();
+            int length = reader.ReadBEInt();
+            if (length < 0) 
+                throw new InvalidDataException("Weird string, the length is less than 0!");
             if (length < 1) return "";
+
             byte[] buffer = new byte[length];
             reader.Read(buffer, 0, length);
-            return Encoding.BigEndianUnicode.GetString(buffer);
+
+            string str = Encoding.BigEndianUnicode.GetString(buffer);
+            if (str.Length > maxLength)
+                throw new ArgumentException($"Received more data than allowed ({str.Length} > {maxLength})");
+
+            return str;
         }
     }
 }

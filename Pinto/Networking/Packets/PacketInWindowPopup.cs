@@ -20,12 +20,12 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            Message = reader.ReadUTF16String();
+            Message = reader.ReadPintoString(256);
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF16String(Message);
+            writer.WritePintoString(Message, 256);
         }
 
         public void Handle(NetworkHandler netHandler)

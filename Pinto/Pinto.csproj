@@ -157,7 +157,7 @@
     <Compile Include="Forms\PopupForm.Designer.cs">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Notification\NotificationIconType.cs" />
+    <Compile Include="Forms\MsgBox\MsgBoxIconType.cs" />
     <Compile Include="Forms\ViewAllPopupContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,20 +200,14 @@
     <Compile Include="Localization\Builtin\EnglishLanguage.cs" />
     <Compile Include="Localization\Language.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
-    <Compile Include="Forms\Notification\Notification.cs">
+    <Compile Include="Forms\MsgBox\MsgBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Notification\Notification.Designer.cs">
-      <DependentUpon>Notification.cs</DependentUpon>
+    <Compile Include="Forms\MsgBox\MsgBoxForm.Designer.cs">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Notification\NotificationButtonType.cs" />
-    <Compile Include="Forms\Notification\NotificationOkButton.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Notification\NotificationUtil.cs" />
-    <Compile Include="Forms\Notification\NotificationYesNoButton.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\MsgBox\MsgBoxButtonType.cs" />
+    <Compile Include="Forms\MsgBox\MsgBox.cs" />
     <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
@@ -288,14 +282,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Logo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Notification\Notification.resx">
-      <DependentUpon>Notification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Notification\NotificationOkButton.resx">
-      <DependentUpon>NotificationOkButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Notification\NotificationYesNoButton.resx">
-      <DependentUpon>NotificationYesNoButton.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MsgBox\MsgBoxForm.resx">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Forms.Notification
 {
-    public enum NotificationButtonType
+    public enum MsgBoxButtonType
     {
         OK,
         YES,

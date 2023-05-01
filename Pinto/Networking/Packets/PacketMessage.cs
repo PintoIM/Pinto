@@ -24,16 +24,16 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadUTF16String();
-            Sender = reader.ReadUTF16String();
-            Message = reader.ReadUTF16String();
+            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            Sender = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            Message = reader.ReadPintoString(512);
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteUTF16String(ContactName);
-            writer.WriteUTF16String(Sender);
-            writer.WriteUTF16String(Message);
+            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(Sender, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(Message, 512);
         }
 
         public void Handle(NetworkHandler netHandler)

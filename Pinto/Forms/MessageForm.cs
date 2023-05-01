@@ -110,8 +110,8 @@ namespace PintoNS.Forms
 
             if (string.IsNullOrWhiteSpace(inputStripped))
             {
-                NotificationUtil.ShowNotification(this, "The specified message is invalid!", "Error", 
-                    NotificationIconType.ERROR);
+                MsgBox.ShowNotification(this, "The specified message is invalid!", "Error", 
+                    MsgBoxIconType.ERROR);
                 return;
             }
 
@@ -124,7 +124,8 @@ namespace PintoNS.Forms
 
         private void MessageForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mainForm.MessageForms.Remove(this);
+            if (mainForm.MessageForms != null)
+                mainForm.MessageForms.Remove(this);
         }
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
@@ -144,18 +145,18 @@ namespace PintoNS.Forms
 
         private void btnTalk_Click(object sender, EventArgs e)
         {
-            NotificationUtil.ShowNotification(this,
+            MsgBox.ShowNotification(this,
                 "This option is unavailable in this version!",
                 "Option Unavailable",
-                NotificationIconType.WARNING);
+                MsgBoxIconType.WARNING);
         }
 
         private void btnBlock_Click(object sender, EventArgs e)
         {
-            NotificationUtil.ShowNotification(this,
+            MsgBox.ShowNotification(this,
                 "This option is unavailable in this version!",
                 "Option Unavailable",
-                NotificationIconType.WARNING);
+                MsgBoxIconType.WARNING);
         }
 
         private void btnColor_Click(object sender, EventArgs e)

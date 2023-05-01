@@ -31,8 +31,9 @@ namespace PintoNS.Networking
 
         public void HandlePacket(IPacket packet) 
         {
-            Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
-                $" ({packet.GetID()})");
+            if (packet.GetID() != 255)
+                Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
+                    $" ({packet.GetID()})");
             packet.Handle(this);
         }
         
@@ -52,8 +53,8 @@ namespace PintoNS.Networking
             mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason}");
             mainForm.Invoke(new Action(() =>
             {
-                NotificationUtil.ShowNotification(mainForm, packet.Reason, "Kicked by the server", 
-                    NotificationIconType.WARNING, true);
+                MsgBox.ShowNotification(mainForm, packet.Reason, "Kicked by the server", 
+                    MsgBoxIconType.WARNING, true);
             }));
         }
 
@@ -156,12 +157,12 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Networking] Received contact request from {packet.ContactName}");
             mainForm.Invoke(new Action(() =>
             {
-                NotificationUtil.ShowPromptNotification(mainForm,
+                MsgBox.ShowPromptNotification(mainForm,
                     $"{packet.ContactName} wants to add you to their contact list. Proceed?", "Contact request",
-                    NotificationIconType.QUESTION, true,
-                    (NotificationButtonType button) =>
+                    MsgBoxIconType.QUESTION, true,
+                    (MsgBoxButtonType button) =>
                     {
-                        SendContactRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
+                        SendContactRequestPacket(packet.ContactName, button == MsgBoxButtonType.YES);
                     });
             }));
         }

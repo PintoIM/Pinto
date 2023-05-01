@@ -28,17 +28,17 @@ namespace PintoNS.Networking
         public void Read(BinaryReader reader)
         {
             ProtocolVersion = reader.ReadByte();
-            ClientVersion = reader.ReadUTF16String();
-            Name = reader.ReadUTF16String();
-            PasswordHash = reader.ReadUTF16String();
+            ClientVersion = reader.ReadPintoString(32);
+            Name = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            PasswordHash = reader.ReadPintoString(64);
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.Write(ProtocolVersion);
-            writer.WriteUTF16String(ClientVersion);
-            writer.WriteUTF16String(Name);
-            writer.WriteUTF16String(PasswordHash);
+            writer.WritePintoString(ClientVersion, 32);
+            writer.WritePintoString(Name, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(PasswordHash, 64);
         }
 
         public void Handle(NetworkHandler netHandler)
