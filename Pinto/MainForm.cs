@@ -56,7 +56,8 @@ namespace PintoNS
             dgvContacts.Rows.Clear();
             ContactsMgr = new ContactsManager(this);
             MessageForms = new List<MessageForm>();
-            txtSearchBox.Enabled = true;
+            // TODO: Currently pointless
+            //txtSearchBox.Enabled = true;
             tsmiMenuBarFileAddContact.Enabled = true;
             tsmiMenuBarFileRemoveContact.Enabled = true;
             tsmiMenuBarFileLogOut.Enabled = true;

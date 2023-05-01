@@ -37,6 +37,7 @@
             // txtContactName
             // 
             this.txtContactName.Location = new System.Drawing.Point(12, 25);
+            this.txtContactName.MaxLength = 16;
             this.txtContactName.Name = "txtContactName";
             this.txtContactName.Size = new System.Drawing.Size(206, 20);
             this.txtContactName.TabIndex = 0;
