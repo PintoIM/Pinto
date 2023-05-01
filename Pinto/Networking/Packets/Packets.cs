@@ -28,6 +28,7 @@ namespace PintoNS.Networking
             PacketMap.Add(12, typeof(PacketCallRequest));
             PacketMap.Add(13, typeof(PacketCallPartyInfo));
             PacketMap.Add(14, typeof(PacketCallEnd));*/
+            PacketMap.Add(255, typeof(PacketShrimp));
         }
 
         public static IPacket GetPacketByID(int id) 

@@ -40,6 +40,7 @@
             this.txtContactName.Name = "txtContactName";
             this.txtContactName.Size = new System.Drawing.Size(206, 20);
             this.txtContactName.TabIndex = 0;
+            this.txtContactName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtContactName_KeyDown);
             // 
             // btnAdd
             // 
@@ -73,6 +74,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddContactForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pinto! - Add contact";
             this.ResumeLayout(false);
             this.PerformLayout();

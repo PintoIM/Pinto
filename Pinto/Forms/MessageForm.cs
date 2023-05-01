@@ -27,6 +27,7 @@ namespace PintoNS.Forms
             this.mainForm = mainForm;
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
+            UpdateColorPicker();
         }
 
         public void WriteMessage(string msg, Color color, bool newLine = true)
@@ -41,12 +42,41 @@ namespace PintoNS.Forms
             }));
         }
 
+        public void WriteRTF(string msg) 
+        {
+            Invoke(new Action(() => 
+            {
+                rtxtMessages.SelectionStart = rtxtMessages.TextLength;
+                rtxtMessages.SelectionLength = 0;
+                rtxtMessages.SelectionColor = Color.Black;
+                try
+                {
+                    rtxtMessages.SelectedRtf = msg;
+                }
+                catch 
+                { 
+                    WriteMessage("** IMPROPERLY FORMATED MESSAGE **", Color.Red); 
+                }
+            }));
+        }
+
+        public void UpdateColorPicker() 
+        {
+            Bitmap b = new Bitmap(16, 16);
+            Graphics g = Graphics.FromImage(b);
+            g.FillRectangle(new SolidBrush(rtxtInput.SelectionColor), 0, 0, 16, 16);
+            btnColor.Image = b;
+        }
+
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (!System.Windows.Input.Keyboard.Modifiers
+                    .HasFlag(System.Windows.Input.ModifierKeys.Control) && 
+                    e.KeyCode == Keys.Enter)
             {
                 btnSend.PerformClick();
                 e.Handled = true;
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -75,12 +105,10 @@ namespace PintoNS.Forms
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            string input = rtxtInput.Text
-                .Replace("\n", string.Empty)
-                .Replace("\r", string.Empty)
-                .Trim();
+            string input = rtxtInput.Rtf;
+            string inputStripped = rtxtInput.Text;
 
-            if (string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(inputStripped))
             {
                 NotificationUtil.ShowNotification(this, "The specified message is invalid!", "Error", 
                     NotificationIconType.ERROR);
@@ -101,7 +129,7 @@ namespace PintoNS.Forms
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
         {
-            new AboutForm().Show();
+            new AboutForm().ShowDialog(this);
         }
 
         private void MessageForm_Activated(object sender, EventArgs e)
@@ -128,6 +156,18 @@ namespace PintoNS.Forms
                 "This option is unavailable in this version!",
                 "Option Unavailable",
                 NotificationIconType.WARNING);
+        }
+
+        private void btnColor_Click(object sender, EventArgs e)
+        {
+            cdPicker.ShowDialog();
+            rtxtInput.SelectionColor = cdPicker.Color;
+            UpdateColorPicker();
+        }
+
+        private void rtxtInput_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateColorPicker();
         }
     }
 }

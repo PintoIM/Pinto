@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using PintoNS.General;
 using System.Media;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace PintoNS.Networking
 {
@@ -61,7 +62,19 @@ namespace PintoNS.Networking
             mainForm.Invoke(new Action(() =>
             {
                 MessageForm messageForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName);
-                messageForm.WriteMessage(packet.Message, Color.Black);
+                if (messageForm == null) 
+                {
+                    Program.Console.WriteMessage($"[Networking]" +
+                        $" Unable to get a message form for {packet.ContactName}!");
+                    return;
+                }
+
+                if (packet.Sender.Trim().Length > 0)
+                    messageForm.WriteMessage($"{packet.Sender}: ", Color.Black, false);
+                if (packet.Message.StartsWith(@"{\rtf"))
+                    messageForm.WriteRTF(packet.Message);
+                else
+                    messageForm.WriteMessage(packet.Message, Color.Black);
 
                 if (Form.ActiveForm != messageForm && !messageForm.HasBeenInactive)
                 {
@@ -206,14 +219,16 @@ namespace PintoNS.Networking
             }));
         }*/
 
-        public void SendLoginPacket(byte protocolVersion, string name, string sessionID) 
+        public void SendLoginPacket(byte protocolVersion, string clientVersion, 
+            string name, string sessionID) 
         {
-            networkClient.AddToSendQueue(new PacketLogin(protocolVersion, name, sessionID));
+            networkClient.AddToSendQueue(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
         }
 
-        public void SendRegisterPacket(string name, string sessionID)
+        public void SendRegisterPacket(byte protocolVersion, string clientVersion, 
+            string name, string sessionID)
         {
-            networkClient.AddToSendQueue(new PacketRegister(name, sessionID));
+            networkClient.AddToSendQueue(new PacketRegister(protocolVersion, clientVersion, name, sessionID));
         }
 
         public void SendMessagePacket(string contactName, string message)

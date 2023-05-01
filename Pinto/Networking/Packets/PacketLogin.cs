@@ -11,14 +11,17 @@ namespace PintoNS.Networking
     public class PacketLogin : IPacket
     {
         public byte ProtocolVersion { get; protected set; }
+        public string ClientVersion { get; protected set; }
         public string Name { get; protected set; }
         public string PasswordHash { get; protected set; }
 
         public PacketLogin() { }
 
-        public PacketLogin(byte protocolVersion, string name, string passwordHash)
+        public PacketLogin(byte protocolVersion, string clientVersion, 
+            string name, string passwordHash)
         {
             ProtocolVersion = protocolVersion;
+            ClientVersion = clientVersion;
             Name = name;
             PasswordHash = passwordHash;
         }
@@ -26,15 +29,17 @@ namespace PintoNS.Networking
         public void Read(BinaryReader reader)
         {
             ProtocolVersion = reader.ReadByte();
-            Name = reader.ReadASCIIString();
-            PasswordHash = reader.ReadASCIIString();
+            ClientVersion = reader.ReadUTF16String();
+            Name = reader.ReadUTF16String();
+            PasswordHash = reader.ReadUTF16String();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.Write(ProtocolVersion);  
-            writer.WriteASCIIString(Name);
-            writer.WriteASCIIString(PasswordHash);
+            writer.Write(ProtocolVersion);
+            writer.WriteUTF16String(ClientVersion);
+            writer.WriteUTF16String(Name);
+            writer.WriteUTF16String(PasswordHash);
         }
 
         public void Handle(NetworkHandler netHandler)

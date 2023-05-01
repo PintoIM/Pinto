@@ -11,6 +11,7 @@ namespace PintoNS
     public static class Program
     {
         public static ConsoleForm Console;
+        public const string VERSION = "a1.0";
 
         [STAThread]
         static void Main()

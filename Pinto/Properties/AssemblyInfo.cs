@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Pinto")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A modernish IM client inspired by Skype 0.97")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("PintoIM")]
 [assembly: AssemblyProduct("Pinto")]
-[assembly: AssemblyCopyright("vlOd")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

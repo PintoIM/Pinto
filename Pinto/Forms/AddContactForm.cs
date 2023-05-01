@@ -31,5 +31,15 @@ namespace PintoNS.Forms
             Close();
             mainForm.NetManager.NetHandler.SendAddContactPacket(txtContactName.Text);
         }
+
+        private void txtContactName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAdd.PerformClick();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {
-    public partial class AboutForm : Form
+    public partial class OptionsForm : Form
     {
-        public AboutForm()
+        public OptionsForm()
         {
             InitializeComponent();
-        }
-
-        private void AboutForm_Load(object sender, EventArgs e)
-        {
-            lVersion.Text = $"Version {Program.VERSION}";
         }
     }
 }

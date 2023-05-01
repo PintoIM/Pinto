@@ -22,13 +22,13 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            IPAddress = reader.ReadASCIIString();
+            IPAddress = reader.ReadUTF16String();
             Port = reader.ReadBEInt();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteASCIIString(IPAddress);
+            writer.WriteUTF16String(IPAddress);
             writer.WriteBE(Port);
         }
 

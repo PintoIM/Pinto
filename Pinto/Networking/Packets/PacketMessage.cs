@@ -10,6 +10,7 @@ namespace PintoNS.Networking
     public class PacketMessage : IPacket
     {
         public string ContactName { get; protected set; }
+        public string Sender { get; protected set; }
         public string Message { get; protected set; }
 
         public PacketMessage() { }
@@ -17,19 +18,22 @@ namespace PintoNS.Networking
         public PacketMessage(string contactName, string message)
         {
             ContactName = contactName;
+            Sender = "";
             Message = message;
         }
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadASCIIString();
-            Message = reader.ReadASCIIString();
+            ContactName = reader.ReadUTF16String();
+            Sender = reader.ReadUTF16String();
+            Message = reader.ReadUTF16String();
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteASCIIString(ContactName);
-            writer.WriteASCIIString(Message);
+            writer.WriteUTF16String(ContactName);
+            writer.WriteUTF16String(Sender);
+            writer.WriteUTF16String(Message);
         }
 
         public void Handle(NetworkHandler netHandler)

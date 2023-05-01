@@ -21,11 +21,12 @@ namespace PintoNS.Networking
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
 
-        public static void WriteASCIIString(this BinaryWriter writer, string str)
+        public static void WriteUTF16String(this BinaryWriter writer, string str)
         {
-            writer.WriteBE((short)str.Length);
-            if (str.Length < 1) return;
-            writer.Write(Encoding.ASCII.GetBytes(str));
+            byte[] stringData = Encoding.BigEndianUnicode.GetBytes(str);
+            writer.WriteBE((short)stringData.Length);
+            if (stringData.Length < 1) return;
+            writer.Write(stringData);
         }
 
         public static short ReadBEShort(this BinaryReader reader)
@@ -38,13 +39,13 @@ namespace PintoNS.Networking
             return IPAddress.NetworkToHostOrder(reader.ReadInt32());
         }
 
-        public static string ReadASCIIString(this BinaryReader reader)
+        public static string ReadUTF16String(this BinaryReader reader)
         {
             short length = reader.ReadBEShort();
             if (length < 1) return "";
             byte[] buffer = new byte[length];
             reader.Read(buffer, 0, length);
-            return Encoding.ASCII.GetString(buffer);
+            return Encoding.BigEndianUnicode.GetString(buffer);
         }
     }
 }

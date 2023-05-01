@@ -64,11 +64,17 @@ namespace PintoNS
             this.tsmiMenuBarFileRemoveContact = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileLogOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.cmsTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiTrayChangeStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTrayChangeStatusOnline = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTrayChangeStatusAway = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTrayChangeStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTrayChangeStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
@@ -430,12 +436,21 @@ namespace PintoNS
             // tsddbMenuBarTools
             // 
             this.tsddbMenuBarTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbMenuBarTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMenuBarToolsOptions});
             this.tsddbMenuBarTools.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarTools.Image")));
             this.tsddbMenuBarTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarTools.Name = "tsddbMenuBarTools";
             this.tsddbMenuBarTools.ShowDropDownArrow = false;
             this.tsddbMenuBarTools.Size = new System.Drawing.Size(38, 22);
             this.tsddbMenuBarTools.Text = "Tools";
+            // 
+            // tsmiMenuBarToolsOptions
+            // 
+            this.tsmiMenuBarToolsOptions.Name = "tsmiMenuBarToolsOptions";
+            this.tsmiMenuBarToolsOptions.Size = new System.Drawing.Size(116, 22);
+            this.tsmiMenuBarToolsOptions.Text = "Options";
+            this.tsmiMenuBarToolsOptions.Click += new System.EventHandler(this.tsmiMenuBarToolsOptions_Click);
             // 
             // tsddbMenuBarHelp
             // 
@@ -472,14 +487,60 @@ namespace PintoNS
             // cmsTray
             // 
             this.cmsTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTrayChangeStatus,
             this.tsmiTrayExit});
             this.cmsTray.Name = "cmsTray";
-            this.cmsTray.Size = new System.Drawing.Size(94, 26);
+            this.cmsTray.Size = new System.Drawing.Size(181, 70);
+            // 
+            // tsmiTrayChangeStatus
+            // 
+            this.tsmiTrayChangeStatus.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiTrayChangeStatusOnline,
+            this.tsmiTrayChangeStatusAway,
+            this.tsmiTrayChangeStatusBusy,
+            this.tsmiTrayChangeStatusInvisible});
+            this.tsmiTrayChangeStatus.Image = global::PintoNS.Statuses.ONLINE;
+            this.tsmiTrayChangeStatus.Name = "tsmiTrayChangeStatus";
+            this.tsmiTrayChangeStatus.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatus.Text = "Change Status";
+            // 
+            // tsmiTrayChangeStatusOnline
+            // 
+            this.tsmiTrayChangeStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
+            this.tsmiTrayChangeStatusOnline.Name = "tsmiTrayChangeStatusOnline";
+            this.tsmiTrayChangeStatusOnline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusOnline.Text = "Online";
+            this.tsmiTrayChangeStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            // 
+            // tsmiTrayChangeStatusAway
+            // 
+            this.tsmiTrayChangeStatusAway.Image = global::PintoNS.Statuses.AWAY;
+            this.tsmiTrayChangeStatusAway.Name = "tsmiTrayChangeStatusAway";
+            this.tsmiTrayChangeStatusAway.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusAway.Text = "Away";
+            this.tsmiTrayChangeStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            // 
+            // tsmiTrayChangeStatusBusy
+            // 
+            this.tsmiTrayChangeStatusBusy.Image = global::PintoNS.Statuses.BUSY;
+            this.tsmiTrayChangeStatusBusy.Name = "tsmiTrayChangeStatusBusy";
+            this.tsmiTrayChangeStatusBusy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusBusy.Text = "Busy";
+            this.tsmiTrayChangeStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            // 
+            // tsmiTrayChangeStatusInvisible
+            // 
+            this.tsmiTrayChangeStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
+            this.tsmiTrayChangeStatusInvisible.Name = "tsmiTrayChangeStatusInvisible";
+            this.tsmiTrayChangeStatusInvisible.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusInvisible.Text = "Invisible";
+            this.tsmiTrayChangeStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
             // tsmiTrayExit
             // 
+            this.tsmiTrayExit.Image = global::PintoNS.Assets.WARNING;
             this.tsmiTrayExit.Name = "tsmiTrayExit";
-            this.tsmiTrayExit.Size = new System.Drawing.Size(93, 22);
+            this.tsmiTrayExit.Size = new System.Drawing.Size(180, 22);
             this.tsmiTrayExit.Text = "Exit";
             this.tsmiTrayExit.Click += new System.EventHandler(this.tsmiTrayExit_Click);
             // 
@@ -540,7 +601,6 @@ namespace PintoNS
             this.Controls.Add(this.tsMenuBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Pinto!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
@@ -609,5 +669,11 @@ namespace PintoNS
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.ContextMenuStrip cmsTray;
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayExit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsOptions;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatus;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusOnline;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusAway;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusBusy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusInvisible;
     }
 }

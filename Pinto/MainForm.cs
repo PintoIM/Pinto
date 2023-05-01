@@ -54,6 +54,9 @@ namespace PintoNS
             ContactsMgr = new ContactsManager(this);
             MessageForms = new List<MessageForm>();
             txtSearchBox.Enabled = true;
+            tsmiMenuBarFileAddContact.Enabled = true;
+            tsmiMenuBarFileRemoveContact.Enabled = true;
+            tsmiMenuBarFileLogOut.Enabled = true;
             Text = $"Pinto! - {CurrentUser.Name}";
 
             new SoundPlayer(Sounds.LOGIN).Play();
@@ -92,6 +95,9 @@ namespace PintoNS
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
+            tsmiMenuBarFileAddContact.Enabled = false;
+            tsmiMenuBarFileRemoveContact.Enabled = false;
+            tsmiMenuBarFileLogOut.Enabled = false;
             Text = "Pinto!";
             //InCall = false;
 
@@ -340,7 +346,7 @@ namespace PintoNS
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
         {
-            new AboutForm().Show();
+            new AboutForm().ShowDialog(this);
         }
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
@@ -381,7 +387,7 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             AddContactForm addContactForm = new AddContactForm(this);
-            addContactForm.ShowDialog();
+            addContactForm.ShowDialog(this);
         }
 
         private void tsmiMenuBarFileRemoveContact_Click(object sender, EventArgs e)
@@ -456,9 +462,8 @@ namespace PintoNS
             if (WindowState == FormWindowState.Minimized) 
             {
                 Hide();
-                NotificationUtil.ShowNotification(null, 
-                    "Pinto! has been minimized to the system tray!" +
-                    " You can restore Pinto! by clicking on the system tray icon!", "Minimization Notice");
+                niTray.ShowBalloonTip(0, "Minimization Notice", "Pinto! has been minimized to the system tray!" +
+                    " You can restore Pinto! by clicking on the system tray icon!", ToolTipIcon.Info);
             }
         }
 
@@ -466,6 +471,12 @@ namespace PintoNS
         {
             Show();
             WindowState = FormWindowState.Normal;
+        }
+
+        private void tsmiMenuBarToolsOptions_Click(object sender, EventArgs e)
+        {
+            OptionsForm optionsForm = new OptionsForm();
+            optionsForm.ShowDialog(this);
         }
     }
 }

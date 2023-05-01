@@ -41,6 +41,8 @@
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnColor = new System.Windows.Forms.Button();
+            this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +52,7 @@
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Location = new System.Drawing.Point(362, 283);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(60, 56);
+            this.btnSend.Size = new System.Drawing.Size(60, 30);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "&Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -60,12 +62,13 @@
             // 
             this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtxtInput.HideSelection = false;
             this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.Multiline = false;
             this.rtxtInput.Name = "rtxtInput";
             this.rtxtInput.Size = new System.Drawing.Size(344, 56);
             this.rtxtInput.TabIndex = 0;
             this.rtxtInput.Text = "";
+            this.rtxtInput.SelectionChanged += new System.EventHandler(this.rtxtInput_SelectionChanged);
             this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
             this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
             // 
@@ -172,11 +175,26 @@
             this.tsslStatusBarTypingList.Name = "tsslStatusBarTypingList";
             this.tsslStatusBarTypingList.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnColor
+            // 
+            this.btnColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnColor.Location = new System.Drawing.Point(362, 319);
+            this.btnColor.Name = "btnColor";
+            this.btnColor.Size = new System.Drawing.Size(60, 20);
+            this.btnColor.TabIndex = 6;
+            this.btnColor.Text = "Color";
+            this.btnColor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
+            // 
             // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 373);
+            this.Controls.Add(this.btnColor);
             this.Controls.Add(this.ssStatusStrip);
             this.Controls.Add(this.btnBlock);
             this.Controls.Add(this.btnTalk);
@@ -209,5 +227,7 @@
         private System.Windows.Forms.StatusStrip ssStatusStrip;
         public System.Windows.Forms.ToolStripStatusLabel tsslStatusBarTypingList;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
+        private System.Windows.Forms.Button btnColor;
+        private System.Windows.Forms.ColorDialog cdPicker;
     }
 }
