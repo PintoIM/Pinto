@@ -6,11 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Runtime.InteropServices;
+using PintoNS.Forms.Notification;
 
 namespace PintoNS
 {
     public static class Program
     {
+        [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
+        private static extern string GetWineVersion();
         public static ConsoleForm Console;
         public const string VERSION = "a1.2-hotfix_1";
         public const int PROTOCOL_VERSION = 13;
@@ -27,9 +31,39 @@ namespace PintoNS
             Application.ThreadException += Application_ThreadException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            // Start Pinto!
+            // Setup console
             Console = new ConsoleForm();
             Console.Show();
+
+            bool underWine = false;
+            try
+            {
+                string wineVer = GetWineVersion();
+                Console.WriteMessage($"[General] Running under wine ({wineVer})");
+                underWine = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteMessage($"[General] Not running under wine: {ex}");
+            }
+
+            if (Type.GetType("Mono.Runtime") != null) 
+            {
+                Console.WriteMessage("[General] Running under mono");
+
+                if (!underWine) 
+                {
+                    MsgBox.ShowNotification(Console,
+                        $"Pinto! has detected it is being ran" +
+                        $" under mono but not under wine!{Environment.NewLine}" +
+                        $"This execution configuration will never be supported!",
+                        "Unsupported Execution Configuration",
+                        MsgBoxIconType.ERROR);
+                    return;
+                }
+            }
+
+            // Start Pinto!
             Application.Run(new MainForm());
         }
 
