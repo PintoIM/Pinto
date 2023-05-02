@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.33403.129
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinto", "Pinto\Pinto.csproj", "{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PintoSetup", "PintoSetup\PintoSetup.vdproj", "{96246363-844F-483E-94F3-B0D2DA7538B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96246363-844F-483E-94F3-B0D2DA7538B8}.Debug|Any CPU.ActiveCfg = Debug
+		{96246363-844F-483E-94F3-B0D2DA7538B8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
