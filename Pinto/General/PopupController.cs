@@ -53,6 +53,7 @@ namespace PintoNS.General
             {
                 popup.ReachedTargetY = true;
                 popup.Location = new System.Drawing.Point(GetBaseX(), y);
+                popup.TopMost = true;
                 popup.Show();
                 popup.BringToFront();
 
@@ -84,6 +85,7 @@ namespace PintoNS.General
             }
 
             popup.Location = new System.Drawing.Point(GetBaseX(), GetBaseY() + 177);
+            popup.TopMost = true;
             popup.Show();
             popup.BringToFront();
 

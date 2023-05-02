@@ -18,6 +18,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PintoNS
 {
@@ -220,7 +222,7 @@ namespace PintoNS
             tcTabs.TabPages.Add(tpConnecting);
             lConnectingStatus.Text = "Connecting...";
             Program.Console.WriteMessage($"[Networking] Signing in as {username} at {ip}:{port}...");
-
+            
             NetManager = new NetworkManager(this);
             (bool, Exception) connectResult = await NetManager.Connect(ip, port);
 
@@ -231,7 +233,7 @@ namespace PintoNS
                 MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
-            else 
+            else
             {
                 CurrentUser.Name = username;
                 lConnectingStatus.Text = "Authenticating...";
@@ -460,11 +462,6 @@ namespace PintoNS
                 Program.Console.Show();
         }
 
-        private void tsmiTrayExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized) 
@@ -485,6 +482,11 @@ namespace PintoNS
         {
             OptionsForm optionsForm = new OptionsForm();
             optionsForm.ShowDialog(this);
+        }
+        
+        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

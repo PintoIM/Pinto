@@ -79,6 +79,7 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
+            this.tsmiMenuBarFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -404,7 +405,8 @@ namespace PintoNS
             this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarFileAddContact,
             this.tsmiMenuBarFileRemoveContact,
-            this.tsmiMenuBarFileLogOut});
+            this.tsmiMenuBarFileLogOut,
+            this.tsmiMenuBarFileExit});
             this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarFile.Name = "tsddbMenuBarFile";
@@ -415,21 +417,21 @@ namespace PintoNS
             // tsmiMenuBarFileAddContact
             // 
             this.tsmiMenuBarFileAddContact.Name = "tsmiMenuBarFileAddContact";
-            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileAddContact.Text = "Add contact";
             this.tsmiMenuBarFileAddContact.Click += new System.EventHandler(this.tsmiMenuBarFileAddContact_Click);
             // 
             // tsmiMenuBarFileRemoveContact
             // 
             this.tsmiMenuBarFileRemoveContact.Name = "tsmiMenuBarFileRemoveContact";
-            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileRemoveContact.Text = "Remove contact";
             this.tsmiMenuBarFileRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarFileRemoveContact_Click);
             // 
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
@@ -490,7 +492,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatus,
             this.tsmiTrayExit});
             this.cmsTray.Name = "cmsTray";
-            this.cmsTray.Size = new System.Drawing.Size(181, 70);
+            this.cmsTray.Size = new System.Drawing.Size(151, 48);
             // 
             // tsmiTrayChangeStatus
             // 
@@ -501,14 +503,14 @@ namespace PintoNS
             this.tsmiTrayChangeStatusInvisible});
             this.tsmiTrayChangeStatus.Image = global::PintoNS.Statuses.ONLINE;
             this.tsmiTrayChangeStatus.Name = "tsmiTrayChangeStatus";
-            this.tsmiTrayChangeStatus.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatus.Size = new System.Drawing.Size(150, 22);
             this.tsmiTrayChangeStatus.Text = "Change Status";
             // 
             // tsmiTrayChangeStatusOnline
             // 
             this.tsmiTrayChangeStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
             this.tsmiTrayChangeStatusOnline.Name = "tsmiTrayChangeStatusOnline";
-            this.tsmiTrayChangeStatusOnline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusOnline.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusOnline.Text = "Online";
             this.tsmiTrayChangeStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
             // 
@@ -516,7 +518,7 @@ namespace PintoNS
             // 
             this.tsmiTrayChangeStatusAway.Image = global::PintoNS.Statuses.AWAY;
             this.tsmiTrayChangeStatusAway.Name = "tsmiTrayChangeStatusAway";
-            this.tsmiTrayChangeStatusAway.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusAway.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusAway.Text = "Away";
             this.tsmiTrayChangeStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
             // 
@@ -524,7 +526,7 @@ namespace PintoNS
             // 
             this.tsmiTrayChangeStatusBusy.Image = global::PintoNS.Statuses.BUSY;
             this.tsmiTrayChangeStatusBusy.Name = "tsmiTrayChangeStatusBusy";
-            this.tsmiTrayChangeStatusBusy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusBusy.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusBusy.Text = "Busy";
             this.tsmiTrayChangeStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
             // 
@@ -532,7 +534,7 @@ namespace PintoNS
             // 
             this.tsmiTrayChangeStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
             this.tsmiTrayChangeStatusInvisible.Name = "tsmiTrayChangeStatusInvisible";
-            this.tsmiTrayChangeStatusInvisible.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusInvisible.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusInvisible.Text = "Invisible";
             this.tsmiTrayChangeStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
@@ -540,9 +542,9 @@ namespace PintoNS
             // 
             this.tsmiTrayExit.Image = global::PintoNS.Assets.WARNING;
             this.tsmiTrayExit.Name = "tsmiTrayExit";
-            this.tsmiTrayExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayExit.Size = new System.Drawing.Size(150, 22);
             this.tsmiTrayExit.Text = "Exit";
-            this.tsmiTrayExit.Click += new System.EventHandler(this.tsmiTrayExit_Click);
+            this.tsmiTrayExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
             // 
             // btnEndCall
             // 
@@ -586,6 +588,13 @@ namespace PintoNS
             this.txtSearchBox.TabIndex = 4;
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
+            // 
+            // tsmiMenuBarFileExit
+            // 
+            this.tsmiMenuBarFileExit.Name = "tsmiMenuBarFileExit";
+            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileExit.Text = "Exit";
+            this.tsmiMenuBarFileExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
             // 
             // MainForm
             // 
@@ -675,5 +684,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusAway;
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusBusy;
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusInvisible;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileExit;
     }
 }
