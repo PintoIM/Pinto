@@ -16,7 +16,7 @@ namespace PintoNS
         [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
         private static extern string GetWineVersion();
         public static ConsoleForm Console;
-        public const string VERSION = "a1.2-hotfix_1";
+        public const string VERSION = "a1.3";
         public const int PROTOCOL_VERSION = 13;
 
         [STAThread]
@@ -35,6 +35,7 @@ namespace PintoNS
             Console = new ConsoleForm();
             Console.Show();
 
+            // Detect what runtime we are being ran under
             bool underWine = false;
             try
             {
