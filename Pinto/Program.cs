@@ -12,7 +12,7 @@ namespace PintoNS
     public static class Program
     {
         public static ConsoleForm Console;
-        public const string VERSION = "a1.2";
+        public const string VERSION = "a1.2-hotfix_1";
         public const int PROTOCOL_VERSION = 13;
 
         [STAThread]

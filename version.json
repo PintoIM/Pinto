@@ -1,7 +1,7 @@
 {
-    "latest": "a1.2",
+    "latest": "a1.2-hotfix_1",
     "supported": [
-        "a1.2",
-        "a1.1"
+        "a1.2-hotfix_1",
+        "a1.2"
     ]
 }
