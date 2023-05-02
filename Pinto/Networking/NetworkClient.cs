@@ -29,7 +29,6 @@ namespace PintoNS.Networking
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private LinkedList<IPacket> packetSendQueue = new LinkedList<IPacket>();
-        private object sendQueueLock = new object();
 
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -79,50 +78,43 @@ namespace PintoNS.Networking
         public void AddToSendQueue(IPacket packet) 
         {
             if (!IsConnected) return;
-            lock (sendQueueLock) 
-            {
-                Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
-                    $" ({packet.GetID()}) to the send queue");
-                packetSendQueue.AddLast(packet);
-            }
+            Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
+                $" ({packet.GetID()}) to the send queue");
+            packetSendQueue.AddLast(packet);
         }
 
         public void ClearSendQueue() 
         {
-            lock (sendQueueLock)
-                packetSendQueue.Clear();
+            packetSendQueue.Clear();
         }
 
         public void FlushSendQueue() 
         {
             if (!IsConnected) return;
 
-            lock (sendQueueLock) 
+            foreach (IPacket packet in packetSendQueue.ToArray())
             {
-                foreach (IPacket packet in packetSendQueue.ToArray())
+                packetSendQueue.Remove(packet);
+                try
                 {
-                    packetSendQueue.Remove(packet);
-                    try
-                    {
-                        if (!IsConnected) return;
-                        if (packet == null) continue;
-                        BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
-                        writer.Write((byte)packet.GetID());
-                        packet.Write(writer);
-                        writer.Flush();
-                        writer.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        Disconnect($"Internal error -> {ex.Message}");
-                        Program.Console.WriteMessage($"[Networking]" + 
-                            $" Unable to send packet {packet.GetID()}: {ex}");
-                        MsgBox.ShowNotification(null,
-                            "An internal error has occured! For more information," +
-                            " check the console (Help > Toggle Console)",
-                            "Internal Error",
-                            MsgBoxIconType.ERROR);
-                    }
+                    if (!IsConnected) return;
+                    if (packet == null) continue;
+                    BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
+                    writer.Write((byte)packet.GetID());
+                    packet.Write(writer);
+                    writer.Flush();
+                    writer.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    Disconnect($"Internal error -> {ex.Message}");
+                    Program.Console.WriteMessage($"[Networking]" +
+                        $" Unable to send packet {packet.GetID()}: {ex}");
+                    MsgBox.ShowNotification(null,
+                        "An internal error has occured! For more information," +
+                        " check the console (Help > Toggle Console)",
+                        "Internal Error",
+                        MsgBoxIconType.ERROR);
                 }
             }
         }
@@ -182,8 +174,7 @@ namespace PintoNS.Networking
         {
             while (IsConnected) 
             {
-                lock (sendQueueLock)
-                    FlushSendQueue();
+                FlushSendQueue();
                 Thread.Sleep(1);
             }
         }
