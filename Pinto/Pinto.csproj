@@ -46,12 +46,11 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>LOGO.ICO</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
@@ -304,7 +303,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Statuses.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -320,7 +318,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LOGO.ICO" />
     <Content Include="Resources\Assets\ADDCONTACT_DISABLED.png" />
     <Content Include="Resources\Assets\ADDCONTACT_ENABLED.png" />
     <Content Include="Resources\Assets\CONTACT.png" />
