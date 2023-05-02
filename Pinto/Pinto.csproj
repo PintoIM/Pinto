@@ -172,6 +172,7 @@
     <Compile Include="General\Keyboard.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
+    <Compile Include="General\Updater.cs" />
     <Compile Include="General\UserStatus.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="General\ContactsManager.cs" />

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Runtime.InteropServices;
 using PintoNS.Forms.Notification;
+using PintoNS.General;
 
 namespace PintoNS
 {

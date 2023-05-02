@@ -1,5 +1,6 @@
 {
     "latest": "a1.2-hotfix_1",
+    "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
     "supported": [
         "a1.3",
         "a1.2-hotfix_1",
