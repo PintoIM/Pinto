@@ -41,7 +41,8 @@ namespace PintoNS.Forms
             // 
             // tvSections
             // 
-            this.tvSections.Location = new System.Drawing.Point(12, 12);
+            this.tvSections.Location = new System.Drawing.Point(24, 23);
+            this.tvSections.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tvSections.Name = "tvSections";
             treeNode1.Name = "nUnavailableGeneral";
             treeNode1.Text = "General";
@@ -49,40 +50,43 @@ namespace PintoNS.Forms
             treeNode2.Text = "Unavailable";
             this.tvSections.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
-            this.tvSections.Size = new System.Drawing.Size(135, 385);
+            this.tvSections.Size = new System.Drawing.Size(266, 737);
             this.tvSections.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(150, 35);
+            this.label1.Location = new System.Drawing.Point(300, 67);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 13);
+            this.label1.Size = new System.Drawing.Size(235, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Nothing to see here yet";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(150, 48);
+            this.label2.Location = new System.Drawing.Point(300, 92);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 13);
+            this.label2.Size = new System.Drawing.Size(433, 25);
             this.label2.TabIndex = 7;
             this.label2.Text = "Options will be available in the next release!";
             // 
             // header1
             // 
             this.header1.Content = "Unavailable";
-            this.header1.Location = new System.Drawing.Point(153, 12);
+            this.header1.Location = new System.Drawing.Point(306, 23);
+            this.header1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.header1.Name = "header1";
-            this.header1.Size = new System.Drawing.Size(401, 20);
+            this.header1.Size = new System.Drawing.Size(802, 20);
             this.header1.TabIndex = 8;
             // 
             // OptionsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 424);
+            this.ClientSize = new System.Drawing.Size(1132, 815);
             this.Controls.Add(this.header1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -90,9 +94,10 @@ namespace PintoNS.Forms
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(582, 463);
+            this.MinimumSize = new System.Drawing.Size(1138, 825);
             this.Name = "OptionsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pinto! - Options";
