@@ -16,7 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
-        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -34,13 +40,13 @@
         "Entry"
         {
         "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
-        "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
+        "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
-        "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
+        "OwnerKey" = "8:_96E3FAFA6AB94A72B6BF0D7034C448A8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -52,7 +58,7 @@
         "Entry"
         {
         "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
-        "OwnerKey" = "8:_96E3FAFA6AB94A72B6BF0D7034C448A8"
+        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -65,12 +71,6 @@
         {
         "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
         "OwnerKey" = "8:_351338460C915C40900A788CC7B0AD09"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
-        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -160,6 +160,24 @@
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
+        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
+        "OwnerKey" = "8:_351338460C915C40900A788CC7B0AD09"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
+        "OwnerKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
         "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -178,25 +196,7 @@
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_351338460C915C40900A788CC7B0AD09"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
         "OwnerKey" = "8:_1EDEABF8702F477890D95A165A37EE72"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -232,7 +232,7 @@
         "Entry"
         {
         "MsmKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
-        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
+        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -244,7 +244,7 @@
         "Entry"
         {
         "MsmKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
-        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -406,13 +406,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D71CA0F266B9447B944354DD1001B1BC"
+        "OwnerKey" = "8:_FBD2EE9ADD0AAC50B141FD505646DD54"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_16EA69B7E15949E2A5CC614202900CBB"
+        "OwnerKey" = "8:_FB39E94DA1DEDFC15F02FC42B91A7CA8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DA6860B5906FD6320AA68EF5F309B5DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D71CA0F266B9447B944354DD1001B1BC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -436,31 +448,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_60FB6CE1141B4C3595FD367D33049C0E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "OwnerKey" = "8:_958D9EE36EA6D0C0C69E49658F80402C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
+        "OwnerKey" = "8:_8959333C4E30D72792D9F3284CB259BC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
+        "OwnerKey" = "8:_7DE71FED393ABFA400EC2306A5F33D62"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_77AC3BDB496B782CA92687561C55CDCF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -478,49 +490,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FBD2EE9ADD0AAC50B141FD505646DD54"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DA6860B5906FD6320AA68EF5F309B5DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_37D61E95532A018C66AA2C10663A8358"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6879C338F3FC4C93FEE30FCE0CBFE5E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3D433DE8D68A612793DA22797BE0A86E"
+        "OwnerKey" = "8:_60FB6CE1141B4C3595FD367D33049C0E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_77AC3BDB496B782CA92687561C55CDCF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7DE71FED393ABFA400EC2306A5F33D62"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4A4CB7F42F69581C261E2EA69AFF6F28"
+        "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -532,19 +514,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8959333C4E30D72792D9F3284CB259BC"
+        "OwnerKey" = "8:_4A4CB7F42F69581C261E2EA69AFF6F28"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FB39E94DA1DEDFC15F02FC42B91A7CA8"
+        "OwnerKey" = "8:_3D433DE8D68A612793DA22797BE0A86E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_958D9EE36EA6D0C0C69E49658F80402C"
+        "OwnerKey" = "8:_37D61E95532A018C66AA2C10663A8358"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -556,7 +538,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_22F712611AEBC1F62B0927B0B96470C7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_16EA69B7E15949E2A5CC614202900CBB"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -577,6 +577,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -593,6 +601,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -638,7 +654,7 @@
             "SourcePath" = "8:NAudio.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -669,7 +685,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.AccessControl.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -700,7 +716,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -731,7 +747,7 @@
             "SourcePath" = "8:System.Data.Common.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -762,7 +778,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -793,7 +809,7 @@
             "SourcePath" = "8:System.Diagnostics.StackTrace.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -824,7 +840,7 @@
             "SourcePath" = "8:NAudio.Wasapi.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -855,7 +871,7 @@
             "SourcePath" = "8:System.Security.Cryptography.Algorithms.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -886,7 +902,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Asio.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -917,7 +933,7 @@
             "SourcePath" = "8:System.Runtime.Serialization.Primitives.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -948,7 +964,7 @@
             "SourcePath" = "8:NAudio.WinForms.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -968,7 +984,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.pdb"
             "TargetName" = "8:Pinto.pdb"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -999,7 +1015,7 @@
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1030,7 +1046,7 @@
             "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1061,7 +1077,7 @@
             "SourcePath" = "8:netstandard.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1081,7 +1097,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.Principal.Windows.xml"
             "TargetName" = "8:System.Security.Principal.Windows.xml"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1112,7 +1128,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1143,7 +1159,7 @@
             "SourcePath" = "8:System.Runtime.Serialization.Xml.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1174,7 +1190,7 @@
             "SourcePath" = "8:System.ValueTuple.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1205,7 +1221,7 @@
             "SourcePath" = "8:System.Xml.XPath.XDocument.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1236,7 +1252,7 @@
             "SourcePath" = "8:Microsoft.Win32.Registry.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1267,7 +1283,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Wasapi.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1298,7 +1314,7 @@
             "SourcePath" = "8:System.Runtime.InteropServices.RuntimeInformation.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1329,7 +1345,7 @@
             "SourcePath" = "8:System.Net.Sockets.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1360,7 +1376,7 @@
             "SourcePath" = "8:System.IO.Compression.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1391,7 +1407,7 @@
             "SourcePath" = "8:System.Diagnostics.Tracing.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1422,7 +1438,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Midi.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1442,7 +1458,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Microsoft.Win32.Registry.xml"
             "TargetName" = "8:Microsoft.Win32.Registry.xml"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1462,7 +1478,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.exe.config"
             "TargetName" = "8:Pinto.exe.config"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1493,7 +1509,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.WinForms.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1524,7 +1540,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1555,7 +1571,7 @@
             "SourcePath" = "8:NAudio.WinMM.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1586,7 +1602,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Microsoft.Win32.Registry.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1606,7 +1622,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Newtonsoft.Json.xml"
             "TargetName" = "8:Newtonsoft.Json.xml"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1637,7 +1653,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.Principal.Windows.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1668,7 +1684,7 @@
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1699,7 +1715,7 @@
             "SourcePath" = "8:System.Security.SecureString.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1730,7 +1746,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.WinMM.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1750,7 +1766,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.xml"
             "TargetName" = "8:NAudio.xml"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1781,7 +1797,7 @@
             "SourcePath" = "8:System.Globalization.Extensions.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1801,7 +1817,7 @@
             "SourcePath" = "8:..\\Pinto\\Resources\\Logo\\LOGO.ICO"
             "TargetName" = "8:Logo.ico"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1832,7 +1848,7 @@
             "SourcePath" = "8:System.Threading.Overlapped.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1852,7 +1868,7 @@
             "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.AccessControl.xml"
             "TargetName" = "8:System.Security.AccessControl.xml"
             "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
