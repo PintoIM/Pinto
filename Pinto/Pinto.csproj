@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="General\Contact.cs" />
     <Compile Include="General\AudioRecorderPlayer.cs" />
+    <Compile Include="General\Keyboard.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
     <Compile Include="General\UserStatus.cs" />

@@ -199,9 +199,9 @@ namespace PintoNS
             Program.Console.WriteMessage("Performing first time initialization...");
             OnLogout(true);
             if (!Directory.Exists(DataFolder)) 
-            {
                 Directory.CreateDirectory(DataFolder);
-            }
+            if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

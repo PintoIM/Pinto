@@ -63,6 +63,7 @@ namespace PintoNS
             this.tsmiMenuBarFileAddContact = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileRemoveContact = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileLogOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuBarFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
@@ -79,7 +80,6 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiMenuBarFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -417,23 +417,30 @@ namespace PintoNS
             // tsmiMenuBarFileAddContact
             // 
             this.tsmiMenuBarFileAddContact.Name = "tsmiMenuBarFileAddContact";
-            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(160, 22);
             this.tsmiMenuBarFileAddContact.Text = "Add contact";
             this.tsmiMenuBarFileAddContact.Click += new System.EventHandler(this.tsmiMenuBarFileAddContact_Click);
             // 
             // tsmiMenuBarFileRemoveContact
             // 
             this.tsmiMenuBarFileRemoveContact.Name = "tsmiMenuBarFileRemoveContact";
-            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(160, 22);
             this.tsmiMenuBarFileRemoveContact.Text = "Remove contact";
             this.tsmiMenuBarFileRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarFileRemoveContact_Click);
             // 
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(160, 22);
             this.tsmiMenuBarFileLogOut.Text = "Log out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
+            // 
+            // tsmiMenuBarFileExit
+            // 
+            this.tsmiMenuBarFileExit.Name = "tsmiMenuBarFileExit";
+            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileExit.Text = "Exit";
+            this.tsmiMenuBarFileExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
             // 
             // tsddbMenuBarTools
             // 
@@ -589,13 +596,6 @@ namespace PintoNS
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             // 
-            // tsmiMenuBarFileExit
-            // 
-            this.tsmiMenuBarFileExit.Name = "tsmiMenuBarFileExit";
-            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarFileExit.Text = "Exit";
-            this.tsmiMenuBarFileExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,7 +608,9 @@ namespace PintoNS
             this.Controls.Add(this.tcTabs);
             this.Controls.Add(this.pQuickActionBar);
             this.Controls.Add(this.tsMenuBar);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(163, 237);
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

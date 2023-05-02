@@ -41,6 +41,8 @@
             // 
             // pNotification
             // 
+            this.pNotification.BackgroundImage = global::PintoNS.Logo.LOGO_BACKGROUND;
+            this.pNotification.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pNotification.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pNotification.Controls.Add(this.lSeeContent);
             this.pNotification.Controls.Add(this.btnClose);
@@ -77,6 +79,7 @@
             // 
             // lBody
             // 
+            this.lBody.BackColor = System.Drawing.Color.Transparent;
             this.lBody.Location = new System.Drawing.Point(13, 36);
             this.lBody.Name = "lBody";
             this.lBody.Size = new System.Drawing.Size(175, 119);

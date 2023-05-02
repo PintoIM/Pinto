@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace PintoNS.Forms
 {
@@ -20,14 +21,73 @@ namespace PintoNS.Forms
         public Contact Receiver;
         private bool isTypingLastStatus;
         public bool HasBeenInactive;
+        public InWindowPopupController InWindowPopupController;
 
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
             UpdateColorPicker();
+            LoadChat();
+        }
+
+        private void LoadChat()
+        {
+            Program.Console.WriteMessage("[General] Loading chat...");
+            try
+            {
+                string filePath = Path.Combine(mainForm.DataFolder, "chats",  $"{Receiver.Name}.txt");
+                if (!File.Exists(filePath)) return;
+                rtxtMessages.Rtf = File.ReadAllText(filePath);
+            }
+            catch (Exception ex)
+            {
+                Program.Console.WriteMessage($"[General]" +
+                    $" Unable to load the chat: {ex}");
+                MsgBox.ShowNotification(this,
+                    "Unable to load the chat!",
+                    "Error", MsgBoxIconType.ERROR);
+            }
+        }
+
+        private void SaveChat()
+        {
+            Program.Console.WriteMessage("[General] Saving chat...");
+            try
+            {
+                string filePath = Path.Combine(mainForm.DataFolder, "chats", $"{Receiver.Name}.txt");
+                File.WriteAllText(filePath, rtxtMessages.Rtf);
+            }
+            catch (Exception ex)
+            {
+                Program.Console.WriteMessage($"[General]" +
+                    $" Unable to save the chat: {ex}");
+                MsgBox.ShowNotification(this,
+                    "Unable to save the chat",
+                    "Error", MsgBoxIconType.ERROR);
+            }
+        }
+
+        private void DeleteChat() 
+        {
+            Program.Console.WriteMessage("[General] Deleting chat...");
+            try
+            {
+                string filePath = Path.Combine(mainForm.DataFolder, "chats", $"{Receiver.Name}.txt");
+                if (!File.Exists(filePath)) return;
+                File.Delete(filePath);
+            }
+            catch (Exception ex)
+            {
+                Program.Console.WriteMessage($"[General]" +
+                    $" Unable to delete the chat: {ex}");
+                MsgBox.ShowNotification(this,
+                    "Unable to delete the chat",
+                    "Error", MsgBoxIconType.ERROR);
+            }
         }
 
         public void WriteMessage(string msg, Color color, bool newLine = true)
@@ -39,6 +99,7 @@ namespace PintoNS.Forms
                 rtxtMessages.SelectionColor = color;
                 rtxtMessages.AppendText(msg + (newLine ? Environment.NewLine : ""));
                 rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
+                SaveChat();
             }));
         }
 
@@ -57,6 +118,7 @@ namespace PintoNS.Forms
                 { 
                     WriteMessage("** IMPROPERLY FORMATED MESSAGE **", Color.Red); 
                 }
+                SaveChat();
             }));
         }
 
@@ -70,9 +132,8 @@ namespace PintoNS.Forms
 
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!System.Windows.Input.Keyboard.Modifiers
-                    .HasFlag(System.Windows.Input.ModifierKeys.Control) && 
-                    e.KeyCode == Keys.Enter)
+            if (!Keyboard.Modifiers.HasFlag(System.Windows
+                .Input.ModifierKeys.Control) && e.KeyCode == Keys.Enter)
             {
                 btnSend.PerformClick();
                 e.Handled = true;
@@ -169,6 +230,12 @@ namespace PintoNS.Forms
         private void rtxtInput_SelectionChanged(object sender, EventArgs e)
         {
             UpdateColorPicker();
+        }
+
+        private void tsmiMenuBarFileClearSavedData_Click(object sender, EventArgs e)
+        {
+            rtxtMessages.Rtf = null;
+            DeleteChat();
         }
     }
 }
