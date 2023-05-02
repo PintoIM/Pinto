@@ -15,73 +15,73 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_06E97088BA6A41C3AD2247A769C103D9"
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_480511DB0B13593E81C732F8B010CB94"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_769A11467F564A02888E0539B7324B76"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_96E3FAFA6AB94A72B6BF0D7034C448A8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_351338460C915C40900A788CC7B0AD09"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_16EA69B7E15949E2A5CC614202900CBB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_52FD7DD5046344528CCD62FAECB6479D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_8611F155FDACCBDAAB778998D86DDCEC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_67E6BEE1CA9443F9B5F601BD8F4660C5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_732862AF57C74E838F0F4EED48E65AC0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_FD78652356D445D088E0D23E0942B4CE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_06E97088BA6A41C3AD2247A769C103D9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_E94033710845BAAF461A1A276BA316C3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_AA69D8E5C691C0857C51BE5529095015"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
-        "OwnerKey" = "8:_EBA56073CDC64F61B976D7E566F2A8B3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0D8E1CC1266B429495109F55C06E1515"
+        "MsmKey" = "8:_1EDEABF8702F477890D95A165A37EE72"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -93,13 +93,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23A2D7FFD08D4FCC8DC0B88758EB55D9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_272DF7BF4EF64C6D81E60719E70B368C"
+        "MsmKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -111,8 +105,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_351338460C915C40900A788CC7B0AD09"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_37D61E95532A018C66AA2C10663A8358"
         "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_398D592F098948DABEA7A495913B77D2"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,13 +129,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_45D331CFB56443BE9C9F3056B94F6766"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_480511DB0B13593E81C732F8B010CB94"
+        "OwnerKey" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4A0D04B5D1A24CA9813E6970E2430035"
+        "MsmKey" = "8:_4A17BECEA0854BC68379F10E8614DEDB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -141,12 +147,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_52FD7DD5046344528CCD62FAECB6479D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5638366691BF679C50CA457BDC84A726"
         "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
         "MsmSig" = "8:_UNDEFINED"
@@ -154,60 +154,60 @@
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_070927D0ACD0A7746CF11416DD24C316"
+        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_67E6BEE1CA9443F9B5F601BD8F4660C5"
+        "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_FD78652356D445D088E0D23E0942B4CE"
+        "OwnerKey" = "8:_769A11467F564A02888E0539B7324B76"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_06E97088BA6A41C3AD2247A769C103D9"
+        "OwnerKey" = "8:_96E3FAFA6AB94A72B6BF0D7034C448A8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_E94033710845BAAF461A1A276BA316C3"
+        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_AA69D8E5C691C0857C51BE5529095015"
+        "OwnerKey" = "8:_351338460C915C40900A788CC7B0AD09"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_9DEB68CF5E0545418A475625B2D7BD3A"
+        "OwnerKey" = "8:_1EDEABF8702F477890D95A165A37EE72"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "OwnerKey" = "8:_52FD7DD5046344528CCD62FAECB6479D"
+        "OwnerKey" = "8:_07AF9D4ADD591373FAF18C2A6DED95A7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_60857C488759447B9BCB75C63FC70147"
+        "MsmKey" = "8:_582532FD62A6464B9C43874694578106"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_67E6BEE1CA9443F9B5F601BD8F4660C5"
+        "MsmKey" = "8:_60FB6CE1141B4C3595FD367D33049C0E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -231,7 +231,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_732862AF57C74E838F0F4EED48E65AC0"
+        "MsmKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
+        "OwnerKey" = "8:_398D592F098948DABEA7A495913B77D2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
+        "OwnerKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
+        "OwnerKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_769A11467F564A02888E0539B7324B76"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -243,20 +261,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_78232376D309FC9EE51CD8D75E25419B"
-        "OwnerKey" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7DE71FED393ABFA400EC2306A5F33D62"
         "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8611F155FDACCBDAAB778998D86DDCEC"
-        "OwnerKey" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -279,62 +285,74 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DEB68CF5E0545418A475625B2D7BD3A"
+        "MsmKey" = "8:_96E3FAFA6AB94A72B6BF0D7034C448A8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9F158FF11CF84DF887B094FC1305FAEA"
+        "MsmKey" = "8:_A0AC30EF09A349E5987CB65484B1F8EA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A11F17C8846C4E8CA1607DDCF47D7156"
+        "MsmKey" = "8:_A2E16C5594094582802FDFDBD8527969"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AA69D8E5C691C0857C51BE5529095015"
-        "OwnerKey" = "8:_EBA56073CDC64F61B976D7E566F2A8B3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AB18D8F7B56E4F6C926C662F94320B55"
+        "MsmKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_BB08A18C607E4761A44B982129933E87"
+        "MsmKey" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D2BAD66EC37AFE3193CCE8F53F5E76DA"
-        "OwnerKey" = "8:_52FD7DD5046344528CCD62FAECB6479D"
+        "MsmKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D2BAD66EC37AFE3193CCE8F53F5E76DA"
-        "OwnerKey" = "8:_67E6BEE1CA9443F9B5F601BD8F4660C5"
+        "MsmKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "OwnerKey" = "8:_480511DB0B13593E81C732F8B010CB94"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D2BAD66EC37AFE3193CCE8F53F5E76DA"
-        "OwnerKey" = "8:_E94033710845BAAF461A1A276BA316C3"
+        "MsmKey" = "8:_BEC4A6B5525865E7EC902B890E580057"
+        "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D675A866271947C3B4A031D6FB374B6B"
+        "MsmKey" = "8:_C37F3CB7EE20454697D9176FBB9CECED"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CD732596675A4C6288607BC993E25B6C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D71CA0F266B9447B944354DD1001B1BC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D771C44169B93584273FA05ED8200766"
+        "OwnerKey" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -345,31 +363,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
+        "MsmKey" = "8:_E695505847E0483A8FC612B242EA0E0C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E94033710845BAAF461A1A276BA316C3"
-        "OwnerKey" = "8:_EBA56073CDC64F61B976D7E566F2A8B3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E94033710845BAAF461A1A276BA316C3"
-        "OwnerKey" = "8:_8611F155FDACCBDAAB778998D86DDCEC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E94033710845BAAF461A1A276BA316C3"
-        "OwnerKey" = "8:_732862AF57C74E838F0F4EED48E65AC0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EBA56073CDC64F61B976D7E566F2A8B3"
+        "MsmKey" = "8:_F8031FE31C38422BBE971A3D33B17ECF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -381,56 +381,80 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FBBEB1DA3717475C887A8AC60CB9BF42"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FBD2EE9ADD0AAC50B141FD505646DD54"
         "OwnerKey" = "8:_564A6BC520F676A1D9B37F18317D68E0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FD78652356D445D088E0D23E0942B4CE"
+        "MsmKey" = "8:_FE4EC82EE8A646B3A0E89EC411BBE9BD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9F158FF11CF84DF887B094FC1305FAEA"
+        "OwnerKey" = "8:_C37F3CB7EE20454697D9176FBB9CECED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
+        "OwnerKey" = "8:_D71CA0F266B9447B944354DD1001B1BC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_78232376D309FC9EE51CD8D75E25419B"
+        "OwnerKey" = "8:_16EA69B7E15949E2A5CC614202900CBB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8611F155FDACCBDAAB778998D86DDCEC"
+        "OwnerKey" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BB08A18C607E4761A44B982129933E87"
+        "OwnerKey" = "8:_D771C44169B93584273FA05ED8200766"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_732862AF57C74E838F0F4EED48E65AC0"
+        "OwnerKey" = "8:_480511DB0B13593E81C732F8B010CB94"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EBA56073CDC64F61B976D7E566F2A8B3"
+        "OwnerKey" = "8:_60FB6CE1141B4C3595FD367D33049C0E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B7AD930D0281485CA066AD9B30AEBF20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2331B39FD40E4E29B3285C8813B8298B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_75D2CC027D7D4D4E0190C50670D1C445"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -535,24 +559,6 @@
         "OwnerKey" = "8:_22F712611AEBC1F62B0927B0B96470C7"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D2BAD66EC37AFE3193CCE8F53F5E76DA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_272DF7BF4EF64C6D81E60719E70B368C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4A0D04B5D1A24CA9813E6970E2430035"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -616,45 +622,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_06E97088BA6A41C3AD2247A769C103D9"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.Midi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_06E97088BA6A41C3AD2247A769C103D9"
-                    {
-                    "Name" = "8:NAudio.Midi.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.Midi.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_070927D0ACD0A7746CF11416DD24C316"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_07AF9D4ADD591373FAF18C2A6DED95A7"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_070927D0ACD0A7746CF11416DD24C316"
+                    "_07AF9D4ADD591373FAF18C2A6DED95A7"
                     {
                     "Name" = "8:NAudio.Core.dll"
                     "Attributes" = "3:512"
@@ -678,10 +653,52 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0D8E1CC1266B429495109F55C06E1515"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_16EA69B7E15949E2A5CC614202900CBB"
             {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Microsoft.Win32.Registry.xml"
-            "TargetName" = "8:Microsoft.Win32.Registry.xml"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_16EA69B7E15949E2A5CC614202900CBB"
+                    {
+                    "Name" = "8:System.Security.AccessControl.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.AccessControl.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1EDEABF8702F477890D95A165A37EE72"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1EDEABF8702F477890D95A165A37EE72"
+                    {
+                    "Name" = "8:NAudio.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Core.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -729,40 +746,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_23A2D7FFD08D4FCC8DC0B88758EB55D9"
-            {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.xml"
-            "TargetName" = "8:NAudio.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_272DF7BF4EF64C6D81E60719E70B368C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2331B39FD40E4E29B3285C8813B8298B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NAudio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_272DF7BF4EF64C6D81E60719E70B368C"
+                    "_2331B39FD40E4E29B3285C8813B8298B"
                     {
-                    "Name" = "8:Microsoft.Win32.Registry.dll"
+                    "Name" = "8:NAudio.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Microsoft.Win32.Registry.dll"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -811,6 +808,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_351338460C915C40900A788CC7B0AD09"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_351338460C915C40900A788CC7B0AD09"
+                    {
+                    "Name" = "8:NAudio.Wasapi.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NAudio.Wasapi.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_37D61E95532A018C66AA2C10663A8358"
             {
             "AssemblyRegister" = "3:1"
@@ -840,6 +868,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_398D592F098948DABEA7A495913B77D2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.Asio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_398D592F098948DABEA7A495913B77D2"
+                    {
+                    "Name" = "8:NAudio.Asio.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Asio.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3D433DE8D68A612793DA22797BE0A86E"
@@ -873,10 +932,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_45D331CFB56443BE9C9F3056B94F6766"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_480511DB0B13593E81C732F8B010CB94"
             {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Newtonsoft.Json.xml"
-            "TargetName" = "8:Newtonsoft.Json.xml"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_480511DB0B13593E81C732F8B010CB94"
+                    {
+                    "Name" = "8:NAudio.WinForms.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NAudio.WinForms.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -890,24 +960,13 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4A0D04B5D1A24CA9813E6970E2430035"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A17BECEA0854BC68379F10E8614DEDB"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4A0D04B5D1A24CA9813E6970E2430035"
-                    {
-                    "Name" = "8:System.Security.Principal.Windows.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\System.Security.Principal.Windows.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.pdb"
+            "TargetName" = "8:Pinto.pdb"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -953,37 +1012,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_52FD7DD5046344528CCD62FAECB6479D"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.Asio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_52FD7DD5046344528CCD62FAECB6479D"
-                    {
-                    "Name" = "8:NAudio.Asio.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.Asio.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5638366691BF679C50CA457BDC84A726"
@@ -1048,10 +1076,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_60857C488759447B9BCB75C63FC70147"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_582532FD62A6464B9C43874694578106"
             {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\System.Security.AccessControl.xml"
-            "TargetName" = "8:System.Security.AccessControl.xml"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.Principal.Windows.xml"
+            "TargetName" = "8:System.Security.Principal.Windows.xml"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -1068,20 +1096,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_67E6BEE1CA9443F9B5F601BD8F4660C5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_60FB6CE1141B4C3595FD367D33049C0E"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_67E6BEE1CA9443F9B5F601BD8F4660C5"
+                    "_60FB6CE1141B4C3595FD367D33049C0E"
                     {
-                    "Name" = "8:NAudio.WinMM.dll"
+                    "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.WinMM.dll"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1192,20 +1220,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_732862AF57C74E838F0F4EED48E65AC0"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_75D2CC027D7D4D4E0190C50670D1C445"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_732862AF57C74E838F0F4EED48E65AC0"
+                    "_75D2CC027D7D4D4E0190C50670D1C445"
                     {
-                    "Name" = "8:NAudio.WinForms.dll"
+                    "Name" = "8:Microsoft.Win32.Registry.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.WinForms.dll"
+            "SourcePath" = "8:Microsoft.Win32.Registry.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_769A11467F564A02888E0539B7324B76"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_769A11467F564A02888E0539B7324B76"
+                    {
+                    "Name" = "8:NAudio.Wasapi.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Wasapi.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1254,37 +1313,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78232376D309FC9EE51CD8D75E25419B"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_78232376D309FC9EE51CD8D75E25419B"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Newtonsoft.Json.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7DE71FED393ABFA400EC2306A5F33D62"
             {
             "AssemblyRegister" = "3:1"
@@ -1299,37 +1327,6 @@
                     }
                 }
             "SourcePath" = "8:System.Net.Sockets.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8611F155FDACCBDAAB778998D86DDCEC"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_8611F155FDACCBDAAB778998D86DDCEC"
-                    {
-                    "Name" = "8:NAudio.WinForms.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:NAudio.WinForms.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1409,20 +1406,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9DEB68CF5E0545418A475625B2D7BD3A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_96E3FAFA6AB94A72B6BF0D7034C448A8"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NAudio.Midi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9DEB68CF5E0545418A475625B2D7BD3A"
+                    "_96E3FAFA6AB94A72B6BF0D7034C448A8"
                     {
-                    "Name" = "8:NAudio.Core.dll"
+                    "Name" = "8:NAudio.Midi.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.Core.dll"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.Midi.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1440,21 +1437,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F158FF11CF84DF887B094FC1305FAEA"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A0AC30EF09A349E5987CB65484B1F8EA"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_9F158FF11CF84DF887B094FC1305FAEA"
-                    {
-                    "Name" = "8:System.Security.AccessControl.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\System.Security.AccessControl.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Microsoft.Win32.Registry.xml"
+            "TargetName" = "8:Microsoft.Win32.Registry.xml"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -1471,9 +1457,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A11F17C8846C4E8CA1607DDCF47D7156"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A2E16C5594094582802FDFDBD8527969"
             {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Pinto.exe.config"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.exe.config"
             "TargetName" = "8:Pinto.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1491,20 +1477,82 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AA69D8E5C691C0857C51BE5529095015"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B7AD930D0281485CA066AD9B30AEBF20"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NAudio.WinForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AA69D8E5C691C0857C51BE5529095015"
+                    "_B7AD930D0281485CA066AD9B30AEBF20"
                     {
-                    "Name" = "8:NAudio.Wasapi.dll"
+                    "Name" = "8:NAudio.WinForms.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:NAudio.Wasapi.dll"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.WinForms.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BA0805F8494E4BB787095B4C1983C9A3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Pinto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_BA0805F8494E4BB787095B4C1983C9A3"
+                    {
+                    "Name" = "8:Pinto.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Pinto.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BEC4A6B5525865E7EC902B890E580057"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_BEC4A6B5525865E7EC902B890E580057"
+                    {
+                    "Name" = "8:NAudio.WinMM.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NAudio.WinMM.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1522,71 +1570,102 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AB18D8F7B56E4F6C926C662F94320B55"
-            {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\System.Security.Principal.Windows.xml"
-            "TargetName" = "8:System.Security.Principal.Windows.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BB08A18C607E4761A44B982129933E87"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BB08A18C607E4761A44B982129933E87"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Newtonsoft.Json.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D2BAD66EC37AFE3193CCE8F53F5E76DA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C37F3CB7EE20454697D9176FBB9CECED"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_D2BAD66EC37AFE3193CCE8F53F5E76DA"
+                    "_C37F3CB7EE20454697D9176FBB9CECED"
                     {
                     "Name" = "8:Microsoft.Win32.Registry.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Microsoft.Win32.Registry.dll"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Microsoft.Win32.Registry.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CD732596675A4C6288607BC993E25B6C"
+            {
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\Newtonsoft.Json.xml"
+            "TargetName" = "8:Newtonsoft.Json.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D71CA0F266B9447B944354DD1001B1BC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D71CA0F266B9447B944354DD1001B1BC"
+                    {
+                    "Name" = "8:System.Security.Principal.Windows.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.Principal.Windows.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D771C44169B93584273FA05ED8200766"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D771C44169B93584273FA05ED8200766"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1602,26 +1681,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D675A866271947C3B4A031D6FB374B6B"
-            {
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Pinto.pdb"
-            "TargetName" = "8:Pinto.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DA6860B5906FD6320AA68EF5F309B5DA"
@@ -1655,20 +1714,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E695505847E0483A8FC612B242EA0E0C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Pinto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E00A6FE9AEB54F2886AB2A670DFC8BFC"
+                    "_E695505847E0483A8FC612B242EA0E0C"
                     {
-                    "Name" = "8:Pinto.exe"
+                    "Name" = "8:NAudio.WinMM.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\Pinto.exe"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.WinMM.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
@@ -1686,52 +1745,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E94033710845BAAF461A1A276BA316C3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F8031FE31C38422BBE971A3D33B17ECF"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_E94033710845BAAF461A1A276BA316C3"
-                    {
-                    "Name" = "8:NAudio.WinMM.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:NAudio.WinMM.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EBA56073CDC64F61B976D7E566F2A8B3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_EBA56073CDC64F61B976D7E566F2A8B3"
-                    {
-                    "Name" = "8:NAudio.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\NAudio.xml"
+            "TargetName" = "8:NAudio.xml"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -1779,6 +1796,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBBEB1DA3717475C887A8AC60CB9BF42"
+            {
+            "SourcePath" = "8:..\\Pinto\\Resources\\Logo\\LOGO.ICO"
+            "TargetName" = "8:Logo.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FBD2EE9ADD0AAC50B141FD505646DD54"
             {
             "AssemblyRegister" = "3:1"
@@ -1810,21 +1847,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FD78652356D445D088E0D23E0942B4CE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE4EC82EE8A646B3A0E89EC411BBE9BD"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FD78652356D445D088E0D23E0942B4CE"
-                    {
-                    "Name" = "8:NAudio.Wasapi.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Users\\Vlad\\Desktop\\Pinto\\NAudio.Wasapi.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\Pinto\\bin\\Debug\\System.Security.AccessControl.xml"
+            "TargetName" = "8:System.Security.AccessControl.xml"
             "Tag" = "8:"
             "Folder" = "8:_056719DB9D0C427E96446677110C0190"
             "Condition" = "8:"
@@ -1897,15 +1923,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Pinto"
-        "ProductCode" = "8:{853369DE-9279-45A6-A49E-C170A1221FB4}"
-        "PackageCode" = "8:{276B7133-6798-4072-A8C8-AC22243B073A}"
+        "ProductCode" = "8:{CC7F66A5-3326-4A7B-A418-042E8C5AD59D}"
+        "PackageCode" = "8:{46AB587A-C651-4FC9-B0CA-EE99AC46C729}"
         "UpgradeCode" = "8:{56E5ECCC-AF8B-4F30-99DA-736D409E31C6}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:a1.0.0"
+        "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:PintoIM"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/PintoIM/Pinto/issues"
@@ -2018,7 +2044,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8304C45BABF043AB97542248021115D9"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_991D0BBC6B404B9EAA3146DDD5674484"
             {
             "Name" = "8:Pinto!"
             "Arguments" = "8:"
@@ -2026,24 +2052,24 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
-            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
-            "WorkingFolder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D66FFF9AC9DC4D56BCCF0A66E1B7EF1F"
-            {
-            "Name" = "8:Pinto!"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_E00A6FE9AEB54F2886AB2A670DFC8BFC"
+            "Target" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
             "Folder" = "8:_2BB962003A734E21B5679C841AE73852"
             "WorkingFolder" = "8:_056719DB9D0C427E96446677110C0190"
-            "Icon" = "8:"
+            "Icon" = "8:_FBBEB1DA3717475C887A8AC60CB9BF42"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DFA0930E31A444669EB793D96B3AEE9D"
+            {
+            "Name" = "8:Pinto!"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_BA0805F8494E4BB787095B4C1983C9A3"
+            "Folder" = "8:_C081FD146CE04779991120B958BA5063"
+            "WorkingFolder" = "8:_056719DB9D0C427E96446677110C0190"
+            "Icon" = "8:_FBBEB1DA3717475C887A8AC60CB9BF42"
             "Feature" = "8:"
             }
         }
