@@ -100,7 +100,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = UserStatus.OFFLINE });
+                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = packet.Status });
             }));
         }
 
@@ -177,49 +177,6 @@ namespace PintoNS.Networking
             }));
         }
 
-        /*
-        public void HandleCallRequestPacket(PacketCallRequest packet)
-        {            Program.Console.WriteMessage($"[Networking] Received call request from {packet.ContactName}");
-            mainForm.Invoke(new Action(() =>
-            {
-                NotificationUtil.ShowPromptNotification(mainForm,
-                    $"{packet.ContactName} wants to start a call. Proceed?", "Call request",
-                    NotificationIconType.QUESTION, true,
-                    (NotificationButtonType button) =>
-                    {
-                        SendCallRequestPacket(packet.ContactName, button == NotificationButtonType.YES);
-
-                        if (button == NotificationButtonType.YES)
-                        {
-                            mainForm.CallTarget = packet.ContactName;
-                            mainForm.OnCallStart();
-                            if (mainForm.CallClient != null &&
-                                mainForm.CallClient.Client != null &&
-                                mainForm.CallClient.Client.LocalEndPoint != null)
-                                SendCallPartyInfoPacket(((IPEndPoint)mainForm.CallClient.Client.LocalEndPoint).Port);
-                            else
-                                Program.Console.WriteMessage("[Networking] Unable to send the UDP client port!");
-                        }
-                    });
-            }));
-        }
-
-        public void HandleCallPartyInfoPacket(PacketCallPartyInfo packet)
-        {
-            Program.Console.WriteMessage($"[Networking] Received other call party info:" +
-                $" {packet.IPAddress}:{packet.Port}");
-            mainForm.CallTargetIP = new IPEndPoint(IPAddress.Parse(packet.IPAddress), 2704);
-        }
-
-        public void HandleCallEndPacket()
-        {
-            Program.Console.WriteMessage("[Networking] Ending call...");
-            mainForm.Invoke(new Action(() =>
-            {
-                mainForm.OnCallStop();
-            }));
-        }*/
-
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 
             string name, string sessionID) 
         {
@@ -249,32 +206,12 @@ namespace PintoNS.Networking
 
         public void SendAddContactPacket(string name)
         {
-            networkClient.AddToSendQueue(new PacketAddContact(name));
+            networkClient.AddToSendQueue(new PacketAddContact(name, UserStatus.OFFLINE));
         }
 
         public void SendRemoveContactPacket(string name)
         {
             networkClient.AddToSendQueue(new PacketRemoveContact(name));
-        }
-
-        public void SendCallStartPacket(string name)
-        {
-            networkClient.AddToSendQueue(new PacketCallStart(name));
-        }
-
-        public void SendCallRequestPacket(string name, bool approved)
-        {
-            networkClient.AddToSendQueue(new PacketCallRequest($"{name}:{(approved ? "yes" : "no")}"));
-        }
-
-        public void SendCallPartyInfoPacket(int port)
-        {
-            networkClient.AddToSendQueue(new PacketCallPartyInfo("", port));
-        }
-
-        public void SendCallEndPacket()
-        {
-            networkClient.AddToSendQueue(new PacketCallEnd());
         }
     }
 }

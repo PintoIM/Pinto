@@ -216,10 +216,6 @@
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
     <Compile Include="Networking\Packets\PacketShrimp.cs" />
-    <Compile Include="Networking\Packets\PacketCallStart.cs" />
-    <Compile Include="Networking\Packets\PacketCallEnd.cs" />
-    <Compile Include="Networking\Packets\PacketCallPartyInfo.cs" />
-    <Compile Include="Networking\Packets\PacketCallRequest.cs" />
     <Compile Include="Networking\Packets\PacketClearContacts.cs" />
     <Compile Include="Networking\Packets\PacketContactRequest.cs" />
     <Compile Include="Networking\Packets\PacketStatus.cs" />

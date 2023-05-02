@@ -23,11 +23,6 @@ namespace PintoNS.Networking
             PacketMap.Add(8, typeof(PacketStatus));
             PacketMap.Add(9, typeof(PacketContactRequest));
             PacketMap.Add(10, typeof(PacketClearContacts));
-            /*
-            PacketMap.Add(11, typeof(PacketCallStart));
-            PacketMap.Add(12, typeof(PacketCallRequest));
-            PacketMap.Add(13, typeof(PacketCallPartyInfo));
-            PacketMap.Add(14, typeof(PacketCallEnd));*/
             PacketMap.Add(255, typeof(PacketShrimp));
         }
 

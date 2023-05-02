@@ -34,14 +34,7 @@ namespace PintoNS
         public NetworkManager NetManager;
         public User CurrentUser = new User();
         public List<MessageForm> MessageForms;
-        /*
-        public AudioRecorderPlayer AudioRecPlyr;
-        public bool InCall;
-        public string CallTarget;
-        public UdpClient CallClient;
-        public IPEndPoint CallTargetIP;
-        public Thread CallReceiveThread;*/
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -105,7 +98,6 @@ namespace PintoNS
             tsmiMenuBarFileRemoveContact.Enabled = false;
             tsmiMenuBarFileLogOut.Enabled = false;
             Text = "Pinto!";
-            //InCall = false;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -119,103 +111,7 @@ namespace PintoNS
                 (CurrentUser.Status != UserStatus.OFFLINE ? 
                 $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
         }
-
-        /*
-        internal void OnCallStart()
-        {
-            InCall = true;
-            CallClient = new UdpClient();
-            AudioRecPlyr = new AudioRecorderPlayer();
-            CallReceiveThread = new Thread(new ThreadStart(() => 
-            {
-                while (InCall)
-                {
-                    try
-                    {
-                        if (CallClient != null && CallTargetIP != null && AudioRecPlyr != null)
-                        {
-                            byte[] data = CallClient.Receive(ref CallTargetIP);
-                            AudioRecPlyr.Play(data);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        new SoundPlayer(Sounds.CALL_ERROR1).Play();
-                        EndCall();
-                        Program.Console.WriteMessage($"[Calling] Call error: {ex}");
-                        InWindowPopupController.CreatePopup("Your call has ended due to an error");
-                    }
-                }
-            }));
-
-            btnStartCall.Enabled = false;
-            btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            btnEndCall.Enabled = true;
-            btnEndCall.Image = Assets.ENDCALL_ENABLED;
-
-            lCallTarget.Text = $"In call with {CallTarget}";
-            tpCall.Text = CallTarget;
-
-            tcTabs.TabPages.Add(tpCall);
-            tcTabs.SelectedTab = tpCall;
-
-            AudioRecPlyr.MicrophoneDataAvailable += delegate (object sender, byte[] data) 
-            {
-                if (InCall && CallClient != null && CallTargetIP != null)
-                {
-                    try
-                    {
-                        CallClient.Send(data, data.Length, CallTargetIP);
-                    }
-                    catch (Exception ex)
-                    {
-                        new SoundPlayer(Sounds.CALL_ERROR1).Play();
-                        EndCall();
-                        Program.Console.WriteMessage($"[Calling] Call error: {ex}");
-                        InWindowPopupController.CreatePopup("Your call has ended due to an error");
-                    }
-                }
-            };
-
-            CallClient.Client.Bind(new IPEndPoint(IPAddress.Any, 0));
-            AudioRecPlyr.Start();
-            CallReceiveThread.Start();
-        }
-
-        internal void OnCallStop()
-        {
-            if (CallClient != null && CallClient.Client != null) 
-            {
-                CallClient.Client.Close();
-                CallClient.Close();
-            }
-            AudioRecPlyr.Stop();
-
-            InCall = false;
-            CallClient = null;
-            CallTarget = null;
-            CallTargetIP = null;
-            AudioRecPlyr = null;
-            CallReceiveThread = null;
-
-            if (dgvContacts.SelectedRows.Count > 0)
-            {
-                btnStartCall.Enabled = true;
-                btnStartCall.Image = Assets.STARTCALL_ENABLED;
-            }
-            else
-            {
-                btnStartCall.Enabled = false;
-                btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }
-            btnEndCall.Enabled = false;
-            btnEndCall.Image = Assets.ENDCALL_DISABLED;
-
-            lCallTarget.Text = $"In call with";
-            tcTabs.SelectedTab = tpContacts;
-            tcTabs.TabPages.Remove(tpCall);
-        }*/
-
+        
         public async Task Connect(string ip, int port, string username, string password) 
         {
             tcTabs.TabPages.Clear();
@@ -298,15 +194,6 @@ namespace PintoNS
             return messageForm;
         }
 
-        /*
-        public void EndCall()
-        {
-            if (!InCall) return;
-            Program.Console.WriteMessage("[General] Ending call...");
-            NetManager.NetHandler.SendCallEndPacket();
-            OnCallStop();
-        }*/
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("Performing first time initialization...");
@@ -320,12 +207,6 @@ namespace PintoNS
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.Console.WriteMessage("Quitting...");
-            /*
-            if (InCall)
-            {
-                OnCallStop();
-                NetManager.NetHandler.SendCallEndPacket();
-            }*/
             Disconnect();
         }
 
@@ -431,27 +312,10 @@ namespace PintoNS
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
-            /*
-            if (InCall) return;
-
-            string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
-            Contact contact = ContactsMgr.GetContact(contactName);
-
-            CallTarget = contactName;
-            Program.Console.WriteMessage("[General] Starting call...");
-            OnCallStart();
-
-            new SoundPlayer(Sounds.CALL_INIT).Play();
-            NetManager.NetHandler.SendCallStartPacket(contactName);
-            if (CallClient != null && CallClient.Client != null && CallClient.Client.LocalEndPoint != null)
-                NetManager.NetHandler.SendCallPartyInfoPacket(((IPEndPoint)CallClient.Client.LocalEndPoint).Port);
-            else
-                Program.Console.WriteMessage("[Networking] Unable to send the UDP client port!");*/
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
-            //EndCall();
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
