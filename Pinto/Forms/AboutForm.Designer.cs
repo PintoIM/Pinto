@@ -38,6 +38,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::PintoNS.Logo.LOGO;
             this.pictureBox1.Location = new System.Drawing.Point(85, 16);
             this.pictureBox1.Name = "pictureBox1";
