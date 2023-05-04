@@ -18,7 +18,7 @@ namespace PintoNS
         private static extern string GetWineVersion();
         public static ConsoleForm Console;
         public const string VERSION = "a1.3";
-        public const int PROTOCOL_VERSION = 13;
+        public const int PROTOCOL_VERSION = 14;
 
         [STAThread]
         static void Main()

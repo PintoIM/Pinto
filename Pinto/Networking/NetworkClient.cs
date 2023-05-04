@@ -28,7 +28,11 @@ namespace PintoNS.Networking
         private Thread sendThread;
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
+        private object sendQueueLock = new object();
+        private object sendQueueLock2 = new object();
         private LinkedList<IPacket> packetSendQueue = new LinkedList<IPacket>();
+        private LinkedList<IPacket> packetSendQueue2 = new LinkedList<IPacket>();
+        private bool flushingSendQueue;
 
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -80,42 +84,88 @@ namespace PintoNS.Networking
             if (!IsConnected) return;
             Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
                 $" ({packet.GetID()}) to the send queue");
-            packetSendQueue.AddLast(packet);
+
+            if (flushingSendQueue)
+                lock (sendQueueLock2)
+                    packetSendQueue2.AddLast(packet);
+            else
+                lock (sendQueueLock)
+                    packetSendQueue.AddLast(packet);
         }
 
         public void ClearSendQueue() 
         {
-            packetSendQueue.Clear();
+            lock (sendQueueLock)
+                packetSendQueue.Clear();
+            lock (sendQueueLock2)
+                packetSendQueue2.Clear();
         }
 
         public void FlushSendQueue() 
         {
             if (!IsConnected) return;
+            flushingSendQueue = true;
 
-            foreach (IPacket packet in packetSendQueue.ToArray())
+            lock (sendQueueLock) 
             {
-                packetSendQueue.Remove(packet);
+                BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
+                foreach (IPacket packet in packetSendQueue.ToArray())
+                {
+                    try
+                    {
+                        if (!IsConnected) return;
+                        if (packet == null) continue;
+                        writer.Write((byte)packet.GetID());
+                        packet.Write(writer);
+                    }
+                    catch (Exception ex)
+                    {
+                        Disconnect($"Internal error -> {ex.Message}");
+                        Program.Console.WriteMessage($"[Networking]" +
+                            $" Unable to write packet {packet.GetID()}: {ex}");
+                        MsgBox.ShowNotification(null,
+                            "An internal error has occured! For more information," +
+                            " check the console (Help > Toggle Console)",
+                            "Internal Error",
+                            MsgBoxIconType.ERROR);
+                    }
+                }
+
                 try
                 {
-                    if (!IsConnected) return;
-                    if (packet == null) continue;
-                    BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
-                    writer.Write((byte)packet.GetID());
-                    packet.Write(writer);
                     writer.Flush();
-                    writer.Dispose();
                 }
                 catch (Exception ex)
                 {
                     Disconnect($"Internal error -> {ex.Message}");
                     Program.Console.WriteMessage($"[Networking]" +
-                        $" Unable to send packet {packet.GetID()}: {ex}");
+                        $" Unable to flush send queue: {ex}");
                     MsgBox.ShowNotification(null,
                         "An internal error has occured! For more information," +
                         " check the console (Help > Toggle Console)",
                         "Internal Error",
                         MsgBoxIconType.ERROR);
                 }
+                packetSendQueue.Clear();
+            }
+            lock (sendQueueLock2)
+                MergeSecondSendQueue();
+
+            flushingSendQueue = false;
+        }
+
+        private void MergeSecondSendQueue() 
+        {
+            lock (sendQueueLock2) 
+            {
+                lock (sendQueueLock)
+                {
+                    foreach (IPacket packet in packetSendQueue2.ToArray())
+                    {
+                        packetSendQueue.AddLast(packet);
+                    }
+                }
+                packetSendQueue2.Clear();
             }
         }
 
@@ -175,7 +225,7 @@ namespace PintoNS.Networking
             while (IsConnected) 
             {
                 FlushSendQueue();
-                Thread.Sleep(1);
+                Thread.Sleep(100);
             }
         }
     }
