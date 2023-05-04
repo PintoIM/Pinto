@@ -4,6 +4,7 @@ using PintoNS.Forms.Notification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Cache;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,15 @@ namespace PintoNS.General
         {
             try
             {
-                HttpClient httpClient = new HttpClient();
+                HttpClient httpClient = new HttpClient(new WebRequestHandler()
+                {
+                    CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore)
+                });
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
 
                 string responseRaw = await httpClient.GetStringAsync(UPDATE_URL);
                 JObject response = JsonConvert.DeserializeObject<JObject>(responseRaw);
-                MessageBox.Show(response.ToString());
+                
                 return response;
             }
             catch (Exception ex)
@@ -64,10 +68,16 @@ namespace PintoNS.General
                 JObject information = await GetVersionInformation();
                 string updateURL = information["update_url"].Value<string>();
 
-                HttpClient httpClient = new HttpClient();
+                HttpClient httpClient = new HttpClient(new WebRequestHandler()
+                {
+                    CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore)
+                });
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
 
-                return await httpClient.GetByteArrayAsync(updateURL);
+                byte[] file = await httpClient.GetByteArrayAsync(updateURL);
+                Program.Console.WriteMessage($"[Updater] Downloaded update file");
+                
+                return file;
             }
             catch (Exception ex)
             {

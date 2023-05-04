@@ -80,6 +80,7 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
+            this.tsmiMenuBarHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -465,6 +466,7 @@ namespace PintoNS
             // 
             this.tsddbMenuBarHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMenuBarHelpCheckForUpdates,
             this.tsmiMenuBarHelpToggleConsole,
             this.tsmiMenuBarHelpAbout});
             this.tsddbMenuBarHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarHelp.Image")));
@@ -477,14 +479,14 @@ namespace PintoNS
             // tsmiMenuBarHelpToggleConsole
             // 
             this.tsmiMenuBarHelpToggleConsole.Name = "tsmiMenuBarHelpToggleConsole";
-            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(153, 22);
+            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpToggleConsole.Text = "Toggle console";
             this.tsmiMenuBarHelpToggleConsole.Click += new System.EventHandler(this.tsmiMenuBarHelpToggleConsole_Click);
             // 
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(153, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -596,6 +598,13 @@ namespace PintoNS
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             // 
+            // tsmiMenuBarHelpCheckForUpdates
+            // 
+            this.tsmiMenuBarHelpCheckForUpdates.Name = "tsmiMenuBarHelpCheckForUpdates";
+            this.tsmiMenuBarHelpCheckForUpdates.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpCheckForUpdates.Text = "Check for updates";
+            this.tsmiMenuBarHelpCheckForUpdates.Click += new System.EventHandler(this.tsmiMenuBarHelpCheckForUpdates_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -687,5 +696,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusBusy;
         private System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusInvisible;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileExit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpCheckForUpdates;
     }
 }

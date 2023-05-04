@@ -20,6 +20,7 @@ using System.Threading;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace PintoNS
 {
@@ -204,7 +205,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            await CheckForUpdate();
+            await CheckForUpdates();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -356,24 +357,44 @@ namespace PintoNS
             Close();
         }
 
-        public async Task CheckForUpdate() 
+        public async Task CheckForUpdates() 
         {
             if (!await Updater.IsLatest()) 
             {
                 MsgBox.ShowPromptNotification(this,
-                    "An update is available, do you want to download it?",
+                    "An update is available, do you want to download it and install it?",
                     "Update Available",
                     MsgBoxIconType.QUESTION,
                     true, async (MsgBoxButtonType btn) => 
                     {
                         if (btn == MsgBoxButtonType.YES) 
                         {
+                            string path = Path.Combine(DataFolder, "PintoSetup.msi");
+                            if (File.Exists(path))
+                                File.Delete(path);
+
                             byte[] file = await Updater.GetUpdateFile();
                             if (file == null) return;
-                            File.WriteAllBytes(Path.Combine(DataFolder, "PintoSetup.msi"), file);
+                            File.WriteAllBytes(path, file);
+                            Program.Console.WriteMessage($"[Updater] Saved update file at {path}");
+
+                            Program.Console.WriteMessage($"[Updater] Running msi installer at {path}...");
+                            Process process = new Process();
+                            process.StartInfo.FileName = "msiexec.exe";
+                            process.StartInfo.Arguments = " /i PintoSetup.msi /passive";
+                            process.StartInfo.WorkingDirectory = DataFolder;
+                            process.Start();
+
+                            Program.Console.WriteMessage($"[Updater] Exitting...");
+                            Close();
                         }
                     });
             }
+        }
+
+        private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e)
+        {
+            await CheckForUpdates();
         }
     }
 }
