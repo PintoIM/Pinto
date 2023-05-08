@@ -13,11 +13,11 @@ namespace PintoNS.Networking
     {
         public const int USERNAME_MAX = 16;
 
-        public static void WriteBE(this BinaryWriter writer, short value) 
+        public static void WriteBE(this BinaryWriter writer, short value)
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
-
+        
         public static void WriteBE(this BinaryWriter writer, int value)
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
@@ -60,6 +60,11 @@ namespace PintoNS.Networking
                 throw new ArgumentException($"Received more data than allowed ({str.Length} > {maxLength})");
 
             return str;
+        }
+
+        public static int GetPintoStringSize(string str) 
+        {
+            return 4 + Encoding.BigEndianUnicode.GetByteCount(str);
         }
     }
 }

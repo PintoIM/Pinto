@@ -51,5 +51,12 @@ namespace PintoNS.Networking
         {
             return 0;
         }
+
+        public int GetSize()
+        {
+            return 1 + BinaryWriterReaderExtensions.GetPintoStringSize(ClientVersion) +
+                BinaryWriterReaderExtensions.GetPintoStringSize(Name) +
+                BinaryWriterReaderExtensions.GetPintoStringSize(PasswordHash);
+        }
     }
 }

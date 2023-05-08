@@ -29,11 +29,13 @@ namespace PintoNS.Networking
             this.networkClient = networkClient;
         }
 
-        public void HandlePacket(IPacket packet) 
+        public void HandlePacket(IPacket packet)
         {
-            if (packet.GetID() != 255)
+            if (packet.GetID() != 255) 
+            {
                 Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
                     $" ({packet.GetID()})");
+            }
             packet.Handle(this);
         }
         
@@ -72,10 +74,11 @@ namespace PintoNS.Networking
 
                 if (packet.Sender.Trim().Length > 0)
                     messageForm.WriteMessage($"{packet.Sender}: ", Color.Black, false);
+                /*
                 if (packet.Message.StartsWith(@"{\rtf"))
                     messageForm.WriteRTF(packet.Message);
-                else
-                    messageForm.WriteMessage(packet.Message, Color.Black);
+                else*/
+                messageForm.WriteMessage(packet.Message, Color.Black);
 
                 if (Form.ActiveForm != messageForm && !messageForm.HasBeenInactive)
                 {
@@ -180,38 +183,38 @@ namespace PintoNS.Networking
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 
             string name, string sessionID) 
         {
-            networkClient.AddToSendQueue(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
+            networkClient.SendPacket(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
         }
 
         public void SendRegisterPacket(byte protocolVersion, string clientVersion, 
             string name, string sessionID)
         {
-            networkClient.AddToSendQueue(new PacketRegister(protocolVersion, clientVersion, name, sessionID));
+            networkClient.SendPacket(new PacketRegister(protocolVersion, clientVersion, name, sessionID));
         }
 
         public void SendMessagePacket(string contactName, string message)
         {
-            networkClient.AddToSendQueue(new PacketMessage(contactName, message));
+            networkClient.SendPacket(new PacketMessage(contactName, message));
         }
 
         public void SendStatusPacket(UserStatus status)
         {
-            networkClient.AddToSendQueue(new PacketStatus("", status));
+            networkClient.SendPacket(new PacketStatus("", status));
         }
 
         public void SendContactRequestPacket(string name, bool approved)
         {
-            networkClient.AddToSendQueue(new PacketContactRequest($"{name}:{(approved ? "yes" : "no")}"));
+            networkClient.SendPacket(new PacketContactRequest($"{name}:{(approved ? "yes" : "no")}"));
         }
 
         public void SendAddContactPacket(string name)
         {
-            networkClient.AddToSendQueue(new PacketAddContact(name, UserStatus.OFFLINE));
+            networkClient.SendPacket(new PacketAddContact(name, UserStatus.OFFLINE));
         }
 
         public void SendRemoveContactPacket(string name)
         {
-            networkClient.AddToSendQueue(new PacketRemoveContact(name));
+            networkClient.SendPacket(new PacketRemoveContact(name));
         }
     }
 }

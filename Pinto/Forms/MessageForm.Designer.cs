@@ -37,14 +37,14 @@
             this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnBlock = new System.Windows.Forms.Button();
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
+            this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnColor = new System.Windows.Forms.Button();
             this.cdPicker = new System.Windows.Forms.ColorDialog();
-            this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -52,9 +52,9 @@
             // btnSend
             // 
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSend.Location = new System.Drawing.Point(362, 283);
+            this.btnSend.Location = new System.Drawing.Point(361, 283);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(60, 30);
+            this.btnSend.Size = new System.Drawing.Size(60, 56);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "&Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -64,9 +64,10 @@
             // 
             this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtxtInput.DetectUrls = false;
             this.rtxtInput.HideSelection = false;
             this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.MaxLength = 384;
+            this.rtxtInput.MaxLength = 512;
             this.rtxtInput.Name = "rtxtInput";
             this.rtxtInput.Size = new System.Drawing.Size(344, 56);
             this.rtxtInput.TabIndex = 0;
@@ -144,6 +145,26 @@
             this.tsMenuBar.TabIndex = 0;
             this.tsMenuBar.Text = "toolStrip1";
             // 
+            // tsddbMenuBarFile
+            // 
+            this.tsddbMenuBarFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiMenuBarFileClearSavedData});
+            this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
+            this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbMenuBarFile.Name = "tsddbMenuBarFile";
+            this.tsddbMenuBarFile.ShowDropDownArrow = false;
+            this.tsddbMenuBarFile.Size = new System.Drawing.Size(29, 22);
+            this.tsddbMenuBarFile.Text = "File";
+            this.tsddbMenuBarFile.ToolTipText = "tsddbMenuBarFile";
+            // 
+            // tsmiMenuBarFileClearSavedData
+            // 
+            this.tsmiMenuBarFileClearSavedData.Name = "tsmiMenuBarFileClearSavedData";
+            this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileClearSavedData.Text = "Clear saved data";
+            this.tsmiMenuBarFileClearSavedData.Click += new System.EventHandler(this.tsmiMenuBarFileClearSavedData_Click);
+            // 
             // tsddbMenuBarHelp
             // 
             this.tsddbMenuBarHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -160,7 +181,7 @@
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(107, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -182,36 +203,18 @@
             // btnColor
             // 
             this.btnColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnColor.Enabled = false;
             this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnColor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnColor.Location = new System.Drawing.Point(362, 319);
+            this.btnColor.Location = new System.Drawing.Point(361, 319);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(60, 20);
             this.btnColor.TabIndex = 6;
             this.btnColor.Text = "Color";
             this.btnColor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Visible = false;
             this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // tsddbMenuBarFile
-            // 
-            this.tsddbMenuBarFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiMenuBarFileClearSavedData});
-            this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
-            this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddbMenuBarFile.Name = "tsddbMenuBarFile";
-            this.tsddbMenuBarFile.ShowDropDownArrow = false;
-            this.tsddbMenuBarFile.Size = new System.Drawing.Size(29, 22);
-            this.tsddbMenuBarFile.Text = "File";
-            this.tsddbMenuBarFile.ToolTipText = "tsddbMenuBarFile";
-            // 
-            // tsmiMenuBarFileClearSavedData
-            // 
-            this.tsmiMenuBarFileClearSavedData.Name = "tsmiMenuBarFileClearSavedData";
-            this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarFileClearSavedData.Text = "Clear saved data";
-            this.tsmiMenuBarFileClearSavedData.Click += new System.EventHandler(this.tsmiMenuBarFileClearSavedData_Click);
             // 
             // MessageForm
             // 

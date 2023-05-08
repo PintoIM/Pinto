@@ -175,6 +175,7 @@
     <Compile Include="General\InWindowPopupController.cs" />
     <Compile Include="General\Updater.cs" />
     <Compile Include="General\UserStatus.cs" />
+    <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="General\ContactsManager.cs" />
     <Compile Include="Controls\TextBoxWithPlaceholderSupport.cs">
@@ -214,7 +215,6 @@
     </Compile>
     <Compile Include="Forms\MsgBox\MsgBoxButtonType.cs" />
     <Compile Include="Forms\MsgBox\MsgBox.cs" />
-    <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
     <Compile Include="Networking\Packets\PacketShrimp.cs" />

@@ -103,6 +103,7 @@ namespace PintoNS.Forms
             }));
         }
 
+        /*
         public void WriteRTF(string msg) 
         {
             Invoke(new Action(() => 
@@ -120,7 +121,7 @@ namespace PintoNS.Forms
                 }
                 SaveChat();
             }));
-        }
+        }*/
 
         public void UpdateColorPicker() 
         {
@@ -149,27 +150,26 @@ namespace PintoNS.Forms
 
         private void rtxtInput_TextChanged(object sender, EventArgs e)
         {
-            if (mainForm.NetManager == null) return;
+            // Strip RTF
+            int caretPosition = rtxtInput.SelectionStart;
             string text = rtxtInput.Text;
+            rtxtInput.Clear();
+            rtxtInput.Text = text;
+            rtxtInput.SelectionStart = caretPosition;
+
+            if (mainForm.NetManager == null) return;
 
             if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
-            {
                 isTypingLastStatus = true;
-                //mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, true);
-            }
             else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
-            {
                 isTypingLastStatus = false;
-                //mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
-            }
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            string input = rtxtInput.Rtf;
-            string inputStripped = rtxtInput.Text;
+            string input = rtxtInput.Text;
 
-            if (string.IsNullOrWhiteSpace(inputStripped))
+            if (string.IsNullOrWhiteSpace(input))
             {
                 MsgBox.ShowNotification(this, "The specified message is invalid!", "Error", 
                     MsgBoxIconType.ERROR);
@@ -178,9 +178,7 @@ namespace PintoNS.Forms
 
             rtxtInput.Clear();
             if (mainForm.NetManager != null) 
-            {
                 mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
-            }
         }
 
         private void MessageForm_FormClosing(object sender, FormClosingEventArgs e)

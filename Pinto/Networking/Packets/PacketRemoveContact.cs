@@ -37,5 +37,10 @@ namespace PintoNS.Networking
         {
             return 7;
         }
+
+        public int GetSize()
+        {
+            return BinaryWriterReaderExtensions.GetPintoStringSize(ContactName);
+        }
     }
 }

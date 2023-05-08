@@ -24,16 +24,13 @@ namespace PintoNS.Networking
         public bool IsConnected { get; private set; }
         private TcpClient tcpClient;
         private NetworkStream tcpStream;
+        private BinaryReader tcpBinaryReader;
+        private BinaryWriter tcpBinaryWriter;
         private Thread readThread;
-        private Thread sendThread;
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
-        private object sendQueueLock = new object();
-        private object sendQueueLock2 = new object();
-        private LinkedList<IPacket> packetSendQueue = new LinkedList<IPacket>();
-        private LinkedList<IPacket> packetSendQueue2 = new LinkedList<IPacket>();
-        private bool flushingSendQueue;
-
+        private object sendLock = new object();
+        
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
             try
@@ -46,10 +43,10 @@ namespace PintoNS.Networking
                 IsConnected = true;
 
                 tcpStream = tcpClient.GetStream();
+                tcpBinaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode, true);
+                tcpBinaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode, true);
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
                 readThread.Start();
-                sendThread = new Thread(new ThreadStart(SendThread_Func));
-                sendThread.Start();
 
                 return (true, null);
             }
@@ -70,8 +67,9 @@ namespace PintoNS.Networking
             tcpClient = null;
             tcpStream = null;
             readThread = null;
-            sendThread = null;
-            
+            tcpBinaryReader = null;
+            tcpBinaryWriter = null;
+
             if (IsConnected && !ignoreDisconnectReasonValue) 
             {
                 Disconnected.Invoke(reason);
@@ -79,94 +77,31 @@ namespace PintoNS.Networking
             IsConnected = false;
         }
 
-        public void AddToSendQueue(IPacket packet) 
+        public void SendPacket(IPacket packet) 
         {
             if (!IsConnected) return;
-            Program.Console.WriteMessage($"[Networking] Added packet {packet.GetType().Name.ToUpper()}" +
-                $" ({packet.GetID()}) to the send queue");
 
-            if (flushingSendQueue)
-                lock (sendQueueLock2)
-                    packetSendQueue2.AddLast(packet);
-            else
-                lock (sendQueueLock)
-                    packetSendQueue.AddLast(packet);
-        }
-
-        public void ClearSendQueue() 
-        {
-            lock (sendQueueLock)
-                packetSendQueue.Clear();
-            lock (sendQueueLock2)
-                packetSendQueue2.Clear();
-        }
-
-        public void FlushSendQueue() 
-        {
-            if (!IsConnected) return;
-            flushingSendQueue = true;
-
-            lock (sendQueueLock) 
+            lock (sendLock)
             {
-                BinaryWriter writer = new BinaryWriter(tcpStream, Encoding.UTF8, true);
-                foreach (IPacket packet in packetSendQueue.ToArray())
-                {
-                    try
-                    {
-                        if (!IsConnected) return;
-                        if (packet == null) continue;
-                        writer.Write((byte)packet.GetID());
-                        packet.Write(writer);
-                    }
-                    catch (Exception ex)
-                    {
-                        Disconnect($"Internal error -> {ex.Message}");
-                        Program.Console.WriteMessage($"[Networking]" +
-                            $" Unable to write packet {packet.GetID()}: {ex}");
-                        MsgBox.ShowNotification(null,
-                            "An internal error has occured! For more information," +
-                            " check the console (Help > Toggle Console)",
-                            "Internal Error",
-                            MsgBoxIconType.ERROR);
-                    }
-                }
+                // Header
+                tcpBinaryWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
 
-                try
+                // Size
+                tcpBinaryWriter.WriteBE(packet.GetSize());
+
+                // ID
+                tcpBinaryWriter.WriteBE(packet.GetID());
+
+                if (packet.GetSize() > 0) 
                 {
-                    writer.Flush();
+                    // Data
+                    packet.Write(tcpBinaryWriter);
+                    tcpBinaryWriter.Flush();
                 }
-                catch (Exception ex)
-                {
-                    Disconnect($"Internal error -> {ex.Message}");
-                    Program.Console.WriteMessage($"[Networking]" +
-                        $" Unable to flush send queue: {ex}");
-                    MsgBox.ShowNotification(null,
-                        "An internal error has occured! For more information," +
-                        " check the console (Help > Toggle Console)",
-                        "Internal Error",
-                        MsgBoxIconType.ERROR);
-                }
-                packetSendQueue.Clear();
             }
-            lock (sendQueueLock2)
-                MergeSecondSendQueue();
 
-            flushingSendQueue = false;
-        }
-
-        private void MergeSecondSendQueue() 
-        {
-            lock (sendQueueLock2) 
-            {
-                lock (sendQueueLock)
-                {
-                    foreach (IPacket packet in packetSendQueue2.ToArray())
-                    {
-                        packetSendQueue.AddLast(packet);
-                    }
-                }
-                packetSendQueue2.Clear();
-            }
+            Program.Console.WriteMessage($"[Networking] Sent packet" +
+                $" {packet.GetType().Name.ToUpper()} ({packet.GetID()})");
         }
 
         private void ReadThread_Func() 
@@ -175,28 +110,41 @@ namespace PintoNS.Networking
             {
                 try
                 {
-                    int packetID = tcpStream.ReadByte();
-                    IPacket packet = Packets.GetPacketByID(packetID);
+                    int headerPart0 = tcpBinaryReader.ReadByte();
+                    int headerPart1 = tcpBinaryReader.ReadByte();
+                    int headerPart2 = tcpBinaryReader.ReadByte();
+                    int headerPart3 = tcpBinaryReader.ReadByte();
 
-                    if (packetID != -1)
+                    if (headerPart0 == -1 || 
+                        headerPart1 == -1 ||
+                        headerPart2 == -1 ||
+                        headerPart3 == -1)
+                        throw new ConnectionException("Client disconnect");
+
+                    // PMSG
+                    if (headerPart0 != 0x50 || 
+                        headerPart1 != 0x4d || 
+                        headerPart2 != 0x53 || 
+                        headerPart3 != 0x47)
+                        throw new ConnectionException("Bad packet header!");
+
+                    int size = tcpBinaryReader.ReadBEInt();
+                    int id = tcpBinaryReader.ReadBEInt();
+                    IPacket packet = Packets.GetPacketByID(id);
+
+                    if (packet == null)
+                        throw new ConnectionException($"Bad packet ID: {id}");
+
+                    if (size > 0) 
                     {
-                        if (packet != null)
-                        {
-                            BinaryReader reader = new BinaryReader(tcpStream, Encoding.UTF8, true);
-                            packet.Read(reader);
-                            reader.Dispose();
-                            ReceivedPacket.Invoke(packet);
-                        }
-                        else
-                        {
-                            throw new ConnectionException("Received invalid packet -> " + packetID);
-                        }
-                    }
-                    else
-                    {
-                        throw new ConnectionException("Server disconnect");
+                        byte[] data = tcpBinaryReader.ReadBytes(size);
+                        BinaryReader tempReader = new BinaryReader(new MemoryStream(data));
+                        packet.Read(tempReader);
+                        tempReader.Close();
+                        tempReader.Dispose();
                     }
 
+                    ReceivedPacket.Invoke(packet);
                     Thread.Sleep(1);
                 }
                 catch (Exception ex)
@@ -217,15 +165,6 @@ namespace PintoNS.Networking
                     }
                     return;
                 }
-            }
-        }
-
-        private void SendThread_Func() 
-        {
-            while (IsConnected) 
-            {
-                FlushSendQueue();
-                Thread.Sleep(100);
             }
         }
     }

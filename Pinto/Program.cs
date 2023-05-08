@@ -17,8 +17,8 @@ namespace PintoNS
         [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
         private static extern string GetWineVersion();
         public static ConsoleForm Console;
-        public const string VERSION = "a1.3";
-        public const int PROTOCOL_VERSION = 14;
+        public const string VERSION = "a1.4";
+        public const int PROTOCOL_VERSION = 15;
 
         [STAThread]
         static void Main()
