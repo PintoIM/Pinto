@@ -235,6 +235,7 @@
             this.Name = "MessageForm";
             this.Activated += new System.EventHandler(this.MessageForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessageForm_FormClosing);
+            this.Load += new System.EventHandler(this.MessageForm_Load);
             this.tsMenuBar.ResumeLayout(false);
             this.tsMenuBar.PerformLayout();
             this.ssStatusStrip.ResumeLayout(false);

@@ -177,7 +177,7 @@ namespace PintoNS
             NetManager = null;
         }
 
-        public MessageForm GetMessageFormFromReceiverName(string name)
+        public MessageForm GetMessageFormFromReceiverName(string name, bool doNotCreate = false)
         {
             Program.Console.WriteMessage($"Getting MessageForm for {name}...");
 
@@ -187,10 +187,15 @@ namespace PintoNS
                     return msgForm;
             }
 
-            Program.Console.WriteMessage($"Creating MessageForm for {name}...");
-            MessageForm messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
-            MessageForms.Add(messageForm);
-            messageForm.Show();
+            MessageForm messageForm = null;
+
+            if (!doNotCreate) 
+            {
+                Program.Console.WriteMessage($"Creating MessageForm for {name}...");
+                messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
+                MessageForms.Add(messageForm);
+                messageForm.Show();
+            }
 
             return messageForm;
         }
@@ -262,6 +267,8 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
+            InWindowPopupController.CreatePopup("You are now busy" +
+                ", this means that you will not receive any non-important popups");
             NetManager.ChangeStatus(UserStatus.BUSY);
         }
 

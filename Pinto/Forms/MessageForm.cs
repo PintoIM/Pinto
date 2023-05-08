@@ -235,5 +235,12 @@ namespace PintoNS.Forms
             rtxtMessages.Rtf = null;
             DeleteChat();
         }
+
+        private void MessageForm_Load(object sender, EventArgs e)
+        {
+            if (Receiver.Status == UserStatus.BUSY)
+                InWindowPopupController.CreatePopup($"{Receiver.Name} is busy" +
+                    $" and may not see your messages");
+        }
     }
 }
