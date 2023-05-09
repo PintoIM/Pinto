@@ -54,7 +54,7 @@
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Location = new System.Drawing.Point(361, 283);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(60, 56);
+            this.btnSend.Size = new System.Drawing.Size(60, 30);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "&Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -203,7 +203,6 @@
             // btnColor
             // 
             this.btnColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnColor.Enabled = false;
             this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnColor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnColor.Location = new System.Drawing.Point(361, 319);
@@ -213,7 +212,6 @@
             this.btnColor.Text = "Color";
             this.btnColor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnColor.UseVisualStyleBackColor = true;
-            this.btnColor.Visible = false;
             this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             // 
             // MessageForm
