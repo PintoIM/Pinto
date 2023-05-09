@@ -30,7 +30,6 @@ namespace PintoNS.Forms
             InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
-            UpdateColorPicker();
             LoadChat();
         }
 
@@ -90,15 +89,56 @@ namespace PintoNS.Forms
             }
         }
 
+        public void AppendColorText(string msg, Color baseColor, bool newLine = true)
+        {
+            string buf = "";
+            Color curColor = baseColor;
+            for (int i = 0; i < msg.Length; ++i)
+            {
+                switch (msg[i])
+                {
+                    case '#':
+                        if (i + 1 < msg.Length && msg[i + 1] == '#')
+                        {
+                            buf += "#";
+                            ++i;
+                        }
+                        else if (i + 6 < msg.Length)
+                        {
+                            rtxtMessages.SelectionStart = rtxtMessages.TextLength;
+                            rtxtMessages.SelectionLength = 0;
+                            rtxtMessages.SelectionColor = curColor;
+                            rtxtMessages.AppendText(buf);
+                            buf = "";
+
+                            string strColor = msg.Substring(i, 7);
+                            curColor = System.Drawing.ColorTranslator.FromHtml(strColor);
+                            i += 6;
+                        }
+                        break;
+                    default:
+                        buf += msg[i];
+                        break;
+                }
+            }
+            rtxtMessages.SelectionStart  = rtxtMessages.TextLength;
+            rtxtMessages.SelectionLength = 0;
+            rtxtMessages.SelectionColor  = curColor;
+            rtxtMessages.AppendText(buf + (newLine ? Environment.NewLine : ""));
+        }
+
         public void WriteMessage(string msg, Color color, bool newLine = true)
         {
             Invoke(new Action(() =>
             {
+                AppendColorText(msg, color, newLine);
+                /*
                 rtxtMessages.SelectionStart = rtxtMessages.TextLength;
                 rtxtMessages.SelectionLength = 0;
                 rtxtMessages.SelectionColor = color;
                 rtxtMessages.AppendText(msg + (newLine ? Environment.NewLine : ""));
                 rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
+                */
                 SaveChat();
             }));
         }
@@ -122,14 +162,6 @@ namespace PintoNS.Forms
                 SaveChat();
             }));
         }*/
-
-        public void UpdateColorPicker() 
-        {
-            Bitmap b = new Bitmap(16, 16);
-            Graphics g = Graphics.FromImage(b);
-            g.FillRectangle(new SolidBrush(rtxtInput.SelectionColor), 0, 0, 16, 16);
-            btnColor.Image = b;
-        }
 
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
         {
@@ -221,13 +253,14 @@ namespace PintoNS.Forms
         private void btnColor_Click(object sender, EventArgs e)
         {
             cdPicker.ShowDialog();
-            rtxtInput.SelectionColor = cdPicker.Color;
-            UpdateColorPicker();
+            // Appends a color code to the message.
+            var color    = cdPicker.Color;
+            var strColor = String.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
+            rtxtInput.AppendText(strColor);
         }
 
         private void rtxtInput_SelectionChanged(object sender, EventArgs e)
         {
-            UpdateColorPicker();
         }
 
         private void tsmiMenuBarFileClearSavedData_Click(object sender, EventArgs e)
