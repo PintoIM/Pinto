@@ -111,7 +111,7 @@ namespace PintoNS.Forms
                             rtxtMessages.AppendText(buf);
                             buf = "";
 
-                            string strColor = msg.Substring(i, 7);
+                            //string strColor = msg.Substring(i, 7);
                             curColor = System.Drawing.ColorTranslator.FromHtml(strColor);
                             i += 6;
                         }
