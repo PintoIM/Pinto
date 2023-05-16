@@ -36,6 +36,8 @@
             this.lTitle = new System.Windows.Forms.Label();
             this.tAnim = new System.Windows.Forms.Timer(this.components);
             this.tSizeCheck = new System.Windows.Forms.Timer(this.components);
+            this.tAutoClose = new System.Windows.Forms.Timer(this.components);
+            this.lAutoClose = new System.Windows.Forms.Label();
             this.pNotification.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,6 +46,7 @@
             this.pNotification.BackgroundImage = global::PintoNS.Logo.LOGO_BACKGROUND;
             this.pNotification.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pNotification.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pNotification.Controls.Add(this.lAutoClose);
             this.pNotification.Controls.Add(this.lSeeContent);
             this.pNotification.Controls.Add(this.btnClose);
             this.pNotification.Controls.Add(this.lBody);
@@ -107,6 +110,21 @@
             this.tSizeCheck.Interval = 1000;
             this.tSizeCheck.Tick += new System.EventHandler(this.tSizeCheck_Tick);
             // 
+            // tAutoClose
+            // 
+            this.tAutoClose.Interval = 1000;
+            this.tAutoClose.Tick += new System.EventHandler(this.tAutoClose_Tick);
+            // 
+            // lAutoClose
+            // 
+            this.lAutoClose.AutoSize = true;
+            this.lAutoClose.Location = new System.Drawing.Point(151, 12);
+            this.lAutoClose.Name = "lAutoClose";
+            this.lAutoClose.Size = new System.Drawing.Size(13, 13);
+            this.lAutoClose.TabIndex = 1;
+            this.lAutoClose.Text = "5";
+            this.lAutoClose.Visible = false;
+            // 
             // PopupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,5 +152,7 @@
         private System.Windows.Forms.Timer tAnim;
         private System.Windows.Forms.LinkLabel lSeeContent;
         private System.Windows.Forms.Timer tSizeCheck;
+        private System.Windows.Forms.Label lAutoClose;
+        public System.Windows.Forms.Timer tAutoClose;
     }
 }

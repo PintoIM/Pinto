@@ -22,6 +22,8 @@ namespace PintoNS.Networking
     {
         private bool ignoreDisconnectReason;
         public bool IsConnected { get; private set; }
+        public string IP;
+        public int Port;
         private TcpClient tcpClient;
         private NetworkStream tcpStream;
         private BinaryReader tcpBinaryReader;
@@ -40,6 +42,8 @@ namespace PintoNS.Networking
 
                 tcpClient = new TcpClient();
                 await tcpClient.ConnectAsync(ip, port);
+                IP = ip;
+                Port = port;
                 IsConnected = true;
 
                 tcpStream = tcpClient.GetStream();
@@ -64,6 +68,8 @@ namespace PintoNS.Networking
             if (tcpStream != null) tcpStream.Dispose();
             if (tcpClient != null) tcpClient.Close();
 
+            IP = null;
+            Port = 0;
             tcpClient = null;
             tcpStream = null;
             readThread = null;

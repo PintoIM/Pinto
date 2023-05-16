@@ -64,7 +64,7 @@ namespace PintoNS.Networking
                 .UTF8
                 .GetBytes(password)))
                 .Replace("-", "")
-                .ToLower();
+                .ToUpper();
             NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, 
                 Program.VERSION, username, passwordHash);
         }
@@ -78,7 +78,7 @@ namespace PintoNS.Networking
                 .UTF8
                 .GetBytes(password)))
                 .Replace("-", "")
-                .ToLower();
+                .ToUpper();
             NetHandler.SendRegisterPacket(Program.PROTOCOL_VERSION,
                 Program.VERSION, username, passwordHash);
         }

@@ -15,6 +15,8 @@ namespace PintoNS.Forms
         public const int ANIMATION_POSITION_CHANGE = 25;
         public int TargetY;
         public bool ReachedTargetY;
+        public int MaxAutoCloseTicks;
+        private int autoCloseTicks;
 
         public PopupForm()
         {
@@ -53,6 +55,17 @@ namespace PintoNS.Forms
             ViewAllPopupContentForm viewAllPopupContentForm = new ViewAllPopupContentForm();
             viewAllPopupContentForm.rtxtContent.Text = lBody.Text;
             viewAllPopupContentForm.Show();
+        }
+
+        private void tAutoClose_Tick(object sender, EventArgs e)
+        {
+            lAutoClose.Visible = true;
+            lAutoClose.Text = $"{MaxAutoCloseTicks - autoCloseTicks}";
+
+            if (autoCloseTicks >= MaxAutoCloseTicks)
+                btnClose.PerformClick();
+
+            autoCloseTicks++;
         }
     }
 }

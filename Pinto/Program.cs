@@ -35,6 +35,7 @@ namespace PintoNS
             // Setup console
             Console = new ConsoleForm();
             Console.Show();
+            Console.Hide();
 
             // Detect what runtime we are being ran under
             bool underWine = false;
@@ -65,6 +66,17 @@ namespace PintoNS
                 }
             }
 
+            if (Environment.OSVersion.Version.Major == 6 &&
+                Environment.OSVersion.Version.Minor <= 1) 
+            {
+                MsgBox.ShowNotification(Console,
+                    $"Pinto! has detected it is being ran on a" +
+                    $" potentially unsupported operating system!{Environment.NewLine}" +
+                    $"This execution configuration will not receive support!",
+                    "Unsupported Execution Configuration",
+                    MsgBoxIconType.WARNING);
+            }
+            
             // Start Pinto!
             Application.Run(new MainForm());
         }

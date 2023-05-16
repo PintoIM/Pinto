@@ -65,7 +65,7 @@ namespace PintoNS.General
             }
         }
 
-        public void CreatePopup(string body, string title)
+        public void CreatePopup(string body, string title, int autoCloseTicks = 5)
         {
             int y = GetYPosForNew();
 
@@ -77,6 +77,11 @@ namespace PintoNS.General
             {
                 ClosePopup(popup);
             };
+            if (autoCloseTicks > 0)
+            {
+                popup.MaxAutoCloseTicks = autoCloseTicks;
+                popup.tAutoClose.Start();
+            }
 
             if (y < 0)
             {
