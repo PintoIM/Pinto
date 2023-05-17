@@ -181,5 +181,16 @@ namespace PintoNS.Forms
             if (!cbSavePassword.Checked)
                 DeleteLogin();
         }
+
+        private void llServers_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ServerListForm serverListForm = new ServerListForm();
+            serverListForm.ServerUse += (object sender2, ServerUseEventArgs e2) => 
+            {
+                txtIP.Text = e2.IP;
+                nudPort.Value = e2.Port;
+            };
+            serverListForm.ShowDialog();
+        }
     }
 }

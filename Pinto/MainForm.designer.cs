@@ -67,6 +67,7 @@ namespace PintoNS
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarToolsOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuBarHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
@@ -80,7 +81,6 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.PictureBox();
             this.btnStartCall = new System.Windows.Forms.PictureBox();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiMenuBarHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.pQuickActionBar.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -418,28 +418,28 @@ namespace PintoNS
             // tsmiMenuBarFileAddContact
             // 
             this.tsmiMenuBarFileAddContact.Name = "tsmiMenuBarFileAddContact";
-            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(160, 22);
-            this.tsmiMenuBarFileAddContact.Text = "Add contact";
+            this.tsmiMenuBarFileAddContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileAddContact.Text = "Add Contact";
             this.tsmiMenuBarFileAddContact.Click += new System.EventHandler(this.tsmiMenuBarFileAddContact_Click);
             // 
             // tsmiMenuBarFileRemoveContact
             // 
             this.tsmiMenuBarFileRemoveContact.Name = "tsmiMenuBarFileRemoveContact";
-            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(160, 22);
-            this.tsmiMenuBarFileRemoveContact.Text = "Remove contact";
+            this.tsmiMenuBarFileRemoveContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileRemoveContact.Text = "Remove Contact";
             this.tsmiMenuBarFileRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarFileRemoveContact_Click);
             // 
             // tsmiMenuBarFileLogOut
             // 
             this.tsmiMenuBarFileLogOut.Name = "tsmiMenuBarFileLogOut";
-            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(160, 22);
-            this.tsmiMenuBarFileLogOut.Text = "Log out";
+            this.tsmiMenuBarFileLogOut.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileLogOut.Text = "Log Out";
             this.tsmiMenuBarFileLogOut.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
             // tsmiMenuBarFileExit
             // 
             this.tsmiMenuBarFileExit.Name = "tsmiMenuBarFileExit";
-            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(160, 22);
+            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileExit.Text = "Exit";
             this.tsmiMenuBarFileExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
             // 
@@ -476,17 +476,24 @@ namespace PintoNS
             this.tsddbMenuBarHelp.Size = new System.Drawing.Size(36, 22);
             this.tsddbMenuBarHelp.Text = "Help";
             // 
+            // tsmiMenuBarHelpCheckForUpdates
+            // 
+            this.tsmiMenuBarHelpCheckForUpdates.Name = "tsmiMenuBarHelpCheckForUpdates";
+            this.tsmiMenuBarHelpCheckForUpdates.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpCheckForUpdates.Text = "Check For Updates";
+            this.tsmiMenuBarHelpCheckForUpdates.Click += new System.EventHandler(this.tsmiMenuBarHelpCheckForUpdates_Click);
+            // 
             // tsmiMenuBarHelpToggleConsole
             // 
             this.tsmiMenuBarHelpToggleConsole.Name = "tsmiMenuBarHelpToggleConsole";
             this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarHelpToggleConsole.Text = "Toggle console";
+            this.tsmiMenuBarHelpToggleConsole.Text = "Toggle Console";
             this.tsmiMenuBarHelpToggleConsole.Click += new System.EventHandler(this.tsmiMenuBarHelpToggleConsole_Click);
             // 
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(170, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -597,13 +604,6 @@ namespace PintoNS
             this.txtSearchBox.TabIndex = 4;
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
-            // 
-            // tsmiMenuBarHelpCheckForUpdates
-            // 
-            this.tsmiMenuBarHelpCheckForUpdates.Name = "tsmiMenuBarHelpCheckForUpdates";
-            this.tsmiMenuBarHelpCheckForUpdates.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarHelpCheckForUpdates.Text = "Check for updates";
-            this.tsmiMenuBarHelpCheckForUpdates.Click += new System.EventHandler(this.tsmiMenuBarHelpCheckForUpdates_Click);
             // 
             // MainForm
             // 

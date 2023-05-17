@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pNotification = new System.Windows.Forms.Panel();
+            this.lAutoClose = new System.Windows.Forms.Label();
             this.lSeeContent = new System.Windows.Forms.LinkLabel();
             this.btnClose = new System.Windows.Forms.Button();
             this.lBody = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.tAnim = new System.Windows.Forms.Timer(this.components);
             this.tSizeCheck = new System.Windows.Forms.Timer(this.components);
             this.tAutoClose = new System.Windows.Forms.Timer(this.components);
-            this.lAutoClose = new System.Windows.Forms.Label();
             this.pNotification.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,9 +57,20 @@
             this.pNotification.Size = new System.Drawing.Size(200, 177);
             this.pNotification.TabIndex = 0;
             // 
+            // lAutoClose
+            // 
+            this.lAutoClose.AutoSize = true;
+            this.lAutoClose.Location = new System.Drawing.Point(151, 12);
+            this.lAutoClose.Name = "lAutoClose";
+            this.lAutoClose.Size = new System.Drawing.Size(13, 13);
+            this.lAutoClose.TabIndex = 1;
+            this.lAutoClose.Text = "5";
+            this.lAutoClose.Visible = false;
+            // 
             // lSeeContent
             // 
             this.lSeeContent.AutoSize = true;
+            this.lSeeContent.BackColor = System.Drawing.Color.Transparent;
             this.lSeeContent.Location = new System.Drawing.Point(61, 155);
             this.lSeeContent.Name = "lSeeContent";
             this.lSeeContent.Size = new System.Drawing.Size(78, 13);
@@ -114,16 +125,6 @@
             // 
             this.tAutoClose.Interval = 1000;
             this.tAutoClose.Tick += new System.EventHandler(this.tAutoClose_Tick);
-            // 
-            // lAutoClose
-            // 
-            this.lAutoClose.AutoSize = true;
-            this.lAutoClose.Location = new System.Drawing.Point(151, 12);
-            this.lAutoClose.Name = "lAutoClose";
-            this.lAutoClose.Size = new System.Drawing.Size(13, 13);
-            this.lAutoClose.TabIndex = 1;
-            this.lAutoClose.Text = "5";
-            this.lAutoClose.Visible = false;
             // 
             // PopupForm
             // 

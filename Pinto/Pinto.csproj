@@ -183,6 +183,12 @@
       <DependentUpon>PopupForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MsgBox\MsgBoxIconType.cs" />
+    <Compile Include="Forms\ServerListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ServerListForm.Designer.cs">
+      <DependentUpon>ServerListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ViewAllPopupContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,13 @@
     <Compile Include="Forms\MsgBox\MsgBox.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
+    <Compile Include="Networking\Packets\PacketCallEnd.cs" />
+    <Compile Include="Networking\Packets\PacketCallStart.cs" />
+    <Compile Include="Networking\Packets\PacketCallInfo.cs" />
+    <Compile Include="Networking\Packets\PacketCallInit.cs" />
+    <Compile Include="Networking\Packets\PacketCallResponse.cs" />
+    <Compile Include="Networking\Packets\PacketCallRequest.cs" />
+    <Compile Include="Networking\Packets\PacketPopup.cs" />
     <Compile Include="Networking\Packets\PacketShrimp.cs" />
     <Compile Include="Networking\Packets\PacketClearContacts.cs" />
     <Compile Include="Networking\Packets\PacketContactRequest.cs" />
@@ -281,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PopupForm.resx">
       <DependentUpon>PopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ServerListForm.resx">
+      <DependentUpon>ServerListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UsingPintoForm.resx">
       <DependentUpon>UsingPintoForm.cs</DependentUpon>

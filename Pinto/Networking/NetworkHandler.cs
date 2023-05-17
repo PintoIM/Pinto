@@ -91,6 +91,14 @@ namespace PintoNS.Networking
             }));
         }
 
+        public void HandlePopupPacket(PacketPopup packetPopup)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.PopupController.CreatePopup(packetPopup.Body, packetPopup.Title);
+            }));
+        }
+
         public void HandleInWindowPopupPacket(PacketInWindowPopup packet)
         {
             mainForm.Invoke(new Action(() =>

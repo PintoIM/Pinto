@@ -61,6 +61,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtRegisterUsername = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.llServers = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoginControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAd)).BeginInit();
@@ -168,6 +169,7 @@
             // pLoginControls
             // 
             this.pLoginControls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pLoginControls.Controls.Add(this.llServers);
             this.pLoginControls.Controls.Add(this.txtUsername);
             this.pLoginControls.Controls.Add(this.rbLogin);
             this.pLoginControls.Controls.Add(this.rbCreate);
@@ -428,6 +430,17 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
+            // llServers
+            // 
+            this.llServers.AutoSize = true;
+            this.llServers.Location = new System.Drawing.Point(224, 116);
+            this.llServers.Name = "llServers";
+            this.llServers.Size = new System.Drawing.Size(116, 13);
+            this.llServers.TabIndex = 15;
+            this.llServers.TabStop = true;
+            this.llServers.Text = "Looking for all servers?";
+            this.llServers.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llServers_LinkClicked);
+            // 
             // UsingPintoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -493,5 +506,6 @@
         private System.Windows.Forms.TextBox txtRegisterUsername;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.ComboBox txtUsername;
+        private System.Windows.Forms.LinkLabel llServers;
     }
 }
