@@ -17,7 +17,7 @@ namespace PintoNS
         [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
         private static extern string GetWineVersion();
         public static ConsoleForm Console;
-        public const string VERSION = "a1.5";
+        public const string VERSION = "a1.6";
         public const int PROTOCOL_VERSION = 15;
 
         [STAThread]
@@ -66,17 +66,6 @@ namespace PintoNS
                 }
             }
 
-            if (Environment.OSVersion.Version.Major == 6 &&
-                Environment.OSVersion.Version.Minor <= 1) 
-            {
-                MsgBox.ShowNotification(Console,
-                    $"Pinto! has detected it is being ran on a" +
-                    $" potentially unsupported operating system!{Environment.NewLine}" +
-                    $"This execution configuration will not receive support!",
-                    "Unsupported Execution Configuration",
-                    MsgBoxIconType.WARNING);
-            }
-            
             // Start Pinto!
             Application.Run(new MainForm());
         }
