@@ -32,23 +32,38 @@ namespace PintoNS.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerListForm));
             this.btnUse = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.dgvServers = new System.Windows.Forms.DataGridView();
+            this.dgvServersOfficial = new System.Windows.Forms.DataGridView();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.port = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.users = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.max_users = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpLoading = new System.Windows.Forms.TabPage();
             this.lLoading = new System.Windows.Forms.Label();
             this.pbLoading = new System.Windows.Forms.PictureBox();
             this.tpServers = new System.Windows.Forms.TabPage();
+            this.tcServers = new System.Windows.Forms.TabControl();
+            this.tpServersOfficial = new System.Windows.Forms.TabPage();
+            this.tpServersUnofficial = new System.Windows.Forms.TabPage();
+            this.dgvServersUnofficial = new System.Windows.Forms.DataGridView();
+            this.name2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ip2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.port2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.users2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.max_users2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tags2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lError = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvServers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServersOfficial)).BeginInit();
             this.tcSections.SuspendLayout();
             this.tpLoading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).BeginInit();
             this.tpServers.SuspendLayout();
+            this.tcServers.SuspendLayout();
+            this.tpServersOfficial.SuspendLayout();
+            this.tpServersUnofficial.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServersUnofficial)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUse
@@ -73,31 +88,32 @@ namespace PintoNS.Forms
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // dgvServers
+            // dgvServersOfficial
             // 
-            this.dgvServers.AllowUserToAddRows = false;
-            this.dgvServers.AllowUserToDeleteRows = false;
-            this.dgvServers.AllowUserToResizeColumns = false;
-            this.dgvServers.AllowUserToResizeRows = false;
-            this.dgvServers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvServers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvServers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvServersOfficial.AllowUserToAddRows = false;
+            this.dgvServersOfficial.AllowUserToDeleteRows = false;
+            this.dgvServersOfficial.AllowUserToResizeColumns = false;
+            this.dgvServersOfficial.AllowUserToResizeRows = false;
+            this.dgvServersOfficial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvServersOfficial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvServersOfficial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.name,
             this.ip,
             this.port,
             this.users,
-            this.max_users});
-            this.dgvServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvServers.Location = new System.Drawing.Point(3, 3);
-            this.dgvServers.MultiSelect = false;
-            this.dgvServers.Name = "dgvServers";
-            this.dgvServers.ReadOnly = true;
-            this.dgvServers.RowHeadersVisible = false;
-            this.dgvServers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvServers.ShowEditingIcon = false;
-            this.dgvServers.Size = new System.Drawing.Size(648, 375);
-            this.dgvServers.TabIndex = 2;
-            this.dgvServers.SelectionChanged += new System.EventHandler(this.dgvServers_SelectionChanged);
+            this.max_users,
+            this.tags});
+            this.dgvServersOfficial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvServersOfficial.Location = new System.Drawing.Point(3, 3);
+            this.dgvServersOfficial.MultiSelect = false;
+            this.dgvServersOfficial.Name = "dgvServersOfficial";
+            this.dgvServersOfficial.ReadOnly = true;
+            this.dgvServersOfficial.RowHeadersVisible = false;
+            this.dgvServersOfficial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvServersOfficial.ShowEditingIcon = false;
+            this.dgvServersOfficial.Size = new System.Drawing.Size(634, 343);
+            this.dgvServersOfficial.TabIndex = 2;
+            this.dgvServersOfficial.SelectionChanged += new System.EventHandler(this.dgvServers_SelectionChanged);
             // 
             // name
             // 
@@ -128,6 +144,12 @@ namespace PintoNS.Forms
             this.max_users.HeaderText = "Max Users";
             this.max_users.Name = "max_users";
             this.max_users.ReadOnly = true;
+            // 
+            // tags
+            // 
+            this.tags.HeaderText = "Tags";
+            this.tags.Name = "tags";
+            this.tags.ReadOnly = true;
             // 
             // tcSections
             // 
@@ -176,7 +198,7 @@ namespace PintoNS.Forms
             // 
             // tpServers
             // 
-            this.tpServers.Controls.Add(this.dgvServers);
+            this.tpServers.Controls.Add(this.tcServers);
             this.tpServers.Location = new System.Drawing.Point(4, 22);
             this.tpServers.Name = "tpServers";
             this.tpServers.Padding = new System.Windows.Forms.Padding(3);
@@ -184,6 +206,102 @@ namespace PintoNS.Forms
             this.tpServers.TabIndex = 0;
             this.tpServers.Text = "Servers";
             this.tpServers.UseVisualStyleBackColor = true;
+            // 
+            // tcServers
+            // 
+            this.tcServers.Controls.Add(this.tpServersOfficial);
+            this.tcServers.Controls.Add(this.tpServersUnofficial);
+            this.tcServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcServers.Location = new System.Drawing.Point(3, 3);
+            this.tcServers.Name = "tcServers";
+            this.tcServers.SelectedIndex = 0;
+            this.tcServers.Size = new System.Drawing.Size(648, 375);
+            this.tcServers.TabIndex = 3;
+            // 
+            // tpServersOfficial
+            // 
+            this.tpServersOfficial.Controls.Add(this.dgvServersOfficial);
+            this.tpServersOfficial.Location = new System.Drawing.Point(4, 22);
+            this.tpServersOfficial.Name = "tpServersOfficial";
+            this.tpServersOfficial.Padding = new System.Windows.Forms.Padding(3);
+            this.tpServersOfficial.Size = new System.Drawing.Size(640, 349);
+            this.tpServersOfficial.TabIndex = 0;
+            this.tpServersOfficial.Text = "Official";
+            this.tpServersOfficial.UseVisualStyleBackColor = true;
+            // 
+            // tpServersUnofficial
+            // 
+            this.tpServersUnofficial.Controls.Add(this.dgvServersUnofficial);
+            this.tpServersUnofficial.Location = new System.Drawing.Point(4, 22);
+            this.tpServersUnofficial.Name = "tpServersUnofficial";
+            this.tpServersUnofficial.Padding = new System.Windows.Forms.Padding(3);
+            this.tpServersUnofficial.Size = new System.Drawing.Size(640, 349);
+            this.tpServersUnofficial.TabIndex = 1;
+            this.tpServersUnofficial.Text = "Un-official";
+            this.tpServersUnofficial.UseVisualStyleBackColor = true;
+            // 
+            // dgvServersUnofficial
+            // 
+            this.dgvServersUnofficial.AllowUserToAddRows = false;
+            this.dgvServersUnofficial.AllowUserToDeleteRows = false;
+            this.dgvServersUnofficial.AllowUserToResizeColumns = false;
+            this.dgvServersUnofficial.AllowUserToResizeRows = false;
+            this.dgvServersUnofficial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvServersUnofficial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvServersUnofficial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.name2,
+            this.ip2,
+            this.port2,
+            this.users2,
+            this.max_users2,
+            this.tags2});
+            this.dgvServersUnofficial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvServersUnofficial.Location = new System.Drawing.Point(3, 3);
+            this.dgvServersUnofficial.MultiSelect = false;
+            this.dgvServersUnofficial.Name = "dgvServersUnofficial";
+            this.dgvServersUnofficial.ReadOnly = true;
+            this.dgvServersUnofficial.RowHeadersVisible = false;
+            this.dgvServersUnofficial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvServersUnofficial.ShowEditingIcon = false;
+            this.dgvServersUnofficial.Size = new System.Drawing.Size(634, 343);
+            this.dgvServersUnofficial.TabIndex = 3;
+            this.dgvServersUnofficial.SelectionChanged += new System.EventHandler(this.dgvServersUnofficial_SelectionChanged);
+            // 
+            // name2
+            // 
+            this.name2.HeaderText = "Name";
+            this.name2.Name = "name2";
+            this.name2.ReadOnly = true;
+            // 
+            // ip2
+            // 
+            this.ip2.HeaderText = "IP";
+            this.ip2.Name = "ip2";
+            this.ip2.ReadOnly = true;
+            // 
+            // port2
+            // 
+            this.port2.HeaderText = "Port";
+            this.port2.Name = "port2";
+            this.port2.ReadOnly = true;
+            // 
+            // users2
+            // 
+            this.users2.HeaderText = "Users";
+            this.users2.Name = "users2";
+            this.users2.ReadOnly = true;
+            // 
+            // max_users2
+            // 
+            this.max_users2.HeaderText = "Max Users";
+            this.max_users2.Name = "max_users2";
+            this.max_users2.ReadOnly = true;
+            // 
+            // tags2
+            // 
+            this.tags2.HeaderText = "Tags";
+            this.tags2.Name = "tags2";
+            this.tags2.ReadOnly = true;
             // 
             // lError
             // 
@@ -211,12 +329,16 @@ namespace PintoNS.Forms
             this.Name = "ServerListForm";
             this.Text = "Pinto! - Server List";
             this.Load += new System.EventHandler(this.ServerListForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvServers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServersOfficial)).EndInit();
             this.tcSections.ResumeLayout(false);
             this.tpLoading.ResumeLayout(false);
             this.tpLoading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLoading)).EndInit();
             this.tpServers.ResumeLayout(false);
+            this.tcServers.ResumeLayout(false);
+            this.tpServersOfficial.ResumeLayout(false);
+            this.tpServersUnofficial.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServersUnofficial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,17 +348,28 @@ namespace PintoNS.Forms
 
         private System.Windows.Forms.Button btnUse;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgvServers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn port;
-        private System.Windows.Forms.DataGridViewTextBoxColumn users;
-        private System.Windows.Forms.DataGridViewTextBoxColumn max_users;
+        private System.Windows.Forms.DataGridView dgvServersOfficial;
         private System.Windows.Forms.TabControl tcSections;
         private System.Windows.Forms.TabPage tpServers;
         private System.Windows.Forms.TabPage tpLoading;
         private System.Windows.Forms.PictureBox pbLoading;
         private System.Windows.Forms.Label lLoading;
         private System.Windows.Forms.Label lError;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn port;
+        private System.Windows.Forms.DataGridViewTextBoxColumn users;
+        private System.Windows.Forms.DataGridViewTextBoxColumn max_users;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tags;
+        private System.Windows.Forms.TabControl tcServers;
+        private System.Windows.Forms.TabPage tpServersOfficial;
+        private System.Windows.Forms.TabPage tpServersUnofficial;
+        private System.Windows.Forms.DataGridView dgvServersUnofficial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ip2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn port2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn users2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn max_users2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tags2;
     }
 }

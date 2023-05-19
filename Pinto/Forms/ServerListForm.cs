@@ -39,7 +39,8 @@ namespace PintoNS.Forms
             lError.Visible = false;
             lError.Text = "Error: null";
             tcSections.SelectedTab = tpLoading;
-            dgvServers.Rows.Clear();
+            dgvServersOfficial.Rows.Clear();
+            dgvServersUnofficial.Rows.Clear();
 
             try 
             {
@@ -59,7 +60,23 @@ namespace PintoNS.Forms
                     int port = server["port"].Value<int>();
                     int users = server["users"].Value<int>();
                     int maxUsers = server["maxUsers"].Value<int>();
-                    dgvServers.Rows.Add(name, ip, port, users, maxUsers);
+                    string tags = server["tags"].Value<string>();
+
+                    if (!tags.Split(',').Contains("official")) continue;
+                    dgvServersOfficial.Rows.Add(name, ip, port, users, maxUsers, tags);
+                }
+
+                foreach (JObject server in response)
+                {
+                    string name = server["name"].Value<string>();
+                    string ip = server["ip"].Value<string>();
+                    int port = server["port"].Value<int>();
+                    int users = server["users"].Value<int>();
+                    int maxUsers = server["maxUsers"].Value<int>();
+                    string tags = server["tags"].Value<string>();
+
+                    if (tags.Split(',').Contains("official")) continue;
+                    dgvServersUnofficial.Rows.Add(name, ip, port, users, maxUsers, tags);
                 }
             }
             catch (Exception ex) 
@@ -79,7 +96,15 @@ namespace PintoNS.Forms
 
         private void dgvServers_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvServers.SelectedRows.Count > 0)
+            if (dgvServersOfficial.SelectedRows.Count > 0)
+                btnUse.Enabled = true;
+            else
+                btnUse.Enabled = false;
+        }
+
+        private void dgvServersUnofficial_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvServersUnofficial.SelectedRows.Count > 0)
                 btnUse.Enabled = true;
             else
                 btnUse.Enabled = false;
@@ -87,14 +112,26 @@ namespace PintoNS.Forms
 
         private void btnUse_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dgvServers.SelectedRows[0];
+            string ip = "";
+            int port = 0;
+
+            if (tcServers.SelectedTab == tpServersOfficial) 
+            {
+                ip = (string)dgvServersOfficial.SelectedRows[0].Cells["ip"].Value;
+                port = (int)dgvServersOfficial.SelectedRows[0].Cells["port"].Value;
+            }
+            else if (tcServers.SelectedTab == tpServersUnofficial)
+            {
+                ip = (string)dgvServersUnofficial.SelectedRows[0].Cells["ip2"].Value;
+                port = (int)dgvServersUnofficial.SelectedRows[0].Cells["port2"].Value;
+            }
+
             Close();
             if (ServerUse != null)
-                ServerUse.Invoke(this, new ServerUseEventArgs(
-                    (string)row.Cells["ip"].Value, (int)row.Cells["port"].Value));
+                ServerUse.Invoke(this, new ServerUseEventArgs(ip, port));
         }
     }
-    
+
     public class ServerUseEventArgs : EventArgs
     {
         public string IP { get; protected set; }
