@@ -260,11 +260,13 @@ namespace PintoNS.Forms
 
         private void tsmiMessagesCopy_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(rtxtMessages.SelectedText)) return;
             Clipboard.SetText(rtxtMessages.SelectedText);
         }
 
         private void tsmiInputCopy_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(rtxtInput.SelectedText)) return;
             Clipboard.SetText(rtxtInput.SelectedText);
         }
 
