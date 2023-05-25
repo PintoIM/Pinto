@@ -42,7 +42,7 @@
             this.lTitle.AutoSize = true;
             this.lTitle.BackColor = System.Drawing.Color.Transparent;
             this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTitle.Location = new System.Drawing.Point(205, 12);
+            this.lTitle.Location = new System.Drawing.Point(182, 9);
             this.lTitle.Name = "lTitle";
             this.lTitle.Size = new System.Drawing.Size(105, 37);
             this.lTitle.TabIndex = 1;
@@ -53,7 +53,7 @@
             this.lVersion.AutoSize = true;
             this.lVersion.BackColor = System.Drawing.Color.Transparent;
             this.lVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lVersion.Location = new System.Drawing.Point(209, 49);
+            this.lVersion.Location = new System.Drawing.Point(186, 49);
             this.lVersion.Name = "lVersion";
             this.lVersion.Size = new System.Drawing.Size(104, 13);
             this.lVersion.TabIndex = 3;
@@ -65,7 +65,7 @@
             this.pbLogo.Image = global::PintoNS.Logo.LOGO;
             this.pbLogo.Location = new System.Drawing.Point(12, 12);
             this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(186, 161);
+            this.pbLogo.Size = new System.Drawing.Size(168, 161);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbLogo.TabIndex = 0;
             this.pbLogo.TabStop = false;
@@ -74,7 +74,7 @@
             // 
             this.pbGPLV3.BackColor = System.Drawing.Color.Transparent;
             this.pbGPLV3.Image = global::PintoNS.Assets.GPLV3;
-            this.pbGPLV3.Location = new System.Drawing.Point(408, 123);
+            this.pbGPLV3.Location = new System.Drawing.Point(385, 123);
             this.pbGPLV3.Name = "pbGPLV3";
             this.pbGPLV3.Size = new System.Drawing.Size(100, 50);
             this.pbGPLV3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -84,7 +84,7 @@
             // lBody
             // 
             this.lBody.BackColor = System.Drawing.Color.Transparent;
-            this.lBody.Location = new System.Drawing.Point(209, 72);
+            this.lBody.Location = new System.Drawing.Point(186, 72);
             this.lBody.Name = "lBody";
             this.lBody.Size = new System.Drawing.Size(299, 48);
             this.lBody.TabIndex = 6;
@@ -96,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(520, 184);
+            this.ClientSize = new System.Drawing.Size(495, 184);
             this.Controls.Add(this.lBody);
             this.Controls.Add(this.pbGPLV3);
             this.Controls.Add(this.lVersion);
