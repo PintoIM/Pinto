@@ -48,7 +48,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>LOGO.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Logo\LOGO.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -361,7 +361,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LOGO.ico" />
     <Content Include="Resources\Assets\GPLV3.png" />
     <Content Include="Resources\Assets\ADDCONTACT_DISABLED.png" />
     <Content Include="Resources\Assets\ADDCONTACT_ENABLED.png" />
