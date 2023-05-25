@@ -1,7 +1,7 @@
 {
-    "latest": "a1.6.1",
+    "latest": "exp0",
     "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
     "supported": [
-		"a1.6.1"
+		"exp0"
     ]
 }
