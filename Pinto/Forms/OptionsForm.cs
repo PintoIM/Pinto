@@ -15,6 +15,7 @@ namespace PintoNS.Forms
         public OptionsForm()
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace PintoNS.Forms
         public ServerListForm()
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
         }
 
         private async void ServerListForm_Load(object sender, EventArgs e)
@@ -114,6 +115,11 @@ namespace PintoNS.Forms
         {
             string ip = "";
             int port = 0;
+
+            if ((tcServers.SelectedTab == tpServersOfficial &&
+                dgvServersOfficial.SelectedRows.Count < 1) ||
+                (tcServers.SelectedTab == tpServersUnofficial &&
+                dgvServersUnofficial.SelectedRows.Count < 1)) return;
 
             if (tcServers.SelectedTab == tpServersOfficial) 
             {

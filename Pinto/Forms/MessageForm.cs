@@ -29,6 +29,7 @@ namespace PintoNS.Forms
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
             this.mainForm = mainForm;
             InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;
@@ -208,15 +209,9 @@ namespace PintoNS.Forms
                 mainForm.MessageForms.Remove(this);
         }
 
-        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
-        {
-            new AboutForm().ShowDialog(this);
-        }
+        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
 
-        private void MessageForm_Activated(object sender, EventArgs e)
-        {
-            HasBeenInactive = false;
-        }
+        private void MessageForm_Activated(object sender, EventArgs e) => HasBeenInactive = false;
 
         private void btnTalk_Click(object sender, EventArgs e)
         {
@@ -253,10 +248,7 @@ namespace PintoNS.Forms
             rtxtMessages.ScrollToCaret();
         }
 
-        private void rtxtMessages_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            Process.Start(e.LinkText);
-        }
+        private void rtxtMessages_LinkClicked(object sender, LinkClickedEventArgs e) => Process.Start(e.LinkText);
 
         private void tsmiMessagesCopy_Click(object sender, EventArgs e)
         {

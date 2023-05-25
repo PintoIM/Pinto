@@ -14,6 +14,7 @@ using PintoNS.General;
 using System.Media;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Data;
 
 namespace PintoNS.Networking
 {
@@ -204,7 +205,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.dgvContacts.Rows.Clear();
+                (mainForm.dgvContacts.DataSource as DataTable).Rows.Clear();
                 mainForm.ContactsMgr = new ContactsManager(mainForm);
             }));
         }

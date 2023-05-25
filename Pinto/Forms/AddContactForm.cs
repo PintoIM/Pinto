@@ -18,6 +18,7 @@ namespace PintoNS.Forms
         public AddContactForm(MainForm mainForm)
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
             this.mainForm = mainForm;
         }
 

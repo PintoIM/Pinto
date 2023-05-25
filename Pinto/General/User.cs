@@ -10,7 +10,7 @@ namespace PintoNS.General
     public class User
     {
         public string Name;
-        public UserStatus Status;
+        public UserStatus Status = UserStatus.OFFLINE;
 
         public static Bitmap StatusToBitmap(UserStatus status) 
         {

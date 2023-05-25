@@ -39,6 +39,7 @@ namespace PintoNS
         public MainForm()
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
             InWindowPopupController = new InWindowPopupController(this, 70);
             PopupController = new PopupController();
         }
@@ -46,20 +47,43 @@ namespace PintoNS
         internal void OnLogin()
         {
             tcTabs.TabPages.Clear();
+            tcTabs.TabPages.Add(tpStart);
             tcTabs.TabPages.Add(tpContacts);
+            UpdateQuickActions(true);
             OnStatusChange(UserStatus.ONLINE);
 
-            dgvContacts.Rows.Clear();
-            ContactsMgr = new ContactsManager(this);
+            // Use a DataTable to allow usage of more options than a plain DataGridView
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("contactStatus", typeof(Bitmap));
+            dataTable.Columns.Add("contactName", typeof(string));
+
+            dgvContacts.DataSource = dataTable;
+            dgvContacts.Columns["contactStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvContacts.Columns["contactStatus"].FillWeight = 24;
+            dgvContacts.Columns["contactStatus"].Width = 24;
+
             MessageForms = new List<MessageForm>();
-            // TODO: Currently pointless
-            //txtSearchBox.Enabled = true;
-            tsmiMenuBarFileAddContact.Enabled = true;
-            tsmiMenuBarFileRemoveContact.Enabled = true;
-            tsmiMenuBarFileLogOut.Enabled = true;
+            txtSearchBox.Enabled = true;
+            tsmiMenuBarToolsAddContact.Enabled = true;
+            tsmiMenuBarToolsRemoveContact.Enabled = true;
+            tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! - {CurrentUser.Name}";
 
             new SoundPlayer(Sounds.LOGIN).Play();
+        }
+
+        internal void UpdateQuickActions(bool loggedInState) 
+        {
+            if (loggedInState) 
+            {
+                pbQAAddContact.Image = Assets.ADDCONTACT_ENABLED;
+                pbQAAddContact.Enabled = true;
+            }
+            else 
+            {
+                pbQAAddContact.Image = Assets.ADDCONTACT_DISABLED;
+                pbQAAddContact.Enabled = false;
+            }
         }
 
         internal void OnStatusChange(UserStatus status)
@@ -75,6 +99,7 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpLogin);
+            UpdateQuickActions(false);
             OnStatusChange(UserStatus.OFFLINE);
 
             if (MessageForms != null && MessageForms.Count > 0)
@@ -85,19 +110,22 @@ namespace PintoNS
                     msgForm.Dispose();
                 }
             }
-
+            
             ContactsMgr = null;
             MessageForms = null;
+            dgvContacts.DataSource = null;
+
             btnStartCall.Enabled = false;
             btnStartCall.Image = Assets.STARTCALL_DISABLED;
             btnEndCall.Enabled = false;
             btnEndCall.Image = Assets.ENDCALL_DISABLED;
+
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
-            tsmiMenuBarFileAddContact.Enabled = false;
-            tsmiMenuBarFileRemoveContact.Enabled = false;
-            tsmiMenuBarFileLogOut.Enabled = false;
+            tsmiMenuBarToolsAddContact.Enabled = false;
+            tsmiMenuBarToolsRemoveContact.Enabled = false;
+            tsmiMenuBarFileLogOff.Enabled = false;
             Text = "Pinto!";
 
             if (!noSound)
@@ -210,7 +238,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            await CheckForUpdates();
+            //await CheckForUpdates();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -222,9 +250,8 @@ namespace PintoNS
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
-            Contact contact = ContactsMgr.GetContact(contactName);
 
-            if (contactName != null && contact != null)
+            if (contactName != null)
             {
                 MessageForm messageForm = GetMessageFormFromReceiverName(contactName);
                 messageForm.WindowState = FormWindowState.Normal;
@@ -244,10 +271,7 @@ namespace PintoNS
             Disconnect();
         }
 
-        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e)
-        {
-            new AboutForm().ShowDialog(this);
-        }
+        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
@@ -285,14 +309,14 @@ namespace PintoNS
             });
         }
 
-        private void tsmiMenuBarFileAddContact_Click(object sender, EventArgs e)
+        private void tsmiMenuBarToolsAddContact_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
             AddContactForm addContactForm = new AddContactForm(this);
             addContactForm.ShowDialog(this);
         }
 
-        private void tsmiMenuBarFileRemoveContact_Click(object sender, EventArgs e)
+        private void tsmiMenuBarToolsRemoveContact_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
             if (dgvContacts.SelectedRows.Count < 1)
@@ -306,8 +330,7 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
-            /*
-            if (InCall) return;
+            /*if (InCall) return;
 
             if (dgvContacts.SelectedRows.Count > 0)
             {
@@ -353,16 +376,13 @@ namespace PintoNS
             WindowState = FormWindowState.Normal;
         }
 
-        private void tsmiMenuBarToolsOptions_Click(object sender, EventArgs e)
+        private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
         {
             OptionsForm optionsForm = new OptionsForm();
             optionsForm.ShowDialog(this);
         }
 
-        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) => Close();
 
         public async Task CheckForUpdates() 
         {
@@ -399,9 +419,63 @@ namespace PintoNS
             }
         }
 
-        private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e)
+        private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e) => await CheckForUpdates();
+
+        private void txtSearchBox_TextChanged2(object sender, EventArgs e)
         {
-            await CheckForUpdates();
+            DataTable dataTable = dgvContacts.DataSource as DataTable;
+            if (string.IsNullOrWhiteSpace(txtSearchBox.Text))
+                dataTable.DefaultView.RowFilter = "";
+            else
+                dataTable.DefaultView.RowFilter = $"contactName Like '{txtSearchBox.Text}*'";
+            dgvContacts.Refresh();
+        }
+
+        private void llStartContacts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            tcTabs.SelectedTab = tpContacts;
+        }
+
+        private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e) 
+            => Process.Start("https://github.com/PintoIM/Pinto/issues");
+
+        private void tContactsOnlineUpdate_Tick(object sender, EventArgs e)
+        {
+            if (ContactsMgr == null) return;
+            int online = ContactsMgr.GetContacts().Count((Contact contact) =>
+            {
+                return contact.Status != UserStatus.OFFLINE;
+            });
+            llStartContacts.Text = $"{online} Contacts Online";
+        }
+
+        private void dgvContacts_CellContextMenuStripNeeded(object sender,
+            DataGridViewCellContextMenuStripNeededEventArgs e)
+        {
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            contextMenu.ShowImageMargin = false;
+
+            ToolStripMenuItem startMessaging = new ToolStripMenuItem("Start Messaging");
+            ToolStripMenuItem removeContact = new ToolStripMenuItem("Remove Contact");
+
+            startMessaging.Click += new EventHandler((object sender2, EventArgs e2) =>
+            {
+                string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+                MessageForm messageForm = GetMessageFormFromReceiverName(contactName);
+                messageForm.WindowState = FormWindowState.Normal;
+                messageForm.BringToFront();
+                messageForm.Focus();
+            });
+
+            removeContact.Click += new EventHandler((object sender2, EventArgs e2) =>
+            {
+                string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+                NetManager.NetHandler.SendRemoveContactPacket(contactName);
+            });
+
+            contextMenu.Items.Add(startMessaging);
+            contextMenu.Items.Add(removeContact);
+            e.ContextMenuStrip = contextMenu;
         }
     }
 }

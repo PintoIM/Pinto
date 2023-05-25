@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,60 +14,56 @@ namespace PintoNS.General
     {
         private MainForm mainForm;
         private DataGridView dgvContacts;
+        private DataTable dataTable;
         private List<Contact> contacts = new List<Contact>();
 
         public ContactsManager(MainForm mainForm) 
         {
             this.mainForm = mainForm;
             dgvContacts = mainForm.dgvContacts;
+            dataTable = (DataTable) mainForm.dgvContacts.DataSource;
         }
 
-        private DataGridViewRow GetContactListEntry(string name) 
+        private DataRow GetContactListEntry(string name) 
         {
             if (name == null) return null;
 
-            foreach (DataGridViewRow row in dgvContacts.Rows) 
-            {
-                if (((string)row.Cells[1].Value) == name) 
+            foreach (DataRow row in dataTable.Rows) 
+                if (((string)row[1]) == name) 
                     return row;
-            }
 
             return null;
         }
 
         private void AddContactListEntry(Contact contact) 
         {
-            if (GetContactListEntry(contact.Name) == null) 
-            {
-                dgvContacts.Rows.Add(User.StatusToBitmap(contact.Status), contact.Name);
-            }
+            if (GetContactListEntry(contact.Name) == null)
+                dataTable.Rows.Add(User.StatusToBitmap(contact.Status), contact.Name);
         }
 
         private void RemoveContactListEntry(Contact contact)
         {
-            DataGridViewRow row;
+            DataRow row;
             if ((row = GetContactListEntry(contact.Name)) != null) 
-            {
-                dgvContacts.Rows.Remove(row);
-            }
+                dataTable.Rows.Remove(row);
         }
 
         private void UpdateContactListEntry(Contact contact) 
         {
-            DataGridViewRow row;
+            DataRow row;
             if ((row = GetContactListEntry(contact.Name)) != null)
             {
-                row.Cells[0].Value = User.StatusToBitmap(contact.Status);
-                row.Cells[1].Value = contact.Name;
+                row[0] = User.StatusToBitmap(contact.Status);
+                row[1] = contact.Name;
             }
         }
 
         public string GetContactNameFromRow(int rowIndex) 
         {
-            foreach (DataGridViewRow row in dgvContacts.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
-                if (row.Index == rowIndex)
-                    return (string)row.Cells[1].Value;
+                if (dataTable.Rows.IndexOf(row) == rowIndex)
+                    return (string)row[1];
             }
 
             return null;
@@ -112,5 +109,7 @@ namespace PintoNS.General
                 contacts.Add(contact);
             }
         }
+
+        public Contact[] GetContacts() => contacts.ToArray();
     }
 }

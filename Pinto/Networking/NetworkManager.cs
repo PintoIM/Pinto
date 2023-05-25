@@ -66,7 +66,7 @@ namespace PintoNS.Networking
                 .Replace("-", "")
                 .ToUpper();
             NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, 
-                Program.VERSION, username, passwordHash);
+                Program.VERSION_STRING, username, passwordHash);
         }
 
         public void Register(string username, string password)
@@ -80,7 +80,7 @@ namespace PintoNS.Networking
                 .Replace("-", "")
                 .ToUpper();
             NetHandler.SendRegisterPacket(Program.PROTOCOL_VERSION,
-                Program.VERSION, username, passwordHash);
+                Program.VERSION_STRING, username, passwordHash);
         }
 
         public void ChangeStatus(UserStatus status) 

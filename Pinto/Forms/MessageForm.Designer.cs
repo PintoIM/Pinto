@@ -38,6 +38,10 @@
             this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiMenuFileZoomIn = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuFileZoomOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuFileZoomReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,10 +54,7 @@
             this.rtxtMessages = new System.Windows.Forms.RichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiMenuFileZoomIn = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMenuFileZoomOut = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMenuFileZoomReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -148,10 +149,38 @@
             this.tsddbMenuBarFile.Text = "File";
             this.tsddbMenuBarFile.ToolTipText = "File";
             // 
+            // tsmiMenuFileZoomIn
+            // 
+            this.tsmiMenuFileZoomIn.Name = "tsmiMenuFileZoomIn";
+            this.tsmiMenuFileZoomIn.ShortcutKeyDisplayString = "Ctrl + Scroll Up";
+            this.tsmiMenuFileZoomIn.Size = new System.Drawing.Size(232, 22);
+            this.tsmiMenuFileZoomIn.Text = "Zoom In";
+            this.tsmiMenuFileZoomIn.Click += new System.EventHandler(this.tsmiMenuFileZoomIn_Click);
+            // 
+            // tsmiMenuFileZoomOut
+            // 
+            this.tsmiMenuFileZoomOut.Name = "tsmiMenuFileZoomOut";
+            this.tsmiMenuFileZoomOut.ShortcutKeyDisplayString = "Ctrl + Scroll Down";
+            this.tsmiMenuFileZoomOut.Size = new System.Drawing.Size(232, 22);
+            this.tsmiMenuFileZoomOut.Text = "Zoom Out";
+            this.tsmiMenuFileZoomOut.Click += new System.EventHandler(this.tsmiMenuFileZoomOut_Click);
+            // 
+            // tsmiMenuFileZoomReset
+            // 
+            this.tsmiMenuFileZoomReset.Name = "tsmiMenuFileZoomReset";
+            this.tsmiMenuFileZoomReset.Size = new System.Drawing.Size(232, 22);
+            this.tsmiMenuFileZoomReset.Text = "Zoom Reset";
+            this.tsmiMenuFileZoomReset.Click += new System.EventHandler(this.tsmiMenuFileZoomReset_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(229, 6);
+            // 
             // tsmiMenuBarFileClearSavedData
             // 
             this.tsmiMenuBarFileClearSavedData.Name = "tsmiMenuBarFileClearSavedData";
-            this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(232, 22);
             this.tsmiMenuBarFileClearSavedData.Text = "Clear Saved Data";
             this.tsmiMenuBarFileClearSavedData.Click += new System.EventHandler(this.tsmiMenuBarFileClearSavedData_Click);
             // 
@@ -272,39 +301,21 @@
             this.tsmiMessagesCopy.Text = "Copy";
             this.tsmiMessagesCopy.Click += new System.EventHandler(this.tsmiMessagesCopy_Click);
             // 
-            // toolStripSeparator1
+            // button1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // tsmiMenuFileZoomIn
-            // 
-            this.tsmiMenuFileZoomIn.Name = "tsmiMenuFileZoomIn";
-            this.tsmiMenuFileZoomIn.ShortcutKeyDisplayString = "Ctrl + Scroll Up";
-            this.tsmiMenuFileZoomIn.Size = new System.Drawing.Size(206, 22);
-            this.tsmiMenuFileZoomIn.Text = "Zoom In";
-            this.tsmiMenuFileZoomIn.Click += new System.EventHandler(this.tsmiMenuFileZoomIn_Click);
-            // 
-            // tsmiMenuFileZoomOut
-            // 
-            this.tsmiMenuFileZoomOut.Name = "tsmiMenuFileZoomOut";
-            this.tsmiMenuFileZoomOut.ShortcutKeyDisplayString = "Ctrl + Scroll Down";
-            this.tsmiMenuFileZoomOut.Size = new System.Drawing.Size(232, 22);
-            this.tsmiMenuFileZoomOut.Text = "Zoom Out";
-            this.tsmiMenuFileZoomOut.Click += new System.EventHandler(this.tsmiMenuFileZoomOut_Click);
-            // 
-            // tsmiMenuFileZoomReset
-            // 
-            this.tsmiMenuFileZoomReset.Name = "tsmiMenuFileZoomReset";
-            this.tsmiMenuFileZoomReset.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuFileZoomReset.Text = "Zoom Reset";
-            this.tsmiMenuFileZoomReset.Click += new System.EventHandler(this.tsmiMenuFileZoomReset_Click);
+            this.button1.Location = new System.Drawing.Point(237, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "TACTICAL NUKE";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 373);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.rtxtMessages);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.ssStatusStrip);
@@ -314,7 +325,6 @@
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.tsMenuBar);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(187, 239);
             this.Name = "MessageForm";
             this.Activated += new System.EventHandler(this.MessageForm_Activated);
@@ -356,5 +366,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
+        private System.Windows.Forms.Button button1;
     }
 }

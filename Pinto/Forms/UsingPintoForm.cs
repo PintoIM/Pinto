@@ -23,6 +23,7 @@ namespace PintoNS.Forms
         public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
             this.mainForm = mainForm;
         }
 

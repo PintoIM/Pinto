@@ -9,6 +9,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using PintoNS.Forms.Notification;
 using PintoNS.General;
+using System.Diagnostics;
 
 namespace PintoNS
 {
@@ -17,8 +18,8 @@ namespace PintoNS
         [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
         private static extern string GetWineVersion();
         public static ConsoleForm Console;
-        public const string VERSION = "a1.6.1";
-        public const int PROTOCOL_VERSION = 16;
+        public const string VERSION_STRING = "exp0";
+        public const int PROTOCOL_VERSION = 0;
 
         [STAThread]
         static void Main()

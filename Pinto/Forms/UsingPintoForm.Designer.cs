@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsingPintoForm));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.txtIP = new System.Windows.Forms.TextBox();
@@ -39,6 +38,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pLoginControls = new System.Windows.Forms.Panel();
+            this.llServers = new System.Windows.Forms.LinkLabel();
             this.txtUsername = new System.Windows.Forms.ComboBox();
             this.rbLogin = new System.Windows.Forms.RadioButton();
             this.rbCreate = new System.Windows.Forms.RadioButton();
@@ -61,7 +61,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtRegisterUsername = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.llServers = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoginControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAd)).BeginInit();
@@ -186,6 +185,17 @@
             this.pLoginControls.Name = "pLoginControls";
             this.pLoginControls.Size = new System.Drawing.Size(348, 184);
             this.pLoginControls.TabIndex = 10;
+            // 
+            // llServers
+            // 
+            this.llServers.AutoSize = true;
+            this.llServers.Location = new System.Drawing.Point(224, 116);
+            this.llServers.Name = "llServers";
+            this.llServers.Size = new System.Drawing.Size(116, 13);
+            this.llServers.TabIndex = 15;
+            this.llServers.TabStop = true;
+            this.llServers.Text = "Looking for all servers?";
+            this.llServers.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llServers_LinkClicked);
             // 
             // txtUsername
             // 
@@ -430,17 +440,6 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
-            // llServers
-            // 
-            this.llServers.AutoSize = true;
-            this.llServers.Location = new System.Drawing.Point(224, 116);
-            this.llServers.Name = "llServers";
-            this.llServers.Size = new System.Drawing.Size(116, 13);
-            this.llServers.TabIndex = 15;
-            this.llServers.TabStop = true;
-            this.llServers.Text = "Looking for all servers?";
-            this.llServers.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llServers_LinkClicked);
-            // 
             // UsingPintoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,7 +447,6 @@
             this.ClientSize = new System.Drawing.Size(398, 446);
             this.Controls.Add(this.tcSections);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UsingPintoForm";

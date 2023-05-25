@@ -15,6 +15,7 @@ namespace PintoNS.Forms
         public ConsoleForm()
         {
             InitializeComponent();
+            Icon = Logo.LOGO2;
         }
 
         public void WriteMessage(string msg)

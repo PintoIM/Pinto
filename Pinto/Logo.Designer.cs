@@ -19,7 +19,7 @@ namespace PintoNS {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Logo {
@@ -93,9 +93,9 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LOGO_LARGE {
+        internal static System.Drawing.Bitmap LOGO_FRAME {
             get {
-                object obj = ResourceManager.GetObject("LOGO_LARGE", resourceCulture);
+                object obj = ResourceManager.GetObject("LOGO_FRAME", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon WIN_LOGO {
+        internal static System.Drawing.Icon LOGO2 {
             get {
-                object obj = ResourceManager.GetObject("WIN_LOGO", resourceCulture);
+                object obj = ResourceManager.GetObject("LOGO2", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
