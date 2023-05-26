@@ -3,8 +3,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Cache;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -38,21 +38,19 @@ namespace PintoNS.Forms
             tcSections.SelectedTab = tpLoading;
             dgvServersOfficial.Rows.Clear();
             dgvServersUnofficial.Rows.Clear();
-            Program.Console.WriteMessage($"[General] Getting server list...");
 
             try 
             {
-                HttpClient httpClient = new HttpClient(new WebRequestHandler()
-                {
-                    CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore)
-                });
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
+                WebClient webClient = new WebClient();
+                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                webClient.Headers["User-Agent"] = "PintoClient";
 
-                string responseRaw = await httpClient.GetStringAsync(SERVERS_URL);
+                Program.Console.WriteMessage($"[General] Getting server list...");
+                string responseRaw = await webClient.DownloadStringTaskAsync(SERVERS_URL);
 
                 Program.Console.WriteMessage($"[General] Got the server list, parsing the response...");
                 JArray response = JsonConvert.DeserializeObject<JArray>(responseRaw);
-
+                
                 foreach (JObject server in response)
                 {
                     string name = server["name"].Value<string>();

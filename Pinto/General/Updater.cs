@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using PintoNS.Forms.Notification;
 using System;
 using System.Net.Cache;
-using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PintoNS.General
@@ -16,13 +16,11 @@ namespace PintoNS.General
         {
             try
             {
-                HttpClient httpClient = new HttpClient(new WebRequestHandler()
-                {
-                    CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore)
-                });
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
+                WebClient webClient = new WebClient();
+                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                webClient.Headers["User-Agent"] = "PintoClient";
 
-                string responseRaw = await httpClient.GetStringAsync(UPDATE_URL);
+                string responseRaw = await webClient.DownloadStringTaskAsync(UPDATE_URL);
                 JObject response = JsonConvert.DeserializeObject<JObject>(responseRaw);
                 
                 return response;
@@ -64,13 +62,11 @@ namespace PintoNS.General
                 JObject information = await GetVersionInformation();
                 string updateURL = information["update_url"].Value<string>();
 
-                HttpClient httpClient = new HttpClient(new WebRequestHandler()
-                {
-                    CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore)
-                });
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
+                WebClient webClient = new WebClient();
+                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                webClient.Headers["User-Agent"] = "PintoClient";
 
-                byte[] file = await httpClient.GetByteArrayAsync(updateURL);
+                byte[] file = await webClient.DownloadDataTaskAsync(updateURL);
                 Program.Console.WriteMessage($"[Updater] Downloaded update file");
                 
                 return file;
