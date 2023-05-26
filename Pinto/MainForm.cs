@@ -31,7 +31,7 @@ namespace PintoNS
         public MainForm()
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
             InWindowPopupController = new InWindowPopupController(this, 70);
             PopupController = new PopupController();
         }
@@ -380,6 +380,15 @@ namespace PintoNS
 
         public async Task CheckForUpdates() 
         {
+            if (Environment.OSVersion.Version.Major < 6 ||
+                Environment.OSVersion.Version.Minor < 2) 
+            {
+                MsgBox.ShowNotification(this, 
+                    "Updating is unavailable on your operating system version!",
+                    "Updating Unavailable", MsgBoxIconType.WARNING, true);
+                return;
+            }
+
             if (!await Updater.IsLatest()) 
             {
                 MsgBox.ShowPromptNotification(this,

@@ -9,7 +9,7 @@ namespace PintoNS.Forms
         public AboutForm()
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
         }
 
         private void AboutForm_Load(object sender, EventArgs e)

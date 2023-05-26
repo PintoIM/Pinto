@@ -7,7 +7,7 @@ namespace PintoNS.Forms
         public FatalErrorForm()
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
         }
     }
 }

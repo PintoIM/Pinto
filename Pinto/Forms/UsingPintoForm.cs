@@ -15,7 +15,7 @@ namespace PintoNS.Forms
         public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
         }
 

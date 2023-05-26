@@ -1,6 +1,7 @@
 ﻿using PintoNS.Forms;
 using PintoNS.Forms.Notification;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -64,6 +65,9 @@ namespace PintoNS
             // Start Pinto!
             Application.Run(new MainForm());
         }
+
+        public static Icon GetFormIcon() => 
+            Environment.OSVersion.Version.Major < 6 ? Logo.LOGO_XP : Logo.LOGO2;
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {

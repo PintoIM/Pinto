@@ -19,7 +19,7 @@ namespace PintoNS.Forms
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
             InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;

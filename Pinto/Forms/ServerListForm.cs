@@ -18,7 +18,7 @@ namespace PintoNS.Forms
         public ServerListForm()
         {
             InitializeComponent();
-            Icon = Logo.LOGO2;
+            Icon = Program.GetFormIcon();
         }
 
         private async void ServerListForm_Load(object sender, EventArgs e)
@@ -38,6 +38,7 @@ namespace PintoNS.Forms
             tcSections.SelectedTab = tpLoading;
             dgvServersOfficial.Rows.Clear();
             dgvServersUnofficial.Rows.Clear();
+            Program.Console.WriteMessage($"[General] Getting server list...");
 
             try 
             {
@@ -48,6 +49,8 @@ namespace PintoNS.Forms
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "PintoClient");
 
                 string responseRaw = await httpClient.GetStringAsync(SERVERS_URL);
+
+                Program.Console.WriteMessage($"[General] Got the server list, parsing the response...");
                 JArray response = JsonConvert.DeserializeObject<JArray>(responseRaw);
 
                 foreach (JObject server in response)
@@ -75,11 +78,14 @@ namespace PintoNS.Forms
                     if (tags.Split(',').Contains("official")) continue;
                     dgvServersUnofficial.Rows.Add(name, ip, port, users, maxUsers, tags);
                 }
+
+                Program.Console.WriteMessage($"[General] Got {response.Count} servers");
             }
             catch (Exception ex) 
             {
                 lError.Visible = true;
                 lError.Text = $"Error: {ex.Message}";
+                Program.Console.WriteMessage($"[General] Unable to get the server list: {ex}");
             }
 
             btnRefresh.Enabled = true;

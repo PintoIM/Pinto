@@ -42,8 +42,8 @@ namespace PintoNS.Networking
                 IsConnected = true;
 
                 tcpStream = tcpClient.GetStream();
-                tcpBinaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode, true);
-                tcpBinaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode, true);
+                tcpBinaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode);
+                tcpBinaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode);
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
                 readThread.Start();
 
