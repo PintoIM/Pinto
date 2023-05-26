@@ -11,7 +11,9 @@ DefaultSecureProtocols=DWORD:0xAA0
 ; TLS 1.1
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client]
 DisabledByDefault=DWORD:0
+Enabled=dword:1
 
 ; TLS 1.2
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client]
 DisabledByDefault=DWORD:0
+Enabled=dword:1
