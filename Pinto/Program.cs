@@ -2,6 +2,7 @@
 using PintoNS.Forms.Notification;
 using System;
 using System.Drawing;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,6 +20,16 @@ namespace PintoNS
         [STAThread]
         static void Main()
         {
+            // Enable TLS 1.0, 1.1, 1.2
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = 
+                Environment.OSVersion.Version.Major < 6 || 
+                Environment.OSVersion.Version.Minor < 1 ? SecurityProtocolType.Tls : 
+                // 768 = TLS 1.1
+                // 3072 = TLS 1.2
+                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
+                SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+
             // Enable visual styles
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
