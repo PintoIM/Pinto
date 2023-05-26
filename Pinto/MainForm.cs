@@ -1,26 +1,18 @@
-﻿using PintoNS.Localization;
+﻿using PintoNS.Forms;
+using PintoNS.Forms.Notification;
+using PintoNS.General;
+using PintoNS.Localization;
 using PintoNS.Networking;
-using PintoNS;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using PintoNS.Forms.Notification;
-using System.Threading.Tasks;
-using PintoNS.Forms;
-using PintoNS.General;
-using System.Media;
-using System.Net.Sockets;
-using System.Net;
-using System.Threading;
-using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Media;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PintoNS
 {
@@ -154,6 +146,7 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
+                lConnectingStatus.Text = "";
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                 MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
@@ -179,6 +172,7 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
+                lConnectingStatus.Text = "";
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                 MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
@@ -238,7 +232,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            //await CheckForUpdates();
+            await CheckForUpdates();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

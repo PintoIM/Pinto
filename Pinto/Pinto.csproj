@@ -285,6 +285,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Assets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Loader.resx">
+      <DependentUpon>Loader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -399,8 +402,7 @@
     <Content Include="Resources\Assets\TRASHCAN_ENABLED.png" />
     <Content Include="Resources\Assets\COLOR_PALETTE.png" />
     <Content Include="Resources\Assets\WARNING.png" />
-    <Content Include="Resources\Logo\LOADING.gif" />
-    <Content Include="Resources\Logo\LOGO_FRAME.png" />
+    <Content Include="Resources\Logo\LOADING.png" />
     <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
     <Content Include="Resources\Logo\LOGO.ico" />
     <Content Include="Resources\Logo\LOGO.png" />

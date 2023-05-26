@@ -54,7 +54,6 @@
             this.rtxtMessages = new System.Windows.Forms.RichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -301,21 +300,11 @@
             this.tsmiMessagesCopy.Text = "Copy";
             this.tsmiMessagesCopy.Click += new System.EventHandler(this.tsmiMessagesCopy_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(237, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "TACTICAL NUKE";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 373);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.rtxtMessages);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.ssStatusStrip);
@@ -366,6 +355,5 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
-        private System.Windows.Forms.Button button1;
     }
 }

@@ -1,20 +1,11 @@
 ﻿using PintoNS.Forms;
 using PintoNS.Forms.Notification;
-using PintoNS;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Windows.Forms;
 using PintoNS.General;
-using System.Media;
-using System.Net;
-using Newtonsoft.Json.Linq;
+using System;
 using System.Data;
+using System.Drawing;
+using System.Media;
+using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {

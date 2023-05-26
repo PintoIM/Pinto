@@ -1,15 +1,9 @@
 ﻿using PintoNS.Forms;
-using PintoNS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Threading;
-using System.Runtime.InteropServices;
 using PintoNS.Forms.Notification;
-using PintoNS.General;
-using System.Diagnostics;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace PintoNS
 {
