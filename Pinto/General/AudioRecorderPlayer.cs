@@ -1,4 +1,4 @@
-﻿//using NAudio.Wave;
+﻿using NAudio.Wave;
 using System;
 using System.IO;
 using System.Threading;
@@ -7,7 +7,6 @@ namespace PintoNS.General
 {
     public class AudioRecorderPlayer
     {
-        /*
         private bool isPlaying;
         private Thread audioPlayerThread;
         private BufferedWaveProvider playBuffer;
@@ -15,6 +14,7 @@ namespace PintoNS.General
         private WaveIn waveIn;
         private WaveOut waveOut;
         public int MicrophoneDevice;
+        public int SpeakerDevice;
         public event Action<byte[]> MicrophoneDataAvailable;
 
         public void Start()
@@ -23,6 +23,7 @@ namespace PintoNS.General
             waveIn.BufferMilliseconds = 100;
             waveIn.NumberOfBuffers = 10;
             waveOut = new WaveOut();
+            waveOut.DeviceNumber = SpeakerDevice;
 
             waveIn.DeviceNumber = MicrophoneDevice;
             waveIn.DataAvailable += new EventHandler<WaveInEventArgs>(waveIn_DataAvailable);
@@ -75,6 +76,6 @@ namespace PintoNS.General
             {
                 Thread.Sleep(1);
             }
-        }*/
+        }
     }
 }
