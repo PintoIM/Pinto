@@ -41,7 +41,7 @@ namespace PintoNS.Forms.Notification
                     break;
             }
 
-            if (parent.WindowState != FormWindowState.Normal) parent = null;
+            if (parent != null && parent.WindowState != FormWindowState.Normal) parent = null;
             notification.StartPosition = parent == null ?
                 FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
 
@@ -93,7 +93,7 @@ namespace PintoNS.Forms.Notification
                     break;
             }
 
-            if (parent.WindowState != FormWindowState.Normal) parent = null;
+            if (parent != null && parent.WindowState != FormWindowState.Normal) parent = null;
             notification.StartPosition = parent == null ?
                 FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
 

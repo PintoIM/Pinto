@@ -120,10 +120,20 @@ namespace PintoNS.Forms
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
                     {
-                        routerMapping = router.StaticPortMappingCollection.Add(PORT, "UDP",
-                            PORT, GetAllLocalIPv4(NetworkInterfaceType.Ethernet)
-                                .FirstOrDefault(), true, "UDPAudio");
-                        lExternalIP.Text = $"External IP: {routerMapping.ExternalIPAddress}";
+                        try
+                        {
+                            routerMapping = router.StaticPortMappingCollection.Add(PORT, "UDP",
+                                PORT, GetAllLocalIPv4(NetworkInterfaceType.Ethernet)
+                                    .FirstOrDefault(), true, "UDPAudio");
+                            lExternalIP.Text = $"External IP: {routerMapping.ExternalIPAddress}";
+                        }
+                        catch (Exception ex) 
+                        {
+                            MessageBox.Show($"Unable to use UPnP to open the listen port:" +
+                                $"{Environment.NewLine}{ex}{Environment.NewLine}{Environment.NewLine}" +
+                                $"Please do not report this issue, as UPnP support in C# is very unstable",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
 
                     tCall.Start();
