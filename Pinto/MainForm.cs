@@ -444,11 +444,12 @@ namespace PintoNS
                             Program.Console.WriteMessage($"[Updater] Running msi installer at {path}...");
                             Process process = new Process();
                             process.StartInfo.FileName = "msiexec.exe";
-                            process.StartInfo.Arguments = " /i PintoSetup.msi /passive";
+                            process.StartInfo.Arguments = " /i PintoSetup.msi /passive /norestart";
                             process.StartInfo.WorkingDirectory = DataFolder;
                             process.Start();
 
                             Program.Console.WriteMessage($"[Updater] Exitting...");
+                            doNotCancelClose = true;
                             Close();
                         }
                     });
