@@ -9,7 +9,6 @@ namespace PintoNS.Forms
         public ConsoleForm()
         {
             InitializeComponent();
-            Icon = Program.GetFormIcon();
         }
 
         public void WriteMessage(string msg)

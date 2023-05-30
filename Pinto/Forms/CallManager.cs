@@ -110,6 +110,12 @@ namespace PintoNS.Forms
                     audioRecPlay.Start();
 
                     client = new UdpClient(PORT);
+                    // -1744830452 = SIO_UDP_CONNRESET
+                    client.Client.IOControl(
+                        (IOControlCode)(-1744830452),
+                        new byte[] { 0, 0, 0, 0 },
+                        null
+                    );
                     remote = new IPEndPoint(IPAddress.Parse(ip), PORT);
 
                     if (router.StaticPortMappingCollection == null)

@@ -15,6 +15,7 @@ namespace PintoNS
         public static ConsoleForm Console;
         public const string VERSION_STRING = "exp1";
         public const int PROTOCOL_VERSION = 0;
+        public static bool RunningUnderWine;
 
         [STAThread]
         static void Main()
@@ -44,12 +45,11 @@ namespace PintoNS
             Console.Hide();
 
             // Detect what runtime we are being ran under
-            bool underWine = false;
             try
             {
                 string wineVer = PInvoke.GetWineVersion();
                 Console.WriteMessage($"[General] Running under wine ({wineVer})");
-                underWine = true;
+                RunningUnderWine = true;
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace PintoNS
             {
                 Console.WriteMessage("[General] Running under mono");
 
-                if (!underWine) 
+                if (!RunningUnderWine) 
                 {
                     MsgBox.ShowNotification(Console,
                         $"Pinto! has detected it is being ran" +

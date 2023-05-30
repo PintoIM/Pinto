@@ -26,12 +26,15 @@ namespace PintoNS.Controls
             {
                 CreateParams createParams = base.CreateParams;
 
-                try
+                if (!Program.RunningUnderWine) 
                 {
-                    LoadLibrary("MsftEdit.dll"); // Available since XP SP1
-                    createParams.ClassName = "RichEdit50W";
+                    try
+                    {
+                        LoadLibrary("MsftEdit.dll"); // Available since XP SP1
+                        createParams.ClassName = "RichEdit50W";
+                    }
+                    catch { /* Windows XP without any Service Pack. */ }
                 }
-                catch { /* Windows XP without any Service Pack. */ }
 
                 return createParams;
             }

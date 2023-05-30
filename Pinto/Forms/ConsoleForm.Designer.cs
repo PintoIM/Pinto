@@ -77,6 +77,7 @@
             this.Controls.Add(this.txtInput);
             this.Controls.Add(this.rtxtLog);
             this.Name = "ConsoleForm";
+            this.ShowIcon = false;
             this.Text = "Pinto! - Console";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleForm_FormClosing);
             this.ResumeLayout(false);
