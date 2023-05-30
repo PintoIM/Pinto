@@ -103,6 +103,16 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CONTACT_BIG {
+            get {
+                object obj = ResourceManager.GetObject("CONTACT_BIG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ENDCALL_DISABLED {
             get {
                 object obj = ResourceManager.GetObject("ENDCALL_DISABLED", resourceCulture);

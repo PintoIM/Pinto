@@ -44,9 +44,9 @@
             this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lTitle.Location = new System.Drawing.Point(182, 9);
             this.lTitle.Name = "lTitle";
-            this.lTitle.Size = new System.Drawing.Size(105, 37);
+            this.lTitle.Size = new System.Drawing.Size(312, 37);
             this.lTitle.TabIndex = 1;
-            this.lTitle.Text = "Pinto!";
+            this.lTitle.Text = "Pinto! Experimental";
             // 
             // lVersion
             // 

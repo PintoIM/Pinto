@@ -126,6 +126,9 @@
     <Compile Include="Controls\Loader.Designer.cs">
       <DependentUpon>Loader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NoFocusQueButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\Separator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -162,6 +165,12 @@
     <Compile Include="Controls\InWindowPopupControl.Designer.cs">
       <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CallManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CallManager.designer.cs">
+      <DependentUpon>CallManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,9 +196,9 @@
     <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="General\CallManager.cs" />
     <Compile Include="General\Contact.cs" />
     <Compile Include="General\AudioRecorderPlayer.cs" />
+    <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
     <Compile Include="General\Settings.cs" />
@@ -283,6 +292,9 @@
     <EmbeddedResource Include="Forms\ConsoleForm.resx">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CallManager.resx">
+      <DependentUpon>CallManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -350,6 +362,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Assets\CONTACT_BIG.png" />
     <Content Include="Resources\Assets\GPLV3.png" />
     <Content Include="Resources\Assets\ADDCONTACT_DISABLED.png" />
     <Content Include="Resources\Assets\ADDCONTACT_ENABLED.png" />

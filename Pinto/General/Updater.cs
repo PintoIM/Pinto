@@ -16,11 +16,16 @@ namespace PintoNS.General
         {
             try
             {
-                WebClient webClient = new WebClient();
-                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                WebClient webClient = new WebClient
+                {
+                    CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore),
+                };
                 webClient.Headers["User-Agent"] = "PintoClient";
 
-                string responseRaw = await webClient.DownloadStringTaskAsync(UPDATE_URL);
+                string responseRaw = await Task.Factory.StartNew(() =>
+                {
+                    return webClient.DownloadString(UPDATE_URL);
+                });
                 JObject response = JsonConvert.DeserializeObject<JObject>(responseRaw);
                 
                 return response;

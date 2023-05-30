@@ -12,10 +12,8 @@ namespace PintoNS
 {
     public static class Program
     {
-        [DllImport("ntdll.dll", EntryPoint = "wine_get_version")]
-        private static extern string GetWineVersion();
         public static ConsoleForm Console;
-        public const string VERSION_STRING = "exp0";
+        public const string VERSION_STRING = "exp1";
         public const int PROTOCOL_VERSION = 0;
 
         [STAThread]
@@ -49,7 +47,7 @@ namespace PintoNS
             bool underWine = false;
             try
             {
-                string wineVer = GetWineVersion();
+                string wineVer = PInvoke.GetWineVersion();
                 Console.WriteMessage($"[General] Running under wine ({wineVer})");
                 underWine = true;
             }

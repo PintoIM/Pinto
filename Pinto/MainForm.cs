@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,6 +27,7 @@ namespace PintoNS
         public User CurrentUser = new User();
         public List<MessageForm> MessageForms;
         private bool doNotCancelClose;
+        public CallManager CallMgr;
 
         public MainForm()
         {
@@ -52,12 +54,12 @@ namespace PintoNS
             dgvContacts.Columns["contactStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dgvContacts.Columns["contactStatus"].FillWeight = 24;
             dgvContacts.Columns["contactStatus"].Width = 24;
-
             MessageForms = new List<MessageForm>();
+
             btnStartCall.Enabled = true;
             btnStartCall.Image = Assets.STARTCALL_ENABLED;
-
             txtSearchBox.Enabled = true;
+
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
@@ -70,13 +72,13 @@ namespace PintoNS
         {
             if (loggedInState) 
             {
-                pbQAAddContact.Image = Assets.ADDCONTACT_ENABLED;
-                pbQAAddContact.Enabled = true;
+                btnQAAddContact.Image = Assets.ADDCONTACT_ENABLED;
+                btnQAAddContact.Enabled = true;
             }
             else 
             {
-                pbQAAddContact.Image = Assets.ADDCONTACT_DISABLED;
-                pbQAAddContact.Enabled = false;
+                btnQAAddContact.Image = Assets.ADDCONTACT_DISABLED;
+                btnQAAddContact.Enabled = false;
             }
         }
 
@@ -86,6 +88,7 @@ namespace PintoNS
             tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
             CurrentUser.Status = status;
+            if (status == UserStatus.OFFLINE) CurrentUser.Name = null;
             SyncTray();
         }
 
@@ -108,6 +111,12 @@ namespace PintoNS
             ContactsMgr = null;
             MessageForms = null;
             dgvContacts.DataSource = null;
+            if (CallMgr != null) 
+            {
+                CallMgr.AllowClose = true;
+                CallMgr.Close();
+            }
+            CallMgr = null;
 
             btnStartCall.Enabled = false;
             btnStartCall.Image = Assets.STARTCALL_DISABLED;
@@ -117,6 +126,7 @@ namespace PintoNS
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
+
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
@@ -234,7 +244,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            //await CheckForUpdates();
+            await CheckForUpdates(false);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -246,12 +256,22 @@ namespace PintoNS
                 return;
             }
             Program.Console.WriteMessage("Quitting...");
+            bool wasLoggedIn = NetManager != null && NetManager.NetHandler.LoggedIn;
+            OnLogout(false);
             Disconnect();
+            if (wasLoggedIn)
+                new Thread(new ThreadStart(() => 
+                {
+                    new SoundPlayer(Sounds.LOGOUT).PlaySync();
+                })).Start();
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+            // Stolen from https://stackoverflow.com/a/50999419
+            string contactName = ContactsMgr.GetContactNameFromRow(
+                ((DataTable)dgvContacts.DataSource).Rows.IndexOf(
+                    ((DataRowView)BindingContext[dgvContacts.DataSource].Current).Row));
 
             if (contactName != null)
             {
@@ -347,10 +367,23 @@ namespace PintoNS
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
+            btnStartCall.Enabled = false;
+            btnStartCall.Image = Assets.STARTCALL_DISABLED;
+            btnEndCall.Enabled = true;
+            btnEndCall.Image = Assets.ENDCALL_ENABLED;
+            CallMgr = new CallManager(this);
+            CallMgr.Show();
+            CallMgr.BringToFront();
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
+            btnStartCall.Enabled = true;
+            btnStartCall.Image = Assets.STARTCALL_ENABLED;
+            btnEndCall.Enabled = false;
+            btnEndCall.Image = Assets.ENDCALL_DISABLED;
+            CallMgr.AllowClose = true;
+            CallMgr.Close();
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
@@ -388,17 +421,16 @@ namespace PintoNS
                 });
         }
 
-        public async Task CheckForUpdates() 
+        public async Task CheckForUpdates(bool showLatestMessage) 
         {
-            if (!await Updater.IsLatest()) 
-            {
+            if (!await Updater.IsLatest())
                 MsgBox.ShowPromptNotification(this,
                     "An update is available, do you want to download it and install it?",
                     "Update Available",
                     MsgBoxIconType.QUESTION,
-                    true, async (MsgBoxButtonType btn) => 
+                    true, async (MsgBoxButtonType btn) =>
                     {
-                        if (btn == MsgBoxButtonType.YES) 
+                        if (btn == MsgBoxButtonType.YES)
                         {
                             string path = Path.Combine(DataFolder, "PintoSetup.msi");
                             if (File.Exists(path))
@@ -420,10 +452,13 @@ namespace PintoNS
                             Close();
                         }
                     });
-            }
+            else if (showLatestMessage)
+                MsgBox.ShowNotification(this, "You are already on the latest version of Pinto!",
+                    "Latest version", MsgBoxIconType.INFORMATION, true);
         }
 
-        private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e) => await CheckForUpdates();
+        private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e)
+            => await CheckForUpdates(true);
 
         private void txtSearchBox_TextChanged2(object sender, EventArgs e)
         {
