@@ -1,7 +1,6 @@
 ﻿using PintoNS.Forms;
 using PintoNS.Forms.Notification;
 using PintoNS.General;
-using PintoNS.Localization;
 using PintoNS.Networking;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,6 @@ namespace PintoNS
     {
         public readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), "Pinto!");
-        public readonly LocalizationManager LocalizationMgr = new LocalizationManager();
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
@@ -232,7 +230,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            await CheckForUpdates();
+            //await CheckForUpdates();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -324,7 +322,7 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
-            /*if (InCall) return;
+            //if (InCall) return;
 
             if (dgvContacts.SelectedRows.Count > 0)
             {
@@ -335,7 +333,7 @@ namespace PintoNS
             {
                 btnStartCall.Enabled = false;
                 btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }*/
+            }
         }
 
         private void btnStartCall_Click(object sender, EventArgs e)

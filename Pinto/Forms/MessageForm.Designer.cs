@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageForm));
             this.btnSend = new System.Windows.Forms.Button();
-            this.rtxtInput = new System.Windows.Forms.RichTextBox();
+            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
             this.cmsInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiInputCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInputPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,7 @@
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new System.Windows.Forms.RichTextBox();
+            this.rtxtMessages = new PintoNS.Controls.ExRichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsInput.SuspendLayout();
@@ -332,7 +332,7 @@
 
         #endregion
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.RichTextBox rtxtInput;
+        private PintoNS.Controls.ExRichTextBox rtxtInput;
         private System.Windows.Forms.Button btnTalk;
         private System.Windows.Forms.Button btnBlock;
         private System.Windows.Forms.ImageList ilButtons;
@@ -345,7 +345,7 @@
         private System.Windows.Forms.ColorDialog cdPicker;
         private System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
-        private System.Windows.Forms.RichTextBox rtxtMessages;
+        private PintoNS.Controls.ExRichTextBox rtxtMessages;
         private System.Windows.Forms.ContextMenuStrip cmsMessages;
         private System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
         private System.Windows.Forms.ContextMenuStrip cmsInput;
