@@ -54,6 +54,9 @@ namespace PintoNS
             dgvContacts.Columns["contactStatus"].Width = 24;
 
             MessageForms = new List<MessageForm>();
+            btnStartCall.Enabled = true;
+            btnStartCall.Image = Assets.STARTCALL_ENABLED;
+
             txtSearchBox.Enabled = true;
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
@@ -329,8 +332,7 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
-            //if (InCall) return;
-
+            /*
             if (dgvContacts.SelectedRows.Count > 0)
             {
                 btnStartCall.Enabled = true;
@@ -340,7 +342,7 @@ namespace PintoNS
             {
                 btnStartCall.Enabled = false;
                 btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }
+            }*/
         }
 
         private void btnStartCall_Click(object sender, EventArgs e)
