@@ -25,6 +25,7 @@ namespace PintoNS
         public NetworkManager NetManager;
         public User CurrentUser = new User();
         public List<MessageForm> MessageForms;
+        private bool doNotCancelClose;
 
         public MainForm()
         {
@@ -235,6 +236,12 @@ namespace PintoNS
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
+            {
+                e.Cancel = true;
+                Hide();
+                return;
+            }
             Program.Console.WriteMessage("Quitting...");
             Disconnect();
         }
@@ -352,20 +359,11 @@ namespace PintoNS
                 Program.Console.Show();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Hide();
-                niTray.ShowBalloonTip(0, "Minimization Notice", "Pinto! has been minimized to the system tray!" +
-                    " You can restore Pinto! by clicking on the system tray icon!", ToolTipIcon.Info);
-            }
-        }
-
         private void niTray_DoubleClick(object sender, EventArgs e)
         {
             Show();
             WindowState = FormWindowState.Normal;
+            BringToFront();
         }
 
         private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
@@ -374,7 +372,19 @@ namespace PintoNS
             optionsForm.ShowDialog(this);
         }
 
-        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) => Close();
+        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) 
+        {
+            MsgBox.ShowPromptNotification(null, "Are you sure you want to close Pinto?" +
+                " You will no longer receive messages or calls if you do so.", "Quit Pinto?",
+                MsgBoxIconType.QUESTION, false, (MsgBoxButtonType answer) =>
+                {
+                    if (answer == MsgBoxButtonType.YES) 
+                    {
+                        doNotCancelClose = true;
+                        Close();
+                    }
+                });
+        }
 
         public async Task CheckForUpdates() 
         {

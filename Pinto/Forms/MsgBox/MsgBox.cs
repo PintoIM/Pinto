@@ -80,6 +80,8 @@ namespace PintoNS.Forms.Notification
                     break;
             }
 
+            notification.StartPosition = parent == null ?
+                FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
             if (nonBlocking)
                 notification.Show(parent);
             else

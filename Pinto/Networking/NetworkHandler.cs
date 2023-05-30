@@ -64,12 +64,18 @@ namespace PintoNS.Networking
                     return;
                 }
 
-                messageForm.WriteMessage($"{(packet.Sender.Trim().Length > 0 ? $"{packet.Sender}: " : "")}{packet.Message}", Color.Black);
-
-                if (packet.Message.Split('\n').Length > 1)
-                    messageForm.InWindowPopupController.CreatePopup(
-                        "You have received a message that has multiple lines," +
-                        " be aware of any impersonation attempts!");
+                if (packet.Sender.Trim().Length > 0) 
+                {
+                    messageForm.WriteMessage($"{packet.Sender}",
+                        packet.Sender == mainForm.CurrentUser.Name ? Color.Blue : Color.Red, false);
+                    messageForm.WriteMessage($" - ", Color.Black, false);
+                    messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
+                        Color.Gray, false);
+                    messageForm.WriteMessage($":", Color.Black);
+                    messageForm.WriteMessage($"  {packet.Message}", Color.Black);
+                }
+                else
+                    messageForm.WriteMessage($"{packet.Message}", Color.Black);
 
                 if (Form.ActiveForm != messageForm && 
                     !messageForm.HasBeenInactive && 
