@@ -1,7 +1,8 @@
 {
-    "latest": "exp0",
+    "latest": "exp1",
     "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
     "supported": [
+		"exp1",
 		"exp0"
     ]
 }

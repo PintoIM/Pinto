@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinto", "Pinto\Pinto.csproj", "{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PintoSetup", "PintoSetup\PintoSetup.vdproj", "{0C122FE6-F36A-4925-98D7-2711B2EB253B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Build|x64 = Build|x64
@@ -15,6 +17,8 @@ Global
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x64.Build.0 = Build|x64
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x86.ActiveCfg = Build|x86
 		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x86.Build.0 = Build|x86
+		{0C122FE6-F36A-4925-98D7-2711B2EB253B}.Build|x64.ActiveCfg = Build
+		{0C122FE6-F36A-4925-98D7-2711B2EB253B}.Build|x86.ActiveCfg = Build
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
