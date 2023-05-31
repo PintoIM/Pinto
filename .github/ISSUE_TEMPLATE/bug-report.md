@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report about a bug
-title: Bug report
+about: Create an issue that reports a bug or a fatal crash
+title: ''
 labels: bug
 assignees: ''
 
