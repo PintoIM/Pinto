@@ -19,7 +19,8 @@ namespace PintoNS.Forms
         private MainForm mainForm;
         private readonly AudioRecorderPlayer audioRecPlay = new AudioRecorderPlayer();
         private IPEndPoint remote;
-        private UdpClient client;
+        private Socket client;
+        private byte[] receiveBuffer = new byte[0x10000];
         private NATUPNPLib.UPnPNATClass router;
         private NATUPNPLib.IStaticPortMapping routerMapping;
         public bool AllowClose;
@@ -96,7 +97,7 @@ namespace PintoNS.Forms
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(ip))
+                if (string.IsNullOrWhiteSpace(ip) || !IPAddress.TryParse(ip, out IPAddress ipAddr))
                 {
                     MessageBox.Show("Invalid remote details!", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -109,14 +110,15 @@ namespace PintoNS.Forms
                     audioRecPlay.SpeakerDevice = int.Parse(cbSpeakers.Text.Split(':')[0]);
                     audioRecPlay.Start();
 
-                    client = new UdpClient(PORT);
+                    client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                     // -1744830452 = SIO_UDP_CONNRESET
-                    client.Client.IOControl(
+                    client.IOControl(
                         (IOControlCode)(-1744830452),
                         new byte[] { 0, 0, 0, 0 },
                         null
                     );
-                    remote = new IPEndPoint(IPAddress.Parse(ip), PORT);
+                    client.Bind(new IPEndPoint(IPAddress.Any, PORT));
+                    remote = new IPEndPoint(ipAddr, PORT);
 
                     if (router.StaticPortMappingCollection == null)
                         MessageBox.Show($"Unable to use UPnP to open the listen port!{Environment.NewLine}" +
@@ -156,7 +158,10 @@ namespace PintoNS.Forms
                     measureLatency.Start();
                     measureReceivedPacketsReceivedPerSecond.Start();
 
-                    client.BeginReceive(Client_Receive, null);
+                    EndPoint endPoint = remote;
+                    client.BeginReceiveFrom(receiveBuffer, 0, receiveBuffer.Length,
+                        SocketFlags.None, ref endPoint, Client_Receive, null);
+
                 }
                 catch (Exception ex)
                 {
@@ -208,7 +213,7 @@ namespace PintoNS.Forms
             if (client == null || remote == null) return;
             try 
             {
-                client.Send(data, data.Length, remote);
+                client.SendTo(data, 0, data.Length, SocketFlags.None, remote);
             }
             catch (Exception ex) 
             {
@@ -223,10 +228,12 @@ namespace PintoNS.Forms
             try 
             {
                 if (client == null || remote == null) return;
-                byte[] audioData = client.EndReceive(result, ref remote);
+                EndPoint endPoint = remote;
+                int audioDataAmount = client.EndReceiveFrom(result, ref endPoint);
                 receivedPacketsReceived++;
-                audioRecPlay.Play(audioData);
-                client.BeginReceive(Client_Receive, null);
+                audioRecPlay.Play(receiveBuffer.Take(audioDataAmount).ToArray());
+                client.BeginReceiveFrom(receiveBuffer, 0, receiveBuffer.Length,
+                    SocketFlags.None, ref endPoint, Client_Receive, null);
             }
             catch (Exception ex) 
             {

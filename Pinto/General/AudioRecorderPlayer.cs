@@ -69,6 +69,7 @@ namespace PintoNS.General
         private void AudioPlayerThread_Func()
         {
             playBuffer = new BufferedWaveProvider(waveIn.WaveFormat);
+            playBuffer.DiscardOnBufferOverflow = true;
             waveOut.Init(playBuffer);
             waveOut.Play();
 
