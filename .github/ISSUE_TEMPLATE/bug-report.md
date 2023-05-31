@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create an issue that reports a bug or a fatal crash
+about: Report a bug or a fatal crash
 title: ''
 labels: bug
 assignees: ''
