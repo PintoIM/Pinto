@@ -22,8 +22,10 @@ namespace PintoNS.Forms
                 MsgBox.ShowNotification(this, "Invalid username!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
+
             Close();
-            mainForm.NetManager.NetHandler.SendAddContactPacket(txtContactName.Text);
+            if (mainForm.NetManager != null)
+                mainForm.NetManager.NetHandler.SendAddContactPacket(txtContactName.Text);
         }
 
         private void txtContactName_KeyDown(object sender, KeyEventArgs e)

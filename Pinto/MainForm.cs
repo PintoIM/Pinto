@@ -63,7 +63,7 @@ namespace PintoNS
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
-            Text = $"Pinto! - {CurrentUser.Name}";
+            Text = $"Pinto! Beta - {CurrentUser.Name}";
 
             new SoundPlayer(Sounds.LOGIN).Play();
         }
@@ -130,7 +130,7 @@ namespace PintoNS
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
-            Text = "Pinto!";
+            Text = "Pinto! Beta";
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -140,7 +140,7 @@ namespace PintoNS
         {
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(CurrentUser.Status);
-            niTray.Text = $"Pinto! - " +
+            niTray.Text = $"Pinto! Beta - " +
                 (CurrentUser.Status != UserStatus.OFFLINE ?
                 $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
         }
@@ -168,6 +168,24 @@ namespace PintoNS
                 CurrentUser.Name = username;
                 lConnectingStatus.Text = "Authenticating...";
                 NetManager.Login(username, password);
+
+                new Thread(new ThreadStart(() =>
+                {
+                    Thread.Sleep(5000);
+
+                    if (!NetManager.NetHandler.LoggedIn) 
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            Disconnect();
+                            Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
+                                $" No login packet received from the server in an acceptable time frame");
+                            MsgBox.ShowNotification(this,
+                                $"No login packet received from the server in an acceptable time frame",
+                                "Connection Error", MsgBoxIconType.ERROR);
+                        }));
+                    }
+                })).Start();
             }
         }
 
@@ -184,7 +202,6 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
-                lConnectingStatus.Text = "";
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                 MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
@@ -209,6 +226,7 @@ namespace PintoNS
             }
             OnLogout(!wasLoggedIn);
             NetManager = null;
+            lConnectingStatus.Text = "";
         }
 
         public MessageForm GetMessageFormFromReceiverName(string name, bool doNotCreate = false)
@@ -234,7 +252,7 @@ namespace PintoNS
             return messageForm;
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("Performing first time initialization...");
 
@@ -244,7 +262,7 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            await CheckForUpdates(false);
+            //await CheckForUpdates(false);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -248,8 +248,9 @@
     <Compile Include="Networking\Packets\PacketCallInit.cs" />
     <Compile Include="Networking\Packets\PacketCallResponse.cs" />
     <Compile Include="Networking\Packets\PacketCallRequest.cs" />
+    <Compile Include="Networking\Packets\PacketServerID.cs" />
     <Compile Include="Networking\Packets\PacketPopup.cs" />
-    <Compile Include="Networking\Packets\PacketShrimp.cs" />
+    <Compile Include="Networking\Packets\PacketKeepAlive.cs" />
     <Compile Include="Networking\Packets\PacketClearContacts.cs" />
     <Compile Include="Networking\Packets\PacketContactRequest.cs" />
     <Compile Include="Networking\Packets\PacketStatus.cs" />

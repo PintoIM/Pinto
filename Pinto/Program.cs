@@ -13,8 +13,8 @@ namespace PintoNS
     public static class Program
     {
         public static ConsoleForm Console;
-        public const string VERSION_STRING = "exp1-hotfix1";
-        public const int PROTOCOL_VERSION = 0;
+        public const string VERSION_STRING = "b1.0";
+        public const int PROTOCOL_VERSION = 1;
         public static bool RunningUnderWine;
 
         [STAThread]

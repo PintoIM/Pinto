@@ -25,10 +25,18 @@ namespace PintoNS.Forms
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
 
+            if (mainForm.NetManager.NetHandler.ServerID == null) 
+            {
+                MsgBox.ShowNotification(this,
+                    "The server has not yet sent it's server ID," +
+                    " this chat will not be saved till the server does so", "Server Warning",
+                    MsgBoxIconType.WARNING, true); ;
+                return;
+            }
             if (!Directory.Exists(Path.Combine(mainForm.DataFolder, 
-                "chats", mainForm.NetManager.NetClient.IP)))
+                "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID)))
                 Directory.CreateDirectory(Path.Combine(mainForm.DataFolder,
-                    "chats", mainForm.NetManager.NetClient.IP));
+                    "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID));
             LoadChat();
         }
 
@@ -37,8 +45,8 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Loading chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", 
-                    mainForm.NetManager.NetClient.IP, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 rtxtMessages.Rtf = File.ReadAllText(filePath);
             }
@@ -57,8 +65,8 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Saving chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", 
-                    mainForm.NetManager.NetClient.IP, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 File.WriteAllText(filePath, rtxtMessages.Rtf);
             }
             catch (Exception ex)
@@ -76,8 +84,8 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Deleting chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", 
-                    mainForm.NetManager.NetClient.IP, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 File.Delete(filePath);
             }

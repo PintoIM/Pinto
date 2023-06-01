@@ -14,6 +14,7 @@ namespace PintoNS.Networking
         private MainForm mainForm;
         private NetworkClient networkClient;
         public bool LoggedIn;
+        public string ServerID;
 
         public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
         {
@@ -23,14 +24,12 @@ namespace PintoNS.Networking
 
         public void HandlePacket(IPacket packet)
         {
-            if (packet.GetID() != 255) 
-            {
+            if (packet.GetID() != 255)
                 Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
                     $" ({packet.GetID()})");
-            }
             packet.Handle(this);
         }
-        
+
         public void HandleLoginPacket(PacketLogin packet) 
         {
             LoggedIn = true;
@@ -38,6 +37,12 @@ namespace PintoNS.Networking
             {
                 mainForm.OnLogin();
             }));
+        }
+
+        public void HandleServerIDPacket(PacketServerID packet)
+        {
+            ServerID = packet.ServerID;
+            Program.Console.WriteMessage($"[Networking] The ID of the server is {ServerID}");
         }
 
         public void HandleLogoutPacket(PacketLogout packet)
@@ -205,6 +210,11 @@ namespace PintoNS.Networking
                 (mainForm.dgvContacts.DataSource as DataTable).Rows.Clear();
                 mainForm.ContactsMgr = new ContactsManager(mainForm);
             }));
+        }
+
+        public void HandleKeepAlivePacket() 
+        {
+            networkClient.SendPacket(new PacketKeepAlive());
         }
 
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 

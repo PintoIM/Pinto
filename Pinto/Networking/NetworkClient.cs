@@ -101,8 +101,9 @@ namespace PintoNS.Networking
                 }
             }
 
-            Program.Console.WriteMessage($"[Networking] Sent packet" +
-                $" {packet.GetType().Name.ToUpper()} ({packet.GetID()})");
+            if (packet.GetID() != 255)
+                Program.Console.WriteMessage($"[Networking] Sent packet" +
+                    $" {packet.GetType().Name.ToUpper()} ({packet.GetID()})");
         }
 
         private void ReadThread_Func() 

@@ -2,7 +2,7 @@
 
 namespace PintoNS.Networking
 {
-    public class PacketShrimp : IPacket
+    public class PacketKeepAlive : IPacket
     {
         public void Read(BinaryReader reader)
         {
@@ -14,6 +14,7 @@ namespace PintoNS.Networking
 
         public void Handle(NetworkHandler netHandler)
         {
+            netHandler.HandleKeepAlivePacket();
         }
 
         public int GetID()
