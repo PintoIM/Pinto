@@ -167,7 +167,6 @@ namespace PintoNS.Forms
                     EndPoint endPoint = remote;
                     client.BeginReceiveFrom(receiveBuffer, 0, receiveBuffer.Length,
                         SocketFlags.None, ref endPoint, Client_Receive, null);
-
                 }
                 catch (Exception ex)
                 {

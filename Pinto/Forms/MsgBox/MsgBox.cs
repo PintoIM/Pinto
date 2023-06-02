@@ -51,8 +51,8 @@ namespace PintoNS.Forms.Notification
 
                 if (parent != null)
                 {
-                    int x = parent.Location.X + (parent.Width - notification.Width) / 2;
-                    int y = parent.Location.Y + (parent.Height - notification.Height) / 2;
+                    int x = (parent.Location.X + (parent.Width - notification.Width)) / 2;
+                    int y = (parent.Location.Y + (parent.Height - notification.Height)) / 2;
                     notification.Location = new Point(Math.Max(x, 0), Math.Max(y, 0));
                 }
             }
@@ -103,8 +103,8 @@ namespace PintoNS.Forms.Notification
 
                 if (parent != null)
                 {
-                    int x = parent.Location.X + (parent.Width - notification.Width) / 2;
-                    int y = parent.Location.Y + (parent.Height - notification.Height) / 2;
+                    int x = (parent.Location.X + (parent.Width - notification.Width)) / 2;
+                    int y = (parent.Location.Y + (parent.Height - notification.Height)) / 2;
                     notification.Location = new Point(Math.Max(x, 0), Math.Max(y, 0));
                 }
             }
