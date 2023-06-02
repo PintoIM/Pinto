@@ -322,10 +322,20 @@ namespace PintoNS
         {
             if (!Settings.NoMinimizeToSysTray && !doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
             {
+                if (!Settings.DoNotShowSysTrayNotice) 
+                {
+                    Settings.DoNotShowSysTrayNotice = true;
+                    Settings.Export(SettingsFile);
+                    niTray.ShowBalloonTip(0, "Pinto!", "Pinto! is still running in the system tray," +
+                        " you can change this behaviour in the settings, to exit," +
+                        " go to the \"File\" menu or right click the system tray", ToolTipIcon.Info);
+                }
+
                 e.Cancel = true;
                 Hide();
                 return;
             }
+
             Program.Console.WriteMessage("Quitting...");
             bool wasLoggedIn = NetManager != null && NetManager.NetHandler.LoggedIn;
             OnLogout(true);

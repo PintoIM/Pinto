@@ -93,10 +93,14 @@ namespace PintoNS.Forms
                 object[] attributes = field.GetCustomAttributes(typeof(OptionsDisplayAttribute), false);
                 OptionsDisplayAttribute displayAttribute = attributes.Length > 0 ? 
                     (OptionsDisplayAttribute)attributes[0] : null;
+                if (displayAttribute != null && displayAttribute.Hidden) continue;
 
-                string category = displayAttribute != null ? displayAttribute.Category : "General";
-                string displayName = displayAttribute != null ? displayAttribute.DisplayName : field.Name;
-                string helpInfo = displayAttribute != null ? displayAttribute.HelpInfo : "No help available for this item";
+                string category = displayAttribute != null && displayAttribute.Category != null ?
+                    displayAttribute.Category : "General";
+                string displayName = displayAttribute != null && displayAttribute.DisplayName != null ? 
+                    displayAttribute.DisplayName : field.Name;
+                string helpInfo = displayAttribute != null && displayAttribute .HelpInfo != null ? 
+                    displayAttribute.HelpInfo : "No help available for this item";
                 int numMin = displayAttribute != null ? displayAttribute.NumMin : int.MinValue;
                 int numMax = displayAttribute != null ? displayAttribute.NumMax : int.MaxValue;
 

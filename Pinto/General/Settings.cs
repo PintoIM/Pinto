@@ -15,6 +15,7 @@ namespace PintoNS.General
         public string DisplayName;
         public string Category;
         public string HelpInfo;
+        public bool Hidden;
         public int NumMin = int.MinValue;
         public int NumMax = int.MaxValue;
     }
@@ -57,6 +58,10 @@ namespace PintoNS.General
         [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy", 
             HelpInfo = "When this option is enabled, the typing indicator won't be sent to people you are chatting with")]
         public static bool NoTypingIndicator = false;
+        #endregion
+        #region Hidden
+        [OptionsDisplay(Hidden = true)]
+        public static bool DoNotShowSysTrayNotice = false;
         #endregion
 
         public static void Export(string file) 
