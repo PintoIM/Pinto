@@ -160,7 +160,7 @@ namespace PintoNS
                 Disconnect();
                 lConnectingStatus.Text = "";
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
+                MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
             else
@@ -182,7 +182,7 @@ namespace PintoNS
                             Disconnect();
                             Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
                                 $" No login packet received from the server in an acceptable time frame");
-                            MsgBox.ShowNotification(this,
+                            MsgBox.Show(this,
                                 $"No login packet received from the server in an acceptable time frame",
                                 "Connection Error", MsgBoxIconType.ERROR);
                         }));
@@ -205,7 +205,7 @@ namespace PintoNS
             {
                 Disconnect();
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                MsgBox.ShowNotification(this, $"Unable to connect to {ip}:{port}:" +
+                MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
             else
@@ -342,9 +342,10 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            MsgBox.ShowPromptNotification(this, "If you choose to change your status to invisible," +
-                " your contacts will not be able to send you messages. Are you sure you want to continue?", "Status change confirmation",
-                MsgBoxIconType.WARNING, false, (MsgBoxButtonType button) =>
+            MsgBox.Show(this, "If you choose to change your status to invisible," +
+                " your contacts will not be able to send you messages. Are you sure you want to continue?", 
+                "Status change confirmation",
+                MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
                 if (button == MsgBoxButtonType.YES)
                     NetManager.ChangeStatus(UserStatus.INVISIBLE);
@@ -363,7 +364,7 @@ namespace PintoNS
             if (NetManager == null) return;
             if (dgvContacts.SelectedRows.Count < 1)
             {
-                MsgBox.ShowNotification(this, "You have not selected any contact!", "Error", MsgBoxIconType.ERROR);
+                MsgBox.Show(this, "You have not selected any contact!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
             string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
@@ -429,9 +430,9 @@ namespace PintoNS
 
         private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) 
         {
-            MsgBox.ShowPromptNotification(null, "Are you sure you want to close Pinto?" +
+            MsgBox.Show(null, "Are you sure you want to close Pinto?" +
                 " You will no longer receive messages or calls if you do so.", "Quit Pinto?",
-                MsgBoxIconType.QUESTION, false, (MsgBoxButtonType answer) =>
+                MsgBoxIconType.QUESTION, false, true, (MsgBoxButtonType answer) =>
                 {
                     if (answer == MsgBoxButtonType.YES) 
                     {
@@ -444,11 +445,11 @@ namespace PintoNS
         public async Task CheckForUpdates(bool showLatestMessage) 
         {
             if (!await Updater.IsLatest())
-                MsgBox.ShowPromptNotification(this,
+                MsgBox.Show(this,
                     "An update is available, do you want to download it and install it?",
                     "Update Available",
                     MsgBoxIconType.QUESTION,
-                    true, async (MsgBoxButtonType btn) =>
+                    true, true, async (MsgBoxButtonType btn) =>
                     {
                         if (btn == MsgBoxButtonType.YES)
                         {
@@ -474,7 +475,7 @@ namespace PintoNS
                         }
                     });
             else if (showLatestMessage)
-                MsgBox.ShowNotification(this, "You are already on the latest version of Pinto!",
+                MsgBox.Show(this, "You are already on the latest version of Pinto!",
                     "Latest version", MsgBoxIconType.INFORMATION, true);
         }
 

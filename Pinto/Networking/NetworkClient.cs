@@ -155,7 +155,7 @@ namespace PintoNS.Networking
                     {
                         Disconnect($"Internal error -> {ex.Message}");
                         Program.Console.WriteMessage($"Internal error: {ex}");
-                        MsgBox.ShowNotification(null, 
+                        MsgBox.Show(null, 
                             "An internal error has occured! For more information," +
                             " check the console (Help > Toggle Console)", 
                             "Internal Error", 

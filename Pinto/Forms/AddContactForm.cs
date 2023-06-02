@@ -19,7 +19,7 @@ namespace PintoNS.Forms
         {
             if (string.IsNullOrWhiteSpace(txtContactName.Text))
             {
-                MsgBox.ShowNotification(this, "Invalid username!", "Error", MsgBoxIconType.ERROR);
+                MsgBox.Show(this, "Invalid username!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
 

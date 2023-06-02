@@ -49,7 +49,7 @@ namespace PintoNS.General
             catch (Exception ex) 
             {
                 Program.Console.WriteMessage($"[Updater] Unable to check for updates: {ex}");
-                MsgBox.ShowNotification(null, 
+                MsgBox.Show(null, 
                     "Unable to check for updates!" +
                     " Check the console for more information," +
                     " you can also perform a re-check by going into the \"Help\" menu",
@@ -79,7 +79,7 @@ namespace PintoNS.General
             catch (Exception ex)
             {
                 Program.Console.WriteMessage($"[Updater] Unable to download the update file: {ex}");
-                MsgBox.ShowNotification(null,
+                MsgBox.Show(null,
                     "Unable to download the update file!" +
                     " Check the console for more information," +
                     " you can perform a re-check by going into the \"Help\" menu",

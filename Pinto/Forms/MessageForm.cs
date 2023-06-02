@@ -27,7 +27,7 @@ namespace PintoNS.Forms
 
             if (mainForm.NetManager.NetHandler.ServerID == null) 
             {
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "The server has not yet sent it's server ID," +
                     " this chat will not be saved till the server does so", "Server Warning",
                     MsgBoxIconType.WARNING, true);
@@ -54,7 +54,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to load the chat: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to load the chat!",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -73,7 +73,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to save the chat: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to save the chat",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -93,7 +93,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to delete the chat: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to delete the chat",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -191,7 +191,7 @@ namespace PintoNS.Forms
 
             if (string.IsNullOrWhiteSpace(input))
             {
-                MsgBox.ShowNotification(this, "The specified message is invalid!", "Error", 
+                MsgBox.Show(this, "The specified message is invalid!", "Error", 
                     MsgBoxIconType.ERROR);
                 return;
             }

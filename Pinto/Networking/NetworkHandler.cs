@@ -52,7 +52,7 @@ namespace PintoNS.Networking
             mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason}");
             mainForm.Invoke(new Action(() =>
             {
-                MsgBox.ShowNotification(mainForm, packet.Reason, "Kicked by the server", 
+                MsgBox.Show(mainForm, packet.Reason, "Kicked by the server", 
                     MsgBoxIconType.WARNING, true);
             }));
         }
@@ -192,9 +192,9 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Networking] Received contact request from {packet.ContactName}");
             mainForm.Invoke(new Action(() =>
             {
-                MsgBox.ShowPromptNotification(mainForm,
+                MsgBox.Show(mainForm,
                     $"{packet.ContactName} wants to add you to their contact list. Proceed?", "Contact request",
-                    MsgBoxIconType.QUESTION, true,
+                    MsgBoxIconType.QUESTION, true, true,
                     (MsgBoxButtonType button) =>
                     {
                         SendContactRequestPacket(packet.ContactName, button == MsgBoxButtonType.YES);

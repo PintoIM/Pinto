@@ -62,7 +62,7 @@ namespace PintoNS
 
                 if (!RunningUnderWine) 
                 {
-                    MsgBox.ShowNotification(Console,
+                    MsgBox.Show(Console,
                         $"Pinto! has detected it is being ran" +
                         $" under mono but not under wine!{Environment.NewLine}" +
                         $"This execution configuration will never be supported!",

@@ -39,7 +39,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to load the saved login information: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to load the saved login information!",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -64,7 +64,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to save the login information: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to save the login information!",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -83,7 +83,7 @@ namespace PintoNS.Forms
             {
                 Program.Console.WriteMessage($"[General]" +
                     $" Unable to delete the saved login information: {ex}");
-                MsgBox.ShowNotification(this,
+                MsgBox.Show(this,
                     "Unable to delete the saved login information!",
                     "Error", MsgBoxIconType.ERROR);
             }
@@ -109,7 +109,7 @@ namespace PintoNS.Forms
 
                 if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
-                    MsgBox.ShowNotification(this, "Blank username or password!",
+                    MsgBox.Show(this, "Blank username or password!",
                         "Error", MsgBoxIconType.ERROR);
                     return;
                 }
@@ -155,7 +155,7 @@ namespace PintoNS.Forms
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MsgBox.ShowNotification(this, "Blank username or password!",
+                MsgBox.Show(this, "Blank username or password!",
                     "Error", MsgBoxIconType.ERROR);
                 return;
             }
