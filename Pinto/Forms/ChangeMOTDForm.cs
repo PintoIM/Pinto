@@ -32,5 +32,10 @@ namespace PintoNS.Forms
                 e.SuppressKeyPress = true;
             }
         }
+
+        private void ChangeMOTDForm_Load(object sender, EventArgs e)
+        {
+            txtMOTD.Text = mainForm.CurrentUser.MOTD;
+        }
     }
 }

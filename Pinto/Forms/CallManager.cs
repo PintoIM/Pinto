@@ -49,7 +49,7 @@ namespace PintoNS.Forms
 
             MessageBox.Show($"Pinto! calls currently are p2p and require you" +
                 $" to enter the remote's host and vice-versa!{Environment.NewLine}" +
-                $" Make sure to use calls only with people you trust" +
+                $"Make sure to use calls only with people you trust" +
                 $" or using a VPN service such as Hamachi",
                 "Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

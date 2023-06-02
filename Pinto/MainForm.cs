@@ -84,6 +84,7 @@ namespace PintoNS
             btnStartCall.Enabled = true;
             btnStartCall.Image = Assets.STARTCALL_ENABLED;
             txtSearchBox.Enabled = true;
+            lContactsNoContacts.Visible = true;
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
@@ -114,7 +115,7 @@ namespace PintoNS
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
             tsddbStatusBarMOTD.Enabled = status != UserStatus.OFFLINE;
             tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
-                !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(none)";
+                !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";
 
             CurrentUser.Status = status;
             CurrentUser.MOTD = motd;
@@ -162,6 +163,7 @@ namespace PintoNS
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
+            lContactsNoContacts.Visible = false;
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
@@ -318,7 +320,7 @@ namespace PintoNS
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
+            if (!Settings.NoMinimizeToSysTray && !doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
             {
                 e.Cancel = true;
                 Hide();
@@ -545,6 +547,8 @@ namespace PintoNS
 
         private void txtSearchBox_TextChanged2(object sender, EventArgs e)
         {
+            tcTabs.SelectedTab = tpContacts;
+            txtSearchBox.Focus();
             DataTable dataTable = dgvContacts.DataSource as DataTable;
             if (string.IsNullOrWhiteSpace(txtSearchBox.Text))
                 dataTable.DefaultView.RowFilter = "";

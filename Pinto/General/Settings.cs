@@ -43,11 +43,19 @@ namespace PintoNS.General
             " if this option is enabled, Pinto! will instantly exit")]
         public static bool NoGracefulExit = false;
 
-        [OptionsDisplay(DisplayName = "Do not show the \"#StandWithUkraine\" popup", Category = "General")]
+        [OptionsDisplay(DisplayName = "Do not show the \"#StandWithUkraine\" pop-up", Category = "General")]
         public static bool NoStandWithUAPopup = false;
+
+        [OptionsDisplay(DisplayName = "Do not minimize to the system tray when attempting to close", 
+            Category = "General", HelpInfo = "When this is disabled," +
+            " Pinto! minimizes to the system tray when you try to close it," +
+            " and exitting can be performed by going to \"File > Exit\" or from the system tray," +
+            " when this is enabled Pinto! will immediately exit when you try to close it")]
+        public static bool NoMinimizeToSysTray = false;
         #endregion
         #region Chat
-        [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy")]
+        [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy", 
+            HelpInfo = "When this option is enabled, the typing indicator won't be sent to people you are chatting with")]
         public static bool NoTypingIndicator = false;
         #endregion
 
