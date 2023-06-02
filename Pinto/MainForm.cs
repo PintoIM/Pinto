@@ -173,7 +173,9 @@ namespace PintoNS
                 {
                     Thread.Sleep(5000);
 
-                    if (!NetManager.NetHandler.LoggedIn) 
+                    if (NetManager != null && 
+                        NetManager.NetHandler != null && 
+                        !NetManager.NetHandler.LoggedIn) 
                     {
                         Invoke(new Action(() =>
                         {

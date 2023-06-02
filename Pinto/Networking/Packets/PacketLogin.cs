@@ -36,12 +36,12 @@ namespace PintoNS.Networking
             writer.WritePintoString(PasswordHash, 64);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public virtual void Handle(NetworkHandler netHandler)
         {
             netHandler.HandleLoginPacket(this);
         }
 
-        public int GetID()
+        public virtual int GetID()
         {
             return 0;
         }
