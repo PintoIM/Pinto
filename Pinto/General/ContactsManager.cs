@@ -32,7 +32,7 @@ namespace PintoNS.General
         private void AddContactListEntry(Contact contact) 
         {
             if (GetContactListEntry(contact.Name) == null)
-                dataTable.Rows.Add(User.StatusToBitmap(contact.Status), contact.Name);
+                dataTable.Rows.Add(User.StatusToBitmap(contact.Status), contact.Name, "This is a test MOTD");
         }
 
         private void RemoveContactListEntry(Contact contact)

@@ -37,6 +37,17 @@ namespace PintoNS
             PopupController = new PopupController();
         }
 
+        // "Borrowed" from https://stackoverflow.com/a/2613272
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
         internal void OnLogin()
         {
             tcTabs.TabPages.Clear();
@@ -45,16 +56,23 @@ namespace PintoNS
             UpdateQuickActions(true);
             OnStatusChange(UserStatus.ONLINE);
 
+            MessageForms = new List<MessageForm>();
+
             // Use a DataTable to allow usage of more options than a plain DataGridView
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("contactStatus", typeof(Bitmap));
             dataTable.Columns.Add("contactName", typeof(string));
-
+            dataTable.Columns.Add("contactMOTD", typeof(string));
             dgvContacts.DataSource = dataTable;
-            dgvContacts.Columns["contactStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dgvContacts.Columns["contactStatus"].FillWeight = 24;
-            dgvContacts.Columns["contactStatus"].Width = 24;
-            MessageForms = new List<MessageForm>();
+
+            DataGridViewColumn contactStatus = dgvContacts.Columns["contactStatus"];
+            contactStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            contactStatus.FillWeight = 24;
+            contactStatus.Width = 24;
+            contactStatus.Width = 24;
+
+            DataGridViewColumn contactMOTD = dgvContacts.Columns["contactMOTD"];
+            contactMOTD.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             btnStartCall.Enabled = true;
             btnStartCall.Image = Assets.STARTCALL_ENABLED;

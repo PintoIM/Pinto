@@ -16,6 +16,7 @@ namespace PintoNS.Controls
         {
             InitializeComponent();
             maxIndex = LOADING_SHEET.Height / INDEX_HEIGHT;
+            DoubleBuffered = true;
         }
 
         protected override void OnPaint(PaintEventArgs e)

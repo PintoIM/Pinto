@@ -33,10 +33,12 @@ namespace PintoNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pQA = new System.Windows.Forms.Panel();
+            this.btnQAAddContact = new PintoNS.Controls.NoFocusQueButton();
             this.tcTabs = new System.Windows.Forms.TabControl();
             this.tpLogin = new System.Windows.Forms.TabPage();
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpConnecting = new System.Windows.Forms.TabPage();
+            this.lrConnectingLoader = new PintoNS.Controls.Loader();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpStart = new System.Windows.Forms.TabPage();
             this.llStartContacts = new System.Windows.Forms.LinkLabel();
@@ -55,6 +57,8 @@ namespace PintoNS
             this.tsmiStatusBarStatusAway = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiStatusBarStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiStatusBarStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tstxtStatusBarMOTD = new System.Windows.Forms.ToolStripTextBox();
             this.tsslStatusBarStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -90,8 +94,6 @@ namespace PintoNS
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.lrConnectingLoader = new PintoNS.Controls.Loader();
-            this.btnQAAddContact = new PintoNS.Controls.NoFocusQueButton();
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -116,6 +118,20 @@ namespace PintoNS
             this.pQA.Name = "pQA";
             this.pQA.Size = new System.Drawing.Size(269, 24);
             this.pQA.TabIndex = 1;
+            // 
+            // btnQAAddContact
+            // 
+            this.btnQAAddContact.BackColor = System.Drawing.Color.Transparent;
+            this.btnQAAddContact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnQAAddContact.FlatAppearance.BorderSize = 0;
+            this.btnQAAddContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQAAddContact.Image = global::PintoNS.Assets.ADDCONTACT_DISABLED;
+            this.btnQAAddContact.Location = new System.Drawing.Point(3, 4);
+            this.btnQAAddContact.Name = "btnQAAddContact";
+            this.btnQAAddContact.Size = new System.Drawing.Size(16, 16);
+            this.btnQAAddContact.TabIndex = 9;
+            this.btnQAAddContact.UseVisualStyleBackColor = false;
+            this.btnQAAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
             // 
             // tcTabs
             // 
@@ -169,6 +185,16 @@ namespace PintoNS
             this.tpConnecting.Size = new System.Drawing.Size(258, 238);
             this.tpConnecting.TabIndex = 2;
             this.tpConnecting.Text = "Connecting";
+            // 
+            // lrConnectingLoader
+            // 
+            this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lrConnectingLoader.Location = new System.Drawing.Point(71, 69);
+            this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.Name = "lrConnectingLoader";
+            this.lrConnectingLoader.Size = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.TabIndex = 2;
             // 
             // lConnectingStatus
             // 
@@ -336,7 +362,9 @@ namespace PintoNS
             this.tsmiStatusBarStatusOnline,
             this.tsmiStatusBarStatusAway,
             this.tsmiStatusBarStatusBusy,
-            this.tsmiStatusBarStatusInvisible});
+            this.tsmiStatusBarStatusInvisible,
+            this.toolStripSeparator5,
+            this.tstxtStatusBarMOTD});
             this.tsddbStatusBarStatus.Enabled = false;
             this.tsddbStatusBarStatus.Image = global::PintoNS.Statuses.OFFLINE;
             this.tsddbStatusBarStatus.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -349,7 +377,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
             this.tsmiStatusBarStatusOnline.Name = "tsmiStatusBarStatusOnline";
-            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(117, 22);
+            this.tsmiStatusBarStatusOnline.Size = new System.Drawing.Size(180, 22);
             this.tsmiStatusBarStatusOnline.Text = "Online";
             this.tsmiStatusBarStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
             // 
@@ -357,7 +385,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusAway.Image = global::PintoNS.Statuses.AWAY;
             this.tsmiStatusBarStatusAway.Name = "tsmiStatusBarStatusAway";
-            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(117, 22);
+            this.tsmiStatusBarStatusAway.Size = new System.Drawing.Size(180, 22);
             this.tsmiStatusBarStatusAway.Text = "Away";
             this.tsmiStatusBarStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
             // 
@@ -365,7 +393,7 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusBusy.Image = global::PintoNS.Statuses.BUSY;
             this.tsmiStatusBarStatusBusy.Name = "tsmiStatusBarStatusBusy";
-            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(117, 22);
+            this.tsmiStatusBarStatusBusy.Size = new System.Drawing.Size(180, 22);
             this.tsmiStatusBarStatusBusy.Text = "Busy";
             this.tsmiStatusBarStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
             // 
@@ -373,9 +401,20 @@ namespace PintoNS
             // 
             this.tsmiStatusBarStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
             this.tsmiStatusBarStatusInvisible.Name = "tsmiStatusBarStatusInvisible";
-            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(117, 22);
+            this.tsmiStatusBarStatusInvisible.Size = new System.Drawing.Size(180, 22);
             this.tsmiStatusBarStatusInvisible.Text = "Invisible";
             this.tsmiStatusBarStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tstxtStatusBarMOTD
+            // 
+            this.tstxtStatusBarMOTD.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tstxtStatusBarMOTD.Name = "tstxtStatusBarMOTD";
+            this.tstxtStatusBarMOTD.Size = new System.Drawing.Size(100, 23);
             // 
             // tsslStatusBarStatusText
             // 
@@ -687,30 +726,6 @@ namespace PintoNS
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             this.txtSearchBox.TextChanged2 += new System.EventHandler(this.txtSearchBox_TextChanged2);
             // 
-            // lrConnectingLoader
-            // 
-            this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lrConnectingLoader.Location = new System.Drawing.Point(71, 69);
-            this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.Name = "lrConnectingLoader";
-            this.lrConnectingLoader.Size = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.TabIndex = 2;
-            // 
-            // btnQAAddContact
-            // 
-            this.btnQAAddContact.BackColor = System.Drawing.Color.Transparent;
-            this.btnQAAddContact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQAAddContact.FlatAppearance.BorderSize = 0;
-            this.btnQAAddContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQAAddContact.Image = global::PintoNS.Assets.ADDCONTACT_DISABLED;
-            this.btnQAAddContact.Location = new System.Drawing.Point(3, 4);
-            this.btnQAAddContact.Name = "btnQAAddContact";
-            this.btnQAAddContact.Size = new System.Drawing.Size(16, 16);
-            this.btnQAAddContact.TabIndex = 9;
-            this.btnQAAddContact.UseVisualStyleBackColor = false;
-            this.btnQAAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -811,5 +826,7 @@ namespace PintoNS
         private System.Windows.Forms.Button btnStartCall;
         private System.Windows.Forms.Button btnEndCall;
         private PintoNS.Controls.NoFocusQueButton btnQAAddContact;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripTextBox tstxtStatusBarMOTD;
     }
 }
