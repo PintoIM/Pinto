@@ -402,10 +402,9 @@
     <Content Include="Resources\Assets\COLOR_PALETTE.png" />
     <Content Include="Resources\Assets\WARNING.png" />
     <Content Include="Resources\Logo\LOADING.png" />
-    <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
     <Content Include="Resources\Logo\LOGO.ico" />
     <Content Include="Resources\Logo\LOGO.png" />
-    <Content Include="Resources\Logo\LOGO_XP.ico" />
+    <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
     <Content Include="Resources\Sounds\BUSY.WAV" />
     <Content Include="Resources\Sounds\CALL_ERROR1.WAV" />
     <Content Include="Resources\Sounds\CALL_ERROR2.WAV" />

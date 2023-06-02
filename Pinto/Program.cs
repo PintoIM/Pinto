@@ -76,8 +76,7 @@ namespace PintoNS
             Application.Run(new MainForm());
         }
 
-        public static Icon GetFormIcon() => 
-            Environment.OSVersion.Version.Major < 6 ? Logo.LOGO_XP : Logo.LOGO2;
+        public static Icon GetFormIcon() => Logo.LOGO_ICO;
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {

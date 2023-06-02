@@ -391,7 +391,7 @@ namespace PintoNS
             btnEndCall.Image = Assets.ENDCALL_ENABLED;
             CallMgr = new CallManager(this);
             CallMgr.Show();
-            CallMgr.BringToFront();
+            if (CallMgr != null) CallMgr.BringToFront();
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)

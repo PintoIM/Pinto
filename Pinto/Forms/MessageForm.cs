@@ -30,7 +30,7 @@ namespace PintoNS.Forms
                 MsgBox.ShowNotification(this,
                     "The server has not yet sent it's server ID," +
                     " this chat will not be saved till the server does so", "Server Warning",
-                    MsgBoxIconType.WARNING, true); ;
+                    MsgBoxIconType.WARNING, true);
                 return;
             }
             if (!Directory.Exists(Path.Combine(mainForm.DataFolder, 
