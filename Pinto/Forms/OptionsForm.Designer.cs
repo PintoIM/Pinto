@@ -31,14 +31,19 @@ namespace PintoNS.Forms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
-            this.tpAudio = new System.Windows.Forms.TabPage();
+            this.flpGeneralContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.tpPrivacy = new System.Windows.Forms.TabPage();
+            this.flpPrivacyContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.hpHelp = new System.Windows.Forms.HelpProvider();
             this.tcOptions.SuspendLayout();
+            this.tpGeneral.SuspendLayout();
+            this.tpPrivacy.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcOptions
             // 
             this.tcOptions.Controls.Add(this.tpGeneral);
-            this.tcOptions.Controls.Add(this.tpAudio);
+            this.tcOptions.Controls.Add(this.tpPrivacy);
             this.tcOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcOptions.Location = new System.Drawing.Point(0, 0);
             this.tcOptions.Name = "tcOptions";
@@ -48,6 +53,7 @@ namespace PintoNS.Forms
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.flpGeneralContainer);
             this.tpGeneral.Location = new System.Drawing.Point(4, 22);
             this.tpGeneral.Name = "tpGeneral";
             this.tpGeneral.Size = new System.Drawing.Size(465, 283);
@@ -55,14 +61,33 @@ namespace PintoNS.Forms
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
             // 
-            // tpAudio
+            // flpGeneralContainer
             // 
-            this.tpAudio.Location = new System.Drawing.Point(4, 22);
-            this.tpAudio.Name = "tpAudio";
-            this.tpAudio.Size = new System.Drawing.Size(465, 283);
-            this.tpAudio.TabIndex = 1;
-            this.tpAudio.Text = "Audio";
-            this.tpAudio.UseVisualStyleBackColor = true;
+            this.flpGeneralContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpGeneralContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpGeneralContainer.Location = new System.Drawing.Point(0, 0);
+            this.flpGeneralContainer.Name = "flpGeneralContainer";
+            this.flpGeneralContainer.Size = new System.Drawing.Size(465, 283);
+            this.flpGeneralContainer.TabIndex = 0;
+            // 
+            // tpPrivacy
+            // 
+            this.tpPrivacy.Controls.Add(this.flpPrivacyContainer);
+            this.tpPrivacy.Location = new System.Drawing.Point(4, 22);
+            this.tpPrivacy.Name = "tpPrivacy";
+            this.tpPrivacy.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPrivacy.Size = new System.Drawing.Size(465, 283);
+            this.tpPrivacy.TabIndex = 1;
+            this.tpPrivacy.Text = "Privacy";
+            this.tpPrivacy.UseVisualStyleBackColor = true;
+            // 
+            // flpPrivacyContainer
+            // 
+            this.flpPrivacyContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpPrivacyContainer.Location = new System.Drawing.Point(3, 3);
+            this.flpPrivacyContainer.Name = "flpPrivacyContainer";
+            this.flpPrivacyContainer.Size = new System.Drawing.Size(459, 277);
+            this.flpPrivacyContainer.TabIndex = 0;
             // 
             // OptionsForm
             // 
@@ -72,6 +97,7 @@ namespace PintoNS.Forms
             this.Controls.Add(this.tcOptions);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(489, 348);
             this.MinimizeBox = false;
@@ -79,7 +105,10 @@ namespace PintoNS.Forms
             this.Name = "OptionsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pinto! - Options";
+            this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.tcOptions.ResumeLayout(false);
+            this.tpGeneral.ResumeLayout(false);
+            this.tpPrivacy.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -88,6 +117,9 @@ namespace PintoNS.Forms
 
         private System.Windows.Forms.TabControl tcOptions;
         private System.Windows.Forms.TabPage tpGeneral;
-        private System.Windows.Forms.TabPage tpAudio;
+        private System.Windows.Forms.FlowLayoutPanel flpGeneralContainer;
+        private System.Windows.Forms.HelpProvider hpHelp;
+        private System.Windows.Forms.TabPage tpPrivacy;
+        private System.Windows.Forms.FlowLayoutPanel flpPrivacyContainer;
     }
 }

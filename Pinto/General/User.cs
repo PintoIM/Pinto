@@ -6,6 +6,7 @@ namespace PintoNS.General
     {
         public string Name;
         public UserStatus Status = UserStatus.OFFLINE;
+        public string MOTD;
 
         public static Bitmap StatusToBitmap(UserStatus status) 
         {

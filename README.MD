@@ -6,7 +6,10 @@
     <img src="https://img.shields.io/badge/Instant-Messaging-brightgreen" />
     <img src="https://img.shields.io/badge/License-GPLv3-brightgreen" />
     <a href="https://www.codefactor.io/repository/github/pintoim/pinto/overview/main"><img src="https://www.codefactor.io/repository/github/pintoim/pinto/badge/main" alt="CodeFactor" /></a>
+    <a href="https://stand-with-ukraine.pp.ua"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg" /></a>
 </p>
+
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # 💬 Pinto IM
 A modernish IM client inspired by Skype 0.97

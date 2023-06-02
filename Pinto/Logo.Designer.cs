@@ -63,6 +63,16 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Banner {
+            get {
+                object obj = ResourceManager.GetObject("Banner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LOADING {
             get {
                 object obj = ResourceManager.GetObject("LOADING", resourceCulture);
@@ -97,6 +107,16 @@ namespace PintoNS {
             get {
                 object obj = ResourceManager.GetObject("LOGO_ICO", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap STAND_WITH_UKRAINE {
+            get {
+                object obj = ResourceManager.GetObject("STAND_WITH_UKRAINE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

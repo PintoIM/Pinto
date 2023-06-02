@@ -264,12 +264,10 @@
             // 
             // pbAd
             // 
-            this.pbAd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pbAd.Image = global::PintoNS.Assets.LOGIN_PLACEHOLDER;
+            this.pbAd.Image = global::PintoNS.Logo.Banner;
             this.pbAd.Location = new System.Drawing.Point(21, 244);
             this.pbAd.Name = "pbAd";
             this.pbAd.Size = new System.Drawing.Size(348, 136);
-            this.pbAd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbAd.TabIndex = 12;
             this.pbAd.TabStop = false;
             // 

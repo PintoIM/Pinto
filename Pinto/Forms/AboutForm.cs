@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -28,6 +29,16 @@ namespace PintoNS.Forms
         private void AboutForm_Deactivate(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void AboutForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            Close();
+        }
+
+        private void pbUkraine_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://stand-with-ukraine.pp.ua/");
         }
     }
 }

@@ -76,9 +76,9 @@ namespace PintoNS.Networking
                 Program.VERSION_STRING, username, passwordHash);
         }
 
-        public void ChangeStatus(UserStatus status) 
+        public void ChangeStatus(UserStatus status, string motd) 
         {
-            NetHandler.SendStatusPacket(status);
+            NetHandler.SendStatusPacket(status, motd);
         }
 
         private void NetClient_ReceivedPacket(IPacket packet)

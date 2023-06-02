@@ -19,7 +19,9 @@ namespace PintoNS
     public partial class MainForm : Form
     {
         public readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), "Pinto!");
+            Environment.SpecialFolder.ApplicationData), "Pinto!");        
+        public readonly string SettingsFile = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData), "Pinto!", "settings.json");
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
@@ -28,6 +30,7 @@ namespace PintoNS
         public List<MessageForm> MessageForms;
         private bool doNotCancelClose;
         public CallManager CallMgr;
+        private Thread loginPacketCheckThread;
 
         public MainForm()
         {
@@ -53,8 +56,12 @@ namespace PintoNS
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpStart);
             tcTabs.TabPages.Add(tpContacts);
+
+            if (!Settings.AutoStartPage)
+                tcTabs.SelectedTab = tpContacts;
+
             UpdateQuickActions(true);
-            OnStatusChange(UserStatus.ONLINE);
+            OnStatusChange(UserStatus.ONLINE, "");
 
             MessageForms = new List<MessageForm>();
 
@@ -100,13 +107,24 @@ namespace PintoNS
             }
         }
 
-        internal void OnStatusChange(UserStatus status)
+        internal void OnStatusChange(UserStatus status, string motd)
         {
             tsddbStatusBarStatus.Enabled = status != UserStatus.OFFLINE;
             tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
+            tsddbStatusBarMOTD.Enabled = status != UserStatus.OFFLINE;
+            tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
+                !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(none)";
+
             CurrentUser.Status = status;
-            if (status == UserStatus.OFFLINE) CurrentUser.Name = null;
+            CurrentUser.MOTD = motd;
+
+            if (status == UserStatus.OFFLINE)
+            {
+                CurrentUser.Name = null;
+                CurrentUser.MOTD = null;
+            }
+
             SyncTray();
         }
 
@@ -115,7 +133,7 @@ namespace PintoNS
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpLogin);
             UpdateQuickActions(false);
-            OnStatusChange(UserStatus.OFFLINE);
+            OnStatusChange(UserStatus.OFFLINE, "");
 
             if (MessageForms != null && MessageForms.Count > 0)
             {
@@ -187,25 +205,33 @@ namespace PintoNS
                 lConnectingStatus.Text = "Authenticating...";
                 NetManager.Login(username, password);
 
-                new Thread(new ThreadStart(() =>
-                {
-                    Thread.Sleep(5000);
+                if (loginPacketCheckThread != null)
+                    loginPacketCheckThread.Abort();
 
-                    if (NetManager != null && 
-                        NetManager.NetHandler != null && 
-                        !NetManager.NetHandler.LoggedIn) 
+                loginPacketCheckThread = new Thread(new ThreadStart(() =>
+                {
+                    try
                     {
-                        Invoke(new Action(() =>
+                        Thread.Sleep(5000);
+
+                        if (NetManager != null &&
+                            NetManager.NetHandler != null &&
+                            !NetManager.NetHandler.LoggedIn)
                         {
-                            Disconnect();
-                            Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
-                                $" No login packet received from the server in an acceptable time frame");
-                            MsgBox.Show(this,
-                                $"No login packet received from the server in an acceptable time frame",
-                                "Connection Error", MsgBoxIconType.ERROR);
-                        }));
+                            Invoke(new Action(() =>
+                            {
+                                Disconnect();
+                                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
+                                    $" No login packet received from the server in an acceptable time frame");
+                                MsgBox.Show(this,
+                                    $"No login packet received from the server in an acceptable time frame",
+                                    "Connection Error", MsgBoxIconType.ERROR);
+                            }));
+                        }
                     }
-                })).Start();
+                    catch { }
+                }));
+                loginPacketCheckThread.Start();
             }
         }
 
@@ -272,9 +298,10 @@ namespace PintoNS
             return messageForm;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("Performing first time initialization...");
+            Settings.Import(SettingsFile);
 
             OnLogout(true);
             if (!Directory.Exists(DataFolder))
@@ -282,7 +309,11 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
 
-            //await CheckForUpdates(false);
+            if (Settings.AutoCheckForUpdates)
+                await CheckForUpdates(false);
+
+            if (!Settings.NoStandWithUAPopup)
+                InWindowPopupController.CreatePopup("#StandWithUkraine, check \"About\" for more information");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -295,9 +326,13 @@ namespace PintoNS
             }
             Program.Console.WriteMessage("Quitting...");
             bool wasLoggedIn = NetManager != null && NetManager.NetHandler.LoggedIn;
-            OnLogout(false);
+            OnLogout(true);
             Disconnect();
-            if (wasLoggedIn)
+
+            if (loginPacketCheckThread != null)
+                loginPacketCheckThread.Abort();
+
+            if (!Settings.NoGracefulExit && wasLoggedIn)
                 new Thread(new ThreadStart(() => 
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
@@ -337,14 +372,14 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.ONLINE);
+            NetManager.ChangeStatus(UserStatus.ONLINE, CurrentUser.MOTD);
         }
 
         private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.AWAY);
+            NetManager.ChangeStatus(UserStatus.AWAY, CurrentUser.MOTD);
         }
 
         private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
@@ -353,7 +388,7 @@ namespace PintoNS
             Program.Console.WriteMessage("[General] Changing status...");
             InWindowPopupController.CreatePopup("You are now busy" +
                 ", this means that you will not receive any non-important popups");
-            NetManager.ChangeStatus(UserStatus.BUSY);
+            NetManager.ChangeStatus(UserStatus.BUSY, CurrentUser.MOTD);
         }
 
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
@@ -366,7 +401,7 @@ namespace PintoNS
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
                 if (button == MsgBoxButtonType.YES)
-                    NetManager.ChangeStatus(UserStatus.INVISIBLE);
+                    NetManager.ChangeStatus(UserStatus.INVISIBLE, CurrentUser.MOTD);
             });
         }
 
@@ -442,22 +477,30 @@ namespace PintoNS
 
         private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
         {
-            OptionsForm optionsForm = new OptionsForm();
+            OptionsForm optionsForm = new OptionsForm(this);
             optionsForm.ShowDialog(this);
         }
 
         private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) 
         {
+            if (Settings.NoExitPrompt) 
+            {
+                Shutdown();
+                return;
+            }
+
             MsgBox.Show(null, "Are you sure you want to close Pinto?" +
                 " You will no longer receive messages or calls if you do so.", "Quit Pinto?",
                 MsgBoxIconType.QUESTION, false, true, (MsgBoxButtonType answer) =>
                 {
-                    if (answer == MsgBoxButtonType.YES) 
-                    {
-                        doNotCancelClose = true;
-                        Close();
-                    }
+                    if (answer == MsgBoxButtonType.YES) Shutdown();
                 });
+        }
+
+        public void Shutdown() 
+        {
+            doNotCancelClose = true;
+            Close();
         }
 
         public async Task CheckForUpdates(bool showLatestMessage) 
@@ -555,6 +598,13 @@ namespace PintoNS
             contextMenu.Items.Add(startMessaging);
             contextMenu.Items.Add(removeContact);
             e.ContextMenuStrip = contextMenu;
+        }
+
+        private void tsddbStatusBarMOTD_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null) return;
+            ChangeMOTDForm changeMOTDForm = new ChangeMOTDForm(this);
+            changeMOTDForm.ShowDialog(this);
         }
     }
 }

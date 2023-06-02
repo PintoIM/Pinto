@@ -180,9 +180,13 @@ namespace PintoNS.Forms
             if (mainForm.NetManager == null) return;
 
             if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
+            {
                 isTypingLastStatus = true;
-            else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
+            }
+            else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus) 
+            {
                 isTypingLastStatus = false;
+            }
         }
 
         private void btnSend_Click(object sender, EventArgs e)

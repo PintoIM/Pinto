@@ -47,6 +47,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Build|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -139,6 +140,12 @@
     </Compile>
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangeMOTDForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangeMOTDForm.Designer.cs">
+      <DependentUpon>ChangeMOTDForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddContactForm.cs">
       <SubType>Form</SubType>
@@ -242,6 +249,7 @@
     <Compile Include="Forms\MsgBox\MsgBox.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
+    <Compile Include="Networking\Packets\PacketTyping.cs" />
     <Compile Include="Networking\Packets\PacketCallEnd.cs" />
     <Compile Include="Networking\Packets\PacketCallStart.cs" />
     <Compile Include="Networking\Packets\PacketCallInfo.cs" />
@@ -285,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangeMOTDForm.resx">
+      <DependentUpon>ChangeMOTDForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddContactForm.resx">
       <DependentUpon>AddContactForm.cs</DependentUpon>
@@ -379,7 +390,6 @@
     <Content Include="Resources\Assets\INFO_ENABLED.png" />
     <Content Include="Resources\Assets\LOCK_DISABLED.png" />
     <Content Include="Resources\Assets\LOCK_ENABLED.png" />
-    <Content Include="Resources\Assets\LOGIN_PLACEHOLDER.png" />
     <Content Include="Resources\Assets\MICROPHONE_DISABLED.png" />
     <Content Include="Resources\Assets\MICROPHONE_ENABLED.png" />
     <Content Include="Resources\Assets\MICROPHONE_MUTED.png" />
@@ -401,10 +411,12 @@
     <Content Include="Resources\Assets\TRASHCAN_ENABLED.png" />
     <Content Include="Resources\Assets\COLOR_PALETTE.png" />
     <Content Include="Resources\Assets\WARNING.png" />
+    <Content Include="Resources\Logo\Banner.png" />
     <Content Include="Resources\Logo\LOADING.png" />
     <Content Include="Resources\Logo\LOGO.ico" />
     <Content Include="Resources\Logo\LOGO.png" />
     <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
+    <Content Include="Resources\Logo\STAND_WITH_UKRAINE.png" />
     <Content Include="Resources\Sounds\BUSY.WAV" />
     <Content Include="Resources\Sounds\CALL_ERROR1.WAV" />
     <Content Include="Resources\Sounds\CALL_ERROR2.WAV" />

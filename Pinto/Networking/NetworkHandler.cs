@@ -137,7 +137,7 @@ namespace PintoNS.Networking
             mainForm.Invoke(new Action(() =>
             {
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
-                    mainForm.OnStatusChange(packet.Status);
+                    mainForm.OnStatusChange(packet.Status, packet.MOTD);
                 else
                 {
                     Contact contact = mainForm.ContactsMgr.GetContact(packet.ContactName);
@@ -181,7 +181,8 @@ namespace PintoNS.Networking
                     mainForm.ContactsMgr.UpdateContact(new Contact()
                     {
                         Name = packet.ContactName,
-                        Status = packet.Status
+                        Status = packet.Status,
+                        MOTD = packet.MOTD
                     });
                 }
             }));
@@ -217,6 +218,18 @@ namespace PintoNS.Networking
             networkClient.SendPacket(new PacketKeepAlive());
         }
 
+        public void HandleTypingPacket(PacketTyping packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                MessageForm msgForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName, true);
+                if (msgForm != null)
+                    msgForm.InWindowPopupController.CreatePopup(
+                        $"{packet.ContactName} is now busy" +
+                        $" and may not see your messages");
+            }));
+        }
+
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 
             string name, string sessionID) 
         {
@@ -234,9 +247,9 @@ namespace PintoNS.Networking
             networkClient.SendPacket(new PacketMessage(contactName, message));
         }
 
-        public void SendStatusPacket(UserStatus status)
+        public void SendStatusPacket(UserStatus status, string motd)
         {
-            networkClient.SendPacket(new PacketStatus("", status));
+            networkClient.SendPacket(new PacketStatus("", status, motd));
         }
 
         public void SendContactRequestPacket(string name, bool approved)
