@@ -32,7 +32,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Logo\LOGO.ico</ApplicationIcon>
@@ -70,6 +71,9 @@
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="MoonSharp.Interpreter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=921e73ce94aa17f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
@@ -189,7 +193,9 @@
     <Compile Include="Forms\PopupForm.Designer.cs">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MsgBox\MsgBoxIconType.cs" />
+    <Compile Include="General\LuaExtension.cs" />
+    <Compile Include="General\LuaExtensionsHelper.cs" />
+    <Compile Include="General\MsgBoxIconType.cs" />
     <Compile Include="Forms\ServerListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +210,7 @@
     </Compile>
     <Compile Include="General\Contact.cs" />
     <Compile Include="General\AudioRecorderPlayer.cs" />
+    <Compile Include="General\ObjectExtensions.cs" />
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
@@ -239,14 +246,14 @@
     <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MsgBox\MsgBoxForm.cs">
+    <Compile Include="Forms\MsgBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MsgBox\MsgBoxForm.Designer.cs">
+    <Compile Include="Forms\MsgBoxForm.Designer.cs">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MsgBox\MsgBoxButtonType.cs" />
-    <Compile Include="Forms\MsgBox\MsgBox.cs" />
+    <Compile Include="General\MsgBoxButtonType.cs" />
+    <Compile Include="General\MsgBox.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
     <Compile Include="Networking\Packets\PacketTyping.cs" />
@@ -337,7 +344,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Logo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MsgBox\MsgBoxForm.resx">
+    <EmbeddedResource Include="Forms\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -478,6 +485,15 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <ItemGroup>

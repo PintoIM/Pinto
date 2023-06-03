@@ -1,4 +1,4 @@
-﻿namespace PintoNS.Forms.Notification
+﻿namespace PintoNS.Forms
 {
     partial class MsgBoxForm
     {

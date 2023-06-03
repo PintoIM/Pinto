@@ -1,5 +1,7 @@
-﻿using PintoNS.Forms;
-using PintoNS.Forms.Notification;
+﻿using MoonSharp.Interpreter;
+using MoonSharp.Interpreter.Interop;
+using MoonSharp.Interpreter.Interop.RegistrationPolicies;
+using PintoNS.Forms;
 using PintoNS.General;
 using PintoNS.Networking;
 using System;
@@ -10,9 +12,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WMPLib;
 
 namespace PintoNS
 {
@@ -31,6 +36,7 @@ namespace PintoNS
         private bool doNotCancelClose;
         public CallManager CallMgr;
         private Thread loginPacketCheckThread;
+        public readonly List<LuaExtension> Extensions = new List<LuaExtension>();
 
         public MainForm()
         {
@@ -259,6 +265,34 @@ namespace PintoNS
                 CurrentUser.Name = username;
                 lConnectingStatus.Text = "Registering...";
                 NetManager.Register(username, password);
+
+                if (loginPacketCheckThread != null)
+                    loginPacketCheckThread.Abort();
+
+                loginPacketCheckThread = new Thread(new ThreadStart(() =>
+                {
+                    try
+                    {
+                        Thread.Sleep(5000);
+
+                        if (NetManager != null &&
+                            NetManager.NetHandler != null &&
+                            !NetManager.NetHandler.LoggedIn)
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                Disconnect();
+                                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
+                                    $" No login packet received from the server in an acceptable time frame");
+                                MsgBox.Show(this,
+                                    $"No login packet received from the server in an acceptable time frame",
+                                    "Connection Error", MsgBoxIconType.ERROR);
+                            }));
+                        }
+                    }
+                    catch { }
+                }));
+                loginPacketCheckThread.Start();
             }
         }
 
@@ -275,6 +309,12 @@ namespace PintoNS
             OnLogout(!wasLoggedIn);
             NetManager = null;
             lConnectingStatus.Text = "";
+
+            Extensions.ForEach((LuaExtension ext) =>
+            {
+                if (ext.Script.Globals["onDisconnect"] == null) return;
+                ext.Script.Call(ext.Script.Globals["onDisconnect"]);
+            });
         }
 
         public MessageForm GetMessageFormFromReceiverName(string name, bool doNotCreate = false)
@@ -302,7 +342,7 @@ namespace PintoNS
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            Program.Console.WriteMessage("Performing first time initialization...");
+            Program.Console.WriteMessage("[General] Performing first time initialization...");
             Settings.Import(SettingsFile);
 
             OnLogout(true);
@@ -310,12 +350,22 @@ namespace PintoNS
                 Directory.CreateDirectory(DataFolder);
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
+            if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
 
             if (Settings.AutoCheckForUpdates)
                 await CheckForUpdates(false);
 
             if (!Settings.NoStandWithUAPopup)
                 InWindowPopupController.CreatePopup("#StandWithUkraine, check \"About\" for more information");
+
+            LoadExtensions();
+
+            Extensions.ForEach((LuaExtension ext) => 
+            {
+                if (ext.Script.Globals["onLoad"] == null) return;
+                ext.Script.Call(ext.Script.Globals["onLoad"]);
+            });
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -349,6 +399,12 @@ namespace PintoNS
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
                 })).Start();
+
+            Extensions.ForEach((LuaExtension ext) =>
+            {
+                if (ext.Script.Globals["onExit"] == null) return;
+                ext.Script.Call(ext.Script.Globals["onExit"]);
+            });
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -619,6 +675,17 @@ namespace PintoNS
             if (NetManager == null) return;
             ChangeMOTDForm changeMOTDForm = new ChangeMOTDForm(this);
             changeMOTDForm.ShowDialog(this);
+        }
+
+        public void LoadExtensions() 
+        {
+            UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
+            Program.Console.WriteMessage($"[Extensions] Loading extensions");
+
+            foreach (string file in Directory.EnumerateFiles(Path.Combine(DataFolder, "extensions")))
+            {
+                Extensions.Add(new LuaExtension(file, this));
+            }
         }
     }
 }

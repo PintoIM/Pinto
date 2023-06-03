@@ -1,4 +1,4 @@
-﻿using PintoNS.Forms.Notification;
+﻿using PintoNS.General;
 using System;
 using System.Windows.Forms;
 

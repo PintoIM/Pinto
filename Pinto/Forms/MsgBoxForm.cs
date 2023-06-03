@@ -1,7 +1,8 @@
-﻿using System;
+﻿using PintoNS.General;
+using System;
 using System.Windows.Forms;
 
-namespace PintoNS.Forms.Notification
+namespace PintoNS.Forms
 {
     public partial class MsgBoxForm : Form
     {

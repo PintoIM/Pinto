@@ -1,8 +1,9 @@
-﻿using System;
+﻿using PintoNS.Forms;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace PintoNS.Forms.Notification
+namespace PintoNS.General
 {
     public static class MsgBox
     {
