@@ -114,7 +114,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = packet.Status });
+                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = packet.Status, MOTD = packet.MOTD });
             }));
         }
 
@@ -258,7 +258,7 @@ namespace PintoNS.Networking
 
         public void SendAddContactPacket(string name)
         {
-            networkClient.SendPacket(new PacketAddContact(name, UserStatus.OFFLINE));
+            networkClient.SendPacket(new PacketAddContact(name, UserStatus.OFFLINE, ""));
         }
 
         public void SendRemoveContactPacket(string name)
