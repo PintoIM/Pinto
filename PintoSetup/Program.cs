@@ -39,7 +39,7 @@ namespace PintoSetupNS
                         return;
                     }
 
-                    if (Process.GetProcessesByName(Setup.PROGRAM_EXE).Length > 0) 
+                    if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Setup.PROGRAM_EXE)).Length > 0)
                     {
                         MessageBox.Show("Pinto! is currently running, make sure to close it and try again",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -69,7 +69,7 @@ namespace PintoSetupNS
                 return;
             }
 
-            if (Process.GetProcessesByName(Setup.PROGRAM_EXE).Length > 0)
+            if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Setup.PROGRAM_EXE)).Length > 0)
             {
                 MessageBox.Show("Pinto! is currently running, make sure to close it and try again",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

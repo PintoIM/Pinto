@@ -581,7 +581,7 @@ namespace PintoNS
                     {
                         if (btn == MsgBoxButtonType.YES)
                         {
-                            string path = Path.Combine(DataFolder, "PintoSetup.msi");
+                            string path = Path.Combine(DataFolder, "PintoSetup.exe");
                             if (File.Exists(path))
                                 File.Delete(path);
 
@@ -590,7 +590,7 @@ namespace PintoNS
                             File.WriteAllBytes(path, file);
                             Program.Console.WriteMessage($"[Updater] Saved update file at {path}");
 
-                            Program.Console.WriteMessage($"[Updater] Running msi installer at {path}...");
+                            Program.Console.WriteMessage($"[Updater] Running installer at {path}...");
                             Process process = new Process();
                             process.StartInfo.FileName = "PintoSetup.exe";
                             process.StartInfo.Arguments = " upgrade";
