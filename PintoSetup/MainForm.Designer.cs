@@ -138,8 +138,7 @@ namespace PintoSetupNS
             // 
             this.cbStartOnBoot.AutoSize = true;
             this.cbStartOnBoot.BackColor = System.Drawing.Color.Transparent;
-            this.cbStartOnBoot.Checked = true;
-            this.cbStartOnBoot.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbStartOnBoot.Enabled = false;
             this.cbStartOnBoot.Location = new System.Drawing.Point(27, 255);
             this.cbStartOnBoot.Name = "cbStartOnBoot";
             this.cbStartOnBoot.Size = new System.Drawing.Size(200, 17);
@@ -243,22 +242,22 @@ namespace PintoSetupNS
         }
 
         #endregion
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnInstall;
-        private System.Windows.Forms.Label lTitle;
-        private System.Windows.Forms.PictureBox pbInstall;
-        private System.Windows.Forms.Label lLocation;
-        private System.Windows.Forms.TextBox txtPath;
-        private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.CheckBox cbCreateDesktopIcon;
-        private System.Windows.Forms.CheckBox cbLaunchAfterInstall;
-        private System.Windows.Forms.CheckBox cbStartOnBoot;
-        private System.Windows.Forms.FolderBrowserDialog fbdBrowse;
-        private System.Windows.Forms.Panel pFirstStage;
-        private System.Windows.Forms.Panel pSecondStage;
-        private System.Windows.Forms.Label lInstallStatus1;
-        private System.Windows.Forms.Label lInstallStatus2;
-        private System.Windows.Forms.ProgressBar pbInstallProgress;
+        public System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.Button btnInstall;
+        public System.Windows.Forms.Label lTitle;
+        public System.Windows.Forms.PictureBox pbInstall;
+        public System.Windows.Forms.Label lLocation;
+        public System.Windows.Forms.TextBox txtPath;
+        public System.Windows.Forms.Button btnBrowse;
+        public System.Windows.Forms.CheckBox cbCreateDesktopIcon;
+        public System.Windows.Forms.CheckBox cbLaunchAfterInstall;
+        public System.Windows.Forms.CheckBox cbStartOnBoot;
+        public System.Windows.Forms.FolderBrowserDialog fbdBrowse;
+        public System.Windows.Forms.Panel pFirstStage;
+        public System.Windows.Forms.Panel pSecondStage;
+        public System.Windows.Forms.Label lInstallStatus1;
+        public System.Windows.Forms.Label lInstallStatus2;
+        public System.Windows.Forms.ProgressBar pbInstallProgress;
     }
 }
 

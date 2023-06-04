@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,50 +20,89 @@ namespace PintoSetupNS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            bool uninstallMode = args.Length > 0 ? 
-                args[0].Equals("uninstall", StringComparison.InvariantCultureIgnoreCase) : false;
-
+            string setupMode = args.Length > 0 ? args[0].ToLower() : "install";
             string installPath = Setup.GetInstallPath();
-            if (uninstallMode && Setup.GetInstallPath() == null) 
+
+            switch (setupMode) 
             {
-                MessageBox.Show("Pinto! is not installed on your computer", "Error", 
+                case "install":
+                    Application.Run(new MainForm());
+                    break;
+                case "uninstall":
+                    SetupUninstall(installPath);
+                    break;
+                case "upgrade":
+                    if (installPath == null)
+                    {
+                        MessageBox.Show("Pinto! is not installed on your computer", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (Process.GetProcessesByName(Setup.PROGRAM_EXE).Length > 0) 
+                    {
+                        MessageBox.Show("Pinto! is currently running, make sure to close it and try again",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    MainForm mainForm = new MainForm();
+                    mainForm.IsUpgrading = true;
+                    mainForm.txtPath.Text = installPath;
+                    mainForm.cbCreateDesktopIcon.Checked = Setup.GetCreatedShortcuts();
+                    Application.Run(mainForm);
+
+                    break;
+                default:
+                    MessageBox.Show("Invalid arguments provided!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        private static void SetupUninstall(string installPath) 
+        {
+            if (installPath == null)
+            {
+                MessageBox.Show("Pinto! is not installed on your computer", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (uninstallMode) 
+            if (Process.GetProcessesByName(Setup.PROGRAM_EXE).Length > 0)
             {
-                if (MessageBox.Show("Are you sure you want to uninstall Pinto?" +
-                    " (your user data will not be affected)", "Uninstall Pinto?", 
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-
-                UninstallForm uninstallForm = new UninstallForm();
-
-                uninstallForm.Show();
-                Setup.PerformUninstall(installPath, out bool unableToDeleteFiles);
-                uninstallForm.Hide();
-                uninstallForm.Close();
-
-                if (unableToDeleteFiles)
-                    MessageBox.Show($"Pinto! Setup was unable to delete the installation files. ({installPath})" +
-                        $"{Environment.NewLine}They can be safely removed manually.",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                MessageBox.Show($"Pinto! has been uninstalled successfully!", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                // Self-delete
-                ProcessStartInfo Info = new ProcessStartInfo() 
-                {
-                    FileName = "cmd.exe",
-                    Arguments = $"/c ping 127.0.0.1 -n 1 -w 3000 > nul & del \"{Application.ExecutablePath}\" & rd \"{installPath}\"",
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden
-                };
-                Process.Start(Info);
+                MessageBox.Show("Pinto! is currently running, make sure to close it and try again",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
-                Application.Run(new MainForm());
+
+            if (MessageBox.Show("Are you sure you want to uninstall Pinto?" +
+                " (your user data will not be affected)", "Uninstall Pinto?",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+            UninstallForm uninstallForm = new UninstallForm();
+            new Thread(new ThreadStart(() => uninstallForm.ShowDialog())).Start();
+
+            Setup.PerformUninstall(installPath, out bool unableToDeleteFiles);
+            if (unableToDeleteFiles)
+                MessageBox.Show($"Pinto! Setup was unable to delete the installation files. ({installPath})" +
+                    $"{Environment.NewLine}They can be safely removed manually.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            uninstallForm.CanClose = true;
+            uninstallForm.Close();
+
+            MessageBox.Show($"Pinto! has been uninstalled successfully!", "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Self-delete
+            ProcessStartInfo Info = new ProcessStartInfo()
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/c ping 127.0.0.1 -n 1 -w 3000 > nul & rd /s /q \"{installPath}\"",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+            Process.Start(Info);
         }
     }
 }

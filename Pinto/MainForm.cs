@@ -592,8 +592,8 @@ namespace PintoNS
 
                             Program.Console.WriteMessage($"[Updater] Running msi installer at {path}...");
                             Process process = new Process();
-                            process.StartInfo.FileName = "msiexec.exe";
-                            process.StartInfo.Arguments = " /i PintoSetup.msi /passive /norestart";
+                            process.StartInfo.FileName = "PintoSetup.exe";
+                            process.StartInfo.Arguments = " upgrade";
                             process.StartInfo.WorkingDirectory = DataFolder;
                             process.Start();
 

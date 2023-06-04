@@ -11,7 +11,7 @@ namespace PintoSetupNS
 {
     public partial class UninstallForm : Form
     {
-        private bool canClose;
+        public bool CanClose;
 
         public UninstallForm()
         {
@@ -20,7 +20,7 @@ namespace PintoSetupNS
 
         private void UninstallForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!canClose) 
+            if (!CanClose) 
             {
                 e.Cancel = true;
                 return;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,9 @@ namespace PintoSetupNS
 {
     public partial class MainForm : Form
     {
-        private bool installing;
-        private bool installed;
+        public bool IsUpgrading;
+        public bool Installing { get; private set; }
+        public bool Installed { get; private set; }
 
         public MainForm()
         {
@@ -44,7 +46,8 @@ namespace PintoSetupNS
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            txtPath.Text = Setup.DEFAULT_INSTALL_PATH;
+            if (!IsUpgrading) txtPath.Text = Setup.DEFAULT_INSTALL_PATH;
+            if (IsUpgrading) btnInstall.PerformClick();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -59,13 +62,13 @@ namespace PintoSetupNS
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (installing)
+            if (Installing)
             {
                 e.Cancel = true;
                 return;
             }
 
-            if (!installed) 
+            if (!Installed) 
             {
                 DialogResult result = MessageBox.Show($"Pinto! installation is not complete." +
                     $" Try again later by running the Pinto! installer.{Environment.NewLine}{Environment.NewLine}" +
@@ -88,6 +91,8 @@ namespace PintoSetupNS
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             string installFolder = txtPath.Text.Trim();
+            bool createShortcuts = cbCreateDesktopIcon.Checked;
+            bool startAfterInstall = cbLaunchAfterInstall.Checked;
 
             if (!Setup.IsValidPath(installFolder))
             {
@@ -97,7 +102,7 @@ namespace PintoSetupNS
                 return;
             }
 
-            if (Directory.Exists(installFolder) && Directory.GetFiles(installFolder).Length > 0)
+            if (Directory.Exists(installFolder) && Directory.GetFiles(installFolder).Length > 0 && !IsUpgrading)
             {
                 MessageBox.Show($"The specified folder is not empty", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -106,7 +111,7 @@ namespace PintoSetupNS
 
             try 
             {
-                installing = true;
+                Installing = true;
                 pFirstStage.Enabled = false;
                 pFirstStage.Visible = false;
                 pSecondStage.Enabled = true;
@@ -115,7 +120,7 @@ namespace PintoSetupNS
 
                 string uninstallerPath = Path.Combine(installFolder, "Uninstaller.exe");
                 lInstallStatus2.Text = "Creating uninstall registry...";
-                Setup.CreateUninstallRegistry(uninstallerPath, installFolder);
+                Setup.CreateSetupRegistry(uninstallerPath, installFolder, createShortcuts);
 
                 lInstallStatus2.Text = "Creating install directory...";
                 Directory.CreateDirectory(installFolder);
@@ -140,23 +145,33 @@ namespace PintoSetupNS
                             pbInstallProgress.Value++;
                         }));
 
-                        entry.Extract(installFolder);
+                        entry.Extract(installFolder, ExtractExistingFileAction.OverwriteSilently);
                         Thread.Sleep(100);
                     }
                 }));
 
                 lInstallStatus2.Text = $"Extracting files...{Environment.NewLine}{uninstallerPath}";
-                File.Copy(Application.ExecutablePath, uninstallerPath);
-                Setup.CreateShortcuts(installFolder);
+                File.Copy(Application.ExecutablePath, uninstallerPath, true);
+                if (createShortcuts) Setup.CreateShortcuts(installFolder);
 
-                lTitle.Text = "Pinto! Setup Complete";
-                ShowInstallEnd($"Pinto! has been successfully installed on your computer and may be started by" +
-                    $"{Environment.NewLine}selecting the installed icons.",
-                    "Click Finish to exit Pinto! Setup.", "Finish");
+                if (!IsUpgrading && !startAfterInstall) 
+                {
+                    lTitle.Text = "Pinto! Setup Complete";
+                    ShowInstallEnd($"Pinto! has been successfully installed on your computer and may be started by" +
+                        $"{Environment.NewLine}selecting the installed icons.",
+                        "Click Finish to exit Pinto! Setup.", "Finish");
+                    return;
+                }
+
+                Installing = false;
+                Installed = true;
+                Close();
+                Process.Start(Path.Combine(installFolder, Setup.PROGRAM_EXE));
             }
             catch (Exception ex) 
             {
-                Setup.PerformUninstall(installFolder, out bool unableToDeleteFiles);
+                bool unableToDeleteFiles = false;
+                if (!IsUpgrading) Setup.PerformUninstall(installFolder, out unableToDeleteFiles);
 
                 lTitle.Text = "Pinto! Setup Failed";
                 ShowInstallEnd("Pinto! was unable to be successfully installed on your computer", 
@@ -179,8 +194,8 @@ namespace PintoSetupNS
             pbInstallProgress.Visible = false;
             btnCancel.Parent = pSecondStage;
             btnCancel.Text = cancelText;
-            installing = false;
-            installed = true;
+            Installing = false;
+            Installed = true;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace PintoSetupNS
 {
@@ -74,7 +75,8 @@ namespace PintoSetupNS
             return true;
         }
 
-        public static void CreateUninstallRegistry(string uninstallerPath, string installLocation)
+        public static void CreateSetupRegistry(string uninstallerPath, 
+            string installLocation, bool createdShortcuts)
         {
             RegistryKey key = Registry.LocalMachine
                 .OpenSubKey("SOFTWARE", true)
@@ -92,12 +94,13 @@ namespace PintoSetupNS
             key.SetValue("UninstallString", $"{uninstallerPath} uninstall", RegistryValueKind.String);
             key.SetValue("NoModify", 1, RegistryValueKind.DWord);
             key.SetValue("NoRepair", 1, RegistryValueKind.DWord);
+            key.SetValue("CreatedShortcuts", createdShortcuts ? 1 : 0, RegistryValueKind.DWord);
 
             key.Flush();
             key.Close();
         }
 
-        public static void RemoveUninstallRegistry()
+        public static void RemoveSetupRegistry()
         {
             RegistryKey key = Registry.LocalMachine
                 .OpenSubKey("SOFTWARE", true)
@@ -127,6 +130,25 @@ namespace PintoSetupNS
             if (value is string) installPath = (string)value;
 
             return installPath;
+        }
+
+        public static bool GetCreatedShortcuts()
+        {
+            RegistryKey key = Registry.LocalMachine
+                .OpenSubKey("SOFTWARE")
+                .OpenSubKey("Microsoft")
+                .OpenSubKey("Windows")
+                .OpenSubKey("CurrentVersion")
+                .OpenSubKey("Uninstall")
+                .OpenSubKey("Pinto!");
+
+            object value = null;
+            bool createdShortcuts = false;
+
+            if (key != null) value = key.GetValue("CreatedShortcuts");
+            if (value is int) createdShortcuts = ((int)value) == 1;
+
+            return createdShortcuts;
         }
 
         public static void CreateShortcuts(string installLocation) 
@@ -160,7 +182,7 @@ namespace PintoSetupNS
 
             try 
             {
-                RemoveUninstallRegistry();
+                RemoveSetupRegistry();
             } 
             catch { }
 
