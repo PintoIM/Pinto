@@ -76,7 +76,7 @@
             this.btnCancel.Location = new System.Drawing.Point(294, 396);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -86,7 +86,7 @@
             this.btnConnect.Location = new System.Drawing.Point(213, 396);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 1;
+            this.btnConnect.TabIndex = 9;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
@@ -96,7 +96,7 @@
             this.txtIP.Location = new System.Drawing.Point(234, 65);
             this.txtIP.Name = "txtIP";
             this.txtIP.Size = new System.Drawing.Size(106, 20);
-            this.txtIP.TabIndex = 2;
+            this.txtIP.TabIndex = 4;
             this.txtIP.Text = "ponso00.com";
             // 
             // nudPort
@@ -114,7 +114,7 @@
             0});
             this.nudPort.Name = "nudPort";
             this.nudPort.Size = new System.Drawing.Size(97, 20);
-            this.nudPort.TabIndex = 3;
+            this.nudPort.TabIndex = 5;
             this.nudPort.Value = new decimal(new int[] {
             2407,
             0,
@@ -144,7 +144,7 @@
             this.txtPassword.Location = new System.Drawing.Point(83, 89);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(119, 20);
-            this.txtPassword.TabIndex = 7;
+            this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // label3
@@ -192,7 +192,7 @@
             this.llServers.Location = new System.Drawing.Point(224, 116);
             this.llServers.Name = "llServers";
             this.llServers.Size = new System.Drawing.Size(116, 13);
-            this.llServers.TabIndex = 15;
+            this.llServers.TabIndex = 7;
             this.llServers.TabStop = true;
             this.llServers.Text = "Looking for all servers?";
             this.llServers.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llServers_LinkClicked);
@@ -203,7 +203,7 @@
             this.txtUsername.Location = new System.Drawing.Point(83, 62);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(119, 21);
-            this.txtUsername.TabIndex = 14;
+            this.txtUsername.TabIndex = 2;
             // 
             // rbLogin
             // 
@@ -212,7 +212,7 @@
             this.rbLogin.Location = new System.Drawing.Point(23, 34);
             this.rbLogin.Name = "rbLogin";
             this.rbLogin.Size = new System.Drawing.Size(170, 17);
-            this.rbLogin.TabIndex = 13;
+            this.rbLogin.TabIndex = 1;
             this.rbLogin.TabStop = true;
             this.rbLogin.Text = "I already have a Pinto account";
             this.rbLogin.UseVisualStyleBackColor = true;
@@ -223,7 +223,7 @@
             this.rbCreate.Location = new System.Drawing.Point(22, 11);
             this.rbCreate.Name = "rbCreate";
             this.rbCreate.Size = new System.Drawing.Size(224, 17);
-            this.rbCreate.TabIndex = 12;
+            this.rbCreate.TabIndex = 0;
             this.rbCreate.Text = "I would like to create a new Pinto account";
             this.rbCreate.UseVisualStyleBackColor = true;
             this.rbCreate.CheckedChanged += new System.EventHandler(this.rbCreate_CheckedChanged);
@@ -236,7 +236,7 @@
             this.cbSavePassword.Location = new System.Drawing.Point(23, 141);
             this.cbSavePassword.Name = "cbSavePassword";
             this.cbSavePassword.Size = new System.Drawing.Size(196, 17);
-            this.cbSavePassword.TabIndex = 11;
+            this.cbSavePassword.TabIndex = 8;
             this.cbSavePassword.Text = "Store my password on this computer";
             this.cbSavePassword.UseVisualStyleBackColor = true;
             this.cbSavePassword.CheckedChanged += new System.EventHandler(this.cbSavePassword_CheckedChanged);
@@ -248,7 +248,7 @@
             this.llForgotPassword.Location = new System.Drawing.Point(20, 116);
             this.llForgotPassword.Name = "llForgotPassword";
             this.llForgotPassword.Size = new System.Drawing.Size(114, 13);
-            this.llForgotPassword.TabIndex = 10;
+            this.llForgotPassword.TabIndex = 6;
             this.llForgotPassword.TabStop = true;
             this.llForgotPassword.Text = "Forgot your password?";
             // 
@@ -259,7 +259,7 @@
             this.lStatus.Location = new System.Drawing.Point(17, 3);
             this.lStatus.Name = "lStatus";
             this.lStatus.Size = new System.Drawing.Size(101, 20);
-            this.lStatus.TabIndex = 11;
+            this.lStatus.TabIndex = 0;
             this.lStatus.Text = "Using Pinto";
             // 
             // pbAd
@@ -318,7 +318,7 @@
             this.label5.Location = new System.Drawing.Point(19, 2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(148, 20);
-            this.label5.TabIndex = 16;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Register on Pinto";
             // 
             // btnRegisterBack
@@ -326,7 +326,7 @@
             this.btnRegisterBack.Location = new System.Drawing.Point(297, 117);
             this.btnRegisterBack.Name = "btnRegisterBack";
             this.btnRegisterBack.Size = new System.Drawing.Size(75, 23);
-            this.btnRegisterBack.TabIndex = 13;
+            this.btnRegisterBack.TabIndex = 5;
             this.btnRegisterBack.Text = "Back";
             this.btnRegisterBack.UseVisualStyleBackColor = true;
             this.btnRegisterBack.Click += new System.EventHandler(this.btnRegisterBack_Click);
@@ -409,7 +409,7 @@
             this.txtRegisterPassword.Location = new System.Drawing.Point(83, 32);
             this.txtRegisterPassword.Name = "txtRegisterPassword";
             this.txtRegisterPassword.Size = new System.Drawing.Size(119, 20);
-            this.txtRegisterPassword.TabIndex = 7;
+            this.txtRegisterPassword.TabIndex = 1;
             this.txtRegisterPassword.UseSystemPasswordChar = true;
             // 
             // label9
@@ -426,14 +426,14 @@
             this.txtRegisterUsername.Location = new System.Drawing.Point(83, 5);
             this.txtRegisterUsername.Name = "txtRegisterUsername";
             this.txtRegisterUsername.Size = new System.Drawing.Size(119, 20);
-            this.txtRegisterUsername.TabIndex = 6;
+            this.txtRegisterUsername.TabIndex = 0;
             // 
             // btnRegister
             // 
             this.btnRegister.Location = new System.Drawing.Point(216, 117);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(75, 23);
-            this.btnRegister.TabIndex = 14;
+            this.btnRegister.TabIndex = 4;
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
