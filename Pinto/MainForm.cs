@@ -92,9 +92,9 @@ namespace PintoNS
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
+            tsmiMenuBarFileChangeStatus.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! Beta - {CurrentUser.Name}";
-
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
@@ -172,6 +172,7 @@ namespace PintoNS
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
+            tsmiMenuBarFileChangeStatus.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
             Text = "Pinto! Beta";
 
@@ -187,6 +188,7 @@ namespace PintoNS
             niTray.Text = $"Pinto! Beta - " +
                 (CurrentUser.Status != UserStatus.OFFLINE ?
                 $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
+            tsmiTrayChangeStatus.Enabled = CurrentUser.Status != UserStatus.OFFLINE;
         }
 
         public async Task Connect(string ip, int port, string username, string password)

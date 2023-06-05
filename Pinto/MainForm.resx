@@ -117,16 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ilTabImages.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="ilTabImages.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 17</value>
-  </data>
+  </metadata>
   <data name="ilTabImages.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADg
-        DAAAAk1TRnQBSQFMAgEBBQEAAXABBwF0AQcBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADe
+        DAAAAk1TRnQBSQFMAgEBBQEAAXwBBwF8AQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAASADAAEBAQABCAYAAQgYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -180,27 +179,25 @@
         AgAC/wHgAQMB8AEPAgAB+AE/AeABAwHgAQcCAAHgAQ8B4AEDAeABBwEBAYABwAEHAeABAwHgAQcBAgFA
         AYABAwHgAQMB4AEHAYYBIQGAAQMB4AEDAeABBwHsARcBAAEBAeABAwHgAQcB8AEPAQABAQHgAQMB4AEH
         AfABDwEAAQEBwAEBAfABDwHwAQ8BAAEBAeABAwH5AZ8B8AEPAQABAQHwAQcB+QGfAfABDwGAAQMB+AEP
-        AfkBnwHgAQ8BgAEDAfwBHwH4AR8B4AEHAcABBwH+AT8B/AE/AfABBwHgAQ8B/wF/Av8B/gEPAfgBPxYA
-        Cw==
+        AfkBnwHgAQ8BgAEDAfwBHwH4AR8B4AEHAcABBwH+AT8B/AE/AfABBwHgAQ8B/wF/Av8B/gEPAfgBPws=
 </value>
   </data>
-  <data name="ssStatusBar.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="ssStatusBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>244, 17</value>
-  </data>
-  <data name="tsMenuBar.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="tsMenuBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
-  <data name="niTray.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="niTray.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>357, 17</value>
-  </data>
-  <data name="cmsTray.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="cmsTray.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>442, 17</value>
-  </data>
-  <data name="tContactsOnlineUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="tContactsOnlineUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>538, 17</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.TrayHeight" type="System.Int32, mscorlib">
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>67</value>
-  </data>
+  </metadata>
 </root>

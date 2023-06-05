@@ -426,7 +426,6 @@ namespace PintoNS
             // 
             this.tsddbStatusBarMOTD.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbStatusBarMOTD.Enabled = false;
-            this.tsddbStatusBarMOTD.Image = ((System.Drawing.Image)(resources.GetObject("tsddbStatusBarMOTD.Image")));
             this.tsddbStatusBarMOTD.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbStatusBarMOTD.Name = "tsddbStatusBarMOTD";
             this.tsddbStatusBarMOTD.ShowDropDownArrow = false;
@@ -458,7 +457,6 @@ namespace PintoNS
             this.toolStripSeparator1,
             this.tsmiMenuBarFileOptions,
             this.tsmiMenuBarFileExit});
-            this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarFile.Name = "tsddbMenuBarFile";
             this.tsddbMenuBarFile.ShowDropDownArrow = false;
@@ -545,7 +543,6 @@ namespace PintoNS
             this.tsddbMenuBarTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarToolsAddContact,
             this.tsmiMenuBarToolsRemoveContact});
-            this.tsddbMenuBarTools.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarTools.Image")));
             this.tsddbMenuBarTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarTools.Name = "tsddbMenuBarTools";
             this.tsddbMenuBarTools.ShowDropDownArrow = false;
@@ -576,7 +573,6 @@ namespace PintoNS
             this.toolStripSeparator2,
             this.tsmiMenuBarHelpToggleConsole,
             this.tsmiMenuBarHelpAbout});
-            this.tsddbMenuBarHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarHelp.Image")));
             this.tsddbMenuBarHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarHelp.Name = "tsddbMenuBarHelp";
             this.tsddbMenuBarHelp.ShowDropDownArrow = false;
