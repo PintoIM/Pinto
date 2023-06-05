@@ -1,6 +1,4 @@
-﻿using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
-using MoonSharp.Interpreter.Interop.RegistrationPolicies;
+﻿using NLua;
 using PintoNS.Forms;
 using PintoNS.General;
 using PintoNS.Networking;
@@ -312,8 +310,8 @@ namespace PintoNS
 
             Extensions.ForEach((LuaExtension ext) =>
             {
-                if (ext.Script.Globals["onDisconnect"] == null) return;
-                ext.Script.Call(ext.Script.Globals["onDisconnect"]);
+                if (ext.Script["onDisconnect"] == null) return;
+                ext.Script.GetFunction("onDisconnect").Call();
             });
         }
 
@@ -363,10 +361,10 @@ namespace PintoNS
 
             LoadExtensions();
 
-            Extensions.ForEach((LuaExtension ext) => 
+            Extensions.ForEach((LuaExtension ext) =>
             {
-                if (ext.Script.Globals["onLoad"] == null) return;
-                ext.Script.Call(ext.Script.Globals["onLoad"]);
+                if (ext.Script["onLoad"] == null) return;
+                ext.Script.GetFunction("onLoad").Call();
             });
         }
 
@@ -404,8 +402,8 @@ namespace PintoNS
 
             Extensions.ForEach((LuaExtension ext) =>
             {
-                if (ext.Script.Globals["onExit"] == null) return;
-                ext.Script.Call(ext.Script.Globals["onExit"]);
+                if (ext.Script["onExit"] == null) return;
+                ext.Script.GetFunction("onExit").Call();
             });
         }
 
@@ -688,8 +686,7 @@ namespace PintoNS
 
         public void LoadExtensions() 
         {
-            UserData.RegistrationPolicy = InteropRegistrationPolicy.Automatic;
-            Program.Console.WriteMessage($"[Extensions] Loading extensions");
+            Program.Console.WriteMessage($"[Extensions] Loading extensions...");
 
             foreach (string file in Directory.EnumerateFiles(Path.Combine(DataFolder, "extensions")))
             {
