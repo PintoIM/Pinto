@@ -26,15 +26,16 @@ namespace PintoNS
             Environment.SpecialFolder.ApplicationData), "Pinto!");        
         public readonly string SettingsFile = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), "Pinto!", "settings.json");
+        private bool doNotCancelClose;
+        private bool isPortable;
+        public User CurrentUser = new User();
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
-        public NetworkManager NetManager;
-        public User CurrentUser = new User();
         public List<MessageForm> MessageForms;
-        private bool doNotCancelClose;
-        public CallManager CallMgr;
+        public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
+        public CallManager CallMgr;
         public readonly List<LuaExtension> Extensions = new List<LuaExtension>();
 
         public MainForm()
@@ -351,12 +352,14 @@ namespace PintoNS
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
             if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
+            if (File.Exists(".IS_PORTABLE_CHECK"))
+                isPortable = true;
 
-            if (Settings.AutoCheckForUpdates)
+            if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
 
             if (!Settings.NoStandWithUAPopup)
-                InWindowPopupController.CreatePopup("#StandWithUkraine, check \"About\" for more information");
+                InWindowPopupController.CreatePopup("Pinto! #StandsWithUkraine, check \"About\" for more information");
 
             LoadExtensions();
 
@@ -572,6 +575,13 @@ namespace PintoNS
 
         public async Task CheckForUpdates(bool showLatestMessage) 
         {
+            if (isPortable) 
+            {
+                MsgBox.Show(this, "Checking for updates is not available on the portable version!",
+                    "Updates Unavailable", MsgBoxIconType.WARNING, true);
+                return;
+            }
+
             if (!await Updater.IsLatest())
                 MsgBox.Show(this,
                     "An update is available, do you want to download it and install it?",
