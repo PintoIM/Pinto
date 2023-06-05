@@ -12,33 +12,54 @@
 -- Check NLua for more information: https://github.com/NLua/NLua
 import("Pinto", "PintoNS.General")
 -- The namespace can be absent and will use the assembly name
+import("System")
 import("System.Windows.Forms")
 import("System.Drawing")
 
+-- Hook variables
+toolStripSeparator = nil
+toolStripMenuItem = nil
+-- Form variables
+form = nil
+dgvExtensions = nil
+name = nil
+author = nil
+version = nil
+
 -- This can be absent
-function onLoad()
-	-- Add the separator to the help menu
-	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Add(ToolStripSeparator())
+function OnFormLoad()
+	-- Add a separator to the help menu
+	toolStripSeparator = ToolStripSeparator()
+	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Add(toolStripSeparator)
 	
 	-- Add our item to help menu
-	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Add("Manage Extensions").Click:Add(item_Click)
+	toolStripMenuItem = PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Add("Manage Extensions")
+	toolStripMenuItem.Click:Add(item_Click)
 	
 	-- Say that we added the hook into the help menu
 	-- By convention, the debug messages should contain a header that indicates the section
-	PintoLib.WriteDebug("[ExtensionsManager] Added hook into the help menu")
+	PintoLib.WriteDebug("[ExtensionsViewer] Added hook into the help menu")
+end
+
+-- This can be absent
+-- Called when the extension is unloaded, please make sure to fully clean-up anything that references this extension
+function OnUnload()
+	-- Remove the separator from the help menu
+	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Remove(toolStripSeparator)
+	-- Remove our item from the help menu
+	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Remove(toolStripMenuItem)
 end
 
 function item_Click(sender, e)
 	-- Designer code ported to Lua
-	local form = Form()
-	local dgvExtensions = DataGridView()
-	local name = DataGridViewTextBoxColumn()
-	local author = DataGridViewTextBoxColumn()
-	local version = DataGridViewTextBoxColumn()
+	form = Form()
+	dgvExtensions = DataGridView()
+	name = DataGridViewTextBoxColumn()
+	author = DataGridViewTextBoxColumn()
+	version = DataGridViewTextBoxColumn()
 	
 	dgvExtensions.ReadOnly = true
 	dgvExtensions.AllowUserToAddRows = false
-	dgvExtensions.AllowUserToDeleteRows = false
 	dgvExtensions.AllowUserToResizeColumns = false
 	dgvExtensions.AllowUserToResizeRows = false
 	dgvExtensions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -49,7 +70,6 @@ function item_Click(sender, e)
 	dgvExtensions.Dock = DockStyle.Fill
 	dgvExtensions.Location = Point(0, 0)
 	dgvExtensions.Name = "dgvExtensions"
-	dgvExtensions.RowHeadersVisible = false
 	dgvExtensions.Size = Size(562, 345)
 	dgvExtensions.TabIndex = 0
 
@@ -64,9 +84,10 @@ function item_Click(sender, e)
 	form.AutoScaleMode = AutoScaleMode.Font
 	form.ClientSize = Size(562, 345)
 	form.Controls:Add(dgvExtensions)
-	form.Name = "ExtensionsManager"
+	form.Name = "ExtensionsViewer"
 	form.ShowIcon = false
-	form.Text = "ExtensionsManager"
+	form.Text = "Extensions Manager"
+	form.Closing:Add(form_Closing)
 	
 	-- Put the currently loaded extensions into the form
 	local extensions = PintoLib.MainForm.Extensions
@@ -81,22 +102,72 @@ function item_Click(sender, e)
 	end
 	
 	-- Show the form
-	form:ShowDialog()
+	form:Show()
+	
+	-- Ignore this extension
+	if extensions.Count > 1 then
+		MsgBox.Show(nil, "You currently have extensions loaded!" .. Environment.NewLine .. "Beware that extensions can be made by anyone and have NO RESTRICTIONS!" .. Environment.NewLine .. "It is your responsibility to make sure that you install safe extensions", "Warning", MsgBoxIconType.WARNING)
+	end
+end
+
+function form_Closing(sender, e)
+	local extensions = PintoLib.MainForm.Extensions
+	local rows = dgvExtensions.Rows
+
+	for extIndex = 0, extensions.Count do
+		if extIndex >= extensions.Count then break end
+		local ext = extensions[extIndex]
+		local foundRow = false
+		
+		for rowIndex = 0, rows.Count do
+			if (rowIndex >= rows.Count) then break end
+			local row = rows[rowIndex]
+			
+			if row.Cells[0].Value == ext.Name and 
+				row.Cells[1].Value == ext.Author and 
+				row.Cells[2].Value == ext.Version then
+				foundRow = true
+			end
+		end
+		
+		if not foundRow then
+			PintoLib.MainForm:UnloadExtension(ext)
+		end
+	end
 end
 
 -- This can be absent
-function onDisconnect()
+function OnLogin()
 end
 
 -- This can be absent
-function onExit()
+-- Beware: This method is called on start-up too
+function OnLogout()
 end
 
--- This MUST be present
-function getScriptInfo()
+-- This can be absent
+function OnDisconnect()
+end
+
+-- This can be absent
+function OnExit()
+end
+
+-- This MUST be present otherwise your extension will fail to load
+function ScriptInfo()
 	return {
 		name = "ExtensionsManager",
 		author =  "vlOd",
 		version = "1.0"
 	}
+end
+
+-- This can be absent (assumes 0 if so)
+--[[
+	0 - Low
+	1 - Medium
+	2 - High
+--]]
+function ScriptPriority()
+	return 2
 end

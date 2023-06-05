@@ -739,11 +739,8 @@ namespace PintoNS
 
         public void UnloadExtension(LuaExtension ext) 
         {
-            if (ext.Script["OnUnload"] != null) 
-                ext.Script.GetFunction("OnUnload").Call();
-
+            if (ext.Script["OnUnload"] != null) ext.Script.GetFunction("OnUnload").Call();
             Extensions.Remove(ext);
-            ext.Script.Close();
             ext.PrintUnloadMessage();
         }
     }

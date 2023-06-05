@@ -1,4 +1,5 @@
 ﻿using NLua;
+using NLua.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace PintoNS.General
 {
     public class LuaExtension
     {
+        private MainForm mainForm;
         public string FilePath;
         public Lua Script;
         public string Name;
@@ -17,6 +19,7 @@ namespace PintoNS.General
 
         public LuaExtension(string filePath, MainForm mainForm) 
         {
+            this.mainForm = mainForm;
             FilePath = filePath;
             Script = new Lua();
 
