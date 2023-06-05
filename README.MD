@@ -2,7 +2,7 @@
     <img src="Logo.png" width="256" height="256" />
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/.NET%20Framework-4.0-blue" />
+    <img src="https://img.shields.io/badge/.NET%20Framework-4.6-blue" />
     <img src="https://img.shields.io/badge/Instant-Messaging-brightgreen" />
     <img src="https://img.shields.io/badge/License-GPLv3-brightgreen" />
     <a href="https://www.codefactor.io/repository/github/pintoim/pinto/overview/main"><img src="https://www.codefactor.io/repository/github/pintoim/pinto/badge/main" alt="CodeFactor" /></a>
@@ -18,7 +18,7 @@ A modernish IM client inspired by Skype 0.97
 Pinto! IM is currently not finished and will take a lot of time to be fully perfected and done, it is not yet ready to be used as a daily IM platform
 
 # 📌 Information
-- Written in C# (.NET Framework 4.0)
+- Written in C# (.NET Framework 4.6)
 - The classic look and feel of Skype 0.97
 - Fully open and transparent design
 
