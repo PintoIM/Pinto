@@ -149,10 +149,6 @@ end
 function OnDisconnect()
 end
 
--- This can be absent
-function OnExit()
-end
-
 -- This MUST be present otherwise your extension will fail to load
 function ScriptInfo()
 	return {

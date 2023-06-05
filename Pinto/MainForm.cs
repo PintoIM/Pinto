@@ -394,8 +394,6 @@ namespace PintoNS
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
                 })).Start();
-
-            CallExtensionsEvent("OnExit");
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
