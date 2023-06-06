@@ -54,7 +54,7 @@
             this.lBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lBody.BackColor = System.Drawing.SystemColors.Control;
+            this.lBody.BackColor = System.Drawing.Color.Transparent;
             this.lBody.Location = new System.Drawing.Point(12, 55);
             this.lBody.Name = "lBody";
             this.lBody.Size = new System.Drawing.Size(327, 63);

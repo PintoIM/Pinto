@@ -140,7 +140,6 @@
             this.tsmiMenuFileZoomReset,
             this.toolStripSeparator1,
             this.tsmiMenuBarFileClearSavedData});
-            this.tsddbMenuBarFile.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarFile.Image")));
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarFile.Name = "tsddbMenuBarFile";
             this.tsddbMenuBarFile.ShowDropDownArrow = false;
@@ -188,7 +187,6 @@
             this.tsddbMenuBarHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarHelpAbout});
-            this.tsddbMenuBarHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuBarHelp.Image")));
             this.tsddbMenuBarHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarHelp.Name = "tsddbMenuBarHelp";
             this.tsddbMenuBarHelp.ShowDropDownArrow = false;
@@ -234,7 +232,7 @@
             // 
             // btnBlock
             // 
-            this.btnBlock.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBlock.BackColor = System.Drawing.Color.Transparent;
             this.btnBlock.Enabled = false;
             this.btnBlock.FlatAppearance.BorderSize = 0;
             this.btnBlock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -252,7 +250,7 @@
             // 
             // btnTalk
             // 
-            this.btnTalk.BackColor = System.Drawing.SystemColors.Control;
+            this.btnTalk.BackColor = System.Drawing.Color.Transparent;
             this.btnTalk.Enabled = false;
             this.btnTalk.FlatAppearance.BorderSize = 0;
             this.btnTalk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

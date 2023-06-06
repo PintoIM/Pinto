@@ -1,21 +1,40 @@
 ﻿using PintoNS.Forms;
 using PintoNS.General;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections;
+using System.IO;
 
 namespace PintoNS
 {
     public static class Program
     {
+        // Constants
         public static ConsoleForm Console;
         public const string VERSION_STRING = "b1.0";
         public const int PROTOCOL_VERSION = 1;
-        public static bool RunningUnderWine;
+
+        // Data paths
+        public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.ApplicationData), "Pinto!");
+        public static readonly string SettingsFile = Path.Combine(DataFolder, "settings.json");
+
+        // Main variables
+        public static bool Running;
+        public static bool ExecutingUnderWine;
+        public static MainForm MainFrm;
+        public static readonly List<LuaExtension> Extensions = new List<LuaExtension>();
+
+        // Check for new form event
+        private static Thread checkForNewForm;
+        public static event EventHandler<Form> FormOpened;
 
         [STAThread]
         static void Main()
@@ -42,14 +61,13 @@ namespace PintoNS
             // Setup console
             Console = new ConsoleForm();
             Console.Show();
-            Console.Hide();
 
             // Detect what runtime we are being ran under
             try
             {
                 string wineVer = PInvoke.GetWineVersion();
                 Console.WriteMessage($"[General] Running under wine ({wineVer})");
-                RunningUnderWine = true;
+                ExecutingUnderWine = true;
             }
             catch (Exception ex)
             {
@@ -60,7 +78,7 @@ namespace PintoNS
             {
                 Console.WriteMessage("[General] Running under mono");
 
-                if (!RunningUnderWine) 
+                if (!ExecutingUnderWine) 
                 {
                     MsgBox.Show(Console,
                         $"Pinto! has detected it is being ran" +
@@ -72,8 +90,98 @@ namespace PintoNS
                 }
             }
 
+            // Start the new form checker thread
+            Running = true;
+            checkForNewForm = new Thread(new ThreadStart(CheckForNewFormThread_Func));
+            checkForNewForm.Start();
+
+            // Create the main form
+            MainFrm = new MainForm();
+
+            // Load extensions
+            LoadExtensions();
+
             // Start Pinto!
-            Application.Run(new MainForm());
+            Application.Run(MainFrm);
+
+            // End the new form checker thread
+            Running = false;
+            checkForNewForm.Abort();
+        }
+
+        public static void LoadExtensions()
+        {
+            Program.Console.WriteMessage($"[Extensions] Loading extensions...");
+            List<LuaExtension> highPriority = new List<LuaExtension>();
+            List<LuaExtension> mediumPriority = new List<LuaExtension>();
+            List<LuaExtension> lowPriority = new List<LuaExtension>();
+
+            foreach (string file in Directory.EnumerateFiles(
+                Path.Combine(DataFolder, "extensions"), "*.lua"))
+            {
+                LuaExtension ext = null;
+                try
+                {
+                    ext = new LuaExtension(file, MainFrm);
+                }
+                catch (Exception ex)
+                {
+                    Program.Console.WriteMessage($"[Extensions] Unable to load an extension: {ex}");
+                    continue;
+                }
+
+                switch (ext.Priority)
+                {
+                    case 0:
+                        lowPriority.Add(ext);
+                        break;
+                    case 1:
+                        mediumPriority.Add(ext);
+                        break;
+                    case 2:
+                        highPriority.Add(ext);
+                        break;
+                }
+
+                Program.Console.WriteMessage($"[Extensions] Added extension \"{ext.Name}\" by" +
+                    $" \"{ext.Author}\" (version {ext.Version}) to the list of to load extensions" +
+                    $" (priority {ext.Priority})");
+            }
+
+            Action<LuaExtension> forEachExtension = (LuaExtension ext) =>
+            {
+                Extensions.Add(ext);
+                ext.PrintLoadMessage();
+                CallExtensionEvent(ext, "OnLoad");
+            };
+
+            Program.Console.WriteMessage($"[Extensions] Loading high priority extensions...");
+            highPriority.ForEach(forEachExtension);
+
+            Program.Console.WriteMessage($"[Extensions] Loading medium priority extensions...");
+            mediumPriority.ForEach(forEachExtension);
+
+            Program.Console.WriteMessage($"[Extensions] Loading low priority extensions...");
+            lowPriority.ForEach(forEachExtension);
+        }
+
+        public static void CallExtensionEvent(LuaExtension ext, string eventName) 
+        {
+            if (ext.Script[eventName] == null) return;
+            ext.Script.GetFunction(eventName).Call();
+        }
+
+        public static void CallExtensionsEvent(string eventName)
+        {
+            foreach (LuaExtension ext in Extensions)
+                CallExtensionEvent(ext, eventName);
+        }
+
+        public static void UnloadExtension(LuaExtension ext)
+        {
+            CallExtensionEvent(ext, "OnUnload");
+            Extensions.Remove(ext);
+            ext.PrintUnloadMessage();
         }
 
         public static Icon GetFormIcon() => Logo.LOGO_ICO;
@@ -94,6 +202,32 @@ namespace PintoNS
             fatalErrorForm.rtxtLog.Text = $"{ex}";
             fatalErrorForm.ShowDialog();
             Environment.Exit(0);
+        }
+
+        private static void CheckForNewFormThread_Func() 
+        {
+            List<Form> lastOpenedForms = new List<Form>();
+
+            while (Running) 
+            {
+                if (lastOpenedForms.Count == Application.OpenForms.Count) 
+                {
+                    Thread.Sleep(1);
+                    continue;
+                }
+
+                List<Form> lastOpenedFormsArr = lastOpenedForms.ToList();
+                lastOpenedForms.Clear();
+
+                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
+                {
+                    if (!lastOpenedFormsArr.Contains(form) && FormOpened != null)
+                        FormOpened.Invoke(null, form);
+                    lastOpenedForms.Add(form);
+                }
+
+                Thread.Sleep(1);
+            }
         }
     }
 }

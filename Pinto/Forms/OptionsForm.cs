@@ -22,7 +22,7 @@ namespace PintoNS.Forms
         private void ChangedValue(FieldInfo field, object value) 
         {
             field.SetValue(null, value);
-            Settings.Export(mainForm.SettingsFile);
+            Settings.Export(Program.SettingsFile);
         }
 
         private Control GetControlFromValue(string displayName, FieldInfo field, string helpInfo, 
@@ -85,7 +85,7 @@ namespace PintoNS.Forms
 
         private void OptionsForm_Load(object sender, System.EventArgs e)
         {
-            Settings.Import(mainForm.SettingsFile);
+            Settings.Import(Program.SettingsFile);
             Type type = typeof(Settings);
 
             foreach (FieldInfo field in type.GetFields())

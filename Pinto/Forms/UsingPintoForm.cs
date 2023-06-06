@@ -24,7 +24,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Loading saved login information...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "login.json");
+                string filePath = Path.Combine(Program.DataFolder, "login.json");
                 if (!File.Exists(filePath)) return;
 
                 string fileData = File.ReadAllText(filePath);
@@ -50,7 +50,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Saving login information...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "login.json");
+                string filePath = Path.Combine(Program.DataFolder, "login.json");
                 JObject data = new JObject();
 
                 data.Add("username", txtUsername.Text);
@@ -75,7 +75,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Deleting saved login information...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "login.json");
+                string filePath = Path.Combine(Program.DataFolder, "login.json");
                 if (File.Exists(filePath))
                     File.Delete(filePath);
             }

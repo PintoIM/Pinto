@@ -37,7 +37,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnClose.BackColor = System.Drawing.SystemColors.Info;
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -51,6 +51,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::PintoNS.Assets.WARNING;
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
@@ -62,7 +63,7 @@
             // lText
             // 
             this.lText.AutoSize = true;
-            this.lText.BackColor = System.Drawing.SystemColors.Info;
+            this.lText.BackColor = System.Drawing.Color.Transparent;
             this.lText.Location = new System.Drawing.Point(25, 5);
             this.lText.Name = "lText";
             this.lText.Size = new System.Drawing.Size(95, 13);

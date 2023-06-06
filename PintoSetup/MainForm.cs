@@ -38,7 +38,7 @@ namespace PintoSetupNS
             // Use a slightly lighter color
             g.FillRectangle(new SolidBrush(Color.FromArgb(0x54, 0xf8, 0xe6)), 0, 0, Width, Height / 7);
             g.FillRectangle(new SolidBrush(Color.FromArgb(0x54, 0xf8, 0xe6)), 0,
-                Height / 2 + Height / 3.5f, Width, Height);
+                (Height / 2) + (Height / 3.5f), Width, Height);
 
             // Outline
             g.DrawRectangle(new Pen(Color.FromArgb(0x14, 0xb8, 0xa6), 18f), 0, 0, Width - 8, Height - 32);

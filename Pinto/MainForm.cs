@@ -20,10 +20,6 @@ namespace PintoNS
 {
     public partial class MainForm : Form
     {
-        public readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), "Pinto!");        
-        public readonly string SettingsFile = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.ApplicationData), "Pinto!", "settings.json");
         private bool doNotCancelClose;
         private bool isPortable;
         public User CurrentUser = new User();
@@ -34,7 +30,6 @@ namespace PintoNS
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
         public CallManager CallMgr;
-        public readonly List<LuaExtension> Extensions = new List<LuaExtension>();
 
         public MainForm()
         {
@@ -66,7 +61,6 @@ namespace PintoNS
 
             UpdateQuickActions(true);
             OnStatusChange(UserStatus.ONLINE, "");
-
             MessageForms = new List<MessageForm>();
 
             // Use a DataTable to allow usage of more options than a plain DataGridView
@@ -131,7 +125,7 @@ namespace PintoNS
             }
 
             SyncTray();
-            CallExtensionsEvent("OnLogin");
+            Program.CallExtensionsEvent("OnLogin");
         }
 
         internal void OnLogout(bool noSound = false)
@@ -178,7 +172,7 @@ namespace PintoNS
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
-            CallExtensionsEvent("OnLogout");
+            Program.CallExtensionsEvent("OnLogout");
         }
 
         public void SyncTray()
@@ -314,7 +308,7 @@ namespace PintoNS
             lConnectingStatus.Text = "";
             OnLogout(!wasLoggedIn);
 
-            CallExtensionsEvent("OnDisconnect");
+            Program.CallExtensionsEvent("OnDisconnect");
         }
 
         public MessageForm GetMessageFormFromReceiverName(string name, bool doNotCreate = false)
@@ -343,15 +337,15 @@ namespace PintoNS
         private async void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("[General] Performing first time initialization...");
-            Settings.Import(SettingsFile);
+            Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
-            if (!Directory.Exists(DataFolder))
-                Directory.CreateDirectory(DataFolder);
-            if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
-                Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
-            if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
-                Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
+            if (!Directory.Exists(Program.DataFolder))
+                Directory.CreateDirectory(Program.DataFolder);
+            if (!Directory.Exists(Path.Combine(Program.DataFolder, "chats")))
+                Directory.CreateDirectory(Path.Combine(Program.DataFolder, "chats"));
+            if (!Directory.Exists(Path.Combine(Program.DataFolder, "extensions")))
+                Directory.CreateDirectory(Path.Combine(Program.DataFolder, "extensions"));
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
 
@@ -360,9 +354,8 @@ namespace PintoNS
 
             if (!Settings.NoStandWithUAPopup)
                 InWindowPopupController.CreatePopup("Pinto! #StandsWithUkraine, check \"About\" for more information");
-
-            LoadExtensions();
-            CallExtensionsEvent("OnFormLoad");
+            
+            Program.CallExtensionsEvent("OnFormLoad");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -372,7 +365,7 @@ namespace PintoNS
                 if (!Settings.DoNotShowSysTrayNotice) 
                 {
                     Settings.DoNotShowSysTrayNotice = true;
-                    Settings.Export(SettingsFile);
+                    Settings.Export(Program.SettingsFile);
                     niTray.ShowBalloonTip(0, "Pinto!", "Pinto! is still running in the system tray," +
                         " you can change this behaviour in the settings, to exit," +
                         " go to the \"File\" menu or right click the system tray", ToolTipIcon.Info);
@@ -580,7 +573,7 @@ namespace PintoNS
                     {
                         if (btn == MsgBoxButtonType.YES)
                         {
-                            string path = Path.Combine(DataFolder, "PintoSetup.exe");
+                            string path = Path.Combine(Program.DataFolder, "PintoSetup.exe");
                             if (File.Exists(path))
                                 File.Delete(path);
 
@@ -593,7 +586,7 @@ namespace PintoNS
                             Process process = new Process();
                             process.StartInfo.FileName = "PintoSetup.exe";
                             process.StartInfo.Arguments = " upgrade";
-                            process.StartInfo.WorkingDirectory = DataFolder;
+                            process.StartInfo.WorkingDirectory = Program.DataFolder;
                             process.Start();
 
                             Program.Console.WriteMessage($"[Updater] Exitting...");
@@ -675,73 +668,6 @@ namespace PintoNS
             changeMOTDForm.ShowDialog(this);
         }
 
-        public void LoadExtensions() 
-        {
-            Program.Console.WriteMessage($"[Extensions] Loading extensions...");
-            List<LuaExtension> highPriority = new List<LuaExtension>();
-            List<LuaExtension> mediumPriority = new List<LuaExtension>();
-            List<LuaExtension> lowPriority = new List<LuaExtension>();
 
-            foreach (string file in Directory.EnumerateFiles(
-                Path.Combine(DataFolder, "extensions"), "*.lua"))
-            {
-                LuaExtension ext = null;
-                try 
-                {
-                    ext = new LuaExtension(file, this);
-                }
-                catch (Exception ex) 
-                {
-                    Program.Console.WriteMessage($"[Extensions] Unable to load an extension: {ex}");
-                    continue;
-                }
-
-                switch (ext.Priority) 
-                {
-                    case 0:
-                        lowPriority.Add(ext);
-                        break;
-                    case 1:
-                        mediumPriority.Add(ext);
-                        break;
-                    case 2:
-                        highPriority.Add(ext);
-                        break;
-                }
-
-                Program.Console.WriteMessage($"[Extensions] Added extension \"{ext.Name}\" by" +
-                    $" \"{ext.Author}\" (version {ext.Version}) to the list of to load extensions" +
-                    $" (priority {ext.Priority})");
-            }
-
-            Action<LuaExtension> forEachExtension = (LuaExtension ext) =>
-            {
-                Extensions.Add(ext);
-                ext.PrintLoadMessage();
-            };
-
-            Program.Console.WriteMessage($"[Extensions] Loading high priority extensions...");
-            highPriority.ForEach(forEachExtension);
-            Program.Console.WriteMessage($"[Extensions] Loading medium priority extensions...");
-            mediumPriority.ForEach(forEachExtension);
-            Program.Console.WriteMessage($"[Extensions] Loading low priority extensions...");
-            lowPriority.ForEach(forEachExtension);
-        }
-
-        public void CallExtensionsEvent(string eventName) 
-        {
-            foreach (LuaExtension ext in Extensions) 
-            {
-                if (ext.Script[eventName] == null) return;
-                ext.Script.GetFunction(eventName).Call();
-            }
-        }
-
-        public void UnloadExtension(LuaExtension ext) 
-        {
-            if (ext.Script["OnUnload"] != null) ext.Script.GetFunction("OnUnload").Call();
-            Extensions.Remove(ext);
-            ext.PrintUnloadMessage();
-        }
     }
 }

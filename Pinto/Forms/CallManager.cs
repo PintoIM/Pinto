@@ -213,7 +213,7 @@ namespace PintoNS.Forms
             }));
         }
 
-        private void AudioRecPlay_MicrophoneDataAvailable(byte[] data)
+        private void AudioRecPlay_MicrophoneDataAvailable(object sender, byte[] data)
         {
             if (client == null || remote == null) return;
             try 

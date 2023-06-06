@@ -32,9 +32,9 @@ namespace PintoNS.Forms
                     MsgBoxIconType.WARNING, true);
                 return;
             }
-            if (!Directory.Exists(Path.Combine(mainForm.DataFolder, 
+            if (!Directory.Exists(Path.Combine(Program.DataFolder, 
                 "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID)))
-                Directory.CreateDirectory(Path.Combine(mainForm.DataFolder,
+                Directory.CreateDirectory(Path.Combine(Program.DataFolder,
                     "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID));
             LoadChat();
         }
@@ -44,7 +44,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Loading chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
                     mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 rtxtMessages.Rtf = File.ReadAllText(filePath);
@@ -64,7 +64,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Saving chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
                     mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 File.WriteAllText(filePath, rtxtMessages.Rtf);
             }
@@ -83,7 +83,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Deleting chat...");
             try
             {
-                string filePath = Path.Combine(mainForm.DataFolder, "chats", mainForm.CurrentUser.Name,
+                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
                     mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 File.Delete(filePath);

@@ -15,7 +15,7 @@ namespace PintoNS.General
         private WaveOut waveOut;
         public int MicrophoneDevice;
         public int SpeakerDevice;
-        public event Action<byte[]> MicrophoneDataAvailable;
+        public event EventHandler<byte[]> MicrophoneDataAvailable;
 
         public void Start()
         {
@@ -40,7 +40,7 @@ namespace PintoNS.General
         private void waveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
             if (MicrophoneDataAvailable != null)
-                MicrophoneDataAvailable.Invoke(e.Buffer);
+                MicrophoneDataAvailable.Invoke(this, e.Buffer);
         }
 
         public void Stop()

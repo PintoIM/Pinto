@@ -26,7 +26,7 @@ namespace PintoNS.Controls
             {
                 CreateParams createParams = base.CreateParams;
 
-                if (!Program.RunningUnderWine) 
+                if (!Program.ExecutingUnderWine) 
                 {
                     try
                     {
