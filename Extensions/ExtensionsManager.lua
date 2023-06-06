@@ -10,6 +10,7 @@
 
 -- import(assemblyName, namespace)
 -- Check NLua for more information: https://github.com/NLua/NLua
+import("Pinto", "PintoNS")
 import("Pinto", "PintoNS.General")
 -- The namespace can be absent and will use the assembly name
 import("System")
@@ -27,7 +28,9 @@ author = nil
 version = nil
 
 -- This can be absent
-function OnFormLoad()
+-- Called when the extension is loaded, this is before the mainform is shown
+-- PintoLib.MainForm is available but not recommended to be used
+function OnLoad()
 	-- Add a separator to the help menu
 	toolStripSeparator = ToolStripSeparator()
 	PintoLib.MainForm.tsddbMenuBarHelp.DropDownItems:Add(toolStripSeparator)
@@ -39,6 +42,11 @@ function OnFormLoad()
 	-- Say that we added the hook into the help menu
 	-- By convention, the debug messages should contain a header that indicates the section
 	PintoLib.WriteDebug("[ExtensionsViewer] Added hook into the help menu")
+end
+
+-- This can be absent
+-- Called when the main form has finished loading
+function OnFormLoad()
 end
 
 -- This can be absent
@@ -90,7 +98,7 @@ function item_Click(sender, e)
 	form.Closing:Add(form_Closing)
 	
 	-- Put the currently loaded extensions into the form
-	local extensions = PintoLib.MainForm.Extensions
+	local extensions = Program.Extensions
 	local extsEnumerator = extensions:GetEnumerator()
 	
 	while extsEnumerator:MoveNext() do
@@ -111,7 +119,7 @@ function item_Click(sender, e)
 end
 
 function form_Closing(sender, e)
-	local extensions = PintoLib.MainForm.Extensions
+	local extensions = Program.Extensions
 	local rows = dgvExtensions.Rows
 
 	for extIndex = 0, extensions.Count do
@@ -131,7 +139,7 @@ function form_Closing(sender, e)
 		end
 		
 		if not foundRow then
-			PintoLib.MainForm:UnloadExtension(ext)
+			Program.UnloadExtension(ext)
 		end
 	end
 end
