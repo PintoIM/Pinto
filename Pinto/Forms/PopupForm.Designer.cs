@@ -146,14 +146,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pNotification;
+        public System.Windows.Forms.Panel pNotification;
         public System.Windows.Forms.Label lTitle;
         public System.Windows.Forms.Label lBody;
         public System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Timer tAnim;
-        private System.Windows.Forms.LinkLabel lSeeContent;
-        private System.Windows.Forms.Timer tSizeCheck;
-        private System.Windows.Forms.Label lAutoClose;
+        public System.Windows.Forms.Timer tAnim;
+        public System.Windows.Forms.LinkLabel lSeeContent;
+        public System.Windows.Forms.Timer tSizeCheck;
+        public System.Windows.Forms.Label lAutoClose;
         public System.Windows.Forms.Timer tAutoClose;
     }
 }

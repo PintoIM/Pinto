@@ -341,30 +341,30 @@ namespace PintoNS.Forms
 
         #endregion
 
-        private System.Windows.Forms.Button btnUse;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgvServersOfficial;
-        private System.Windows.Forms.TabControl tcSections;
-        private System.Windows.Forms.TabPage tpServers;
-        private System.Windows.Forms.TabPage tpLoading;
-        private System.Windows.Forms.Label lLoadingText;
-        private System.Windows.Forms.Label lError;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn port;
-        private System.Windows.Forms.DataGridViewTextBoxColumn users;
-        private System.Windows.Forms.DataGridViewTextBoxColumn max_users;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tags;
-        private System.Windows.Forms.TabControl tcServers;
-        private System.Windows.Forms.TabPage tpServersOfficial;
-        private System.Windows.Forms.TabPage tpServersUnofficial;
-        private System.Windows.Forms.DataGridView dgvServersUnofficial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ip2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn port2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn users2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn max_users2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tags2;
-        private Controls.Loader lrLoadingLoader;
+        public System.Windows.Forms.Button btnUse;
+        public System.Windows.Forms.Button btnRefresh;
+        public System.Windows.Forms.DataGridView dgvServersOfficial;
+        public System.Windows.Forms.TabControl tcSections;
+        public System.Windows.Forms.TabPage tpServers;
+        public System.Windows.Forms.TabPage tpLoading;
+        public System.Windows.Forms.Label lLoadingText;
+        public System.Windows.Forms.Label lError;
+        public System.Windows.Forms.DataGridViewTextBoxColumn name;
+        public System.Windows.Forms.DataGridViewTextBoxColumn ip;
+        public System.Windows.Forms.DataGridViewTextBoxColumn port;
+        public System.Windows.Forms.DataGridViewTextBoxColumn users;
+        public System.Windows.Forms.DataGridViewTextBoxColumn max_users;
+        public System.Windows.Forms.DataGridViewTextBoxColumn tags;
+        public System.Windows.Forms.TabControl tcServers;
+        public System.Windows.Forms.TabPage tpServersOfficial;
+        public System.Windows.Forms.TabPage tpServersUnofficial;
+        public System.Windows.Forms.DataGridView dgvServersUnofficial;
+        public System.Windows.Forms.DataGridViewTextBoxColumn name2;
+        public System.Windows.Forms.DataGridViewTextBoxColumn ip2;
+        public System.Windows.Forms.DataGridViewTextBoxColumn port2;
+        public System.Windows.Forms.DataGridViewTextBoxColumn users2;
+        public System.Windows.Forms.DataGridViewTextBoxColumn max_users2;
+        public System.Windows.Forms.DataGridViewTextBoxColumn tags2;
+        public Controls.Loader lrLoadingLoader;
     }
 }

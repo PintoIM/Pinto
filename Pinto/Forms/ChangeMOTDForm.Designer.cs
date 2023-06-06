@@ -85,8 +85,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtMOTD;
-        private System.Windows.Forms.Button btnChange;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox txtMOTD;
+        public System.Windows.Forms.Button btnChange;
+        public System.Windows.Forms.Label label1;
     }
 }

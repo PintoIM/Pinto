@@ -199,19 +199,19 @@ namespace PintoNS.Forms
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbMicrophones;
-        private System.Windows.Forms.ComboBox cbSpeakers;
-        private System.Windows.Forms.Label lMicrophones;
-        private System.Windows.Forms.Label lSpeakers;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.TextBox txtRemoteIP;
-        private System.Windows.Forms.Label lRemoteHost;
-        private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.Label lExternalIP;
-        private System.Windows.Forms.Label lLatency;
-        private System.Windows.Forms.Label lPacketsPerSecond;
-        private System.Windows.Forms.Label lTime;
-        private System.Windows.Forms.Timer tCall;
+        public System.Windows.Forms.ComboBox cbMicrophones;
+        public System.Windows.Forms.ComboBox cbSpeakers;
+        public System.Windows.Forms.Label lMicrophones;
+        public System.Windows.Forms.Label lSpeakers;
+        public System.Windows.Forms.Button btnStart;
+        public System.Windows.Forms.TextBox txtRemoteIP;
+        public System.Windows.Forms.Label lRemoteHost;
+        public System.Windows.Forms.Button btnStop;
+        public System.Windows.Forms.Label lExternalIP;
+        public System.Windows.Forms.Label lLatency;
+        public System.Windows.Forms.Label lPacketsPerSecond;
+        public System.Windows.Forms.Label lTime;
+        public System.Windows.Forms.Timer tCall;
     }
 }
 

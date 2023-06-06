@@ -86,8 +86,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtInput;
-        private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.RichTextBox rtxtLog;
+        public System.Windows.Forms.TextBox txtInput;
+        public System.Windows.Forms.Button btnSend;
+        public System.Windows.Forms.RichTextBox rtxtLog;
     }
 }

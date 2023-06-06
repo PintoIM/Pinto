@@ -84,8 +84,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtContactName;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox txtContactName;
+        public System.Windows.Forms.Button btnAdd;
+        public System.Windows.Forms.Label label1;
     }
 }

@@ -145,7 +145,7 @@
         public System.Windows.Forms.Label lTitle;
         public System.Windows.Forms.Label lBody;
         public System.Windows.Forms.PictureBox pbIcon;
-        private System.Windows.Forms.Panel pHeader;
+        public System.Windows.Forms.Panel pHeader;
         public System.Windows.Forms.Button btnYes;
         public System.Windows.Forms.Button btnOK;
         public System.Windows.Forms.Button btnNo;

@@ -329,29 +329,29 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnSend;
-        private PintoNS.Controls.ExRichTextBox rtxtInput;
-        private System.Windows.Forms.Button btnTalk;
-        private System.Windows.Forms.Button btnBlock;
-        private System.Windows.Forms.ImageList ilButtons;
-        private System.Windows.Forms.ToolStrip tsMenuBar;
-        private System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarHelp;
-        private System.Windows.Forms.StatusStrip ssStatusStrip;
+        public System.Windows.Forms.Button btnSend;
+        public PintoNS.Controls.ExRichTextBox rtxtInput;
+        public System.Windows.Forms.Button btnTalk;
+        public System.Windows.Forms.Button btnBlock;
+        public System.Windows.Forms.ImageList ilButtons;
+        public System.Windows.Forms.ToolStrip tsMenuBar;
+        public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarHelp;
+        public System.Windows.Forms.StatusStrip ssStatusStrip;
         public System.Windows.Forms.ToolStripStatusLabel tsslStatusBarTypingList;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
-        private System.Windows.Forms.Button btnColor;
-        private System.Windows.Forms.ColorDialog cdPicker;
-        private System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
-        private PintoNS.Controls.ExRichTextBox rtxtMessages;
-        private System.Windows.Forms.ContextMenuStrip cmsMessages;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
-        private System.Windows.Forms.ContextMenuStrip cmsInput;
-        private System.Windows.Forms.ToolStripMenuItem tsmiInputCopy;
-        private System.Windows.Forms.ToolStripMenuItem tsmiInputPaste;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
+        public System.Windows.Forms.Button btnColor;
+        public System.Windows.Forms.ColorDialog cdPicker;
+        public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
+        public PintoNS.Controls.ExRichTextBox rtxtMessages;
+        public System.Windows.Forms.ContextMenuStrip cmsMessages;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
+        public System.Windows.Forms.ContextMenuStrip cmsInput;
+        public System.Windows.Forms.ToolStripMenuItem tsmiInputCopy;
+        public System.Windows.Forms.ToolStripMenuItem tsmiInputPaste;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
     }
 }

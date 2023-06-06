@@ -142,11 +142,11 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pbLogo;
-        private System.Windows.Forms.Label lTitle;
-        private System.Windows.Forms.Label lVersion;
-        private System.Windows.Forms.PictureBox pbGPLV3;
-        private System.Windows.Forms.Label lBody;
-        private System.Windows.Forms.PictureBox pbUkraine;
+        public System.Windows.Forms.PictureBox pbLogo;
+        public System.Windows.Forms.Label lTitle;
+        public System.Windows.Forms.Label lVersion;
+        public System.Windows.Forms.PictureBox pbGPLV3;
+        public System.Windows.Forms.Label lBody;
+        public System.Windows.Forms.PictureBox pbUkraine;
     }
 }

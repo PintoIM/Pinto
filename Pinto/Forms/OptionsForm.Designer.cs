@@ -115,11 +115,11 @@ namespace PintoNS.Forms
 
         #endregion
 
-        private System.Windows.Forms.TabControl tcOptions;
-        private System.Windows.Forms.TabPage tpGeneral;
-        private System.Windows.Forms.FlowLayoutPanel flpGeneralContainer;
-        private System.Windows.Forms.HelpProvider hpHelp;
-        private System.Windows.Forms.TabPage tpPrivacy;
-        private System.Windows.Forms.FlowLayoutPanel flpPrivacyContainer;
+        public System.Windows.Forms.TabControl tcOptions;
+        public System.Windows.Forms.TabPage tpGeneral;
+        public System.Windows.Forms.FlowLayoutPanel flpGeneralContainer;
+        public System.Windows.Forms.HelpProvider hpHelp;
+        public System.Windows.Forms.TabPage tpPrivacy;
+        public System.Windows.Forms.FlowLayoutPanel flpPrivacyContainer;
     }
 }
