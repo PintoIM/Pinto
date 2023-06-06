@@ -23,13 +23,13 @@ Pinto! IM is currently not finished and will take a lot of time to be fully perf
 - Fully open and transparent design
 
 # 📌 Features
-- Instant Messaging ✅
-- File sharing ❎
-- Calls ✅ (proof of concept at the moment)
-- Group messaging ❎
-- Server browser  ✅ (proof of concept at the moment)
-- Secure protocol communication ❎
-- Fully customizable interface ❎
+- [x] Instant Messaging
+- [] File sharing
+- [x] Calls (proof of concept at the moment)
+- [] Group messaging
+- [x] Server browser (proof of concept at the moment)
+- [] Secure protocol communication
+- [] Fully customizable interface
 
 # 🖥️ Server
 Looking for a server implementation?<br>
