@@ -15,7 +15,7 @@ namespace PintoSetupNS
     public static class Setup
     {
         public static readonly string DISPLAY_NAME = $"Pinto! Beta";
-        public static readonly string DISPLAY_VERSION = $"b1.0";
+        public static readonly string DISPLAY_VERSION = $"b1.0-pre1";
         public static readonly string DEFAULT_INSTALL_PATH =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Pinto!");
         public static readonly string PROGRAM_EXE = "Pinto.exe";
