@@ -294,5 +294,17 @@ namespace PintoNS.Forms
             while (rtxtInput.ZoomFactor != 1.0f)
                 rtxtInput.ZoomFactor = 1.0f;
         }
+
+        protected override void WndProc(ref Message message)
+        {
+            if (message.Msg == PInvoke.WM_SYSCOMMAND &&
+                (int)message.WParam == PInvoke.SC_RESTORE)
+            {
+                MessageBox.Show("call");
+                Invalidate();
+            }
+
+            base.WndProc(ref message);
+        }
     }
 }

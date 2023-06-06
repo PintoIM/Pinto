@@ -23,6 +23,8 @@ namespace PintoNS.General
         public const int MF_BYCOMMAND = 0;
         public const int MF_DISABLED = 2;
         public const int SC_CLOSE = 0xF060;
+        public const int SC_RESTORE = 0xF120;
         public const int WM_COPYDATA = 0x004A;
+        public const int WM_SYSCOMMAND = 0x0112;
     }
 }
