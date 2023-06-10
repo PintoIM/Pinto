@@ -161,6 +161,22 @@ namespace PintoNS.Forms
             WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor);
         }
 
+        public void ReceivedUserMessage(string sender, string body) 
+        {
+            WriteMessage($"{sender}", sender == mainForm.CurrentUser.Name ? Color.Blue : Color.Red, false);
+            WriteMessage($" - ", Color.Black, false);
+            WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}", Color.Gray, false);
+            WriteMessage($":", Color.Black);
+            WriteMessage($"  {body}", Color.Black);
+            SaveChat();
+        }
+
+        public void ReceivedSystemMessage(string body)
+        {
+            WriteMessage(body, Color.Black);
+            SaveChat();
+        }
+
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (!e.Modifiers.HasFlag(Keys.Control) && 
