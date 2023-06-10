@@ -14,7 +14,7 @@ namespace PintoNS.Forms
         private bool isTypingLastStatus;
         public bool HasBeenInactive;
         public InWindowPopupController InWindowPopupController;
-        public delegate bool MessageWriteDelegate(string msg, Color color);
+        public delegate bool MessageWriteDelegate(string msg, Color color, bool newLine);
         public event MessageWriteDelegate MessageWritting;
 
         public MessageForm(MainForm mainForm, Contact receiver)
@@ -101,11 +101,8 @@ namespace PintoNS.Forms
             }
         }
 
-        public void WriteMessageRaw(string msg, Color color) 
-        {
-            if (MessageWritting != null && 
-                !MessageWritting.Invoke(msg, color)) return;
-            
+        private void WriteMessageRaw(string msg, Color color) 
+        {            
             Invoke(new Action(() =>
             {
                 rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
@@ -120,6 +117,9 @@ namespace PintoNS.Forms
 
         public void WriteMessage(string msg, Color color, bool newLine = true)
         {
+            if (MessageWritting != null &&
+                !MessageWritting.Invoke(msg, color, newLine)) return;
+
             string buffer = "";
             Color currentColor = color;
 
