@@ -61,6 +61,7 @@ namespace PintoNS
             // Setup console
             Console = new ConsoleForm();
             Console.Show();
+            Console.WriteMessage("[General] Initialization...");
 
             // Detect what runtime we are being ran under
             try
@@ -94,6 +95,17 @@ namespace PintoNS
             Running = true;
             checkForNewForm = new Thread(new ThreadStart(CheckForNewFormThread_Func));
             checkForNewForm.Start();
+
+            // Create the structure in the data folder
+            if (!Directory.Exists(DataFolder))
+                Directory.CreateDirectory(DataFolder);
+            if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
+            if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
+
+            // Import the saved settings
+            Settings.Import(SettingsFile);
 
             // Create the main form
             MainFrm = new MainForm();

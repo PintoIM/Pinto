@@ -130,7 +130,8 @@ namespace PintoNS.Forms
             txtIP.Enabled = !state;
             nudPort.Enabled = !state;
             cbSavePassword.Enabled = !state;
-            llForgotPassword.Enabled = !state;
+            //llForgotPassword.Enabled = !state;
+            llServers.Enabled = !state;
 
             if (state)
                 btnConnect.Text = "Continue";

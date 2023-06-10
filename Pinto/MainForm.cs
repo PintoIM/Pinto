@@ -336,24 +336,15 @@ namespace PintoNS
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            Program.Console.WriteMessage("[General] Performing first time initialization...");
-            Settings.Import(Program.SettingsFile);
-
             OnLogout(true);
-            if (!Directory.Exists(Program.DataFolder))
-                Directory.CreateDirectory(Program.DataFolder);
-            if (!Directory.Exists(Path.Combine(Program.DataFolder, "chats")))
-                Directory.CreateDirectory(Path.Combine(Program.DataFolder, "chats"));
-            if (!Directory.Exists(Path.Combine(Program.DataFolder, "extensions")))
-                Directory.CreateDirectory(Path.Combine(Program.DataFolder, "extensions"));
+
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
-
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
-
             if (!Settings.NoStandWithUAPopup)
-                InWindowPopupController.CreatePopup("Pinto! #StandsWithUkraine, check \"About\" for more information");
+                InWindowPopupController.CreatePopup("Pinto! #StandsWithUkraine," +
+                    " check \"About\" for more information");
             
             Program.CallExtensionsEvent("OnFormLoad");
         }
