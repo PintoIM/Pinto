@@ -123,7 +123,7 @@ namespace PintoNS
 
         public static void LoadExtensions()
         {
-            Program.Console.WriteMessage($"[Extensions] Loading extensions...");
+            Console.WriteMessage($"[Extensions] Loading extensions...");
             List<LuaExtension> highPriority = new List<LuaExtension>();
             List<LuaExtension> mediumPriority = new List<LuaExtension>();
             List<LuaExtension> lowPriority = new List<LuaExtension>();
@@ -138,7 +138,7 @@ namespace PintoNS
                 }
                 catch (Exception ex)
                 {
-                    Program.Console.WriteMessage($"[Extensions] Unable to load an extension: {ex}");
+                    Console.WriteMessage($"[Extensions] Unable to load an extension: {ex}");
                     continue;
                 }
 
@@ -155,7 +155,7 @@ namespace PintoNS
                         break;
                 }
 
-                Program.Console.WriteMessage($"[Extensions] Added extension \"{ext.Name}\" by" +
+                Console.WriteMessage($"[Extensions] Added extension \"{ext.Name}\" by" +
                     $" \"{ext.Author}\" (version {ext.Version}) to the list of to load extensions" +
                     $" (priority {ext.Priority})");
             }
@@ -167,13 +167,13 @@ namespace PintoNS
                 CallExtensionEvent(ext, "OnLoad");
             };
 
-            Program.Console.WriteMessage($"[Extensions] Loading high priority extensions...");
+            Console.WriteMessage($"[Extensions] Loading high priority extensions...");
             highPriority.ForEach(forEachExtension);
 
-            Program.Console.WriteMessage($"[Extensions] Loading medium priority extensions...");
+            Console.WriteMessage($"[Extensions] Loading medium priority extensions...");
             mediumPriority.ForEach(forEachExtension);
 
-            Program.Console.WriteMessage($"[Extensions] Loading low priority extensions...");
+            Console.WriteMessage($"[Extensions] Loading low priority extensions...");
             lowPriority.ForEach(forEachExtension);
         }
 

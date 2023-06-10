@@ -14,11 +14,14 @@ namespace PintoNS.Forms
         private bool isTypingLastStatus;
         public bool HasBeenInactive;
         public InWindowPopupController InWindowPopupController;
+        public delegate bool MessageWriteDelegate(string msg, Color color);
+        public event MessageWriteDelegate MessageWritting;
 
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
+
             this.mainForm = mainForm;
             InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;
@@ -32,20 +35,22 @@ namespace PintoNS.Forms
                     MsgBoxIconType.WARNING, true);
                 return;
             }
-            if (!Directory.Exists(Path.Combine(Program.DataFolder, 
-                "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID)))
-                Directory.CreateDirectory(Path.Combine(Program.DataFolder,
-                    "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID));
+
+            if (!Directory.Exists(GetStoredChatFolder()))
+                Directory.CreateDirectory(GetStoredChatFolder());
+
             LoadChat();
         }
+
+        public string GetStoredChatFolder() => Path.Combine(Program.DataFolder, "chats", 
+            mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID);
 
         private void LoadChat()
         {
             Program.Console.WriteMessage("[General] Loading chat...");
             try
             {
-                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(GetStoredChatFolder(), $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 rtxtMessages.Rtf = File.ReadAllText(filePath);
             }
@@ -64,8 +69,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Saving chat...");
             try
             {
-                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(GetStoredChatFolder(), $"{Receiver.Name}.rtf");
                 File.WriteAllText(filePath, rtxtMessages.Rtf);
             }
             catch (Exception ex)
@@ -83,8 +87,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage("[General] Deleting chat...");
             try
             {
-                string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                string filePath = Path.Combine(GetStoredChatFolder(), $"{Receiver.Name}.rtf");
                 if (!File.Exists(filePath)) return;
                 File.Delete(filePath);
             }
@@ -98,8 +101,11 @@ namespace PintoNS.Forms
             }
         }
 
-        private void WriteMessageRaw(string msg, Color color) 
+        public void WriteMessageRaw(string msg, Color color) 
         {
+            if (MessageWritting != null && 
+                !MessageWritting.Invoke(msg, color)) return;
+            
             Invoke(new Action(() =>
             {
                 rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
