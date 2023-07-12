@@ -31,6 +31,9 @@ namespace PintoNS
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
         internal UsingPintoForm loginScreen;
+        private int connectingStatusTrayFrame = 0;
+        private Icon[] connectingStatusTrayFrames = new Icon[] { Statuses.CONNECTING_0, Statuses.CONNECTING_2, 
+            Statuses.CONNECTING_4, Statuses.CONNECTING_6, Statuses.CONNECTING_8 };
 
         public MainForm()
         {
@@ -81,17 +84,20 @@ namespace PintoNS
             txtSearchBox.Enabled = true;
             lContactsNoContacts.Visible = true;
             lUserInfoName.Text = CurrentUser.Name;
+            wbPintoNews.DocumentText = HTML.PINTO_NEWS_ERROR;
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
             tsmiMenuBarFileChangeStatus.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! Beta - {CurrentUser.Name}";
+
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
         internal void OnStatusChange(UserStatus status, string motd)
         {
+            tConnectingTray.Stop();
             mbUserInfoStatus.Image = User.StatusToBitmap(status);
             /*
             tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
@@ -133,6 +139,7 @@ namespace PintoNS
             txtSearchBox.Enabled = false;
             lContactsNoContacts.Visible = false;
             lUserInfoName.Text = "PintoUser";
+            wbPintoNews.Navigate("about:blank");
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
@@ -148,7 +155,7 @@ namespace PintoNS
             if (loginScreen == null) (loginScreen = new UsingPintoForm(this)).Show();
         }
 
-        public void SyncTray()
+        internal void SyncTray()
         {
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(CurrentUser.Status);
@@ -316,9 +323,6 @@ namespace PintoNS
                 isPortable = true;
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
-            if (!Settings.NoStandWithUAPopup)
-                InWindowPopupController.CreatePopup("Pinto! #StandsWithUkraine," +
-                    " check \"About\" for more information");
             
             Program.CallExtensionsEvent("OnFormLoad");
         }
@@ -384,6 +388,7 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
+            SwitchToConnectingStatus();
             NetManager.ChangeStatus(UserStatus.ONLINE, CurrentUser.MOTD);
         }
 
@@ -391,6 +396,7 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
+            SwitchToConnectingStatus();
             NetManager.ChangeStatus(UserStatus.AWAY, CurrentUser.MOTD);
         }
 
@@ -398,8 +404,7 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            InWindowPopupController.CreatePopup("You are now busy" +
-                ", this means that you will not receive any non-important popups");
+            SwitchToConnectingStatus();
             NetManager.ChangeStatus(UserStatus.BUSY, CurrentUser.MOTD);
         }
 
@@ -412,8 +417,11 @@ namespace PintoNS
                 "Status change confirmation",
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
-                if (button == MsgBoxButtonType.YES)
+                if (button == MsgBoxButtonType.YES) 
+                {
+                    SwitchToConnectingStatus();
                     NetManager.ChangeStatus(UserStatus.INVISIBLE, CurrentUser.MOTD);
+                }
             });
         }
 
@@ -607,6 +615,20 @@ namespace PintoNS
         private void scSections_SplitterMoved(object sender, SplitterEventArgs e)
         {
             InWindowPopupController.UpdateSizes(scSections.Panel1.Width, Height - 21 * 3);
+        }
+
+        private void tConnectingTray_Tick(object sender, EventArgs e)
+        {
+            if (connectingStatusTrayFrame + 1 > connectingStatusTrayFrames.Length) connectingStatusTrayFrame = 0;
+            niTray.Icon = connectingStatusTrayFrames[connectingStatusTrayFrame];
+            niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
+            connectingStatusTrayFrame++;
+        }
+
+        internal void SwitchToConnectingStatus() 
+        {
+            tConnectingTray.Start();
+            mbUserInfoStatus.Image = Statuses.CONNECTING;
         }
     }
 }

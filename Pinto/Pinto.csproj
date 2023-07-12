@@ -245,6 +245,11 @@
     <Compile Include="General\Settings.cs" />
     <Compile Include="General\Updater.cs" />
     <Compile Include="General\UserStatus.cs" />
+    <Compile Include="HTML.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HTML.resx</DependentUpon>
+    </Compile>
     <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="General\ContactsManager.cs" />
@@ -397,6 +402,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewAllPopupContentForm.resx">
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HTML.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HTML.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -3413,6 +3422,7 @@
     <Content Include="Resources\Assets\9703.png" />
     <Content Include="Resources\Assets\9705.png" />
     <Content Include="Resources\Assets\9706.png" />
+    <Content Include="Resources\HTML\PINTO_NEWS_ERROR.html" />
     <Content Include="Resources\Logo\Banner.png" />
     <Content Include="Resources\Logo\LOADING.png" />
     <Content Include="Resources\Logo\LOGO.ico" />
@@ -3452,6 +3462,12 @@
     <Content Include="Resources\Statuses\AWAY.png" />
     <Content Include="Resources\Statuses\BUSY.ico" />
     <Content Include="Resources\Statuses\BUSY.png" />
+    <Content Include="Resources\Statuses\CONNECTING.gif" />
+    <Content Include="Resources\Statuses\CONNECTING_0.ico" />
+    <Content Include="Resources\Statuses\CONNECTING_2.ico" />
+    <Content Include="Resources\Statuses\CONNECTING_4.ico" />
+    <Content Include="Resources\Statuses\CONNECTING_6.ico" />
+    <Content Include="Resources\Statuses\CONNECTING_8.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.png" />
     <Content Include="Resources\Statuses\OFFLINE.ico" />

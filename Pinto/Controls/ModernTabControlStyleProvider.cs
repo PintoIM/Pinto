@@ -14,7 +14,7 @@ namespace PintoNS.Controls
     {
         public ModernTabControlStyleProvider(CustomTabControl tabControl) : base(tabControl) 
         {
-            Padding = new Point(20, 10);
+            Padding = new Point(20, 5);
             BorderColor = Color.DarkGray;
             BorderColorSelected = Color.DarkGray;
             HotTrack = false;

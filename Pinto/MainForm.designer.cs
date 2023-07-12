@@ -70,6 +70,7 @@ namespace PintoNS
             this.lrConnectingLoader = new PintoNS.Controls.Loader();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpContacts = new System.Windows.Forms.TabPage();
+            this.lContactsNoContacts = new System.Windows.Forms.Label();
             this.dgvContacts = new System.Windows.Forms.DataGridView();
             this.pUserInfo = new System.Windows.Forms.Panel();
             this.lUserInfoName = new System.Windows.Forms.Label();
@@ -79,11 +80,13 @@ namespace PintoNS
             this.tsmiUserInfoStatusAway = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
-            this.lContactsNoContacts = new System.Windows.Forms.Label();
+            this.wbPintoNews = new System.Windows.Forms.WebBrowser();
+            this.tConnectingTray = new System.Windows.Forms.Timer(this.components);
             this.tsMenuBar.SuspendLayout();
             this.cmsTray.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).BeginInit();
             this.scSections.Panel1.SuspendLayout();
+            this.scSections.Panel2.SuspendLayout();
             this.scSections.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpConnecting.SuspendLayout();
@@ -110,7 +113,7 @@ namespace PintoNS
             this.tsMenuBar.Location = new System.Drawing.Point(0, 0);
             this.tsMenuBar.Name = "tsMenuBar";
             this.tsMenuBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsMenuBar.Size = new System.Drawing.Size(1064, 25);
+            this.tsMenuBar.Size = new System.Drawing.Size(899, 25);
             this.tsMenuBar.TabIndex = 0;
             this.tsMenuBar.Text = "toolStrip1";
             // 
@@ -362,14 +365,15 @@ namespace PintoNS
             this.scSections.Panel1.Controls.Add(this.txtSearchBox);
             this.scSections.Panel1.Controls.Add(this.tcTabs);
             this.scSections.Panel1.Controls.Add(this.pUserInfo);
-            this.scSections.Panel1MinSize = 247;
+            this.scSections.Panel1MinSize = 250;
             // 
             // scSections.Panel2
             // 
             this.scSections.Panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.scSections.Panel2MinSize = 648;
-            this.scSections.Size = new System.Drawing.Size(1064, 554);
-            this.scSections.SplitterDistance = 272;
+            this.scSections.Panel2.Controls.Add(this.wbPintoNews);
+            this.scSections.Panel2MinSize = 500;
+            this.scSections.Size = new System.Drawing.Size(899, 554);
+            this.scSections.SplitterDistance = 250;
             this.scSections.SplitterWidth = 2;
             this.scSections.TabIndex = 9;
             this.scSections.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.scSections_SplitterMoved);
@@ -381,11 +385,11 @@ namespace PintoNS
             this.txtSearchBox.BackColor = System.Drawing.Color.White;
             this.txtSearchBox.BorderColor = System.Drawing.Color.DarkGray;
             this.txtSearchBox.Image = global::PintoNS.Assets._20859;
-            this.txtSearchBox.Location = new System.Drawing.Point(6, 32);
+            this.txtSearchBox.Location = new System.Drawing.Point(8, 32);
             this.txtSearchBox.Name = "txtSearchBox";
             this.txtSearchBox.PlaceholderText = "Search";
             this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Size = new System.Drawing.Size(260, 20);
+            this.txtSearchBox.Size = new System.Drawing.Size(238, 20);
             this.txtSearchBox.TabIndex = 9;
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             this.txtSearchBox.TextChanged2 += new System.EventHandler(this.txtSearchBox_TextChanged2);
@@ -422,7 +426,7 @@ namespace PintoNS
             this.tcTabs.Location = new System.Drawing.Point(4, 59);
             this.tcTabs.Name = "tcTabs";
             this.tcTabs.SelectedIndex = 0;
-            this.tcTabs.Size = new System.Drawing.Size(268, 494);
+            this.tcTabs.Size = new System.Drawing.Size(246, 494);
             this.tcTabs.TabIndex = 2;
             // 
             // tpConnecting
@@ -434,14 +438,14 @@ namespace PintoNS
             this.tpConnecting.Location = new System.Drawing.Point(4, 40);
             this.tpConnecting.Name = "tpConnecting";
             this.tpConnecting.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConnecting.Size = new System.Drawing.Size(260, 450);
+            this.tpConnecting.Size = new System.Drawing.Size(235, 450);
             this.tpConnecting.TabIndex = 2;
             this.tpConnecting.Text = "Connecting";
             // 
             // lrConnectingLoader
             // 
             this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lrConnectingLoader.Location = new System.Drawing.Point(72, 175);
+            this.lrConnectingLoader.Location = new System.Drawing.Point(59, 175);
             this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
             this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
             this.lrConnectingLoader.Name = "lrConnectingLoader";
@@ -451,7 +455,7 @@ namespace PintoNS
             // lConnectingStatus
             // 
             this.lConnectingStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lConnectingStatus.Location = new System.Drawing.Point(69, 150);
+            this.lConnectingStatus.Location = new System.Drawing.Point(56, 150);
             this.lConnectingStatus.Name = "lConnectingStatus";
             this.lConnectingStatus.Size = new System.Drawing.Size(128, 16);
             this.lConnectingStatus.TabIndex = 1;
@@ -466,9 +470,20 @@ namespace PintoNS
             this.tpContacts.Location = new System.Drawing.Point(4, 40);
             this.tpContacts.Name = "tpContacts";
             this.tpContacts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpContacts.Size = new System.Drawing.Size(260, 450);
+            this.tpContacts.Size = new System.Drawing.Size(238, 450);
             this.tpContacts.TabIndex = 1;
             this.tpContacts.Text = "Contacts";
+            // 
+            // lContactsNoContacts
+            // 
+            this.lContactsNoContacts.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lContactsNoContacts.AutoSize = true;
+            this.lContactsNoContacts.Location = new System.Drawing.Point(62, 20);
+            this.lContactsNoContacts.Name = "lContactsNoContacts";
+            this.lContactsNoContacts.Size = new System.Drawing.Size(112, 13);
+            this.lContactsNoContacts.TabIndex = 1;
+            this.lContactsNoContacts.Text = "You have no contacts";
+            this.lContactsNoContacts.Visible = false;
             // 
             // dgvContacts
             // 
@@ -491,7 +506,7 @@ namespace PintoNS
             this.dgvContacts.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvContacts.RowHeadersVisible = false;
             this.dgvContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvContacts.Size = new System.Drawing.Size(254, 444);
+            this.dgvContacts.Size = new System.Drawing.Size(232, 444);
             this.dgvContacts.TabIndex = 0;
             this.dgvContacts.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.dgvContacts_CellContextMenuStripNeeded);
             this.dgvContacts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContacts_CellDoubleClick);
@@ -505,12 +520,13 @@ namespace PintoNS
             this.pUserInfo.Controls.Add(this.mbUserInfoStatus);
             this.pUserInfo.Location = new System.Drawing.Point(0, 0);
             this.pUserInfo.Name = "pUserInfo";
-            this.pUserInfo.Size = new System.Drawing.Size(272, 26);
+            this.pUserInfo.Size = new System.Drawing.Size(250, 26);
             this.pUserInfo.TabIndex = 9;
             // 
             // lUserInfoName
             // 
             this.lUserInfoName.AutoSize = true;
+            this.lUserInfoName.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lUserInfoName.Location = new System.Drawing.Point(46, 7);
             this.lUserInfoName.Name = "lUserInfoName";
             this.lUserInfoName.Size = new System.Drawing.Size(53, 13);
@@ -519,10 +535,11 @@ namespace PintoNS
             // 
             // mbUserInfoStatus
             // 
+            this.mbUserInfoStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.mbUserInfoStatus.FlatAppearance.BorderSize = 0;
             this.mbUserInfoStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mbUserInfoStatus.ForeColor = System.Drawing.Color.DimGray;
-            this.mbUserInfoStatus.Image = global::PintoNS.Statuses.OFFLINE;
+            this.mbUserInfoStatus.Image = global::PintoNS.Statuses.CONNECTING;
             this.mbUserInfoStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mbUserInfoStatus.Location = new System.Drawing.Point(3, 1);
             this.mbUserInfoStatus.Menu = this.cmsUserInfoStatus;
@@ -574,22 +591,27 @@ namespace PintoNS
             this.tsmiUserInfoStatusInvisible.Text = "Invisible";
             this.tsmiUserInfoStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
             // 
-            // lContactsNoContacts
+            // wbPintoNews
             // 
-            this.lContactsNoContacts.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lContactsNoContacts.AutoSize = true;
-            this.lContactsNoContacts.Location = new System.Drawing.Point(75, 20);
-            this.lContactsNoContacts.Name = "lContactsNoContacts";
-            this.lContactsNoContacts.Size = new System.Drawing.Size(111, 13);
-            this.lContactsNoContacts.TabIndex = 1;
-            this.lContactsNoContacts.Text = "You have no contacts";
-            this.lContactsNoContacts.Visible = false;
+            this.wbPintoNews.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wbPintoNews.IsWebBrowserContextMenuEnabled = false;
+            this.wbPintoNews.Location = new System.Drawing.Point(0, 0);
+            this.wbPintoNews.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbPintoNews.Name = "wbPintoNews";
+            this.wbPintoNews.Size = new System.Drawing.Size(647, 554);
+            this.wbPintoNews.TabIndex = 0;
+            this.wbPintoNews.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            // 
+            // tConnectingTray
+            // 
+            this.tConnectingTray.Interval = 500;
+            this.tConnectingTray.Tick += new System.EventHandler(this.tConnectingTray_Tick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 579);
+            this.ClientSize = new System.Drawing.Size(899, 579);
             this.Controls.Add(this.scSections);
             this.Controls.Add(this.tsMenuBar);
             this.MinimumSize = new System.Drawing.Size(163, 237);
@@ -602,6 +624,7 @@ namespace PintoNS
             this.tsMenuBar.PerformLayout();
             this.cmsTray.ResumeLayout(false);
             this.scSections.Panel1.ResumeLayout(false);
+            this.scSections.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).EndInit();
             this.scSections.ResumeLayout(false);
             this.tcTabs.ResumeLayout(false);
@@ -666,5 +689,7 @@ namespace PintoNS
         public System.Windows.Forms.ToolStripMenuItem tsmiUserInfoStatusInvisible;
         private ModernTextBoxWithPlaceholderSupport txtSearchBox;
         public System.Windows.Forms.Label lContactsNoContacts;
+        private System.Windows.Forms.Timer tConnectingTray;
+        private System.Windows.Forms.WebBrowser wbPintoNews;
     }
 }
