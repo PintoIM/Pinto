@@ -35,10 +35,5 @@ namespace PintoNS.Forms
         {
             Close();
         }
-
-        private void pbUkraine_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://stand-with-ukraine.pp.ua/");
-        }
     }
 }

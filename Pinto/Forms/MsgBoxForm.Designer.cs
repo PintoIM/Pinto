@@ -85,7 +85,7 @@
             // btnYes
             // 
             this.btnYes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnYes.Location = new System.Drawing.Point(61, 121);
+            this.btnYes.Location = new System.Drawing.Point(183, 121);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 5;
@@ -96,7 +96,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOK.Location = new System.Drawing.Point(142, 121);
+            this.btnOK.Location = new System.Drawing.Point(264, 121);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 6;
@@ -107,7 +107,7 @@
             // btnNo
             // 
             this.btnNo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnNo.Location = new System.Drawing.Point(223, 121);
+            this.btnNo.Location = new System.Drawing.Point(264, 121);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 7;

@@ -8,14 +8,23 @@ namespace PintoNS.General
 {
     public class InWindowPopupController
     {
-        private Form form;
+        private Control parent;
+        private int width;
         private int baseY;
         private List<InWindowPopupControl> popups = new List<InWindowPopupControl>();
 
-        public InWindowPopupController(Form form, int baseY)
+        public InWindowPopupController(Control parent, int width, int baseY)
         {
-            this.form = form;
+            this.parent = parent;
+            this.width = width;
             this.baseY = baseY;
+        }
+
+        public void UpdateSizes(int width, int baseY) 
+        {
+            this.width = width;
+            this.baseY = baseY;
+            UpdatePopupPositions();
         }
 
         private int GetYPosForNew()
@@ -24,7 +33,7 @@ namespace PintoNS.General
 
             foreach (InWindowPopupControl popup in popups.ToArray())
             {
-                y += popup.Height;
+                y -= popup.Height;
             }
 
             return y;
@@ -32,30 +41,30 @@ namespace PintoNS.General
 
         public void UpdatePopupPositions() 
         {
-            form.Invoke(new Action(() =>
+            parent.Invoke(new Action(() =>
             {
                 int y = baseY;
 
                 foreach (InWindowPopupControl popup in popups.ToArray())
                 {
+                    popup.Width = width;
                     popup.Location = new Point(0, y);
-                    y += popup.Height;
+                    y -= popup.Height;
                 }
             }));
         }
 
         public void CreatePopup(string text)
         {
-            form.Invoke(new Action(() => 
+            parent.Invoke(new Action(() => 
             {
                 InWindowPopupControl popup = new InWindowPopupControl(text);
                 popup.btnClose.Click += (object sender, EventArgs e) =>
                 {
                     ClosePopup(popup);
                 };
-                popup.Parent = form;
-                popup.Width = form.Width - 15;
-                popup.Height = 21;
+                popup.Parent = parent;
+                popup.Width = width;
                 popup.Location = new Point(0, GetYPosForNew());
                 popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 popup.Show();
@@ -66,7 +75,7 @@ namespace PintoNS.General
 
         public void ClosePopup(InWindowPopupControl popup)
         {
-            form.Invoke(new Action(() =>
+            parent.Invoke(new Action(() =>
             {
                 if (popup == null) return;
                 popup.Hide();
@@ -80,7 +89,7 @@ namespace PintoNS.General
         {
             foreach (InWindowPopupControl popup in popups.ToArray())
             {
-                form.Invoke(new Action(() =>
+                parent.Invoke(new Action(() =>
                 {
                     popup.Hide();
                     popup.Dispose();

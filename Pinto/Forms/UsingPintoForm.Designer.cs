@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.txtIP = new System.Windows.Forms.TextBox();
             this.nudPort = new System.Windows.Forms.NumericUpDown();
@@ -71,19 +70,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudRegisterPort)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(294, 396);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 10;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(213, 396);
+            this.btnConnect.Location = new System.Drawing.Point(294, 397);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 9;
@@ -286,7 +275,6 @@
             // 
             this.tpMain.Controls.Add(this.pbAd);
             this.tpMain.Controls.Add(this.lStatus);
-            this.tpMain.Controls.Add(this.btnCancel);
             this.tpMain.Controls.Add(this.pLoginControls);
             this.tpMain.Controls.Add(this.btnConnect);
             this.tpMain.Location = new System.Drawing.Point(4, 22);
@@ -443,6 +431,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 446);
+            this.ControlBox = false;
             this.Controls.Add(this.tcSections);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -469,8 +458,6 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.Button btnCancel;
         public System.Windows.Forms.Button btnConnect;
         public System.Windows.Forms.TextBox txtIP;
         public System.Windows.Forms.NumericUpDown nudPort;

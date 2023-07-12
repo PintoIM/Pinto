@@ -1,4 +1,5 @@
 ﻿using NLua;
+using PintoNS.Controls;
 using PintoNS.Forms;
 using PintoNS.General;
 using PintoNS.Networking;
@@ -29,17 +30,17 @@ namespace PintoNS
         public List<MessageForm> MessageForms;
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
-        public CallManager CallMgr;
+        internal UsingPintoForm loginScreen;
 
         public MainForm()
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
-            InWindowPopupController = new InWindowPopupController(this, 70);
+            InWindowPopupController = new InWindowPopupController(this, scSections.Panel1.Width, Height - 21 * 3);
             PopupController = new PopupController();
         }
 
-        // "Borrowed" from https://stackoverflow.com/a/2613272
+        // From https://stackoverflow.com/a/2613272
         protected override CreateParams CreateParams
         {
             get
@@ -53,13 +54,11 @@ namespace PintoNS
         internal void OnLogin()
         {
             tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpStart);
             tcTabs.TabPages.Add(tpContacts);
 
             if (!Settings.AutoStartPage)
                 tcTabs.SelectedTab = tpContacts;
 
-            UpdateQuickActions(true);
             OnStatusChange(UserStatus.ONLINE, "");
             MessageForms = new List<MessageForm>();
 
@@ -77,12 +76,11 @@ namespace PintoNS
             contactStatus.Width = 24;
 
             DataGridViewColumn contactMOTD = dgvContacts.Columns["contactMOTD"];
-            contactMOTD.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            contactMOTD.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
 
-            btnStartCall.Enabled = true;
-            btnStartCall.Image = Assets.STARTCALL_ENABLED;
             txtSearchBox.Enabled = true;
             lContactsNoContacts.Visible = true;
+            lUserInfoName.Text = CurrentUser.Name;
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
@@ -92,28 +90,12 @@ namespace PintoNS
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
-        internal void UpdateQuickActions(bool loggedInState) 
-        {
-            if (loggedInState) 
-            {
-                btnQAAddContact.Image = Assets.ADDCONTACT_ENABLED;
-                btnQAAddContact.Enabled = true;
-            }
-            else 
-            {
-                btnQAAddContact.Image = Assets.ADDCONTACT_DISABLED;
-                btnQAAddContact.Enabled = false;
-            }
-        }
-
         internal void OnStatusChange(UserStatus status, string motd)
         {
-            tsddbStatusBarStatus.Enabled = status != UserStatus.OFFLINE;
-            tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
-            tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
-            tsddbStatusBarMOTD.Enabled = status != UserStatus.OFFLINE;
+            mbUserInfoStatus.Image = User.StatusToBitmap(status);
+            /*
             tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
-                !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";
+                !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";*/
 
             CurrentUser.Status = status;
             CurrentUser.MOTD = motd;
@@ -131,8 +113,6 @@ namespace PintoNS
         internal void OnLogout(bool noSound = false)
         {
             tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpLogin);
-            UpdateQuickActions(false);
             OnStatusChange(UserStatus.OFFLINE, "");
 
             if (MessageForms != null && MessageForms.Count > 0)
@@ -147,22 +127,12 @@ namespace PintoNS
             ContactsMgr = null;
             MessageForms = null;
             dgvContacts.DataSource = null;
-            if (CallMgr != null) 
-            {
-                CallMgr.AllowClose = true;
-                CallMgr.Close();
-            }
-            CallMgr = null;
-
-            btnStartCall.Enabled = false;
-            btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            btnEndCall.Enabled = false;
-            btnEndCall.Image = Assets.ENDCALL_DISABLED;
 
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
             lContactsNoContacts.Visible = false;
+            lUserInfoName.Text = "PintoUser";
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
@@ -173,6 +143,9 @@ namespace PintoNS
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
             Program.CallExtensionsEvent("OnLogout");
+            
+            Hide();
+            if (loginScreen == null) (loginScreen = new UsingPintoForm(this)).Show();
         }
 
         public void SyncTray()
@@ -334,8 +307,9 @@ namespace PintoNS
             return messageForm;
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
+            tcTabs.DisplayStyleProvider = new ModernTabControlStyleProvider(tcTabs);
             OnLogout(true);
 
             if (File.Exists(".IS_PORTABLE_CHECK"))
@@ -397,12 +371,7 @@ namespace PintoNS
                 messageForm.Focus();
             }
         }
-
-        private void llLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            new UsingPintoForm(this).ShowDialog();
-        }
-
+        
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
@@ -482,27 +451,6 @@ namespace PintoNS
             }*/
         }
 
-        private void btnStartCall_Click(object sender, EventArgs e)
-        {
-            btnStartCall.Enabled = false;
-            btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            btnEndCall.Enabled = true;
-            btnEndCall.Image = Assets.ENDCALL_ENABLED;
-            CallMgr = new CallManager(this);
-            CallMgr.Show();
-            if (CallMgr != null) CallMgr.BringToFront();
-        }
-
-        private void btnEndCall_Click(object sender, EventArgs e)
-        {
-            btnStartCall.Enabled = true;
-            btnStartCall.Image = Assets.STARTCALL_ENABLED;
-            btnEndCall.Enabled = false;
-            btnEndCall.Image = Assets.ENDCALL_DISABLED;
-            CallMgr.AllowClose = true;
-            CallMgr.Close();
-        }
-
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
         {
             if (Program.Console.Visible)
@@ -513,9 +461,11 @@ namespace PintoNS
 
         private void niTray_DoubleClick(object sender, EventArgs e)
         {
-            Show();
-            WindowState = FormWindowState.Normal;
-            BringToFront();
+            // Casting to form as the compiler gets confused
+            Form form = loginScreen != null ? (Form)loginScreen : (Form)this;
+            form.Show();
+            form.WindowState = FormWindowState.Normal;
+            form.BringToFront();
         }
 
         private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
@@ -613,16 +563,6 @@ namespace PintoNS
         private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e) 
             => Process.Start("https://github.com/PintoIM/Pinto/issues");
 
-        private void tContactsOnlineUpdate_Tick(object sender, EventArgs e)
-        {
-            if (ContactsMgr == null) return;
-            int online = ContactsMgr.GetContacts().Count((Contact contact) =>
-            {
-                return contact.Status != UserStatus.OFFLINE;
-            });
-            llStartContacts.Text = $"{online} Contacts Online";
-        }
-
         private void dgvContacts_CellContextMenuStripNeeded(object sender,
             DataGridViewCellContextMenuStripNeededEventArgs e)
         {
@@ -659,6 +599,14 @@ namespace PintoNS
             changeMOTDForm.ShowDialog(this);
         }
 
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            InWindowPopupController.UpdateSizes(scSections.Panel1.Width, Height - 21 * 3);
+        }
 
+        private void scSections_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            InWindowPopupController.UpdateSizes(scSections.Panel1.Width, Height - 21 * 3);
+        }
     }
 }

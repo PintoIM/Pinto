@@ -23,7 +23,7 @@ namespace PintoNS.Forms
             Icon = Program.GetFormIcon();
 
             this.mainForm = mainForm;
-            InWindowPopupController = new InWindowPopupController(this, 25);
+            InWindowPopupController = new InWindowPopupController(this, 150, 25);
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
 

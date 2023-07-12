@@ -52,7 +52,7 @@
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::PintoNS.Assets.WARNING;
+            this.pictureBox2.Image = global::PintoNS.Assets._20983;
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
@@ -74,10 +74,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.lText);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnClose);
+            this.DoubleBuffered = true;
+            this.MaximumSize = new System.Drawing.Size(999999, 21);
             this.Name = "InWindowPopupControl";
             this.Size = new System.Drawing.Size(161, 21);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

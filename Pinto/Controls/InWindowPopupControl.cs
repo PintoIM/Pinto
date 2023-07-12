@@ -22,5 +22,11 @@ namespace PintoNS.Controls
             lText.MaximumSize = new Size(Width - 50, 0);
             base.OnPaint(e);
         }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.DrawRectangle(new Pen(Color.DarkGray, 1), 0, 0, Width - 1, Height - 1);
+        }
     }
 }

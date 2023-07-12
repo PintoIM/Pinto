@@ -89,11 +89,6 @@ namespace PintoNS.Forms
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private async void btnConnect_Click(object sender, EventArgs e)
         {
             if (rbCreate.Checked)
@@ -116,7 +111,11 @@ namespace PintoNS.Forms
 
                 if (cbSavePassword.Checked)
                     SaveLogin();
+                
                 Close();
+                mainForm.Show();
+                mainForm.loginScreen = null;
+                
                 await mainForm.Connect(ip, port, username, password);
             }
         }
@@ -162,6 +161,9 @@ namespace PintoNS.Forms
             }
 
             Close();
+            mainForm.Show();
+            mainForm.loginScreen = null;
+
             await mainForm.ConnectRegister(ip, port, username, password);
         }
 

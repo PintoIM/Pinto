@@ -109,15 +109,5 @@ namespace PintoNS {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap STAND_WITH_UKRAINE {
-            get {
-                object obj = ResourceManager.GetObject("STAND_WITH_UKRAINE", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

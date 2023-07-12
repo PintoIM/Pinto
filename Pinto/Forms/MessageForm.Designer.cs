@@ -222,7 +222,6 @@
             this.btnColor.FlatAppearance.BorderSize = 0;
             this.btnColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColor.Image = global::PintoNS.Assets.COLOR_PALETTE;
             this.btnColor.Location = new System.Drawing.Point(12, 263);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(18, 18);
