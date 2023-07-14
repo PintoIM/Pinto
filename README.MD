@@ -12,14 +12,14 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # 💬 Pinto IM
-A modernish IM client inspired by Skype 0.97
+A modernish IM client inspired by Skype 0.97 (and soon Skype 6)
 
 # 📃 Note
 Pinto! IM is currently not finished and will take a lot of time to be fully perfected and done, it is not yet ready to be used as a daily IM platform
 
 # 📌 Information
 - Written in C# (.NET Framework 4.6)
-- The classic look and feel of Skype 0.97
+- The classic look and feel of Skype 0.97 (and soon Skype 6)
 - Fully open and transparent design
 
 # 📌 Features
