@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/badge/.NET%20Framework-4.6-blue" />
     <img src="https://img.shields.io/badge/Instant-Messaging-brightgreen" />
     <img src="https://img.shields.io/badge/License-GPLv3-brightgreen" />
-    <a href="https://www.codefactor.io/repository/github/pintoim/pinto/overview/main"><img src="https://www.codefactor.io/repository/github/pintoim/pinto/badge/main" alt="CodeFactor" /></a>\
+    <a href="https://www.codefactor.io/repository/github/pintoim/pinto/overview/main"><img src="https://www.codefactor.io/repository/github/pintoim/pinto/badge/main" alt="CodeFactor" /></a>
 </p>
 
 # 💬 Pinto IM
