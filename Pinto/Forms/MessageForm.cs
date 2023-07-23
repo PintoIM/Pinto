@@ -13,7 +13,6 @@ namespace PintoNS.Forms
         public Contact Receiver;
         private bool isTypingLastStatus;
         public bool HasBeenInactive;
-        public InWindowPopupController InWindowPopupController;
         public delegate bool MessageWriteDelegate(string msg, Color color, bool newLine);
         public event MessageWriteDelegate MessageWritting;
 
@@ -23,7 +22,6 @@ namespace PintoNS.Forms
             Icon = Program.GetFormIcon();
 
             this.mainForm = mainForm;
-            InWindowPopupController = new InWindowPopupController(this, 150, 25);
             Receiver = receiver;
             Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
 
@@ -256,13 +254,6 @@ namespace PintoNS.Forms
         {
             rtxtMessages.Rtf = null;
             DeleteChat();
-        }
-
-        private void MessageForm_Load(object sender, EventArgs e)
-        {
-            if (Receiver.Status == UserStatus.BUSY)
-                InWindowPopupController.CreatePopup($"{Receiver.Name} is busy" +
-                    $" and may not see your messages");
         }
 
         private void rtxtMessages_TextChanged(object sender, EventArgs e)

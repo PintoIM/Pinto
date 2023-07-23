@@ -23,6 +23,7 @@ namespace PintoNS
     {
         private bool doNotCancelClose;
         private bool isPortable;
+        private LoginForm loginForm;
         public User CurrentUser = new User();
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
@@ -30,14 +31,14 @@ namespace PintoNS
         public List<MessageForm> MessageForms;
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
-        internal UsingPintoForm loginScreen;
         private int connectingStatusTrayFrame = 0;
         private Icon[] connectingStatusTrayFrames = new Icon[] { Statuses.CONNECTING_0, Statuses.CONNECTING_2, 
             Statuses.CONNECTING_4, Statuses.CONNECTING_6, Statuses.CONNECTING_8 };
 
-        public MainForm()
+        public MainForm(LoginForm loginForm)
         {
             InitializeComponent();
+            this.loginForm = loginForm;
             Icon = Program.GetFormIcon();
             InWindowPopupController = new InWindowPopupController(this, scSections.Panel1.Width, Height - 21 * 3);
             PopupController = new PopupController();
@@ -56,12 +57,6 @@ namespace PintoNS
 
         internal void OnLogin()
         {
-            tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpContacts);
-
-            if (!Settings.AutoStartPage)
-                tcTabs.SelectedTab = tpContacts;
-
             OnStatusChange(UserStatus.ONLINE, "");
             MessageForms = new List<MessageForm>();
 
@@ -97,7 +92,7 @@ namespace PintoNS
 
         internal void OnStatusChange(UserStatus status, string motd)
         {
-            tConnectingTray.Stop();
+            ResetConnectingStatus();
             mbUserInfoStatus.Image = User.StatusToBitmap(status);
             /*
             tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
@@ -116,9 +111,21 @@ namespace PintoNS
             Program.CallExtensionsEvent("OnLogin");
         }
 
-        internal void OnLogout(bool noSound = false)
+        internal void SwitchToConnectingStatus()
         {
-            tcTabs.TabPages.Clear();
+            tConnectingTray.Start();
+            tConnectingTray_Tick(this, EventArgs.Empty);
+            mbUserInfoStatus.Image = Statuses.CONNECTING;
+        }
+
+        internal void ResetConnectingStatus()
+        {
+            tConnectingTray.Stop();
+            connectingStatusTrayFrame = 0;
+        }
+
+        internal void OnLogout(bool noSound = false, bool doNotShowLoginForm = false)
+        {
             OnStatusChange(UserStatus.OFFLINE, "");
 
             if (MessageForms != null && MessageForms.Count > 0)
@@ -151,8 +158,11 @@ namespace PintoNS
                 new SoundPlayer(Sounds.LOGOUT).Play();
             Program.CallExtensionsEvent("OnLogout");
             
-            Hide();
-            if (loginScreen == null) (loginScreen = new UsingPintoForm(this)).Show();
+            if (!doNotShowLoginForm) 
+            {
+                loginForm.Show();
+                Close();
+            }
         }
 
         internal void SyncTray()
@@ -167,9 +177,6 @@ namespace PintoNS
 
         public async Task Connect(string ip, int port, string username, string password)
         {
-            tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpConnecting);
-            lConnectingStatus.Text = "Connecting...";
             Program.Console.WriteMessage($"[Networking] Signing in as {username} at {ip}:{port}...");
 
             NetManager = new NetworkManager(this);
@@ -178,7 +185,6 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
-                lConnectingStatus.Text = "";
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                 MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
                     $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
@@ -186,7 +192,6 @@ namespace PintoNS
             else
             {
                 CurrentUser.Name = username;
-                lConnectingStatus.Text = "Authenticating...";
                 NetManager.Login(username, password);
 
                 if (loginPacketCheckThread != null)
@@ -222,8 +227,6 @@ namespace PintoNS
         public async Task ConnectRegister(string ip, int port, string username, string password)
         {
             tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpConnecting);
-            lConnectingStatus.Text = "Connecting...";
             Program.Console.WriteMessage($"[Networking] Registering in as {username} at {ip}:{port}...");
 
             NetManager = new NetworkManager(this);
@@ -239,7 +242,6 @@ namespace PintoNS
             else
             {
                 CurrentUser.Name = username;
-                lConnectingStatus.Text = "Registering...";
                 NetManager.Register(username, password);
 
                 if (loginPacketCheckThread != null)
@@ -285,7 +287,6 @@ namespace PintoNS
             }
 
             NetManager = null;
-            lConnectingStatus.Text = "";
             OnLogout(!wasLoggedIn);
 
             Program.CallExtensionsEvent("OnDisconnect");
@@ -317,7 +318,7 @@ namespace PintoNS
         private async void MainForm_Shown(object sender, EventArgs e)
         {
             tcTabs.DisplayStyleProvider = new ModernTabControlStyleProvider(tcTabs);
-            OnLogout(true);
+            OnLogout(true, true);
 
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
@@ -329,6 +330,7 @@ namespace PintoNS
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            /*
             if (!Settings.NoMinimizeToSysTray && !doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
             {
                 if (!Settings.DoNotShowSysTrayNotice) 
@@ -357,7 +359,7 @@ namespace PintoNS
                 new Thread(new ThreadStart(() => 
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
-                })).Start();
+                })).Start();*/
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -469,11 +471,9 @@ namespace PintoNS
 
         private void niTray_DoubleClick(object sender, EventArgs e)
         {
-            // Casting to form as the compiler gets confused
-            Form form = loginScreen != null ? (Form)loginScreen : (Form)this;
-            form.Show();
-            form.WindowState = FormWindowState.Normal;
-            form.BringToFront();
+            Show();
+            WindowState = FormWindowState.Normal;
+            BringToFront();
         }
 
         private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
@@ -623,12 +623,6 @@ namespace PintoNS
             niTray.Icon = connectingStatusTrayFrames[connectingStatusTrayFrame];
             niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
             connectingStatusTrayFrame++;
-        }
-
-        internal void SwitchToConnectingStatus() 
-        {
-            tConnectingTray.Start();
-            mbUserInfoStatus.Image = Statuses.CONNECTING;
         }
     }
 }

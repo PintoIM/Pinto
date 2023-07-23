@@ -66,9 +66,6 @@ namespace PintoNS
             this.scSections = new System.Windows.Forms.SplitContainer();
             this.txtSearchBox = new PintoNS.Controls.ModernTextBoxWithPlaceholderSupport();
             this.tcTabs = new PintoNS.JacksonTabControl.CustomTabControl();
-            this.tpConnecting = new System.Windows.Forms.TabPage();
-            this.lrConnectingLoader = new PintoNS.Controls.Loader();
-            this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpContacts = new System.Windows.Forms.TabPage();
             this.lContactsNoContacts = new System.Windows.Forms.Label();
             this.dgvContacts = new System.Windows.Forms.DataGridView();
@@ -89,7 +86,6 @@ namespace PintoNS
             this.scSections.Panel2.SuspendLayout();
             this.scSections.SuspendLayout();
             this.tcTabs.SuspendLayout();
-            this.tpConnecting.SuspendLayout();
             this.tpContacts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
             this.pUserInfo.SuspendLayout();
@@ -399,7 +395,6 @@ namespace PintoNS
             this.tcTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcTabs.Controls.Add(this.tpConnecting);
             this.tcTabs.Controls.Add(this.tpContacts);
             // 
             // 
@@ -429,38 +424,6 @@ namespace PintoNS
             this.tcTabs.Size = new System.Drawing.Size(246, 494);
             this.tcTabs.TabIndex = 2;
             // 
-            // tpConnecting
-            // 
-            this.tpConnecting.BackColor = System.Drawing.SystemColors.Window;
-            this.tpConnecting.Controls.Add(this.lrConnectingLoader);
-            this.tpConnecting.Controls.Add(this.lConnectingStatus);
-            this.tpConnecting.ImageIndex = 0;
-            this.tpConnecting.Location = new System.Drawing.Point(4, 40);
-            this.tpConnecting.Name = "tpConnecting";
-            this.tpConnecting.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConnecting.Size = new System.Drawing.Size(235, 450);
-            this.tpConnecting.TabIndex = 2;
-            this.tpConnecting.Text = "Connecting";
-            // 
-            // lrConnectingLoader
-            // 
-            this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lrConnectingLoader.Location = new System.Drawing.Point(59, 175);
-            this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.Name = "lrConnectingLoader";
-            this.lrConnectingLoader.Size = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.TabIndex = 2;
-            // 
-            // lConnectingStatus
-            // 
-            this.lConnectingStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lConnectingStatus.Location = new System.Drawing.Point(56, 150);
-            this.lConnectingStatus.Name = "lConnectingStatus";
-            this.lConnectingStatus.Size = new System.Drawing.Size(128, 16);
-            this.lConnectingStatus.TabIndex = 1;
-            this.lConnectingStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // tpContacts
             // 
             this.tpContacts.BackColor = System.Drawing.SystemColors.Window;
@@ -478,9 +441,9 @@ namespace PintoNS
             // 
             this.lContactsNoContacts.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lContactsNoContacts.AutoSize = true;
-            this.lContactsNoContacts.Location = new System.Drawing.Point(62, 20);
+            this.lContactsNoContacts.Location = new System.Drawing.Point(60, 20);
             this.lContactsNoContacts.Name = "lContactsNoContacts";
-            this.lContactsNoContacts.Size = new System.Drawing.Size(112, 13);
+            this.lContactsNoContacts.Size = new System.Drawing.Size(111, 13);
             this.lContactsNoContacts.TabIndex = 1;
             this.lContactsNoContacts.Text = "You have no contacts";
             this.lContactsNoContacts.Visible = false;
@@ -539,7 +502,7 @@ namespace PintoNS
             this.mbUserInfoStatus.FlatAppearance.BorderSize = 0;
             this.mbUserInfoStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mbUserInfoStatus.ForeColor = System.Drawing.Color.DimGray;
-            this.mbUserInfoStatus.Image = global::PintoNS.Statuses.CONNECTING;
+            this.mbUserInfoStatus.Image = global::PintoNS.Statuses.OFFLINE;
             this.mbUserInfoStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mbUserInfoStatus.Location = new System.Drawing.Point(3, 1);
             this.mbUserInfoStatus.Menu = this.cmsUserInfoStatus;
@@ -628,7 +591,6 @@ namespace PintoNS
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).EndInit();
             this.scSections.ResumeLayout(false);
             this.tcTabs.ResumeLayout(false);
-            this.tpConnecting.ResumeLayout(false);
             this.tpContacts.ResumeLayout(false);
             this.tpContacts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).EndInit();
@@ -648,8 +610,6 @@ namespace PintoNS
         public System.Windows.Forms.TabPage tpContacts;
         public System.Windows.Forms.DataGridView dgvContacts;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileLogOff;
-        public System.Windows.Forms.TabPage tpConnecting;
-        public System.Windows.Forms.Label lConnectingStatus;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpToggleConsole;
         public System.Windows.Forms.NotifyIcon niTray;
@@ -662,7 +622,6 @@ namespace PintoNS
         public System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusInvisible;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileExit;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpCheckForUpdates;
-        public Loader lrConnectingLoader;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarTools;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsAddContact;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsRemoveContact;

@@ -29,7 +29,6 @@ namespace PintoNS
         // Main variables
         public static bool Running;
         public static bool ExecutingUnderWine;
-        public static MainForm MainFrm;
         public static readonly List<LuaExtension> Extensions = new List<LuaExtension>();
 
         // Check for new form event
@@ -108,14 +107,11 @@ namespace PintoNS
             // Import the saved settings
             Settings.Import(SettingsFile);
 
-            // Create the main form
-            MainFrm = new MainForm();
-
             // Load extensions
             LoadExtensions();
-
+            
             // Start Pinto!
-            Application.Run(MainFrm);
+            Application.Run(new LoginForm());
 
             // End the new form checker thread
             Running = false;
@@ -135,7 +131,7 @@ namespace PintoNS
                 LuaExtension ext = null;
                 try
                 {
-                    ext = new LuaExtension(file, MainFrm);
+                    ext = new LuaExtension(file, null);
                 }
                 catch (Exception ex)
                 {

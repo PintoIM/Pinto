@@ -58,8 +58,11 @@ namespace PintoNS.Networking
 
         public void Disconnect(string reason) 
         {
+            IsConnected = false;
+            
             bool ignoreDisconnectReasonValue = ignoreDisconnectReason;
             ignoreDisconnectReason = true;
+
             if (tcpStream != null) tcpStream.Dispose();
             if (tcpClient != null) tcpClient.Close();
 
@@ -72,33 +75,29 @@ namespace PintoNS.Networking
             tcpBinaryWriter = null;
 
             if (IsConnected && !ignoreDisconnectReasonValue) 
-            {
                 Disconnected.Invoke(reason);
-            }
-            IsConnected = false;
         }
 
         public void SendPacket(IPacket packet) 
         {
             if (!IsConnected) return;
 
+            MemoryStream packetData = new MemoryStream();
+            BinaryWriter packetDataWriter = new BinaryWriter(packetData);
+
             lock (sendLock)
             {
-                // Header
-                tcpBinaryWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
+                packetDataWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
+                packetDataWriter.WriteBE(packet.GetSize());
+                packetDataWriter.WriteBE(packet.GetID());
+                if (packet.GetSize() > 0) packet.Write(packetDataWriter);
 
-                // Size
-                tcpBinaryWriter.WriteBE(packet.GetSize());
-
-                // ID
-                tcpBinaryWriter.WriteBE(packet.GetID());
-
-                if (packet.GetSize() > 0) 
-                {
-                    // Data
-                    packet.Write(tcpBinaryWriter);
-                    tcpBinaryWriter.Flush();
-                }
+                packetData.Flush();
+                packetData.WriteTo(tcpStream);
+                packetData.Dispose();
+                packetDataWriter.Dispose();
+                
+                tcpStream.Flush();
             }
 
             if (packet.GetID() != 255)
@@ -151,6 +150,8 @@ namespace PintoNS.Networking
                 }
                 catch (Exception ex)
                 {
+                    if (!IsConnected) return;
+
                     if (!(ex is IOException || ex is ConnectionException))
                     {
                         Disconnect($"Internal error -> {ex.Message}");
@@ -165,7 +166,6 @@ namespace PintoNS.Networking
                     {
                         Disconnect(ex.Message);
                     }
-                    return;
                 }
             }
         }

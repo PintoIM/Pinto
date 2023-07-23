@@ -1,22 +1,22 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PintoNS.Forms;
 using PintoNS.General;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace PintoNS.Forms
+namespace PintoNS
 {
-    public partial class UsingPintoForm : Form
+    public partial class LoginForm : Form
     {
         private MainForm mainForm;
 
-        public UsingPintoForm(MainForm mainForm)
+        public LoginForm()
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
-            this.mainForm = mainForm;
         }
 
         private void LoadLogin()
@@ -91,67 +91,10 @@ namespace PintoNS.Forms
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
-            if (rbCreate.Checked)
-            {
-                tcSections.SelectedTab = tpRegister;
-            }
-            else
-            {
-                string ip = txtIP.Text.Trim();
-                int port = (int)nudPort.Value;
-                string username = txtUsername.Text.Trim();
-                string password = txtPassword.Text;
-
-                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-                {
-                    MsgBox.Show(this, "Blank username or password!",
-                        "Error", MsgBoxIconType.ERROR);
-                    return;
-                }
-
-                if (cbSavePassword.Checked)
-                    SaveLogin();
-                
-                Close();
-                mainForm.Show();
-                mainForm.loginScreen = null;
-                
-                await mainForm.Connect(ip, port, username, password);
-            }
-        }
-
-        private void rbCreate_CheckedChanged(object sender, EventArgs e)
-        {
-            bool state = rbCreate.Checked;
-
-            txtUsername.Enabled = !state;
-            txtPassword.Enabled = !state;
-            txtIP.Enabled = !state;
-            nudPort.Enabled = !state;
-            cbSavePassword.Enabled = !state;
-            //llForgotPassword.Enabled = !state;
-            llServers.Enabled = !state;
-
-            if (state)
-                btnConnect.Text = "Continue";
-            else
-                btnConnect.Text = "Connect";
-        }
-
-        private void UsingPintoForm_Load(object sender, EventArgs e)
-        {
-            tcSections.Appearance = TabAppearance.FlatButtons;
-            tcSections.ItemSize = new Size(0, 1);
-            tcSections.SizeMode = TabSizeMode.Fixed;
-            LoadLogin();
-        }
-
-        private async void btnRegister_Click(object sender, EventArgs e)
-        {
-            string ip = txtRegisterIP.Text.Trim();
-            int port = (int)nudRegisterPort.Value;
-            string username = txtRegisterUsername.Text.Trim();
-            string password = txtRegisterPassword.Text;
+            string ip = txtIP.Text.Trim();
+            int port = (int)nudPort.Value;
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
@@ -160,16 +103,20 @@ namespace PintoNS.Forms
                 return;
             }
 
-            Close();
-            mainForm.Show();
-            mainForm.loginScreen = null;
+            if (cbSavePassword.Checked)
+                SaveLogin();
 
-            await mainForm.ConnectRegister(ip, port, username, password);
+            pLoggingin.Visible = true;
+            //Hide();
+            //mainForm.Show();
+
+            //await mainForm.Connect(ip, port, username, password);
         }
 
-        private void btnRegisterBack_Click(object sender, EventArgs e)
+        private void UsingPintoForm_Load(object sender, EventArgs e)
         {
-            tcSections.SelectedTab = tpMain;
+            pLoggingin.Visible = false;
+            LoadLogin();
         }
 
         private void cbSavePassword_CheckedChanged(object sender, EventArgs e)

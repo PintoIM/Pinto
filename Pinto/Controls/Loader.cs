@@ -6,9 +6,9 @@ namespace PintoNS.Controls
 {
     public partial class Loader : UserControl
     {
-        public static readonly Bitmap LOADING_SHEET = Logo.LOADING;
-        private const int INDEX_WIDTH = 90;
-        private const int INDEX_HEIGHT = 90;
+        public static readonly Bitmap LOADING_SHEET = Assets._22791;
+        private const int INDEX_WIDTH = 128;
+        private const int INDEX_HEIGHT = 128;
         private int currentIndex;
         private int maxIndex;
 
@@ -22,14 +22,15 @@ namespace PintoNS.Controls
         {
             base.OnPaint(e);
             e.Graphics.DrawImage(LOADING_SHEET, 
-                new Rectangle(
+                new RectangleF(
                     (Width - INDEX_WIDTH) / 2,
                     (Height - INDEX_HEIGHT) / 2,
                     INDEX_WIDTH,
                     INDEX_HEIGHT), 
-                0,
-                currentIndex * INDEX_HEIGHT,
-                INDEX_WIDTH, INDEX_HEIGHT,
+                new RectangleF(0,
+                    currentIndex * INDEX_HEIGHT,
+                    INDEX_WIDTH, 
+                    INDEX_HEIGHT),
                 GraphicsUnit.Pixel);
             e.Graphics.Flush();
         }

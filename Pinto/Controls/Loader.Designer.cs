@@ -36,6 +36,7 @@ namespace PintoNS.Controls
             // tAnimation
             // 
             this.tAnimation.Enabled = true;
+            this.tAnimation.Interval = 50;
             this.tAnimation.Tick += new System.EventHandler(this.tAnimation_Tick);
             // 
             // Loader

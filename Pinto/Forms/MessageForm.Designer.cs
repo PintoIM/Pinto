@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageForm));
             this.btnSend = new System.Windows.Forms.Button();
-            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtInput = new System.Windows.Forms.RichTextBox();
             this.cmsInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiInputCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInputPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,7 @@
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtMessages = new System.Windows.Forms.RichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsInput.SuspendLayout();
@@ -315,7 +315,6 @@
             this.Name = "MessageForm";
             this.Activated += new System.EventHandler(this.MessageForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessageForm_FormClosing);
-            this.Load += new System.EventHandler(this.MessageForm_Load);
             this.cmsInput.ResumeLayout(false);
             this.tsMenuBar.ResumeLayout(false);
             this.tsMenuBar.PerformLayout();
@@ -329,7 +328,7 @@
 
         #endregion
         public System.Windows.Forms.Button btnSend;
-        public PintoNS.Controls.ExRichTextBox rtxtInput;
+        public System.Windows.Forms.RichTextBox rtxtInput;
         public System.Windows.Forms.Button btnTalk;
         public System.Windows.Forms.Button btnBlock;
         public System.Windows.Forms.ImageList ilButtons;
@@ -342,7 +341,7 @@
         public System.Windows.Forms.ColorDialog cdPicker;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
-        public PintoNS.Controls.ExRichTextBox rtxtMessages;
+        public System.Windows.Forms.RichTextBox rtxtMessages;
         public System.Windows.Forms.ContextMenuStrip cmsMessages;
         public System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
         public System.Windows.Forms.ContextMenuStrip cmsInput;

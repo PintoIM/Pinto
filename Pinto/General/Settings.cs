@@ -29,12 +29,7 @@ namespace PintoNS.General
             " you can still manually check for update by going to Help > Check for Updates\n" +
             "It is recommended that you keep this option enabled")]
         public static bool AutoCheckForUpdates = true;
-
-        [OptionsDisplay(DisplayName = "Automatically show the start page", Category = "General",
-            HelpInfo = "When you login, Pinto! automatically shows you the start page," +
-            " if this option is disabled, the contacts page will be shown instead")]
-        public static bool AutoStartPage = true;
-
+        
         [OptionsDisplay(DisplayName = "Do not ask for confirmation when exitting", Category = "General", 
             HelpInfo = "When this option is enabled, Pinto! will not ask you for confirmation when you try to exit")]
         public static bool NoExitPrompt = false;
