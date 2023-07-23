@@ -60,7 +60,6 @@ namespace PintoNS
             // Setup console
             Console = new ConsoleForm();
             Console.Show();
-            Console.Hide();
             Console.WriteMessage("[General] Initialization...");
 
             // Detect what runtime we are being ran under

@@ -29,27 +29,6 @@ namespace PintoNS.General
             " you can still manually check for update by going to Help > Check for Updates\n" +
             "It is recommended that you keep this option enabled")]
         public static bool AutoCheckForUpdates = true;
-        
-        [OptionsDisplay(DisplayName = "Do not ask for confirmation when exitting", Category = "General", 
-            HelpInfo = "When this option is enabled, Pinto! will not ask you for confirmation when you try to exit")]
-        public static bool NoExitPrompt = false;
-
-        [OptionsDisplay(DisplayName = "Do not gracefully exit", Category = "General", 
-            HelpInfo = "When Pinto! exits, it plays a sound and then terminates," +
-            " if this option is enabled, Pinto! will instantly exit")]
-        public static bool NoGracefulExit = false;
-        
-        [OptionsDisplay(DisplayName = "Do not minimize to the system tray when attempting to close", 
-            Category = "General", HelpInfo = "When this is disabled," +
-            " Pinto! minimizes to the system tray when you try to close it," +
-            " and exitting can be performed by going to \"File > Exit\" or from the system tray," +
-            " when this is enabled Pinto! will immediately exit when you try to close it")]
-        public static bool NoMinimizeToSysTray = false;
-        #endregion
-        #region Chat
-        [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy", 
-            HelpInfo = "When this option is enabled, the typing indicator won't be sent to people you are chatting with")]
-        public static bool NoTypingIndicator = false;
         #endregion
         #region Hidden
         [OptionsDisplay(Hidden = true)]

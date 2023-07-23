@@ -8,16 +8,18 @@ namespace PintoNS.Networking
 {
     public class NetworkManager
     {
+        private LoginForm loginForm;
         private MainForm mainForm;
         public NetworkClient NetClient;
         public NetworkHandler NetHandler;
         public bool IsActive;
 
-        public NetworkManager(MainForm mainForm)
+        public NetworkManager(LoginForm loginForm, MainForm mainForm)
         {
+            this.loginForm = loginForm;
             this.mainForm = mainForm;
             NetClient = new NetworkClient();
-            NetHandler = new NetworkHandler(mainForm, NetClient);
+            NetHandler = new NetworkHandler(loginForm, mainForm, NetClient);
             IsActive = true;
 
             NetClient.ReceivedPacket = delegate (IPacket packet)
@@ -43,6 +45,7 @@ namespace PintoNS.Networking
                 NetClient.Disconnect(reason);
             NetClient = null;
             NetHandler = null;
+            loginForm = null;
             mainForm = null;
             IsActive = false;
         }
@@ -94,11 +97,11 @@ namespace PintoNS.Networking
 
             if (!reason.Equals("User requested disconnect")) 
             {
-                mainForm.Invoke(new Action(() =>
+                loginForm.Invoke(new Action(() =>
                 {
-                    mainForm.Disconnect();
+                    loginForm.Disconnect();
                     if (!NetHandler.LoggedIn && wasActive)
-                        MsgBox.Show(mainForm, reason, "Error", MsgBoxIconType.ERROR);
+                        MsgBox.Show(loginForm, reason, "Error", MsgBoxIconType.ERROR);
                 }));
             }
 

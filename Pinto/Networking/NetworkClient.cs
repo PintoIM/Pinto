@@ -58,9 +58,8 @@ namespace PintoNS.Networking
 
         public void Disconnect(string reason) 
         {
+            bool sendEvent = IsConnected && !ignoreDisconnectReason;
             IsConnected = false;
-            
-            bool ignoreDisconnectReasonValue = ignoreDisconnectReason;
             ignoreDisconnectReason = true;
 
             if (tcpStream != null) tcpStream.Dispose();
@@ -74,7 +73,7 @@ namespace PintoNS.Networking
             tcpBinaryReader = null;
             tcpBinaryWriter = null;
 
-            if (IsConnected && !ignoreDisconnectReasonValue) 
+            if (sendEvent) 
                 Disconnected.Invoke(reason);
         }
 

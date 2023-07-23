@@ -295,6 +295,7 @@
             this.pLoggingin.Name = "pLoggingin";
             this.pLoggingin.Size = new System.Drawing.Size(300, 364);
             this.pLoggingin.TabIndex = 12;
+            this.pLoggingin.Visible = false;
             // 
             // label6
             // 
@@ -330,6 +331,7 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pinto!";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.Load += new System.EventHandler(this.UsingPintoForm_Load);
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();

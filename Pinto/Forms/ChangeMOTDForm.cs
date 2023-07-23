@@ -19,8 +19,8 @@ namespace PintoNS.Forms
         {
             string motd = txtMOTD.Text.Trim();
             Close();
-            if (mainForm.NetManager != null)
-                mainForm.NetManager.NetHandler.SendStatusPacket(mainForm.CurrentUser.Status, motd);
+            if (mainForm.LoginFrm.NetManager != null)
+                mainForm.LoginFrm.NetManager.NetHandler.SendStatusPacket(mainForm.LoginFrm.CurrentUser.Status, motd);
         }
 
         private void txtMOTD_KeyDown(object sender, KeyEventArgs e)
@@ -35,7 +35,7 @@ namespace PintoNS.Forms
 
         private void ChangeMOTDForm_Load(object sender, EventArgs e)
         {
-            txtMOTD.Text = mainForm.CurrentUser.MOTD;
+            txtMOTD.Text = mainForm.LoginFrm.CurrentUser.MOTD;
         }
     }
 }
