@@ -6,34 +6,29 @@ namespace PintoNS.Networking
     {
         public byte ProtocolVersion { get; protected set; }
         public string ClientVersion { get; protected set; }
-        public string Name { get; protected set; }
-        public string PasswordHash { get; protected set; }
+        public string Token { get; protected set; }
 
         public PacketLogin() { }
 
-        public PacketLogin(byte protocolVersion, string clientVersion, 
-            string name, string passwordHash)
+        public PacketLogin(byte protocolVersion, string clientVersion, string token)
         {
             ProtocolVersion = protocolVersion;
             ClientVersion = clientVersion;
-            Name = name;
-            PasswordHash = passwordHash;
+            Token = token;
         }
 
         public void Read(BinaryReader reader)
         {
             ProtocolVersion = reader.ReadByte();
             ClientVersion = reader.ReadPintoString(32);
-            Name = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
-            PasswordHash = reader.ReadPintoString(64);
+            Token = reader.ReadPintoString(BinaryWriterReaderExtensions.TOKEN_MAX);
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.Write(ProtocolVersion);
             writer.WritePintoString(ClientVersion, 32);
-            writer.WritePintoString(Name, BinaryWriterReaderExtensions.USERNAME_MAX);
-            writer.WritePintoString(PasswordHash, 64);
+            writer.WritePintoString(Token, BinaryWriterReaderExtensions.TOKEN_MAX);
         }
 
         public virtual void Handle(NetworkHandler netHandler)
@@ -49,8 +44,7 @@ namespace PintoNS.Networking
         public int GetSize()
         {
             return 1 + BinaryWriterReaderExtensions.GetPintoStringSize(ClientVersion) +
-                BinaryWriterReaderExtensions.GetPintoStringSize(Name) +
-                BinaryWriterReaderExtensions.GetPintoStringSize(PasswordHash);
+                BinaryWriterReaderExtensions.GetPintoStringSize(Token);
         }
     }
 }

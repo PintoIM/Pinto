@@ -35,10 +35,6 @@ namespace PintoNS.Networking
         public void HandleLoginPacket(PacketLogin packet) 
         {
             LoggedIn = true;
-            loginForm.Invoke(new Action(() => 
-            {
-                loginForm.OnLogin();
-            }));
         }
 
         public void HandleServerIDPacket(PacketServerID packet)
@@ -193,16 +189,9 @@ namespace PintoNS.Networking
             }));
         }
 
-        public void SendLoginPacket(byte protocolVersion, string clientVersion, 
-            string name, string sessionID) 
+        public void SendLoginPacket(byte protocolVersion, string clientVersion, string token) 
         {
-            networkClient.SendPacket(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
-        }
-
-        public void SendRegisterPacket(byte protocolVersion, string clientVersion, 
-            string name, string sessionID)
-        {
-            networkClient.SendPacket(new PacketRegister(protocolVersion, clientVersion, name, sessionID));
+            networkClient.SendPacket(new PacketLogin(protocolVersion, clientVersion, token));
         }
 
         public void SendMessagePacket(string contactName, string message)

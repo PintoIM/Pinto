@@ -10,7 +10,6 @@ namespace PintoNS.Networking
         static Packets() 
         {
             PacketMap.Add(0, typeof(PacketLogin));
-            PacketMap.Add(1, typeof(PacketRegister));
             PacketMap.Add(2, typeof(PacketLogout));
             PacketMap.Add(3, typeof(PacketMessage));
             PacketMap.Add(4, typeof(PacketPopup));

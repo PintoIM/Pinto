@@ -287,7 +287,6 @@
     <Compile Include="Networking\Packets\PacketRemoveContact.cs" />
     <Compile Include="Networking\Packets\PacketInWindowPopup.cs" />
     <Compile Include="Networking\Packets\PacketAddContact.cs" />
-    <Compile Include="Networking\Packets\PacketRegister.cs" />
     <Compile Include="Networking\Packets\PacketMessage.cs" />
     <Compile Include="Networking\Packets\PacketLogout.cs" />
     <Compile Include="Networking\Packets\PacketLogin.cs" />
@@ -3410,7 +3409,6 @@
     <Content Include="Resources\Assets\LoginButtonEnabled.png" />
     <Content Include="Resources\HTML\PINTO_NEWS_ERROR.html" />
     <Content Include="Resources\Logo\Banner.png" />
-    <Content Include="Resources\Logo\LOADING.png" />
     <Content Include="Resources\Logo\LOGO.ico" />
     <Content Include="Resources\Logo\LOGO.png" />
     <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />

@@ -35,8 +35,7 @@ namespace PintoNS.Networking
 
         public async Task<(bool, Exception)> Connect(string ip, int port)
         {
-            (bool, Exception) connectResult = await NetClient.Connect(ip, port);
-            return connectResult;
+            return await NetClient.Connect(ip, port);
         }
 
         public void Disconnect(string reason)
@@ -50,32 +49,9 @@ namespace PintoNS.Networking
             IsActive = false;
         }
 
-        public void Login(string username, string password) 
+        public void Login(string token) 
         {
-            string passwordHash = BitConverter.ToString(
-                new SHA256Managed()
-                .ComputeHash
-                (Encoding
-                .UTF8
-                .GetBytes(password)))
-                .Replace("-", "")
-                .ToUpper();
-            NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, 
-                Program.VERSION_STRING, username, passwordHash);
-        }
-
-        public void Register(string username, string password)
-        {
-            string passwordHash = BitConverter.ToString(
-                new SHA256Managed()
-                .ComputeHash
-                (Encoding
-                .UTF8
-                .GetBytes(password)))
-                .Replace("-", "")
-                .ToUpper();
-            NetHandler.SendRegisterPacket(Program.PROTOCOL_VERSION,
-                Program.VERSION_STRING, username, passwordHash);
+            NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, Program.VERSION_STRING, token);
         }
 
         public void ChangeStatus(UserStatus status, string motd) 

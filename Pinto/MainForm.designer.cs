@@ -40,6 +40,7 @@ namespace PintoNS
             this.tsmiMenuBarFileChangeStatusAway = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileChangeStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarFileChangeStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuBarFileChangeStatusOffline = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiMenuBarFileLogOff = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -62,6 +63,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatusAway = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayChangeStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayChangeStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTrayChangeStatusOffline = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.scSections = new System.Windows.Forms.SplitContainer();
             this.txtSearchBox = new PintoNS.Controls.ModernTextBoxWithPlaceholderSupport();
@@ -77,6 +79,7 @@ namespace PintoNS
             this.tsmiUserInfoStatusAway = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUserInfoStatusOffline = new System.Windows.Forms.ToolStripMenuItem();
             this.wbPintoNews = new System.Windows.Forms.WebBrowser();
             this.tConnectingTray = new System.Windows.Forms.Timer(this.components);
             this.tsMenuBar.SuspendLayout();
@@ -135,71 +138,80 @@ namespace PintoNS
             this.tsmiMenuBarFileChangeStatusOnline,
             this.tsmiMenuBarFileChangeStatusAway,
             this.tsmiMenuBarFileChangeStatusBusy,
-            this.tsmiMenuBarFileChangeStatusInvisible});
+            this.tsmiMenuBarFileChangeStatusInvisible,
+            this.tsmiMenuBarFileChangeStatusOffline});
             this.tsmiMenuBarFileChangeStatus.Name = "tsmiMenuBarFileChangeStatus";
-            this.tsmiMenuBarFileChangeStatus.Size = new System.Drawing.Size(150, 22);
+            this.tsmiMenuBarFileChangeStatus.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileChangeStatus.Text = "Change Status";
             // 
             // tsmiMenuBarFileChangeStatusOnline
             // 
             this.tsmiMenuBarFileChangeStatusOnline.Image = global::PintoNS.Statuses.ONLINE;
             this.tsmiMenuBarFileChangeStatusOnline.Name = "tsmiMenuBarFileChangeStatusOnline";
-            this.tsmiMenuBarFileChangeStatusOnline.Size = new System.Drawing.Size(117, 22);
+            this.tsmiMenuBarFileChangeStatusOnline.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileChangeStatusOnline.Text = "Online";
-            this.tsmiMenuBarFileChangeStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            this.tsmiMenuBarFileChangeStatusOnline.Click += new System.EventHandler(this.tsmiUserInfoStatusOnline_Click);
             // 
             // tsmiMenuBarFileChangeStatusAway
             // 
             this.tsmiMenuBarFileChangeStatusAway.Image = global::PintoNS.Statuses.AWAY;
             this.tsmiMenuBarFileChangeStatusAway.Name = "tsmiMenuBarFileChangeStatusAway";
-            this.tsmiMenuBarFileChangeStatusAway.Size = new System.Drawing.Size(117, 22);
+            this.tsmiMenuBarFileChangeStatusAway.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileChangeStatusAway.Text = "Away";
-            this.tsmiMenuBarFileChangeStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            this.tsmiMenuBarFileChangeStatusAway.Click += new System.EventHandler(this.tsmiUserInfoStatusAway_Click);
             // 
             // tsmiMenuBarFileChangeStatusBusy
             // 
             this.tsmiMenuBarFileChangeStatusBusy.Image = global::PintoNS.Statuses.BUSY;
             this.tsmiMenuBarFileChangeStatusBusy.Name = "tsmiMenuBarFileChangeStatusBusy";
-            this.tsmiMenuBarFileChangeStatusBusy.Size = new System.Drawing.Size(117, 22);
+            this.tsmiMenuBarFileChangeStatusBusy.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileChangeStatusBusy.Text = "Busy";
-            this.tsmiMenuBarFileChangeStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            this.tsmiMenuBarFileChangeStatusBusy.Click += new System.EventHandler(this.tsmiUserInfoStatusBusy_Click);
             // 
             // tsmiMenuBarFileChangeStatusInvisible
             // 
             this.tsmiMenuBarFileChangeStatusInvisible.Image = global::PintoNS.Statuses.INVISIBLE;
             this.tsmiMenuBarFileChangeStatusInvisible.Name = "tsmiMenuBarFileChangeStatusInvisible";
-            this.tsmiMenuBarFileChangeStatusInvisible.Size = new System.Drawing.Size(117, 22);
+            this.tsmiMenuBarFileChangeStatusInvisible.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileChangeStatusInvisible.Text = "Invisible";
-            this.tsmiMenuBarFileChangeStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
+            this.tsmiMenuBarFileChangeStatusInvisible.Click += new System.EventHandler(this.tsmiUserInfoStatusInvisible_Click);
+            // 
+            // tsmiMenuBarFileChangeStatusOffline
+            // 
+            this.tsmiMenuBarFileChangeStatusOffline.Image = global::PintoNS.Statuses.INVISIBLE;
+            this.tsmiMenuBarFileChangeStatusOffline.Name = "tsmiMenuBarFileChangeStatusOffline";
+            this.tsmiMenuBarFileChangeStatusOffline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarFileChangeStatusOffline.Text = "Offline";
+            this.tsmiMenuBarFileChangeStatusOffline.Click += new System.EventHandler(this.tsmiUserInfoStatusOffline_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiMenuBarFileLogOff
             // 
             this.tsmiMenuBarFileLogOff.Name = "tsmiMenuBarFileLogOff";
-            this.tsmiMenuBarFileLogOff.Size = new System.Drawing.Size(150, 22);
+            this.tsmiMenuBarFileLogOff.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileLogOff.Text = "Log Off";
             this.tsmiMenuBarFileLogOff.Click += new System.EventHandler(this.tsmiMenuBarFileLogOut_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiMenuBarFileOptions
             // 
             this.tsmiMenuBarFileOptions.Name = "tsmiMenuBarFileOptions";
-            this.tsmiMenuBarFileOptions.Size = new System.Drawing.Size(150, 22);
+            this.tsmiMenuBarFileOptions.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileOptions.Text = "Options...";
             this.tsmiMenuBarFileOptions.Click += new System.EventHandler(this.tsmiMenuBarFileOptions_Click);
             // 
             // tsmiMenuBarFileExit
             // 
             this.tsmiMenuBarFileExit.Name = "tsmiMenuBarFileExit";
-            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(150, 22);
+            this.tsmiMenuBarFileExit.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarFileExit.Text = "Exit";
             this.tsmiMenuBarFileExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
             // 
@@ -296,7 +308,7 @@ namespace PintoNS
             this.cmsTray.Name = "cmsTray";
             this.cmsTray.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cmsTray.ShowImageMargin = false;
-            this.cmsTray.Size = new System.Drawing.Size(126, 48);
+            this.cmsTray.Size = new System.Drawing.Size(156, 70);
             // 
             // tsmiTrayChangeStatus
             // 
@@ -304,9 +316,10 @@ namespace PintoNS
             this.tsmiTrayChangeStatusOnline,
             this.tsmiTrayChangeStatusAway,
             this.tsmiTrayChangeStatusBusy,
-            this.tsmiTrayChangeStatusInvisible});
+            this.tsmiTrayChangeStatusInvisible,
+            this.tsmiTrayChangeStatusOffline});
             this.tsmiTrayChangeStatus.Name = "tsmiTrayChangeStatus";
-            this.tsmiTrayChangeStatus.Size = new System.Drawing.Size(125, 22);
+            this.tsmiTrayChangeStatus.Size = new System.Drawing.Size(155, 22);
             this.tsmiTrayChangeStatus.Text = "Change Status";
             // 
             // tsmiTrayChangeStatusOnline
@@ -315,7 +328,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatusOnline.Name = "tsmiTrayChangeStatusOnline";
             this.tsmiTrayChangeStatusOnline.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusOnline.Text = "Online";
-            this.tsmiTrayChangeStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            this.tsmiTrayChangeStatusOnline.Click += new System.EventHandler(this.tsmiUserInfoStatusOnline_Click);
             // 
             // tsmiTrayChangeStatusAway
             // 
@@ -323,7 +336,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatusAway.Name = "tsmiTrayChangeStatusAway";
             this.tsmiTrayChangeStatusAway.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusAway.Text = "Away";
-            this.tsmiTrayChangeStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            this.tsmiTrayChangeStatusAway.Click += new System.EventHandler(this.tsmiUserInfoStatusAway_Click);
             // 
             // tsmiTrayChangeStatusBusy
             // 
@@ -331,7 +344,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatusBusy.Name = "tsmiTrayChangeStatusBusy";
             this.tsmiTrayChangeStatusBusy.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusBusy.Text = "Busy";
-            this.tsmiTrayChangeStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            this.tsmiTrayChangeStatusBusy.Click += new System.EventHandler(this.tsmiUserInfoStatusBusy_Click);
             // 
             // tsmiTrayChangeStatusInvisible
             // 
@@ -339,7 +352,15 @@ namespace PintoNS
             this.tsmiTrayChangeStatusInvisible.Name = "tsmiTrayChangeStatusInvisible";
             this.tsmiTrayChangeStatusInvisible.Size = new System.Drawing.Size(117, 22);
             this.tsmiTrayChangeStatusInvisible.Text = "Invisible";
-            this.tsmiTrayChangeStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
+            this.tsmiTrayChangeStatusInvisible.Click += new System.EventHandler(this.tsmiUserInfoStatusInvisible_Click);
+            // 
+            // tsmiTrayChangeStatusOffline
+            // 
+            this.tsmiTrayChangeStatusOffline.Image = global::PintoNS.Statuses.INVISIBLE;
+            this.tsmiTrayChangeStatusOffline.Name = "tsmiTrayChangeStatusOffline";
+            this.tsmiTrayChangeStatusOffline.Size = new System.Drawing.Size(180, 22);
+            this.tsmiTrayChangeStatusOffline.Text = "Offline";
+            this.tsmiTrayChangeStatusOffline.Click += new System.EventHandler(this.tsmiUserInfoStatusOffline_Click);
             // 
             // tsmiTrayExit
             // 
@@ -443,7 +464,7 @@ namespace PintoNS
             this.lContactsNoContacts.AutoSize = true;
             this.lContactsNoContacts.Location = new System.Drawing.Point(60, 20);
             this.lContactsNoContacts.Name = "lContactsNoContacts";
-            this.lContactsNoContacts.Size = new System.Drawing.Size(111, 13);
+            this.lContactsNoContacts.Size = new System.Drawing.Size(112, 13);
             this.lContactsNoContacts.TabIndex = 1;
             this.lContactsNoContacts.Text = "You have no contacts";
             this.lContactsNoContacts.Visible = false;
@@ -517,10 +538,11 @@ namespace PintoNS
             this.tsmiUserInfoStatusOnline,
             this.tsmiUserInfoStatusAway,
             this.tsmiUserInfoStatusBusy,
-            this.tsmiUserInfoStatusInvisible});
+            this.tsmiUserInfoStatusInvisible,
+            this.tsmiUserInfoStatusOffline});
             this.cmsUserInfoStatus.Name = "cmsUserInfoStatus";
             this.cmsUserInfoStatus.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.cmsUserInfoStatus.Size = new System.Drawing.Size(118, 92);
+            this.cmsUserInfoStatus.Size = new System.Drawing.Size(118, 114);
             // 
             // tsmiUserInfoStatusOnline
             // 
@@ -528,7 +550,7 @@ namespace PintoNS
             this.tsmiUserInfoStatusOnline.Name = "tsmiUserInfoStatusOnline";
             this.tsmiUserInfoStatusOnline.Size = new System.Drawing.Size(117, 22);
             this.tsmiUserInfoStatusOnline.Text = "Online";
-            this.tsmiUserInfoStatusOnline.Click += new System.EventHandler(this.tsmiStatusBarStatusOnline_Click);
+            this.tsmiUserInfoStatusOnline.Click += new System.EventHandler(this.tsmiUserInfoStatusOnline_Click);
             // 
             // tsmiUserInfoStatusAway
             // 
@@ -536,7 +558,7 @@ namespace PintoNS
             this.tsmiUserInfoStatusAway.Name = "tsmiUserInfoStatusAway";
             this.tsmiUserInfoStatusAway.Size = new System.Drawing.Size(117, 22);
             this.tsmiUserInfoStatusAway.Text = "Away";
-            this.tsmiUserInfoStatusAway.Click += new System.EventHandler(this.tsmiStatusBarStatusAway_Click);
+            this.tsmiUserInfoStatusAway.Click += new System.EventHandler(this.tsmiUserInfoStatusAway_Click);
             // 
             // tsmiUserInfoStatusBusy
             // 
@@ -544,7 +566,7 @@ namespace PintoNS
             this.tsmiUserInfoStatusBusy.Name = "tsmiUserInfoStatusBusy";
             this.tsmiUserInfoStatusBusy.Size = new System.Drawing.Size(117, 22);
             this.tsmiUserInfoStatusBusy.Text = "Busy";
-            this.tsmiUserInfoStatusBusy.Click += new System.EventHandler(this.tsmiStatusBarStatusBusy_Click);
+            this.tsmiUserInfoStatusBusy.Click += new System.EventHandler(this.tsmiUserInfoStatusBusy_Click);
             // 
             // tsmiUserInfoStatusInvisible
             // 
@@ -552,7 +574,15 @@ namespace PintoNS
             this.tsmiUserInfoStatusInvisible.Name = "tsmiUserInfoStatusInvisible";
             this.tsmiUserInfoStatusInvisible.Size = new System.Drawing.Size(117, 22);
             this.tsmiUserInfoStatusInvisible.Text = "Invisible";
-            this.tsmiUserInfoStatusInvisible.Click += new System.EventHandler(this.tsmiStatusBarStatusInvisible_Click);
+            this.tsmiUserInfoStatusInvisible.Click += new System.EventHandler(this.tsmiUserInfoStatusInvisible_Click);
+            // 
+            // tsmiUserInfoStatusOffline
+            // 
+            this.tsmiUserInfoStatusOffline.Image = global::PintoNS.Statuses.OFFLINE;
+            this.tsmiUserInfoStatusOffline.Name = "tsmiUserInfoStatusOffline";
+            this.tsmiUserInfoStatusOffline.Size = new System.Drawing.Size(117, 22);
+            this.tsmiUserInfoStatusOffline.Text = "Offline";
+            this.tsmiUserInfoStatusOffline.Click += new System.EventHandler(this.tsmiUserInfoStatusOffline_Click);
             // 
             // wbPintoNews
             // 
@@ -650,5 +680,8 @@ namespace PintoNS
         public System.Windows.Forms.Label lContactsNoContacts;
         private System.Windows.Forms.Timer tConnectingTray;
         private System.Windows.Forms.WebBrowser wbPintoNews;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUserInfoStatusOffline;
+        public System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusOffline;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileChangeStatusOffline;
     }
 }

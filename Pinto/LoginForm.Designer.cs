@@ -34,6 +34,9 @@
             this.tsddbMenuTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.pLoginContainer = new System.Windows.Forms.Panel();
+            this.pError = new System.Windows.Forms.Panel();
+            this.lErrorText = new System.Windows.Forms.Label();
+            this.pbErrorIcon = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.pOptions = new System.Windows.Forms.Panel();
             this.cbSavePassword = new System.Windows.Forms.CheckBox();
@@ -53,6 +56,8 @@
             this.loader1 = new PintoNS.Controls.Loader();
             this.tsMenu.SuspendLayout();
             this.pLoginContainer.SuspendLayout();
+            this.pError.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
             this.pOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoggingin.SuspendLayout();
@@ -108,6 +113,7 @@
             // 
             this.pLoginContainer.BackColor = System.Drawing.Color.Transparent;
             this.pLoginContainer.BackgroundImage = global::PintoNS.Assets._22066;
+            this.pLoginContainer.Controls.Add(this.pError);
             this.pLoginContainer.Controls.Add(this.label5);
             this.pLoginContainer.Controls.Add(this.pOptions);
             this.pLoginContainer.Controls.Add(this.nudPort);
@@ -126,6 +132,35 @@
             this.pLoginContainer.Name = "pLoginContainer";
             this.pLoginContainer.Size = new System.Drawing.Size(509, 364);
             this.pLoginContainer.TabIndex = 12;
+            // 
+            // pError
+            // 
+            this.pError.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(153)))));
+            this.pError.Controls.Add(this.lErrorText);
+            this.pError.Controls.Add(this.pbErrorIcon);
+            this.pError.Location = new System.Drawing.Point(134, 79);
+            this.pError.Name = "pError";
+            this.pError.Size = new System.Drawing.Size(240, 30);
+            this.pError.TabIndex = 12;
+            this.pError.Visible = false;
+            // 
+            // lErrorText
+            // 
+            this.lErrorText.Location = new System.Drawing.Point(25, 3);
+            this.lErrorText.Name = "lErrorText";
+            this.lErrorText.Size = new System.Drawing.Size(212, 27);
+            this.lErrorText.TabIndex = 1;
+            this.lErrorText.Text = "Error";
+            // 
+            // pbErrorIcon
+            // 
+            this.pbErrorIcon.Image = global::PintoNS.Assets._21617;
+            this.pbErrorIcon.Location = new System.Drawing.Point(3, 3);
+            this.pbErrorIcon.Name = "pbErrorIcon";
+            this.pbErrorIcon.Size = new System.Drawing.Size(16, 16);
+            this.pbErrorIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbErrorIcon.TabIndex = 0;
+            this.pbErrorIcon.TabStop = false;
             // 
             // label5
             // 
@@ -196,6 +231,7 @@
             // 
             this.txtUsername.FormattingEnabled = true;
             this.txtUsername.Location = new System.Drawing.Point(134, 131);
+            this.txtUsername.MaxLength = 16;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(240, 21);
             this.txtUsername.TabIndex = 2;
@@ -332,11 +368,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pinto!";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
-            this.Load += new System.EventHandler(this.UsingPintoForm_Load);
+            this.Load += new System.EventHandler(this.LoginForm_Load);
+            this.Shown += new System.EventHandler(this.LoginForm_Shown);
             this.tsMenu.ResumeLayout(false);
             this.tsMenu.PerformLayout();
             this.pLoginContainer.ResumeLayout(false);
             this.pLoginContainer.PerformLayout();
+            this.pError.ResumeLayout(false);
+            this.pError.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).EndInit();
             this.pOptions.ResumeLayout(false);
             this.pOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
@@ -368,5 +408,8 @@
         private System.Windows.Forms.Panel pLoggingin;
         private Controls.Loader loader1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel pError;
+        private System.Windows.Forms.PictureBox pbErrorIcon;
+        private System.Windows.Forms.Label lErrorText;
     }
 }

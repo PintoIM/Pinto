@@ -21,7 +21,6 @@ namespace PintoNS
 {
     public partial class MainForm : Form
     {
-        private bool isPortable;
         public LoginForm LoginFrm { get; private set; }
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
@@ -29,11 +28,12 @@ namespace PintoNS
         private int connectingStatusTrayFrame = 0;
         private Icon[] connectingStatusTrayFrames = new Icon[] { Statuses.CONNECTING_0, Statuses.CONNECTING_2, 
             Statuses.CONNECTING_4, Statuses.CONNECTING_6, Statuses.CONNECTING_8 };
+        public bool AllowClosing;
 
         public MainForm(LoginForm loginForm)
         {
             InitializeComponent();
-            this.LoginFrm = loginForm;
+            LoginFrm = loginForm;
             Icon = Program.GetFormIcon();
             InWindowPopupController = new InWindowPopupController(this, scSections.Panel1.Width, Height - 21 * 3);
             PopupController = new PopupController();
@@ -94,13 +94,7 @@ namespace PintoNS
 
             LoginFrm.CurrentUser.Status = status;
             LoginFrm.CurrentUser.MOTD = motd;
-
-            if (status == UserStatus.OFFLINE)
-            {
-                LoginFrm.CurrentUser.Name = null;
-                LoginFrm.CurrentUser.MOTD = null;
-            }
-
+            
             SyncTray();
             Program.CallExtensionsEvent("OnLogin");
         }
@@ -157,20 +151,37 @@ namespace PintoNS
             tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE;
         }
 
-        private async void MainForm_Shown(object sender, EventArgs e)
+        public async Task ChangeStatus(UserStatus status) 
+        {
+            Program.Console.WriteMessage($"[General] Changing status to {status}...");
+
+            if (LoginFrm.NetManager != null && status == UserStatus.OFFLINE) 
+                LoginFrm.Disconnect();
+            else if (LoginFrm.NetManager == null && status != UserStatus.OFFLINE) 
+            {
+                SwitchToConnectingStatus();
+                await LoginFrm.Connect(LoginFrm.AuthIP, LoginFrm.AuthPort, LoginFrm.AuthToken);
+                if (LoginFrm.NetManager != null) LoginFrm.NetManager.ChangeStatus(status, LoginFrm.CurrentUser.MOTD);
+            }
+            else if (status != UserStatus.OFFLINE)
+                LoginFrm.NetManager.ChangeStatus(status, LoginFrm.CurrentUser.MOTD);
+
+            if (status == UserStatus.OFFLINE) OnStatusChange(UserStatus.OFFLINE, "");
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
         {
             tcTabs.DisplayStyleProvider = new ModernTabControlStyleProvider(tcTabs);
-
-            if (File.Exists(".IS_PORTABLE_CHECK"))
-                isPortable = true;
-            if (Settings.AutoCheckForUpdates && !isPortable)
-                await CheckForUpdates(false);
-            
-            Program.CallExtensionsEvent("OnFormLoad");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!AllowClosing)
+            {
+                e.Cancel = true;
+                WindowState = FormWindowState.Minimized;
+                return;
+            }
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -186,54 +197,24 @@ namespace PintoNS
             }
         }
         
-        private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
-        {
-            if (LoginFrm.NetManager == null) return;
-            LoginFrm.Disconnect();
-        }
+        private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e) => LoginFrm.Disconnect(true);
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
 
-        private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
-        {
-            if (LoginFrm.NetManager == null) return;
-            Program.Console.WriteMessage("[General] Changing status...");
-            SwitchToConnectingStatus();
-            LoginFrm.NetManager.ChangeStatus(UserStatus.ONLINE, LoginFrm.CurrentUser.MOTD);
-        }
+        private async void tsmiUserInfoStatusOnline_Click(object sender, EventArgs e) 
+            => await ChangeStatus(UserStatus.ONLINE);
 
-        private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
-        {
-            if (LoginFrm.NetManager == null) return;
-            Program.Console.WriteMessage("[General] Changing status...");
-            SwitchToConnectingStatus();
-            LoginFrm.NetManager.ChangeStatus(UserStatus.AWAY, LoginFrm.CurrentUser.MOTD);
-        }
+        private async void tsmiUserInfoStatusAway_Click(object sender, EventArgs e) 
+            => await ChangeStatus(UserStatus.AWAY);
 
-        private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
-        {
-            if (LoginFrm.NetManager == null) return;
-            Program.Console.WriteMessage("[General] Changing status...");
-            SwitchToConnectingStatus();
-            LoginFrm.NetManager.ChangeStatus(UserStatus.BUSY, LoginFrm.CurrentUser.MOTD);
-        }
+        private async void tsmiUserInfoStatusBusy_Click(object sender, EventArgs e) 
+            => await ChangeStatus(UserStatus.BUSY);
+        
+        private async void tsmiUserInfoStatusInvisible_Click(object sender, EventArgs e) 
+            => await ChangeStatus(UserStatus.INVISIBLE);
 
-        private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
-        {
-            if (LoginFrm.NetManager == null) return;
-            Program.Console.WriteMessage("[General] Changing status...");
-            MsgBox.Show(this, "If you choose to change your status to invisible," +
-                " your contacts will not be able to send you messages. Are you sure you want to continue?", 
-                "Status change confirmation",
-                MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
-            {
-                if (button == MsgBoxButtonType.YES) 
-                {
-                    SwitchToConnectingStatus();
-                    LoginFrm.NetManager.ChangeStatus(UserStatus.INVISIBLE, LoginFrm.CurrentUser.MOTD);
-                }
-            });
-        }
+        private async void tsmiUserInfoStatusOffline_Click(object sender, EventArgs e)
+            => await ChangeStatus(UserStatus.OFFLINE);
 
         private void tsmiMenuBarToolsAddContact_Click(object sender, EventArgs e)
         {
@@ -256,17 +237,6 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
-            /*
-            if (dgvContacts.SelectedRows.Count > 0)
-            {
-                btnStartCall.Enabled = true;
-                btnStartCall.Image = Assets.STARTCALL_ENABLED;
-            }
-            else
-            {
-                btnStartCall.Enabled = false;
-                btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }*/
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
@@ -279,9 +249,10 @@ namespace PintoNS
 
         private void niTray_DoubleClick(object sender, EventArgs e)
         {
-            Show();
-            WindowState = FormWindowState.Normal;
-            BringToFront();
+            Form form = LoginFrm.Visible ? (Form)LoginFrm : (Form)this;
+            form.Show();
+            form.WindowState = FormWindowState.Normal;
+            form.BringToFront();
         }
 
         private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
@@ -296,60 +267,12 @@ namespace PintoNS
                 " You will no longer receive messages or calls if you do so.", "Quit Pinto?",
                 MsgBoxIconType.QUESTION, false, true, (MsgBoxButtonType answer) =>
                 {
-                    if (answer == MsgBoxButtonType.YES) Shutdown();
+                    if (answer == MsgBoxButtonType.YES) LoginFrm.Shutdown();
                 });
         }
 
-        public void Shutdown() 
-        {
-            LoginFrm.Close();
-        }
-
-        public async Task CheckForUpdates(bool showLatestMessage) 
-        {
-            if (isPortable) 
-            {
-                MsgBox.Show(this, "Checking for updates is not available on the portable version!",
-                    "Updates Unavailable", MsgBoxIconType.WARNING, true);
-                return;
-            }
-
-            if (!await Updater.IsLatest())
-                MsgBox.Show(this,
-                    "An update is available, do you want to download it and install it?",
-                    "Update Available",
-                    MsgBoxIconType.QUESTION,
-                    true, true, async (MsgBoxButtonType btn) =>
-                    {
-                        if (btn == MsgBoxButtonType.YES)
-                        {
-                            string path = Path.Combine(Program.DataFolder, "PintoSetup.exe");
-                            if (File.Exists(path))
-                                File.Delete(path);
-
-                            byte[] file = await Updater.GetUpdateFile();
-                            if (file == null) return;
-                            File.WriteAllBytes(path, file);
-                            Program.Console.WriteMessage($"[Updater] Saved update file at {path}");
-
-                            Program.Console.WriteMessage($"[Updater] Running installer at {path}...");
-                            Process process = new Process();
-                            process.StartInfo.FileName = "PintoSetup.exe";
-                            process.StartInfo.Arguments = " upgrade";
-                            process.StartInfo.WorkingDirectory = Program.DataFolder;
-                            process.Start();
-
-                            Program.Console.WriteMessage($"[Updater] Exitting...");
-                            Shutdown();
-                        }
-                    });
-            else if (showLatestMessage)
-                MsgBox.Show(this, "You are already on the latest version of Pinto!",
-                    "Latest version", MsgBoxIconType.INFORMATION, true);
-        }
-
         private async void tsmiMenuBarHelpCheckForUpdates_Click(object sender, EventArgs e)
-            => await CheckForUpdates(true);
+            => await LoginFrm.CheckForUpdates(true);
 
         private void txtSearchBox_TextChanged2(object sender, EventArgs e)
         {

@@ -7,6 +7,7 @@ namespace PintoNS.Networking
 {
     public static class BinaryWriterReaderExtensions
     {
+        public const int TOKEN_MAX = int.MaxValue;
         public const int USERNAME_MAX = 16;
 
         public static void WriteBE(this BinaryWriter writer, short value)
