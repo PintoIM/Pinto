@@ -125,7 +125,9 @@ namespace PintoNS
             // TODO: Add clean-up procedure for messaging
 
             ContactsMgr = null;
-            dgvContacts.DataSource = null;
+            // Yes, we keep the old data source just in case something tries to access it
+            // at the wrong time, this is not what we should do, too bad
+            //dgvContacts.DataSource = null;
 
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
