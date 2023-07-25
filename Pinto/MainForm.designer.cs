@@ -66,6 +66,7 @@ namespace PintoNS
             this.tsmiTrayChangeStatusOffline = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.scSections = new System.Windows.Forms.SplitContainer();
+            this.separator2 = new PintoNS.Controls.Separator();
             this.txtSearchBox = new PintoNS.Controls.ModernTextBoxWithPlaceholderSupport();
             this.tcLeftSections = new PintoNS.JacksonTabControl.CustomTabControl();
             this.tpLeftSectionsContacts = new System.Windows.Forms.TabPage();
@@ -80,8 +81,10 @@ namespace PintoNS
             this.tsmiUserInfoStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUserInfoStatusOffline = new System.Windows.Forms.ToolStripMenuItem();
-            this.tcRightSections = new System.Windows.Forms.TabControl();
-            this.tpRightSectionsHome = new System.Windows.Forms.TabPage();
+            this.tcRightSections = new PintoNS.JacksonTabControl.CustomTabControl();
+            this.tpRightSectionsNews = new System.Windows.Forms.TabPage();
+            this.separator1 = new PintoNS.Controls.Separator();
+            this.label1 = new System.Windows.Forms.Label();
             this.wbPintoNews = new System.Windows.Forms.WebBrowser();
             this.tpRightSectionsMessaging = new System.Windows.Forms.TabPage();
             this.tConnectingTray = new System.Windows.Forms.Timer(this.components);
@@ -97,7 +100,7 @@ namespace PintoNS
             this.pUserInfo.SuspendLayout();
             this.cmsUserInfoStatus.SuspendLayout();
             this.tcRightSections.SuspendLayout();
-            this.tpRightSectionsHome.SuspendLayout();
+            this.tpRightSectionsNews.SuspendLayout();
             this.SuspendLayout();
             // 
             // ilTabImages
@@ -384,6 +387,7 @@ namespace PintoNS
             // scSections.Panel1
             // 
             this.scSections.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.scSections.Panel1.Controls.Add(this.separator2);
             this.scSections.Panel1.Controls.Add(this.txtSearchBox);
             this.scSections.Panel1.Controls.Add(this.tcLeftSections);
             this.scSections.Panel1.Controls.Add(this.pUserInfo);
@@ -399,6 +403,15 @@ namespace PintoNS
             this.scSections.SplitterWidth = 2;
             this.scSections.TabIndex = 9;
             this.scSections.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.scSections_SplitterMoved);
+            // 
+            // separator2
+            // 
+            this.separator2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator2.Location = new System.Drawing.Point(8, 28);
+            this.separator2.Name = "separator2";
+            this.separator2.Size = new System.Drawing.Size(238, 2);
+            this.separator2.TabIndex = 2;
             // 
             // txtSearchBox
             // 
@@ -591,43 +604,86 @@ namespace PintoNS
             // 
             // tcRightSections
             // 
-            this.tcRightSections.Controls.Add(this.tpRightSectionsHome);
+            this.tcRightSections.Controls.Add(this.tpRightSectionsNews);
             this.tcRightSections.Controls.Add(this.tpRightSectionsMessaging);
+            // 
+            // 
+            // 
+            this.tcRightSections.DisplayStyleProvider.BorderColor = System.Drawing.SystemColors.Window;
+            this.tcRightSections.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.Window;
+            this.tcRightSections.DisplayStyleProvider.BorderColorSelected = System.Drawing.SystemColors.Window;
+            this.tcRightSections.DisplayStyleProvider.CloserColor = System.Drawing.Color.Empty;
+            this.tcRightSections.DisplayStyleProvider.FocusTrack = true;
+            this.tcRightSections.DisplayStyleProvider.HotTrack = true;
+            this.tcRightSections.DisplayStyleProvider.IgnoreImageOnTextDraw = false;
+            this.tcRightSections.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tcRightSections.DisplayStyleProvider.Opacity = 1F;
+            this.tcRightSections.DisplayStyleProvider.Overlap = 0;
+            this.tcRightSections.DisplayStyleProvider.Padding = new System.Drawing.Point(0, 0);
+            this.tcRightSections.DisplayStyleProvider.ShowTabCloser = false;
+            this.tcRightSections.DisplayStyleProvider.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tcRightSections.DisplayStyleProvider.TextColor = System.Drawing.SystemColors.ControlText;
+            this.tcRightSections.DisplayStyleProvider.TextColorDisabled = System.Drawing.SystemColors.ControlDark;
+            this.tcRightSections.DisplayStyleProvider.TextColorSelected = System.Drawing.SystemColors.ControlText;
             this.tcRightSections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcRightSections.HotTrack = true;
             this.tcRightSections.Location = new System.Drawing.Point(0, 0);
             this.tcRightSections.Name = "tcRightSections";
             this.tcRightSections.SelectedIndex = 0;
             this.tcRightSections.Size = new System.Drawing.Size(647, 554);
             this.tcRightSections.TabIndex = 0;
             // 
-            // tpRightSectionsHome
+            // tpRightSectionsNews
             // 
-            this.tpRightSectionsHome.Controls.Add(this.wbPintoNews);
-            this.tpRightSectionsHome.Location = new System.Drawing.Point(4, 22);
-            this.tpRightSectionsHome.Name = "tpRightSectionsHome";
-            this.tpRightSectionsHome.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRightSectionsHome.Size = new System.Drawing.Size(639, 528);
-            this.tpRightSectionsHome.TabIndex = 0;
-            this.tpRightSectionsHome.Text = "Home";
-            this.tpRightSectionsHome.UseVisualStyleBackColor = true;
+            this.tpRightSectionsNews.BackColor = System.Drawing.SystemColors.Window;
+            this.tpRightSectionsNews.Controls.Add(this.separator1);
+            this.tpRightSectionsNews.Controls.Add(this.label1);
+            this.tpRightSectionsNews.Controls.Add(this.wbPintoNews);
+            this.tpRightSectionsNews.Location = new System.Drawing.Point(4, 23);
+            this.tpRightSectionsNews.Name = "tpRightSectionsNews";
+            this.tpRightSectionsNews.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRightSectionsNews.Size = new System.Drawing.Size(639, 527);
+            this.tpRightSectionsNews.TabIndex = 0;
+            this.tpRightSectionsNews.Text = "News";
+            // 
+            // separator1
+            // 
+            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separator1.Location = new System.Drawing.Point(6, 28);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(627, 2);
+            this.separator1.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 19);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Pinto! News";
             // 
             // wbPintoNews
             // 
-            this.wbPintoNews.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wbPintoNews.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.wbPintoNews.IsWebBrowserContextMenuEnabled = false;
-            this.wbPintoNews.Location = new System.Drawing.Point(3, 3);
+            this.wbPintoNews.Location = new System.Drawing.Point(3, 36);
             this.wbPintoNews.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbPintoNews.Name = "wbPintoNews";
-            this.wbPintoNews.Size = new System.Drawing.Size(633, 522);
+            this.wbPintoNews.Size = new System.Drawing.Size(630, 491);
             this.wbPintoNews.TabIndex = 0;
             this.wbPintoNews.Url = new System.Uri("about:blank", System.UriKind.Absolute);
             // 
             // tpRightSectionsMessaging
             // 
-            this.tpRightSectionsMessaging.Location = new System.Drawing.Point(4, 22);
+            this.tpRightSectionsMessaging.Location = new System.Drawing.Point(4, 23);
             this.tpRightSectionsMessaging.Name = "tpRightSectionsMessaging";
             this.tpRightSectionsMessaging.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRightSectionsMessaging.Size = new System.Drawing.Size(639, 528);
+            this.tpRightSectionsMessaging.Size = new System.Drawing.Size(639, 527);
             this.tpRightSectionsMessaging.TabIndex = 1;
             this.tpRightSectionsMessaging.Text = "Messaging";
             this.tpRightSectionsMessaging.UseVisualStyleBackColor = true;
@@ -665,7 +721,8 @@ namespace PintoNS
             this.pUserInfo.PerformLayout();
             this.cmsUserInfoStatus.ResumeLayout(false);
             this.tcRightSections.ResumeLayout(false);
-            this.tpRightSectionsHome.ResumeLayout(false);
+            this.tpRightSectionsNews.ResumeLayout(false);
+            this.tpRightSectionsNews.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -721,9 +778,12 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiUserInfoStatusOffline;
         public System.Windows.Forms.ToolStripMenuItem tsmiTrayChangeStatusOffline;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileChangeStatusOffline;
-        private System.Windows.Forms.TabControl tcRightSections;
-        private System.Windows.Forms.TabPage tpRightSectionsHome;
+        private PintoNS.JacksonTabControl.CustomTabControl tcRightSections;
+        private System.Windows.Forms.TabPage tpRightSectionsNews;
         private System.Windows.Forms.WebBrowser wbPintoNews;
         private System.Windows.Forms.TabPage tpRightSectionsMessaging;
+        private System.Windows.Forms.Label label1;
+        private Separator separator1;
+        private Separator separator2;
     }
 }

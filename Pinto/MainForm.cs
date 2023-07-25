@@ -2,6 +2,7 @@
 using PintoNS.Controls;
 using PintoNS.Forms;
 using PintoNS.General;
+using PintoNS.JacksonTabControl;
 using PintoNS.Networking;
 using System;
 using System.Collections.Generic;
@@ -211,6 +212,7 @@ namespace PintoNS
         private void MainForm_Shown(object sender, EventArgs e)
         {
             tcLeftSections.DisplayStyleProvider = new ModernTabControlStyleProvider(tcLeftSections);
+            tcRightSections.DisplayStyle = TabStyle.None;
             tcRightSections.Appearance = TabAppearance.FlatButtons;
             tcRightSections.ItemSize = new Size(0, 1);
             tcRightSections.SizeMode = TabSizeMode.Fixed;
