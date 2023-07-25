@@ -677,6 +677,7 @@ namespace PintoNS
             this.wbPintoNews.Size = new System.Drawing.Size(630, 491);
             this.wbPintoNews.TabIndex = 0;
             this.wbPintoNews.Url = new System.Uri("about:blank", System.UriKind.Absolute);
+            this.wbPintoNews.WebBrowserShortcutsEnabled = false;
             // 
             // tpRightSectionsMessaging
             // 

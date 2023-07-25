@@ -864,26 +864,39 @@ namespace PintoNS.JacksonTabControl
 
 		private void DrawTabText(int index, Graphics graphics)
 		{
-			graphics.SmoothingMode = SmoothingMode.HighQuality;
-			graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-			Rectangle tabBounds = this.GetTabTextRect(index, 
-				TextRenderer.MeasureText(this.TabPages[index].Text, this.Font).Width);
-			
-			if (this.SelectedIndex == index) {
-				using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColorSelected)){
-					graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
-				}
-			} else {
-				if (this.TabPages[index].Enabled) {
-					using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColor)){
+			try 
+			{
+				graphics.SmoothingMode = SmoothingMode.HighQuality;
+				graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+				Rectangle tabBounds = this.GetTabTextRect(index,
+					TextRenderer.MeasureText(this.TabPages[index].Text, this.Font).Width);
+
+				if (this.SelectedIndex == index)
+				{
+					using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColorSelected))
+					{
 						graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
 					}
-				} else {
-					using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColorDisabled)){
-						graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
+				}
+				else
+				{
+					if (this.TabPages[index].Enabled)
+					{
+						using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColor))
+						{
+							graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
+						}
+					}
+					else
+					{
+						using (Brush textBrush = new SolidBrush(this._StyleProvider.TextColorDisabled))
+						{
+							graphics.DrawString(this.TabPages[index].Text, this.Font, textBrush, tabBounds, this.GetStringFormat());
+						}
 					}
 				}
 			}
+			catch { }
 		}
 
 		private void DrawTabImage(int index, Graphics graphics){

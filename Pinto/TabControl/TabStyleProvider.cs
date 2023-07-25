@@ -111,6 +111,7 @@ namespace PintoNS.JacksonTabControl
 		protected Color _CloserColorActive = Color.Black;
 		protected Color _CloserColor = Color.DarkGray;
 		protected Color _FocusColor = Color.Empty;
+		protected Font _Font = SystemFonts.DefaultFont;
 		protected Color _TextColor = Color.Empty;
 		protected Color _TextColorSelected = Color.Empty;
 		protected Color _TextColorDisabled = Color.Empty;
@@ -477,7 +478,13 @@ namespace PintoNS.JacksonTabControl
 				this._TabControl.Invalidate();
 			}
 		}
-		
+
+		[Category("Appearance"), DefaultValue(typeof(Font), "")]
+		public Font Font
+		{
+			get => _Font; set => _Font = value;
+		}
+
 		[Category("Appearance"), DefaultValue(typeof(Color), "")]
 		public Color TextColorSelected
 		{
