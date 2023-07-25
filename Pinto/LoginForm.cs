@@ -48,10 +48,8 @@ namespace PintoNS
             {
                 case "ccp":
                     return "The CCP will find your home address 你是迪克小 -9999999999 social credits";
-                case "invalid_username":
-                    return "Your Pinto! name was not recognized";
-                case "invalid_password":
-                    return "Your password was not recognized";
+                case "invalid_credentials":
+                    return "Your Pinto! Name or password were not recognized. Please check and try again";
                 case "outdated_client":
                     return "Your client is outdated, please update to the latest version of Pinto!";
                 case "server_error":
@@ -182,7 +180,7 @@ namespace PintoNS
             if (cbSavePassword.Checked) SaveLogin();
             
             OnLogin();
-            await mainForm.ChangeStatus(UserStatus.ONLINE);
+            mainForm.ChangeStatus(UserStatus.ONLINE, true);
         }
 
         public async Task<string> GetToken(string ip, int port, string username, string password)
@@ -239,10 +237,7 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
-                if (!mainForm.Visible) ShowError();
                 Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
-                    $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
             }
             else
             {
@@ -250,7 +245,7 @@ namespace PintoNS
             }
         }
 
-        public async void Disconnect(bool actualLogout = false)
+        public void Disconnect(bool actualLogout = false)
         {
             Program.Console.WriteMessage("[Networking] Disconnecting...");
             bool wasLoggedIn = false;
@@ -263,8 +258,8 @@ namespace PintoNS
             }
 
             NetManager = null;
-            if (!actualLogout)
-                await mainForm.ChangeStatus(UserStatus.OFFLINE);
+            if (!actualLogout && mainForm.Visible)
+                mainForm.StartConnectingToServer();
             else
                 OnLogout();
 
@@ -282,6 +277,7 @@ namespace PintoNS
         {
             mainForm.OnLogout(!mainForm.Visible);
             mainForm.Hide();
+            mainForm.SyncTray();
             
             btnConnect.Enabled = true;
             pLoggingin.Visible = false;

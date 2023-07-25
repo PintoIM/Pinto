@@ -46,12 +46,13 @@ namespace PintoNS.Networking
         public void HandleLogoutPacket(PacketLogout packet)
         {
             loginForm.NetManager.IsActive = false;
+            mainForm.ChangeStatus(UserStatus.OFFLINE);
             Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason}");
-            loginForm.NetManager.Disconnect($"Kicked by the server -> {packet.Reason}");
             loginForm.Invoke(new Action(() =>
             {
                 MsgBox.Show(loginForm, packet.Reason, "Kicked by the server", 
                     MsgBoxIconType.WARNING, true);
+                loginForm.Disconnect(true);
             }));
         }
 

@@ -3447,11 +3447,6 @@
     <Content Include="Resources\Statuses\BUSY.ico" />
     <Content Include="Resources\Statuses\BUSY.png" />
     <Content Include="Resources\Statuses\CONNECTING.gif" />
-    <Content Include="Resources\Statuses\CONNECTING_0.ico" />
-    <Content Include="Resources\Statuses\CONNECTING_2.ico" />
-    <Content Include="Resources\Statuses\CONNECTING_4.ico" />
-    <Content Include="Resources\Statuses\CONNECTING_6.ico" />
-    <Content Include="Resources\Statuses\CONNECTING_8.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.png" />
     <Content Include="Resources\Statuses\OFFLINE.ico" />

@@ -88,9 +88,8 @@ namespace PintoNS.Networking
             lock (sendLock)
             {
                 packetDataWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
-                packetDataWriter.WriteBE(packet.GetSize());
                 packetDataWriter.WriteBE(packet.GetID());
-                if (packet.GetSize() > 0) packet.Write(packetDataWriter);
+                packet.Write(packetDataWriter);
 
                 packetData.Flush();
                 packetData.WriteTo(tcpStream);
@@ -129,22 +128,13 @@ namespace PintoNS.Networking
                         headerPart3 != 0x47)
                         throw new ConnectionException("Bad packet header!");
 
-                    int size = tcpBinaryReader.ReadBEInt();
                     int id = tcpBinaryReader.ReadBEInt();
                     IPacket packet = Packets.GetPacketByID(id);
 
                     if (packet == null)
                         throw new ConnectionException($"Bad packet ID: {id}");
 
-                    if (size > 0) 
-                    {
-                        byte[] data = tcpBinaryReader.ReadBytes(size);
-                        BinaryReader tempReader = new BinaryReader(new MemoryStream(data));
-                        packet.Read(tempReader);
-                        tempReader.Close();
-                        tempReader.Dispose();
-                    }
-
+                    packet.Read(tcpBinaryReader);
                     ReceivedPacket.Invoke(packet);
                     Thread.Sleep(1);
                 }

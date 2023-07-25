@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -25,9 +26,11 @@ namespace PintoNS
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
+        public Thread ConnectToServer;
+        public bool DoNotConnectToServer;
+        public UserStatus ChangeToStatusAfterConnecting = UserStatus.OFFLINE;
+        private Bitmap connectingStatusTraySpriteSheet = Assets._22574;
         private int connectingStatusTrayFrame = 0;
-        private Icon[] connectingStatusTrayFrames = new Icon[] { Statuses.CONNECTING_0, Statuses.CONNECTING_2, 
-            Statuses.CONNECTING_4, Statuses.CONNECTING_6, Statuses.CONNECTING_8 };
         public bool AllowClosing;
 
         public MainForm(LoginForm loginForm)
@@ -146,32 +149,71 @@ namespace PintoNS
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(LoginFrm.CurrentUser.Status);
             niTray.Text = $"Pinto! Beta - " +
-                (LoginFrm.CurrentUser.Status != UserStatus.OFFLINE ?
+                (LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible ?
                 $"{LoginFrm.CurrentUser.Name} - {User.StatusToText(LoginFrm.CurrentUser.Status)}" : "Not logged in");
-            tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE;
+            tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible;
         }
 
-        public async Task ChangeStatus(UserStatus status) 
+        public void StartConnectingToServer()
+        {
+            if (LoginFrm.NetManager != null || ConnectToServer != null || DoNotConnectToServer) return;
+            Program.Console.WriteMessage("[Networking] Starting to connect to the server...");
+            SwitchToConnectingStatus();
+            ConnectToServer = new Thread(new ThreadStart(ConnectToServer_Func));
+            ConnectToServer.Start();
+        }
+
+        public void StopConnectingToServer()
+        {
+            Program.Console.WriteMessage("[Networking] Stopping to connect to the server...");
+            if (ConnectToServer != null) ConnectToServer.Abort();
+            ConnectToServer = null;
+        }
+
+        private async void ConnectToServer_Func() 
+        {
+            while (LoginFrm.NetManager == null && !DoNotConnectToServer) 
+            {
+                await Task.Delay(3000);
+                if (LoginFrm.Disposing || LoginFrm.IsDisposed) break;
+                await LoginFrm.Connect(LoginFrm.AuthIP, LoginFrm.AuthPort, LoginFrm.AuthToken);
+            }
+
+            ConnectToServer = null;
+            if (LoginFrm.NetManager != null && ChangeToStatusAfterConnecting != UserStatus.OFFLINE) 
+            {
+                LoginFrm.NetManager.ChangeStatus(ChangeToStatusAfterConnecting, LoginFrm.CurrentUser.MOTD);
+                ChangeToStatusAfterConnecting = UserStatus.OFFLINE;
+            } 
+        }
+
+        public void ChangeStatus(UserStatus status, bool doNotChangeStatusOnServer = false) 
         {
             Program.Console.WriteMessage($"[General] Changing status to {status}...");
+            if (status == UserStatus.OFFLINE) OnStatusChange(UserStatus.OFFLINE, "");
 
             if (LoginFrm.NetManager != null && status == UserStatus.OFFLINE) 
+            {
+                DoNotConnectToServer = true;
+                StopConnectingToServer();
                 LoginFrm.Disconnect();
+            }
             else if (LoginFrm.NetManager == null && status != UserStatus.OFFLINE) 
             {
-                SwitchToConnectingStatus();
-                await LoginFrm.Connect(LoginFrm.AuthIP, LoginFrm.AuthPort, LoginFrm.AuthToken);
-                if (LoginFrm.NetManager != null) LoginFrm.NetManager.ChangeStatus(status, LoginFrm.CurrentUser.MOTD);
+                DoNotConnectToServer = false;
+                StartConnectingToServer();
+                if (!doNotChangeStatusOnServer) ChangeToStatusAfterConnecting = status;
             }
             else if (status != UserStatus.OFFLINE)
                 LoginFrm.NetManager.ChangeStatus(status, LoginFrm.CurrentUser.MOTD);
-
-            if (status == UserStatus.OFFLINE) OnStatusChange(UserStatus.OFFLINE, "");
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            tcTabs.DisplayStyleProvider = new ModernTabControlStyleProvider(tcTabs);
+            tcLeftSections.DisplayStyleProvider = new ModernTabControlStyleProvider(tcLeftSections);
+            tcRightSections.Appearance = TabAppearance.FlatButtons;
+            tcRightSections.ItemSize = new Size(0, 1);
+            tcRightSections.SizeMode = TabSizeMode.Fixed;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -201,20 +243,20 @@ namespace PintoNS
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
 
-        private async void tsmiUserInfoStatusOnline_Click(object sender, EventArgs e) 
-            => await ChangeStatus(UserStatus.ONLINE);
+        private void tsmiUserInfoStatusOnline_Click(object sender, EventArgs e) 
+            => ChangeStatus(UserStatus.ONLINE);
 
-        private async void tsmiUserInfoStatusAway_Click(object sender, EventArgs e) 
-            => await ChangeStatus(UserStatus.AWAY);
+        private void tsmiUserInfoStatusAway_Click(object sender, EventArgs e) 
+            => ChangeStatus(UserStatus.AWAY);
 
-        private async void tsmiUserInfoStatusBusy_Click(object sender, EventArgs e) 
-            => await ChangeStatus(UserStatus.BUSY);
+        private void tsmiUserInfoStatusBusy_Click(object sender, EventArgs e) 
+            => ChangeStatus(UserStatus.BUSY);
         
-        private async void tsmiUserInfoStatusInvisible_Click(object sender, EventArgs e) 
-            => await ChangeStatus(UserStatus.INVISIBLE);
+        private void tsmiUserInfoStatusInvisible_Click(object sender, EventArgs e) 
+            => ChangeStatus(UserStatus.INVISIBLE);
 
-        private async void tsmiUserInfoStatusOffline_Click(object sender, EventArgs e)
-            => await ChangeStatus(UserStatus.OFFLINE);
+        private void tsmiUserInfoStatusOffline_Click(object sender, EventArgs e)
+            => ChangeStatus(UserStatus.OFFLINE);
 
         private void tsmiMenuBarToolsAddContact_Click(object sender, EventArgs e)
         {
@@ -276,7 +318,7 @@ namespace PintoNS
 
         private void txtSearchBox_TextChanged2(object sender, EventArgs e)
         {
-            tcTabs.SelectedTab = tpContacts;
+            tcLeftSections.SelectedTab = tpLeftSectionsContacts;
             txtSearchBox.Focus();
             DataTable dataTable = dgvContacts.DataSource as DataTable;
             if (string.IsNullOrWhiteSpace(txtSearchBox.Text))
@@ -288,7 +330,7 @@ namespace PintoNS
 
         private void llStartContacts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            tcTabs.SelectedTab = tpContacts;
+            tcLeftSections.SelectedTab = tpLeftSectionsContacts;
         }
 
         private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e) 
@@ -339,8 +381,11 @@ namespace PintoNS
 
         private void tConnectingTray_Tick(object sender, EventArgs e)
         {
-            if (connectingStatusTrayFrame + 1 > connectingStatusTrayFrames.Length) connectingStatusTrayFrame = 0;
-            niTray.Icon = connectingStatusTrayFrames[connectingStatusTrayFrame];
+            // There are 3 frames, so we check if we reached the last frame
+            if (connectingStatusTrayFrame > 2) connectingStatusTrayFrame = 0;
+            Bitmap frame = connectingStatusTraySpriteSheet.Clone(new Rectangle(0, 
+                16 * connectingStatusTrayFrame, 16, 16), PixelFormat.DontCare);
+            niTray.Icon = Icon.FromHandle(frame.GetHicon());
             niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
             connectingStatusTrayFrame++;
         }

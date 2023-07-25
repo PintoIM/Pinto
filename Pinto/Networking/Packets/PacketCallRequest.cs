@@ -20,10 +20,5 @@ namespace PintoNS.Networking
         {
             return 11;
         }
-
-        public int GetSize()
-        {
-            return 0;
-        }
     }
 }
