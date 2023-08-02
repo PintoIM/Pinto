@@ -22,14 +22,12 @@ namespace PintoNS.Forms
             {
                 if (Disposing || IsDisposed) return;
 
-                Invoke(new Action(() =>
-                {
-                    rtxtLog.SelectionStart = rtxtLog.TextLength;
-                    rtxtLog.SelectionLength = 0;
-                    rtxtLog.SelectionColor = color;
-                    rtxtLog.AppendText(msg + (newLine ? Environment.NewLine : ""));
-                    rtxtLog.SelectionColor = rtxtLog.ForeColor;
-                }));
+                rtxtLog.SelectionStart = rtxtLog.TextLength;
+                rtxtLog.SelectionLength = 0;
+                rtxtLog.SelectionColor = color;
+                rtxtLog.AppendText(msg + (newLine ? Environment.NewLine : ""));
+                rtxtLog.SelectionColor = rtxtLog.ForeColor;
+                rtxtLog.Refresh();
             }));
         }
 

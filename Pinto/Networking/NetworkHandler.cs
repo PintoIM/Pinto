@@ -35,6 +35,11 @@ namespace PintoNS.Networking
         public void HandleLoginPacket(PacketLogin packet) 
         {
             LoggedIn = true;
+            if (mainForm.ChangeToStatusAfterConnecting != UserStatus.OFFLINE) 
+            {
+                SendStatusPacket(mainForm.ChangeToStatusAfterConnecting, loginForm.CurrentUser.MOTD);
+                mainForm.ChangeToStatusAfterConnecting = UserStatus.OFFLINE;
+            }
         }
 
         public void HandleServerIDPacket(PacketServerID packet)
@@ -68,15 +73,15 @@ namespace PintoNS.Networking
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.PopupController.CreatePopup(packetPopup.Body, packetPopup.Title);
-            }));
-        }
-
-        public void HandleInWindowPopupPacket(PacketInWindowPopup packet)
-        {
-            mainForm.Invoke(new Action(() =>
-            {
-                mainForm.InWindowPopupController.CreatePopup(packet.Message);
+                switch (packetPopup.Type) 
+                {
+                    case PopupType.NOTIFICATION:
+                        mainForm.PopupController.CreatePopup(packetPopup.Body, packetPopup.Title);
+                        break;
+                    case PopupType.MSGBOX:
+                        MsgBox.Show(null, packetPopup.Body, packetPopup.Title, MsgBoxIconType.INFORMATION, true);
+                        break;
+                }
             }));
         }
 

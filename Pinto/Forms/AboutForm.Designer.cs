@@ -28,42 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lTitle = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.lBody = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
-            // lTitle
-            // 
-            this.lTitle.AutoSize = true;
-            this.lTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lTitle.Location = new System.Drawing.Point(182, 9);
-            this.lTitle.Name = "lTitle";
-            this.lTitle.Size = new System.Drawing.Size(184, 37);
-            this.lTitle.TabIndex = 1;
-            this.lTitle.Text = "Pinto! Beta";
-            this.lTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AboutForm_MouseDown);
-            // 
             // lVersion
             // 
-            this.lVersion.AutoSize = true;
             this.lVersion.BackColor = System.Drawing.Color.Transparent;
             this.lVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lVersion.Location = new System.Drawing.Point(186, 49);
+            this.lVersion.Location = new System.Drawing.Point(115, 284);
             this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(104, 13);
+            this.lVersion.Size = new System.Drawing.Size(271, 13);
             this.lVersion.TabIndex = 3;
-            this.lVersion.Text = "Version unknown";
+            this.lVersion.Text = "Pinto! Beta   Version {0}";
+            this.lVersion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lVersion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AboutForm_MouseDown);
             // 
             // pbLogo
             // 
             this.pbLogo.BackColor = System.Drawing.Color.Transparent;
             this.pbLogo.Image = global::PintoNS.Logo.LOGO;
-            this.pbLogo.Location = new System.Drawing.Point(12, 12);
+            this.pbLogo.Location = new System.Drawing.Point(167, 120);
             this.pbLogo.Name = "pbLogo";
             this.pbLogo.Size = new System.Drawing.Size(168, 161);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -74,9 +61,9 @@
             // lBody
             // 
             this.lBody.BackColor = System.Drawing.Color.Transparent;
-            this.lBody.Location = new System.Drawing.Point(186, 72);
+            this.lBody.Location = new System.Drawing.Point(115, 314);
             this.lBody.Name = "lBody";
-            this.lBody.Size = new System.Drawing.Size(425, 48);
+            this.lBody.Size = new System.Drawing.Size(271, 33);
             this.lBody.TabIndex = 6;
             this.lBody.Text = "An open-source chatting application designed from the ground up to bring back nos" +
     "talgia\r\n";
@@ -86,11 +73,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Fuchsia;
+            this.BackgroundImage = global::PintoNS.Assets._22542;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(618, 182);
+            this.ClientSize = new System.Drawing.Size(501, 481);
             this.Controls.Add(this.lBody);
             this.Controls.Add(this.lVersion);
-            this.Controls.Add(this.lTitle);
             this.Controls.Add(this.pbLogo);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -100,19 +88,18 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pinto! - About";
+            this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.Deactivate += new System.EventHandler(this.AboutForm_Deactivate);
             this.Load += new System.EventHandler(this.AboutForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AboutForm_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.PictureBox pbLogo;
-        public System.Windows.Forms.Label lTitle;
         public System.Windows.Forms.Label lVersion;
         public System.Windows.Forms.Label lBody;
     }

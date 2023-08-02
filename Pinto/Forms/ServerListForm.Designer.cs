@@ -176,18 +176,18 @@ namespace PintoNS.Forms
             // lrLoadingLoader
             // 
             this.lrLoadingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lrLoadingLoader.Location = new System.Drawing.Point(272, 142);
-            this.lrLoadingLoader.MaximumSize = new System.Drawing.Size(122, 107);
-            this.lrLoadingLoader.MinimumSize = new System.Drawing.Size(122, 107);
+            this.lrLoadingLoader.Location = new System.Drawing.Point(263, 122);
+            this.lrLoadingLoader.MaximumSize = new System.Drawing.Size(128, 128);
+            this.lrLoadingLoader.MinimumSize = new System.Drawing.Size(128, 128);
             this.lrLoadingLoader.Name = "lrLoadingLoader";
-            this.lrLoadingLoader.Size = new System.Drawing.Size(122, 107);
+            this.lrLoadingLoader.Size = new System.Drawing.Size(128, 128);
             this.lrLoadingLoader.TabIndex = 2;
             // 
             // lLoadingText
             // 
             this.lLoadingText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lLoadingText.AutoSize = true;
-            this.lLoadingText.Location = new System.Drawing.Point(311, 260);
+            this.lLoadingText.Location = new System.Drawing.Point(305, 264);
             this.lLoadingText.Name = "lLoadingText";
             this.lLoadingText.Size = new System.Drawing.Size(45, 13);
             this.lLoadingText.TabIndex = 1;

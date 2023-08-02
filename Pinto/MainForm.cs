@@ -25,7 +25,6 @@ namespace PintoNS
     {
         public LoginForm LoginFrm { get; private set; }
         public ContactsManager ContactsMgr;
-        public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
         public Thread ConnectToServer;
         public bool DoNotConnectToServer;
@@ -39,7 +38,6 @@ namespace PintoNS
             InitializeComponent();
             LoginFrm = loginForm;
             Icon = Program.GetFormIcon();
-            InWindowPopupController = new InWindowPopupController(this, scSections.Panel1.Width, Height - 21 * 3);
             PopupController = new PopupController();
         }
 
@@ -75,14 +73,13 @@ namespace PintoNS
             contactMOTD.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; 
 
             txtSearchBox.Enabled = true;
-            lContactsNoContacts.Visible = true;
             lUserInfoName.Text = LoginFrm.CurrentUser.Name;
             wbPintoNews.DocumentText = HTML.PINTO_NEWS_ERROR;
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
-            tsmiMenuBarFileChangeStatus.Enabled = true;
-            tsmiMenuBarFileLogOff.Enabled = true;
+            tsmiMenuBarPintoChangeStatus.Enabled = true;
+            tsmiMenuBarPintoLogOff.Enabled = true;
             Text = $"Pinto! Beta - {LoginFrm.CurrentUser.Name}";
 
             new SoundPlayer(Sounds.LOGIN).Play();
@@ -107,7 +104,6 @@ namespace PintoNS
         {
             tConnectingTray.Start();
             tConnectingTray_Tick(this, EventArgs.Empty);
-            mbUserInfoStatus.Image = Statuses.CONNECTING;
         }
 
         internal void ResetConnectingStatus()
@@ -130,14 +126,13 @@ namespace PintoNS
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
-            lContactsNoContacts.Visible = false;
             lUserInfoName.Text = "PintoUser";
             wbPintoNews.Navigate("about:blank");
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
-            tsmiMenuBarFileChangeStatus.Enabled = false;
-            tsmiMenuBarFileLogOff.Enabled = false;
+            tsmiMenuBarPintoChangeStatus.Enabled = false;
+            tsmiMenuBarPintoLogOff.Enabled = false;
             Text = "Pinto! Beta";
 
             if (!noSound)
@@ -151,7 +146,7 @@ namespace PintoNS
             niTray.Icon = User.StatusToIcon(LoginFrm.CurrentUser.Status);
             niTray.Text = $"Pinto! Beta - " +
                 (LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible ?
-                $"{LoginFrm.CurrentUser.Name} - {User.StatusToText(LoginFrm.CurrentUser.Status)}" : "Not logged in");
+                $"{User.StatusToText(LoginFrm.CurrentUser.Status)}" : "Not logged in");
             tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible;
         }
 
@@ -181,41 +176,40 @@ namespace PintoNS
             }
 
             ConnectToServer = null;
-            if (LoginFrm.NetManager != null && ChangeToStatusAfterConnecting != UserStatus.OFFLINE) 
-            {
-                LoginFrm.NetManager.ChangeStatus(ChangeToStatusAfterConnecting, LoginFrm.CurrentUser.MOTD);
-                ChangeToStatusAfterConnecting = UserStatus.OFFLINE;
-            } 
         }
 
-        public void ChangeStatus(UserStatus status, bool doNotChangeStatusOnServer = false) 
+        public void ChangeStatus(UserStatus status, bool doNotChangeStatusOnServer = false)
         {
             Program.Console.WriteMessage($"[General] Changing status to {status}...");
-            if (status == UserStatus.OFFLINE) OnStatusChange(UserStatus.OFFLINE, "");
 
-            if (LoginFrm.NetManager != null && status == UserStatus.OFFLINE) 
+            if (status == UserStatus.OFFLINE)
             {
                 DoNotConnectToServer = true;
+                ChangeToStatusAfterConnecting = UserStatus.OFFLINE;
+
                 StopConnectingToServer();
                 LoginFrm.Disconnect();
+
+                OnStatusChange(UserStatus.OFFLINE, "");
+                Program.Console.WriteMessage("[Networking] STATUS CHANGE: Stop connecting");
             }
-            else if (LoginFrm.NetManager == null && status != UserStatus.OFFLINE) 
+            else if (LoginFrm.NetManager == null || !LoginFrm.NetManager.IsActive)
             {
                 DoNotConnectToServer = false;
                 StartConnectingToServer();
                 if (!doNotChangeStatusOnServer) ChangeToStatusAfterConnecting = status;
+                Program.Console.WriteMessage("[Networking] STATUS CHANGE: Start connecting");
             }
-            else if (status != UserStatus.OFFLINE)
+            else 
+            {
+                Program.Console.WriteMessage("[Networking] STATUS CHANGE: Sending packet");
                 LoginFrm.NetManager.ChangeStatus(status, LoginFrm.CurrentUser.MOTD);
+            }
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             tcLeftSections.DisplayStyleProvider = new ModernTabControlStyleProvider(tcLeftSections);
-            tcRightSections.DisplayStyle = TabStyle.None;
-            tcRightSections.Appearance = TabAppearance.FlatButtons;
-            tcRightSections.ItemSize = new Size(0, 1);
-            tcRightSections.SizeMode = TabSizeMode.Fixed;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -241,7 +235,7 @@ namespace PintoNS
             }
         }
         
-        private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e) => LoginFrm.Disconnect(true);
+        private void tsmiMenuBarPintoLogOut_Click(object sender, EventArgs e) => LoginFrm.Disconnect(true);
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
 
@@ -299,13 +293,13 @@ namespace PintoNS
             form.BringToFront();
         }
 
-        private void tsmiMenuBarFileOptions_Click(object sender, EventArgs e)
+        private void tsmiMenuBarPintoOptions_Click(object sender, EventArgs e)
         {
-            OptionsForm optionsForm = new OptionsForm(this);
+            OptionsForm optionsForm = new OptionsForm();
             optionsForm.ShowDialog(this);
         }
 
-        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e)
+        private void tsmiMenuBarPintoExit_Click(object sender, EventArgs e)
         {
             MsgBox.Show(null, "Are you sure you want to close Pinto?" +
                 " You will no longer receive messages or calls if you do so.", "Quit Pinto?",
@@ -371,22 +365,13 @@ namespace PintoNS
             changeMOTDForm.ShowDialog(this);
         }
 
-        private void MainForm_SizeChanged(object sender, EventArgs e)
-        {
-            InWindowPopupController.UpdateSizes(scSections.Panel1.Width, Height - 21 * 3);
-        }
-
-        private void scSections_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            InWindowPopupController.UpdateSizes(scSections.Panel1.Width, Height - 21 * 3);
-        }
-
         private void tConnectingTray_Tick(object sender, EventArgs e)
         {
             // There are 3 frames, so we check if we reached the last frame
             if (connectingStatusTrayFrame > 2) connectingStatusTrayFrame = 0;
             Bitmap frame = connectingStatusTraySpriteSheet.Clone(new Rectangle(0, 
                 16 * connectingStatusTrayFrame, 16, 16), PixelFormat.DontCare);
+            mbUserInfoStatus.Image = frame;
             niTray.Icon = Icon.FromHandle(frame.GetHicon());
             niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
             connectingStatusTrayFrame++;

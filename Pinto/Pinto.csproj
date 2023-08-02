@@ -148,7 +148,7 @@
       <DependentUpon>ModernTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Separator.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Separator.Designer.cs">
       <DependentUpon>Separator.cs</DependentUpon>
@@ -185,12 +185,6 @@
     </Compile>
     <Compile Include="Forms\FatalErrorForm.Designer.cs">
       <DependentUpon>FatalErrorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\InWindowPopupControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\InWindowPopupControl.Designer.cs">
-      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CallManager.cs">
       <SubType>Form</SubType>
@@ -232,7 +226,7 @@
     <Compile Include="General\ObjectExtensions.cs" />
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
-    <Compile Include="General\InWindowPopupController.cs" />
+    <Compile Include="General\PopupType.cs" />
     <Compile Include="General\Settings.cs" />
     <Compile Include="General\Updater.cs" />
     <Compile Include="General\UserStatus.cs" />
@@ -285,7 +279,6 @@
     <Compile Include="Networking\Packets\PacketContactRequest.cs" />
     <Compile Include="Networking\Packets\PacketStatus.cs" />
     <Compile Include="Networking\Packets\PacketRemoveContact.cs" />
-    <Compile Include="Networking\Packets\PacketInWindowPopup.cs" />
     <Compile Include="Networking\Packets\PacketAddContact.cs" />
     <Compile Include="Networking\Packets\PacketMessage.cs" />
     <Compile Include="Networking\Packets\PacketLogout.cs" />
@@ -377,9 +370,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FatalErrorForm.resx">
       <DependentUpon>FatalErrorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\InWindowPopupControl.resx">
-      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewAllPopupContentForm.resx">
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
@@ -3446,7 +3436,6 @@
     <Content Include="Resources\Statuses\AWAY.png" />
     <Content Include="Resources\Statuses\BUSY.ico" />
     <Content Include="Resources\Statuses\BUSY.png" />
-    <Content Include="Resources\Statuses\CONNECTING.gif" />
     <Content Include="Resources\Statuses\INVISIBLE.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.png" />
     <Content Include="Resources\Statuses\OFFLINE.ico" />

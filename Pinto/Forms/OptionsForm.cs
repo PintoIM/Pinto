@@ -10,12 +10,9 @@ namespace PintoNS.Forms
 {
     public partial class OptionsForm : Form
     {
-        private MainForm mainForm;
-
-        public OptionsForm(MainForm mainForm)
+        public OptionsForm()
         {
             InitializeComponent();
-            this.mainForm = mainForm;
             Icon = Program.GetFormIcon();
         }
 
@@ -29,7 +26,7 @@ namespace PintoNS.Forms
             int numMin, int numMax) 
         {
             Control control = null;
-            Panel p = new Panel();
+            Panel p = null;
             Label l = new Label();
 
             switch (field.FieldType.Name) 
@@ -45,6 +42,7 @@ namespace PintoNS.Forms
                 case nameof(String):
                     TextBox txt = new TextBox();
 
+                    p = new Panel();
                     p.AutoSize = true;
                     p.Controls.Add(l);
                     p.Controls.Add(txt);
@@ -61,14 +59,15 @@ namespace PintoNS.Forms
                 case nameof(Int32):
                     NumericUpDown nud = new NumericUpDown();
 
+                    p = new Panel();
                     p.AutoSize = true;
                     p.Controls.Add(l);
                     p.Controls.Add(nud);
 
                     l.Text = $"{displayName}:";
-                    nud.Value = (int)field.GetValue(null);
                     nud.Minimum = numMin;
                     nud.Maximum = numMax;
+                    nud.Value = (int)field.GetValue(null);
                     nud.AutoSize = true;
                     nud.TextChanged += (object sender, EventArgs e) => ChangedValue(field, (int)nud.Value);
                     nud.Location = new Point(0, 20);
@@ -78,9 +77,9 @@ namespace PintoNS.Forms
                     break;
             }
 
-            if (control != null)
-                hpHelp.SetHelpString(control, helpInfo);
-            return control;
+            if (p != null || control != null)
+                hpHelp.SetHelpString(p != null ? p : control, helpInfo);
+            return p != null ? p : control;
         }
 
         private void OptionsForm_Load(object sender, System.EventArgs e)

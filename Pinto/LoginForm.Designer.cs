@@ -33,6 +33,8 @@
             this.tsddbMenuPinto = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.pLoginContainer = new System.Windows.Forms.Panel();
             this.pError = new System.Windows.Forms.Panel();
             this.lErrorText = new System.Windows.Forms.Label();
@@ -40,8 +42,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.pOptions = new System.Windows.Forms.Panel();
             this.cbSavePassword = new System.Windows.Forms.CheckBox();
-            this.nudPort = new System.Windows.Forms.NumericUpDown();
-            this.txtIP = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.ComboBox();
             this.llServers = new System.Windows.Forms.LinkLabel();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -49,17 +49,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnConnect = new PintoNS.Controls.LoginButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.pLoggingin = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.loader1 = new PintoNS.Controls.Loader();
+            this.tsmiPintoOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenu.SuspendLayout();
             this.pLoginContainer.SuspendLayout();
             this.pError.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).BeginInit();
             this.pOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.pLoggingin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +80,8 @@
             // tsddbMenuPinto
             // 
             this.tsddbMenuPinto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbMenuPinto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiPintoOptions});
             this.tsddbMenuPinto.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuPinto.Image")));
             this.tsddbMenuPinto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuPinto.Name = "tsddbMenuPinto";
@@ -102,12 +102,29 @@
             // tsddbMenuHelp
             // 
             this.tsddbMenuHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiHelpToggleConsole,
+            this.tsmiHelpAbout});
             this.tsddbMenuHelp.Image = ((System.Drawing.Image)(resources.GetObject("tsddbMenuHelp.Image")));
             this.tsddbMenuHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuHelp.Name = "tsddbMenuHelp";
             this.tsddbMenuHelp.ShowDropDownArrow = false;
             this.tsddbMenuHelp.Size = new System.Drawing.Size(36, 19);
             this.tsddbMenuHelp.Text = "Help";
+            // 
+            // tsmiHelpToggleConsole
+            // 
+            this.tsmiHelpToggleConsole.Name = "tsmiHelpToggleConsole";
+            this.tsmiHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
+            this.tsmiHelpToggleConsole.Text = "Toggle Console";
+            this.tsmiHelpToggleConsole.Click += new System.EventHandler(this.tsmiHelpToggleConsole_Click);
+            // 
+            // tsmiHelpAbout
+            // 
+            this.tsmiHelpAbout.Name = "tsmiHelpAbout";
+            this.tsmiHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiHelpAbout.Text = "About";
+            this.tsmiHelpAbout.Click += new System.EventHandler(this.tsmiHelpAbout_Click);
             // 
             // pLoginContainer
             // 
@@ -116,8 +133,6 @@
             this.pLoginContainer.Controls.Add(this.pError);
             this.pLoginContainer.Controls.Add(this.label5);
             this.pLoginContainer.Controls.Add(this.pOptions);
-            this.pLoginContainer.Controls.Add(this.nudPort);
-            this.pLoginContainer.Controls.Add(this.txtIP);
             this.pLoginContainer.Controls.Add(this.txtUsername);
             this.pLoginContainer.Controls.Add(this.llServers);
             this.pLoginContainer.Controls.Add(this.txtPassword);
@@ -125,8 +140,6 @@
             this.pLoginContainer.Controls.Add(this.label3);
             this.pLoginContainer.Controls.Add(this.btnConnect);
             this.pLoginContainer.Controls.Add(this.label4);
-            this.pLoginContainer.Controls.Add(this.label1);
-            this.pLoginContainer.Controls.Add(this.label2);
             this.pLoginContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pLoginContainer.Location = new System.Drawing.Point(0, 22);
             this.pLoginContainer.Name = "pLoginContainer";
@@ -196,36 +209,6 @@
             this.cbSavePassword.Text = "Sign me in when Pinto! starts";
             this.cbSavePassword.UseVisualStyleBackColor = false;
             this.cbSavePassword.CheckedChanged += new System.EventHandler(this.cbSavePassword_CheckedChanged);
-            // 
-            // nudPort
-            // 
-            this.nudPort.Location = new System.Drawing.Point(409, 71);
-            this.nudPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.nudPort.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudPort.Name = "nudPort";
-            this.nudPort.Size = new System.Drawing.Size(97, 20);
-            this.nudPort.TabIndex = 5;
-            this.nudPort.Value = new decimal(new int[] {
-            2407,
-            0,
-            0,
-            0});
-            // 
-            // txtIP
-            // 
-            this.txtIP.Location = new System.Drawing.Point(409, 25);
-            this.txtIP.Name = "txtIP";
-            this.txtIP.Size = new System.Drawing.Size(97, 20);
-            this.txtIP.TabIndex = 4;
-            this.txtIP.Text = "127.0.0.1";
             // 
             // txtUsername
             // 
@@ -303,26 +286,6 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Password";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(408, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "IP:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(406, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Port:";
-            // 
             // pLoggingin
             // 
             this.pLoggingin.Controls.Add(this.label6);
@@ -348,9 +311,18 @@
             // loader1
             // 
             this.loader1.Location = new System.Drawing.Point(86, 90);
+            this.loader1.MaximumSize = new System.Drawing.Size(128, 128);
+            this.loader1.MinimumSize = new System.Drawing.Size(128, 128);
             this.loader1.Name = "loader1";
             this.loader1.Size = new System.Drawing.Size(128, 128);
             this.loader1.TabIndex = 0;
+            // 
+            // tsmiPintoOptions
+            // 
+            this.tsmiPintoOptions.Name = "tsmiPintoOptions";
+            this.tsmiPintoOptions.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPintoOptions.Text = "Options";
+            this.tsmiPintoOptions.Click += new System.EventHandler(this.tsmiPintoOptions_Click);
             // 
             // LoginForm
             // 
@@ -379,7 +351,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbErrorIcon)).EndInit();
             this.pOptions.ResumeLayout(false);
             this.pOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             this.pLoggingin.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -391,15 +362,11 @@
         public System.Windows.Forms.ComboBox txtUsername;
         private System.Windows.Forms.ToolStrip tsMenu;
         private System.Windows.Forms.Panel pLoginContainer;
-        public System.Windows.Forms.NumericUpDown nudPort;
-        public System.Windows.Forms.TextBox txtIP;
         public System.Windows.Forms.LinkLabel llServers;
         public System.Windows.Forms.LinkLabel llForgotPassword;
         public System.Windows.Forms.CheckBox cbSavePassword;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label4;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pOptions;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripDropDownButton tsddbMenuPinto;
@@ -411,5 +378,8 @@
         private System.Windows.Forms.Panel pError;
         private System.Windows.Forms.PictureBox pbErrorIcon;
         private System.Windows.Forms.Label lErrorText;
+        private System.Windows.Forms.ToolStripMenuItem tsmiHelpToggleConsole;
+        private System.Windows.Forms.ToolStripMenuItem tsmiHelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPintoOptions;
     }
 }

@@ -50,10 +50,12 @@ namespace PintoNS
                     return "The CCP will find your home address 你是迪克小 -9999999999 social credits";
                 case "invalid_credentials":
                     return "Your Pinto! Name or password were not recognized. Please check and try again";
-                case "outdated_client":
+                case "client_outdated":
                     return "Your client is outdated, please update to the latest version of Pinto!";
                 case "server_error":
                     return "Pinto! can't connect due to a server error";
+                case "mismatched_protocol":
+                    return "Mismatched protocol version! (gotten: {0}, expected: {1})";
                 default:
                     return $"Pinto! can't connect: {error}";
             }
@@ -135,8 +137,8 @@ namespace PintoNS
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
-            AuthIP = txtIP.Text.Trim();
-            AuthPort = (int)nudPort.Value;
+            AuthIP = Settings.ServerIP;
+            AuthPort = Settings.ServerPort;
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
@@ -172,7 +174,13 @@ namespace PintoNS
 
             if (AuthToken.StartsWith("error.")) 
             {
-                ShowError(GetAuthTokenError(AuthToken.Replace("error.", "")));
+                // This is only used for the protocol error
+                // This could use some future proofing... Too bad!
+                string error = AuthToken.Replace("error.", "");
+                string[] errorSplitted = error.Split('.');
+                string errorStr = GetAuthTokenError(errorSplitted[0]);
+
+                ShowError(errorSplitted.Length > 1 ? string.Format(errorStr, errorSplitted[1], errorSplitted[2]) : errorStr);
                 return;
             }
 
@@ -205,7 +213,7 @@ namespace PintoNS
                     throw new Exception("Invalid identification byte!");
 
                 byte[] dataRaw = Encoding.UTF8.GetBytes(Convert.ToBase64String(
-                    Encoding.UTF8.GetBytes($"{username}:{passwordHash}:{Program.VERSION_STRING}")));
+                    Encoding.UTF8.GetBytes($"{username}:{passwordHash}:{Program.PROTOCOL_VERSION}:{Program.VERSION_STRING}")));
                 byte[] dataSize = { (byte)dataRaw.Length };
                 await stream.WriteAsync(dataSize, 0, dataSize.Length);
                 await stream.WriteAsync(dataRaw, 0, dataRaw.Length);
@@ -229,7 +237,7 @@ namespace PintoNS
 
         public async Task Connect(string ip, int port, string authToken)
         {
-            Program.Console.WriteMessage($"[Networking] Signing in at {ip}:{port}...");
+            Program.Console.WriteMessage($"[Networking] Connecting to {ip}:{port}...");
 
             NetManager = new NetworkManager(this, mainForm);
             (bool, Exception) connectResult = await NetManager.Connect(ip, port);
@@ -237,7 +245,7 @@ namespace PintoNS
             if (!connectResult.Item1)
             {
                 Disconnect();
-                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
+                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}");
             }
             else
             {
@@ -247,7 +255,7 @@ namespace PintoNS
 
         public void Disconnect(bool actualLogout = false)
         {
-            Program.Console.WriteMessage("[Networking] Disconnecting...");
+            Program.Console.WriteMessage($"[Networking] Disconnecting...");
             bool wasLoggedIn = false;
 
             if (NetManager != null)
@@ -301,8 +309,8 @@ namespace PintoNS
             ServerListForm serverListForm = new ServerListForm();
             serverListForm.ServerUse += (object sender2, ServerUseEventArgs e2) => 
             {
-                txtIP.Text = e2.IP;
-                nudPort.Value = e2.Port;
+                Settings.ServerIP = e2.IP;
+                Settings.ServerPort = e2.Port;
             };
             serverListForm.ShowDialog();
         }
@@ -321,8 +329,6 @@ namespace PintoNS
                 txtUsername.Text = data["username"].Value<string>();
                 txtPassword.Text = data["password"].Value<string>();
                 AuthToken = data.ContainsKey("auth_token") ? data["auth_token"].Value<string>() : null;
-                txtIP.Text = data["ip"].Value<string>();
-                nudPort.Value = data["port"].Value<int>();
             }
             catch (Exception ex)
             {
@@ -345,8 +351,6 @@ namespace PintoNS
                 data.Add("username", txtUsername.Text);
                 data.Add("password", txtPassword.Text);
                 if (AuthToken != null) data.Add("auth_token", AuthToken);
-                data.Add("ip", txtIP.Text);
-                data.Add("port", (int)nudPort.Value);
 
                 File.WriteAllText(filePath, data.ToString(Formatting.Indented));
             }
@@ -394,5 +398,19 @@ namespace PintoNS
             mainForm.AllowClosing = true;
             mainForm.Close();
         }
+
+        private void tsmiHelpToggleConsole_Click(object sender, EventArgs e)
+        {
+            if (Program.Console.Visible)
+                Program.Console.Hide();
+            else
+                Program.Console.Show();
+        }
+
+        private void tsmiHelpAbout_Click(object sender, EventArgs e)
+            => new AboutForm().Show();
+
+        private void tsmiPintoOptions_Click(object sender, EventArgs e)
+            => new OptionsForm().ShowDialog(this);
     }
 }

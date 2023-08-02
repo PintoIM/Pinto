@@ -83,7 +83,6 @@ namespace PintoNS.General
             {
                 AddContactListEntry(contact);
                 contacts.Add(contact);
-                mainForm.lContactsNoContacts.Visible = false;
             }
         }
 
@@ -93,7 +92,6 @@ namespace PintoNS.General
             {
                 RemoveContactListEntry(contact);
                 contacts.Remove(contact);
-                if (contacts.Count < 1) mainForm.lContactsNoContacts.Visible = true;
             }
         }
 

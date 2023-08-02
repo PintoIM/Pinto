@@ -29,6 +29,15 @@ namespace PintoNS.General
             " you can still manually check for update by going to Help > Check for Updates\n" +
             "It is recommended that you keep this option enabled")]
         public static bool AutoCheckForUpdates = true;
+
+        [OptionsDisplay(Category = "General", DisplayName = "Server IP",
+            HelpInfo = "The IP address of the server that Pinto! will connect to")]
+        public static string ServerIP = "127.0.0.1";
+
+        [OptionsDisplay(Category = "General", DisplayName = "Server Port", 
+            HelpInfo = "The port of the server that Pinto! will connect to", 
+            NumMin = 1, NumMax = 65535)]
+        public static int ServerPort = 2407;
         #endregion
         #region Hidden
         [OptionsDisplay(Hidden = true)]
