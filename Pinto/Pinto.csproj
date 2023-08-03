@@ -227,6 +227,7 @@
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\PopupType.cs" />
+    <Compile Include="General\RightSection.cs" />
     <Compile Include="General\Settings.cs" />
     <Compile Include="General\Updater.cs" />
     <Compile Include="General\UserStatus.cs" />

@@ -120,14 +120,19 @@ namespace PintoNS
 
             ContactsMgr = null;
             // Yes, we keep the old data source just in case something tries to access it
-            // at the wrong time, this is not what we should do, too bad
+            // at the wrong time, this is not what we should do, but fuck it,
+            // I can't be fucked to make a proper fix 
             //dgvContacts.DataSource = null;
 
             txtSearchBox.Text = "";
             txtSearchBox.ChangeTextDisplayed();
             txtSearchBox.Enabled = false;
             lUserInfoName.Text = "PintoUser";
+
             wbPintoNews.Navigate("about:blank");
+            lMessagingContactName.Text = "Contact";
+            pbMessagingContactStatus.Image = Statuses.OFFLINE;
+            HideRightSections();
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
@@ -148,6 +153,29 @@ namespace PintoNS
                 (LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible ?
                 $"{User.StatusToText(LoginFrm.CurrentUser.Status)}" : "Not logged in");
             tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible;
+        }
+
+        internal void HideRightSections()
+        {
+            pPintoNews.Visible = false;
+            pMessaging.Visible = false;
+        }
+
+        internal void ShowRightSection(RightSection section)
+        {
+            HideRightSections();
+
+            switch (section)
+            {
+                case RightSection.NEWS:
+                    pPintoNews.Visible = true;
+                    pPintoNews.BringToFront();
+                    break;
+                case RightSection.MESSAGING:
+                    pMessaging.Visible = true;
+                    pPintoNews.BringToFront();
+                    break;
+            }
         }
 
         public void StartConnectingToServer()
@@ -375,6 +403,21 @@ namespace PintoNS
             niTray.Icon = Icon.FromHandle(frame.GetHicon());
             niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
             connectingStatusTrayFrame++;
+        }
+
+        private void pUserInfo_Click(object sender, EventArgs e)
+        {
+            ShowRightSection(RightSection.NEWS);
+        }
+
+        private void pUserInfo_MouseEnter(object sender, EventArgs e)
+        {
+            pUserInfo.BackColor = Color.DeepSkyBlue;
+        }
+
+        private void pUserInfo_MouseLeave(object sender, EventArgs e)
+        {
+            pUserInfo.BackColor = SystemColors.Window;
         }
     }
 }
