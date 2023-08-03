@@ -16,7 +16,7 @@ namespace PintoNS.Forms
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            lVersion.Text = string.Format(lVersion.Text, Program.VERSION_STRING);
+            lVersion.Text = string.Format(lVersion.Text, Constants.VERSION_STRING);
         }
 
         private void AboutForm_Deactivate(object sender, EventArgs e)

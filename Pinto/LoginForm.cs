@@ -213,7 +213,7 @@ namespace PintoNS
                     throw new Exception("Invalid identification byte!");
 
                 byte[] dataRaw = Encoding.UTF8.GetBytes(Convert.ToBase64String(
-                    Encoding.UTF8.GetBytes($"{username}:{passwordHash}:{Program.PROTOCOL_VERSION}:{Program.VERSION_STRING}")));
+                    Encoding.UTF8.GetBytes($"{username}:{passwordHash}:{Constants.PROTOCOL_VERSION}:{Constants.VERSION_STRING}")));
                 byte[] dataSize = { (byte)dataRaw.Length };
                 await stream.WriteAsync(dataSize, 0, dataSize.Length);
                 await stream.WriteAsync(dataRaw, 0, dataRaw.Length);

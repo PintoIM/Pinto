@@ -90,7 +90,13 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = packet.Status, MOTD = packet.MOTD });
+                mainForm.ContactsMgr.AddContact(new Contact() 
+                { 
+                    Name = packet.ContactName, 
+                    Status = packet.Status, 
+                    MOTD = packet.MOTD 
+                });
+                mainForm.dgvContacts.ClearSelection();
             }));
         }
 

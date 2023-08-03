@@ -43,7 +43,7 @@ namespace PintoNS.General
             try
             {
                 JObject information = await GetVersionInformation();
-                return Program.VERSION_STRING.Equals(information["latest"].Value<string>(), 
+                return Constants.VERSION_STRING.Equals(information["latest"].Value<string>(), 
                     StringComparison.InvariantCultureIgnoreCase);
             }
             catch (Exception ex) 

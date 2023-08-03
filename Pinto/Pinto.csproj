@@ -141,6 +141,12 @@
     <Compile Include="Controls\MenuButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ModernRichTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ModernRichTextBox.Designer.cs">
+      <DependentUpon>ModernRichTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ModernTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,6 +161,15 @@
     </Compile>
     <Compile Include="Controls\ModernTextBoxWithPlaceholderSupport.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NoDeselectDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlTestForm.Designer.cs">
+      <DependentUpon>ControlTestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
@@ -204,6 +219,7 @@
     <Compile Include="Forms\PopupForm.Designer.cs">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="General\LuaExtension.cs" />
     <Compile Include="Controls\ModernTabControlStyleProvider.cs">
       <SubType>Component</SubType>
@@ -339,8 +355,14 @@
     <EmbeddedResource Include="Controls\Loader.resx">
       <DependentUpon>Loader.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ModernRichTextBox.resx">
+      <DependentUpon>ModernRichTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ModernTextBox.resx">
       <DependentUpon>ModernTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlTestForm.resx">
+      <DependentUpon>ControlTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>

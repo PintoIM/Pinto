@@ -32,13 +32,22 @@ namespace PintoNS
         private Bitmap connectingStatusTraySpriteSheet = Assets._22574;
         private int connectingStatusTrayFrame = 0;
         public bool AllowClosing;
+        internal RightSection currentRightSection;
 
         public MainForm(LoginForm loginForm)
         {
             InitializeComponent();
+            DesignerOverrides();
             LoginFrm = loginForm;
             Icon = Program.GetFormIcon();
             PopupController = new PopupController();
+        }
+
+        // This is a function that overrides anything from the designer code
+        private void DesignerOverrides() 
+        {
+            dgvContacts.DefaultCellStyle.SelectionBackColor = Constants.ACCENT_COLOR;
+            dgvContacts.DefaultCellStyle.SelectionForeColor = Constants.ACCENT_FORE_COLOR;
         }
 
         // From https://stackoverflow.com/a/2613272
@@ -75,6 +84,7 @@ namespace PintoNS
             txtSearchBox.Enabled = true;
             lUserInfoName.Text = LoginFrm.CurrentUser.Name;
             wbPintoNews.DocumentText = HTML.PINTO_NEWS_ERROR;
+            ShowRightSection(RightSection.NEWS);
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
@@ -116,8 +126,6 @@ namespace PintoNS
         {
             OnStatusChange(UserStatus.OFFLINE, "");
 
-            // TODO: Add clean-up procedure for messaging
-
             ContactsMgr = null;
             // Yes, we keep the old data source just in case something tries to access it
             // at the wrong time, this is not what we should do, but fuck it,
@@ -131,7 +139,7 @@ namespace PintoNS
 
             wbPintoNews.Navigate("about:blank");
             lMessagingContactName.Text = "Contact";
-            pbMessagingContactStatus.Image = Statuses.OFFLINE;
+            pbMessagingContactStatus.Image = User.StatusToBitmap(UserStatus.OFFLINE);
             HideRightSections();
 
             tsmiMenuBarToolsAddContact.Enabled = false;
@@ -147,16 +155,22 @@ namespace PintoNS
 
         internal void SyncTray()
         {
+            string status = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible ? 
+                User.StatusToText(LoginFrm.CurrentUser.Status) : "Not logged in";
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(LoginFrm.CurrentUser.Status);
-            niTray.Text = $"Pinto! Beta - " +
-                (LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible ?
-                $"{User.StatusToText(LoginFrm.CurrentUser.Status)}" : "Not logged in");
+            niTray.Text = $"Pinto! Beta ({status})";
             tsmiTrayChangeStatus.Enabled = LoginFrm.CurrentUser.Status != UserStatus.OFFLINE || Visible;
         }
 
         internal void HideRightSections()
         {
+            currentRightSection = RightSection.NONE;
+
+            pUserInfo.BackColor = Constants.NORMAL_COLOR;
+            lUserInfoName.ForeColor = Constants.NORMAL_FORE_COLOR;
+            mbUserInfoStatus.ForeColor = Constants.NORMAL_FORE_COLOR;
+
             pPintoNews.Visible = false;
             pMessaging.Visible = false;
         }
@@ -164,16 +178,24 @@ namespace PintoNS
         internal void ShowRightSection(RightSection section)
         {
             HideRightSections();
+            currentRightSection = section;
 
             switch (section)
             {
                 case RightSection.NEWS:
+                    dgvContacts.ClearSelection();
+
+                    pUserInfo.BackColor = Constants.ACCENT_COLOR;
+                    lUserInfoName.ForeColor = Constants.ACCENT_FORE_COLOR;
+                    mbUserInfoStatus.ForeColor = Constants.ACCENT_FORE_COLOR;
+
                     pPintoNews.Visible = true;
                     pPintoNews.BringToFront();
+
                     break;
                 case RightSection.MESSAGING:
                     pMessaging.Visible = true;
-                    pPintoNews.BringToFront();
+                    pMessaging.BringToFront();
                     break;
             }
         }
@@ -196,9 +218,11 @@ namespace PintoNS
 
         private async void ConnectToServer_Func() 
         {
+            bool isFirstConnect = true;
+
             while (LoginFrm.NetManager == null && !DoNotConnectToServer) 
             {
-                await Task.Delay(3000);
+                if (isFirstConnect) isFirstConnect = false; else await Task.Delay(3000);
                 if (LoginFrm.Disposing || LoginFrm.IsDisposed) break;
                 await LoginFrm.Connect(LoginFrm.AuthIP, LoginFrm.AuthPort, LoginFrm.AuthToken);
             }
@@ -250,19 +274,6 @@ namespace PintoNS
             }
         }
 
-        private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Stolen from https://stackoverflow.com/a/50999419
-            string contactName = ContactsMgr.GetContactNameFromRow(
-                ((DataTable)dgvContacts.DataSource).Rows.IndexOf(
-                    ((DataRowView)BindingContext[dgvContacts.DataSource].Current).Row));
-
-            if (contactName != null)
-            {
-                // TODO: Change to new messaging logic
-            }
-        }
-        
         private void tsmiMenuBarPintoLogOut_Click(object sender, EventArgs e) => LoginFrm.Disconnect(true);
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
@@ -303,6 +314,17 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvContacts.SelectedRows.Count < 1) return;
+
+            DataGridViewRow row = dgvContacts.SelectedRows[0];
+            string contactName = ContactsMgr.GetContactNameFromRow(row.Index);
+            Contact contact = ContactsMgr.GetContact(contactName);
+
+            if (contact == null) return;
+            lMessagingContactName.Text = contact.Name;
+            pbMessagingContactStatus.Image = User.StatusToBitmap(contact.Status);
+
+            ShowRightSection(RightSection.MESSAGING);
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
@@ -401,7 +423,7 @@ namespace PintoNS
                 16 * connectingStatusTrayFrame, 16, 16), PixelFormat.DontCare);
             mbUserInfoStatus.Image = frame;
             niTray.Icon = Icon.FromHandle(frame.GetHicon());
-            niTray.Text = $"Pinto! Beta - Connecting{"".PadRight(connectingStatusTrayFrame + 1, '.')}";
+            niTray.Text = $"Pinto! Beta (Connecting)";
             connectingStatusTrayFrame++;
         }
 
@@ -412,12 +434,14 @@ namespace PintoNS
 
         private void pUserInfo_MouseEnter(object sender, EventArgs e)
         {
-            pUserInfo.BackColor = Color.DeepSkyBlue;
+            if (currentRightSection == RightSection.NEWS) return;
+            pUserInfo.BackColor = Constants.HOVER_COLOR;
         }
 
         private void pUserInfo_MouseLeave(object sender, EventArgs e)
         {
-            pUserInfo.BackColor = SystemColors.Window;
+            if (currentRightSection == RightSection.NEWS) return;
+            pUserInfo.BackColor = Constants.NORMAL_COLOR;
         }
     }
 }

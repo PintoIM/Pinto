@@ -51,7 +51,7 @@ namespace PintoNS.Networking
 
         public void Login(string token) 
         {
-            NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, Program.VERSION_STRING, token);
+            NetHandler.SendLoginPacket(Constants.PROTOCOL_VERSION, Constants.VERSION_STRING, token);
         }
 
         public void ChangeStatus(UserStatus status, string motd) 

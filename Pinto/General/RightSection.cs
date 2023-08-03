@@ -9,6 +9,7 @@ namespace PintoNS.General
     internal enum RightSection
     {
         NEWS,
-        MESSAGING
+        MESSAGING,
+        NONE
     }
 }

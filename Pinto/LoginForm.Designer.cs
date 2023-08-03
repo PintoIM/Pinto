@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.tsMenu = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuPinto = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiPintoOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsddbMenuHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiHelpToggleConsole = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,12 +48,11 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.llForgotPassword = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnConnect = new PintoNS.Controls.LoginButton();
             this.label4 = new System.Windows.Forms.Label();
             this.pLoggingin = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.loader1 = new PintoNS.Controls.Loader();
-            this.tsmiPintoOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConnect = new PintoNS.Controls.LoginButton();
             this.tsMenu.SuspendLayout();
             this.pLoginContainer.SuspendLayout();
             this.pError.SuspendLayout();
@@ -89,6 +89,13 @@
             this.tsddbMenuPinto.Size = new System.Drawing.Size(39, 19);
             this.tsddbMenuPinto.Text = "Pinto";
             // 
+            // tsmiPintoOptions
+            // 
+            this.tsmiPintoOptions.Name = "tsmiPintoOptions";
+            this.tsmiPintoOptions.Size = new System.Drawing.Size(116, 22);
+            this.tsmiPintoOptions.Text = "Options";
+            this.tsmiPintoOptions.Click += new System.EventHandler(this.tsmiPintoOptions_Click);
+            // 
             // tsddbMenuTools
             // 
             this.tsddbMenuTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -115,14 +122,14 @@
             // tsmiHelpToggleConsole
             // 
             this.tsmiHelpToggleConsole.Name = "tsmiHelpToggleConsole";
-            this.tsmiHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
+            this.tsmiHelpToggleConsole.Size = new System.Drawing.Size(155, 22);
             this.tsmiHelpToggleConsole.Text = "Toggle Console";
             this.tsmiHelpToggleConsole.Click += new System.EventHandler(this.tsmiHelpToggleConsole_Click);
             // 
             // tsmiHelpAbout
             // 
             this.tsmiHelpAbout.Name = "tsmiHelpAbout";
-            this.tsmiHelpAbout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiHelpAbout.Size = new System.Drawing.Size(155, 22);
             this.tsmiHelpAbout.Text = "About";
             this.tsmiHelpAbout.Click += new System.EventHandler(this.tsmiHelpAbout_Click);
             // 
@@ -266,16 +273,6 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Pinto! Name";
             // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(134, 253);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(240, 24);
-            this.btnConnect.TabIndex = 9;
-            this.btnConnect.Text = "Sign in";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -317,12 +314,15 @@
             this.loader1.Size = new System.Drawing.Size(128, 128);
             this.loader1.TabIndex = 0;
             // 
-            // tsmiPintoOptions
+            // btnConnect
             // 
-            this.tsmiPintoOptions.Name = "tsmiPintoOptions";
-            this.tsmiPintoOptions.Size = new System.Drawing.Size(180, 22);
-            this.tsmiPintoOptions.Text = "Options";
-            this.tsmiPintoOptions.Click += new System.EventHandler(this.tsmiPintoOptions_Click);
+            this.btnConnect.Location = new System.Drawing.Point(134, 253);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(240, 24);
+            this.btnConnect.TabIndex = 9;
+            this.btnConnect.Text = "Sign in";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // LoginForm
             // 
