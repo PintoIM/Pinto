@@ -47,7 +47,7 @@ namespace PintoNS
             switch (error) 
             {
                 case "ccp":
-                    return "The CCP will find your home address 你是迪克小 -9999999999 social credits";
+                    return "The CCP will find your home address -9999999999 social credits";
                 case "invalid_credentials":
                     return "Your Pinto! Name or password were not recognized. Please check and try again";
                 case "client_outdated":
