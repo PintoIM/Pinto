@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinto", "Pinto\Pinto.csproj", "{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PintoSetup", "PintoSetup\PintoSetup.csproj", "{60B929EE-BC83-4AFC-B170-A7A382006996}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Build|x64 = Build|x64
+		Build|x86 = Build|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x64.ActiveCfg = Build|x64
+		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x64.Build.0 = Build|x64
+		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x86.ActiveCfg = Build|x86
+		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}.Build|x86.Build.0 = Build|x86
+		{60B929EE-BC83-4AFC-B170-A7A382006996}.Build|x64.ActiveCfg = Build|x86
+		{60B929EE-BC83-4AFC-B170-A7A382006996}.Build|x64.Build.0 = Build|x86
+		{60B929EE-BC83-4AFC-B170-A7A382006996}.Build|x86.ActiveCfg = Build|x86
+		{60B929EE-BC83-4AFC-B170-A7A382006996}.Build|x86.Build.0 = Build|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0AE2B86-F8E2-4CEC-BB82-CFC56DAE24E9}
+	EndGlobalSection
+EndGlobal

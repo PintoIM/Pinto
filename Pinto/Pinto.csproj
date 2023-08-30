@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PintoNS</RootNamespace>
+    <AssemblyName>Pinto</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Logo\LOGO.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Build|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Build|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KeraLua, Version=1.3.4.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217, processorArchitecture=MSIL">
+      <HintPath>..\packages\KeraLua.1.3.4\lib\net46\KeraLua.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLua, Version=1.6.3.0, Culture=neutral, PublicKeyToken=6a194c04b9c89217, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLua.1.6.3\lib\net46\NLua.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assets.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Header.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Header.Designer.cs">
+      <DependentUpon>Header.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Loader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Loader.Designer.cs">
+      <DependentUpon>Loader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NoFocusQueButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Separator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Separator.Designer.cs">
+      <DependentUpon>Separator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangeMOTDForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangeMOTDForm.Designer.cs">
+      <DependentUpon>ChangeMOTDForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddContactForm.Designer.cs">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FatalErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FatalErrorForm.Designer.cs">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InWindowPopupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InWindowPopupControl.Designer.cs">
+      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CallManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CallManager.designer.cs">
+      <DependentUpon>CallManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PopupForm.Designer.cs">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\LuaExtension.cs" />
+    <Compile Include="General\MsgBoxIconType.cs" />
+    <Compile Include="Forms\ServerListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ServerListForm.Designer.cs">
+      <DependentUpon>ServerListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ViewAllPopupContentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
+      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Contact.cs" />
+    <Compile Include="General\AudioRecorderPlayer.cs" />
+    <Compile Include="General\ObjectExtensions.cs" />
+    <Compile Include="General\PInvoke.cs" />
+    <Compile Include="General\PopupController.cs" />
+    <Compile Include="General\InWindowPopupController.cs" />
+    <Compile Include="General\Settings.cs" />
+    <Compile Include="General\Updater.cs" />
+    <Compile Include="General\UserStatus.cs" />
+    <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
+    <Compile Include="Networking\NetworkManager.cs" />
+    <Compile Include="General\ContactsManager.cs" />
+    <Compile Include="Controls\TextBoxWithPlaceholderSupport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\UsingPintoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UsingPintoForm.Designer.cs">
+      <DependentUpon>UsingPintoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Logo.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MsgBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MsgBoxForm.Designer.cs">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\MsgBoxButtonType.cs" />
+    <Compile Include="General\MsgBox.cs" />
+    <Compile Include="Networking\NetworkClient.cs" />
+    <Compile Include="Networking\Packets\IPacket.cs" />
+    <Compile Include="Networking\Packets\PacketTyping.cs" />
+    <Compile Include="Networking\Packets\PacketCallEnd.cs" />
+    <Compile Include="Networking\Packets\PacketCallStart.cs" />
+    <Compile Include="Networking\Packets\PacketCallInfo.cs" />
+    <Compile Include="Networking\Packets\PacketCallInit.cs" />
+    <Compile Include="Networking\Packets\PacketCallResponse.cs" />
+    <Compile Include="Networking\Packets\PacketCallRequest.cs" />
+    <Compile Include="Networking\Packets\PacketServerID.cs" />
+    <Compile Include="Networking\Packets\PacketPopup.cs" />
+    <Compile Include="Networking\Packets\PacketKeepAlive.cs" />
+    <Compile Include="Networking\Packets\PacketClearContacts.cs" />
+    <Compile Include="Networking\Packets\PacketContactRequest.cs" />
+    <Compile Include="Networking\Packets\PacketStatus.cs" />
+    <Compile Include="Networking\Packets\PacketRemoveContact.cs" />
+    <Compile Include="Networking\Packets\PacketInWindowPopup.cs" />
+    <Compile Include="Networking\Packets\PacketAddContact.cs" />
+    <Compile Include="Networking\Packets\PacketRegister.cs" />
+    <Compile Include="Networking\Packets\PacketMessage.cs" />
+    <Compile Include="Networking\Packets\PacketLogout.cs" />
+    <Compile Include="Networking\Packets\PacketLogin.cs" />
+    <Compile Include="Networking\NetworkHandler.cs" />
+    <Compile Include="Networking\Packets\Packets.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sounds.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sounds.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Statuses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Statuses.resx</DependentUpon>
+    </Compile>
+    <Compile Include="General\User.cs" />
+    <EmbeddedResource Include="Assets.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Assets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Loader.resx">
+      <DependentUpon>Loader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangeMOTDForm.resx">
+      <DependentUpon>ChangeMOTDForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddContactForm.resx">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConsoleForm.resx">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CallManager.resx">
+      <DependentUpon>CallManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PopupForm.resx">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ServerListForm.resx">
+      <DependentUpon>ServerListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UsingPintoForm.resx">
+      <DependentUpon>UsingPintoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FatalErrorForm.resx">
+      <DependentUpon>FatalErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InWindowPopupControl.resx">
+      <DependentUpon>InWindowPopupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ViewAllPopupContentForm.resx">
+      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logo.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Logo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MsgBoxForm.resx">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Sounds.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sounds.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statuses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Statuses.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Assets\CONTACT_BIG.png" />
+    <Content Include="Resources\Assets\GPLV3.png" />
+    <Content Include="Resources\Assets\ADDCONTACT_DISABLED.png" />
+    <Content Include="Resources\Assets\ADDCONTACT_ENABLED.png" />
+    <Content Include="Resources\Assets\CONTACT.png" />
+    <Content Include="Resources\Assets\ENDCALL_DISABLED.png" />
+    <Content Include="Resources\Assets\ENDCALL_ENABLED.png" />
+    <Content Include="Resources\Assets\HISTORY_DISABLED.png" />
+    <Content Include="Resources\Assets\HISTORY_ENABLED.png" />
+    <Content Include="Resources\Assets\HOUSE.png" />
+    <Content Include="Resources\Assets\HOUSE_LOCKED.png" />
+    <Content Include="Resources\Assets\IM_DISABLED.png" />
+    <Content Include="Resources\Assets\IM_ENABLED.png" />
+    <Content Include="Resources\Assets\INFO_DISABLED.png" />
+    <Content Include="Resources\Assets\INFO_ENABLED.png" />
+    <Content Include="Resources\Assets\LOCK_DISABLED.png" />
+    <Content Include="Resources\Assets\LOCK_ENABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_DISABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_ENABLED.png" />
+    <Content Include="Resources\Assets\MICROPHONE_MUTED.png" />
+    <Content Include="Resources\Assets\MISSEDCALLS.png" />
+    <Content Include="Resources\Assets\PAUSECALL_DISABLED.png" />
+    <Content Include="Resources\Assets\PAUSECALL_ENABLED.png" />
+    <Content Include="Resources\Assets\PLUS_DISABLED.png" />
+    <Content Include="Resources\Assets\PLUS_ENABLED.png" />
+    <Content Include="Resources\Assets\REMOVECONTACT_DISABLED.png" />
+    <Content Include="Resources\Assets\REMOVECONTACT_ENABLED.png" />
+    <Content Include="Resources\Assets\RESUMECALL.png" />
+    <Content Include="Resources\Assets\SEARCH_DISABLED.png" />
+    <Content Include="Resources\Assets\SEARCH_ENABLED.png" />
+    <Content Include="Resources\Assets\SECONDARY_INFO.png" />
+    <Content Include="Resources\Assets\STAR.png" />
+    <Content Include="Resources\Assets\STARTCALL_DISABLED.png" />
+    <Content Include="Resources\Assets\STARTCALL_ENABLED.png" />
+    <Content Include="Resources\Assets\TRASHCAN_DISABLED.png" />
+    <Content Include="Resources\Assets\TRASHCAN_ENABLED.png" />
+    <Content Include="Resources\Assets\COLOR_PALETTE.png" />
+    <Content Include="Resources\Assets\WARNING.png" />
+    <Content Include="Resources\Logo\Banner.png" />
+    <Content Include="Resources\Logo\LOADING.png" />
+    <Content Include="Resources\Logo\LOGO.ico" />
+    <Content Include="Resources\Logo\LOGO.png" />
+    <Content Include="Resources\Logo\LOGO_BACKGROUND.png" />
+    <Content Include="Resources\Logo\STAND_WITH_UKRAINE.png" />
+    <Content Include="Resources\Sounds\BUSY.WAV" />
+    <Content Include="Resources\Sounds\CALL_ERROR1.WAV" />
+    <Content Include="Resources\Sounds\CALL_ERROR2.WAV" />
+    <Content Include="Resources\Sounds\CALL_IN.WAV" />
+    <Content Include="Resources\Sounds\CALL_INIT.WAV" />
+    <Content Include="Resources\Sounds\CALL_OUT.WAV" />
+    <Content Include="Resources\Sounds\CALL_RECONNECT_CONTINUOUS.WAV" />
+    <Content Include="Resources\Sounds\CALL_RECONNECT_FRONT.WAV" />
+    <Content Include="Resources\Sounds\FORWARDED.WAV" />
+    <Content Include="Resources\Sounds\FT_COMPLETE.WAV" />
+    <Content Include="Resources\Sounds\FT_FAILED.WAV" />
+    <Content Include="Resources\Sounds\HANGUP.WAV" />
+    <Content Include="Resources\Sounds\HOLD.WAV" />
+    <Content Include="Resources\Sounds\IM.WAV" />
+    <Content Include="Resources\Sounds\IM_ACC.WAV" />
+    <Content Include="Resources\Sounds\IM_SENT.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_AUTH.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_CONTACTS.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_FILE.WAV" />
+    <Content Include="Resources\Sounds\INCOMING_VOICEMAIL.WAV" />
+    <Content Include="Resources\Sounds\KNOCKING.WAV" />
+    <Content Include="Resources\Sounds\LOGIN.WAV" />
+    <Content Include="Resources\Sounds\LOGOUT.WAV" />
+    <Content Include="Resources\Sounds\OFFLINE.WAV" />
+    <Content Include="Resources\Sounds\ONLINE.WAV" />
+    <Content Include="Resources\Sounds\RESUME.WAV" />
+    <Content Include="Resources\Sounds\SEND_VM.WAV" />
+    <Content Include="Resources\Sounds\USER_ADDED.WAV" />
+    <Content Include="Resources\Sounds\USER_LEFT.WAV" />
+    <Content Include="Resources\Sounds\VC_BEEP_1.WAV" />
+    <Content Include="Resources\Statuses\AFK.ico" />
+    <Content Include="Resources\Statuses\AFK.png" />
+    <Content Include="Resources\Statuses\AWAY.ico" />
+    <Content Include="Resources\Statuses\AWAY.png" />
+    <Content Include="Resources\Statuses\BUSY.ico" />
+    <Content Include="Resources\Statuses\BUSY.png" />
+    <Content Include="Resources\Statuses\INVISIBLE.ico" />
+    <Content Include="Resources\Statuses\INVISIBLE.png" />
+    <Content Include="Resources\Statuses\OFFLINE.ico" />
+    <Content Include="Resources\Statuses\OFFLINE.png" />
+    <Content Include="Resources\Statuses\ONLINE.ico" />
+    <Content Include="Resources\Statuses\ONLINE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NATUPNPLib">
+      <Guid>{1C565858-F302-471E-B409-F180AA4ABEC6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\KeraLua.1.3.4\build\net46\KeraLua.targets" Condition="Exists('..\packages\KeraLua.1.3.4\build\net46\KeraLua.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\KeraLua.1.3.4\build\net46\KeraLua.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\KeraLua.1.3.4\build\net46\KeraLua.targets'))" />
+  </Target>
+</Project>
