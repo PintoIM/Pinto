@@ -146,7 +146,9 @@ namespace PintoNS
             
             ContactsMgr = null;
             MessageForms = null;
-            dgvContacts.DataSource = null;
+            // Do not null the datasource as it causes more problems than it solves
+            //dgvContacts.DataSource = null;
+
             if (CallMgr != null) 
             {
                 CallMgr.AllowClose = true;

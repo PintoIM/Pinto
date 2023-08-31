@@ -82,24 +82,28 @@ namespace PintoNS.Networking
         {
             if (!IsConnected) return;
 
+            MemoryStream memoryStream = new MemoryStream();
+            BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+
             lock (sendLock)
             {
                 // Header
-                tcpBinaryWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
-
-                // Size
-                tcpBinaryWriter.WriteBE(packet.GetSize());
+                binaryWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
 
                 // ID
-                tcpBinaryWriter.WriteBE(packet.GetID());
+                binaryWriter.WriteBE(packet.GetID());
 
                 if (packet.GetSize() > 0) 
                 {
                     // Data
-                    packet.Write(tcpBinaryWriter);
-                    tcpBinaryWriter.Flush();
+                    packet.Write(binaryWriter);
+                    binaryWriter.Flush();
                 }
             }
+            
+            memoryStream.WriteTo(tcpStream);
+            memoryStream.Dispose();
+            tcpStream.Flush();
 
             if (packet.GetID() != 255)
                 Program.Console.WriteMessage($"[Networking] Sent packet" +
@@ -130,23 +134,15 @@ namespace PintoNS.Networking
                         headerPart3 != 0x47)
                         throw new ConnectionException("Bad packet header!");
 
-                    int size = tcpBinaryReader.ReadBEInt();
                     int id = tcpBinaryReader.ReadBEInt();
                     IPacket packet = Packets.GetPacketByID(id);
 
                     if (packet == null)
                         throw new ConnectionException($"Bad packet ID: {id}");
 
-                    if (size > 0) 
-                    {
-                        byte[] data = tcpBinaryReader.ReadBytes(size);
-                        BinaryReader tempReader = new BinaryReader(new MemoryStream(data));
-                        packet.Read(tempReader);
-                        tempReader.Close();
-                        tempReader.Dispose();
-                    }
-
+                    packet.Read(tcpBinaryReader);
                     ReceivedPacket.Invoke(packet);
+
                     Thread.Sleep(1);
                 }
                 catch (Exception ex)

@@ -207,8 +207,14 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                (mainForm.dgvContacts.DataSource as DataTable).Rows.Clear();
-                mainForm.ContactsMgr = new ContactsManager(mainForm);
+                object dataSource = mainForm.dgvContacts.DataSource;
+                Program.Console.WriteMessage($"DataSource is null: {dataSource == null}");
+
+                if (dataSource != null)
+                {
+                    (dataSource as DataTable).Rows.Clear();
+                    mainForm.ContactsMgr = new ContactsManager(mainForm);
+                }
             }));
         }
 
