@@ -87,18 +87,10 @@ namespace PintoNS.Networking
 
             lock (sendLock)
             {
-                // Header
-                binaryWriter.Write(Encoding.ASCII.GetBytes("PMSG"));
-
-                // ID
-                binaryWriter.WriteBE(packet.GetID());
-
-                if (packet.GetSize() > 0) 
-                {
-                    // Data
-                    packet.Write(binaryWriter);
-                    binaryWriter.Flush();
-                }
+                binaryWriter.Write(Encoding.ASCII.GetBytes("PMSG")); // Header
+                binaryWriter.WriteBE(packet.GetID()); // ID
+                packet.Write(binaryWriter); // Data
+                binaryWriter.Flush();
             }
             
             memoryStream.WriteTo(tcpStream);
@@ -128,10 +120,10 @@ namespace PintoNS.Networking
                         throw new ConnectionException("Client disconnect");
 
                     // PMSG
-                    if (headerPart0 != 0x50 || 
-                        headerPart1 != 0x4d || 
-                        headerPart2 != 0x53 || 
-                        headerPart3 != 0x47)
+                    if (headerPart0 != 'P' || 
+                        headerPart1 != 'M' || 
+                        headerPart2 != 'S' || 
+                        headerPart3 != 'G')
                         throw new ConnectionException("Bad packet header!");
 
                     int id = tcpBinaryReader.ReadBEInt();

@@ -176,6 +176,11 @@ namespace PintoNS.Forms
             rtxtInput.SelectionStart = caretPosition;
             rtxtInput.SelectionLength = 0;
 
+            if (text.Trim().Length < 1)
+                btnSend.Enabled = false;
+            else
+                btnSend.Enabled = true;
+
             if (mainForm.NetManager == null) return;
 
             if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
@@ -194,8 +199,6 @@ namespace PintoNS.Forms
 
             if (string.IsNullOrWhiteSpace(input))
             {
-                MsgBox.Show(this, "The specified message is invalid!", "Error", 
-                    MsgBoxIconType.ERROR);
                 return;
             }
 

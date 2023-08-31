@@ -114,7 +114,15 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.AddContact(new Contact() { Name = packet.ContactName, Status = packet.Status, MOTD = packet.MOTD });
+                ContactsManager contactsMgr = mainForm.ContactsMgr;
+                Program.Console.WriteMessage($"ContactsMgr is null: {contactsMgr == null}");
+                if (contactsMgr == null) return;
+                contactsMgr.AddContact(new Contact() 
+                { 
+                    Name = packet.ContactName, 
+                    Status = packet.Status,
+                    MOTD = packet.MOTD
+                });
             }));
         }
 
@@ -123,7 +131,10 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Removing {packet.ContactName} from the contact list...");
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.RemoveContact(mainForm.ContactsMgr.GetContact(packet.ContactName));
+                ContactsManager contactsMgr = mainForm.ContactsMgr;
+                Program.Console.WriteMessage($"ContactsMgr is null: {contactsMgr == null}");
+                if (contactsMgr == null) return;
+                contactsMgr.RemoveContact(contactsMgr.GetContact(packet.ContactName));
             }));
         }
 

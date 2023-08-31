@@ -8,6 +8,5 @@ namespace PintoNS.Networking
         void Read(BinaryReader reader);
         void Handle(NetworkHandler netHandler);
         int GetID();
-        int GetSize();
     }
 }
