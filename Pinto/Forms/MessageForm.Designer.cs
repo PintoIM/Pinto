@@ -43,6 +43,7 @@
             this.tsmiMenuFileZoomReset = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -54,6 +55,7 @@
             this.rtxtMessages = new PintoNS.Controls.ExRichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tRateLimit = new System.Windows.Forms.Timer(this.components);
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -139,6 +141,7 @@
             this.tsmiMenuFileZoomIn,
             this.tsmiMenuFileZoomOut,
             this.tsmiMenuFileZoomReset,
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll,
             this.toolStripSeparator1,
             this.tsmiMenuBarFileClearSavedData});
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -182,6 +185,13 @@
             this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(232, 22);
             this.tsmiMenuBarFileClearSavedData.Text = "Clear Saved Data";
             this.tsmiMenuBarFileClearSavedData.Click += new System.EventHandler(this.tsmiMenuBarFileClearSavedData_Click);
+            // 
+            // tsmiMenuBarFileDoNotAutomaticallyScroll
+            // 
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Name = "tsmiMenuBarFileDoNotAutomaticallyScroll";
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Size = new System.Drawing.Size(232, 22);
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Text = "Do not automatically scroll";
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Click += new System.EventHandler(this.tsmiMenuBarFileDoNotAutomaticallyScroll_Click);
             // 
             // tsddbMenuBarHelp
             // 
@@ -282,7 +292,6 @@
             this.rtxtMessages.TabIndex = 7;
             this.rtxtMessages.Text = "";
             this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
-            this.rtxtMessages.TextChanged += new System.EventHandler(this.rtxtMessages_TextChanged);
             // 
             // cmsMessages
             // 
@@ -298,6 +307,12 @@
             this.tsmiMessagesCopy.Size = new System.Drawing.Size(77, 22);
             this.tsmiMessagesCopy.Text = "Copy";
             this.tsmiMessagesCopy.Click += new System.EventHandler(this.tsmiMessagesCopy_Click);
+            // 
+            // tRateLimit
+            // 
+            this.tRateLimit.Enabled = true;
+            this.tRateLimit.Interval = 500;
+            this.tRateLimit.Tick += new System.EventHandler(this.tRateLimit_Tick);
             // 
             // MessageForm
             // 
@@ -354,5 +369,7 @@
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileDoNotAutomaticallyScroll;
+        private System.Windows.Forms.Timer tRateLimit;
     }
 }

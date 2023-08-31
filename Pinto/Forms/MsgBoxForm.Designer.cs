@@ -130,7 +130,6 @@
             this.MinimizeBox = false;
             this.Name = "MsgBoxForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MsgBox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Notification_FormClosing);

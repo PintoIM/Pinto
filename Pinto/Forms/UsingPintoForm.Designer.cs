@@ -95,7 +95,7 @@
             // 
             this.txtIP.Location = new System.Drawing.Point(234, 65);
             this.txtIP.Name = "txtIP";
-            this.txtIP.Size = new System.Drawing.Size(106, 20);
+            this.txtIP.Size = new System.Drawing.Size(106, 22);
             this.txtIP.TabIndex = 4;
             this.txtIP.Text = "ponso00.com";
             // 
@@ -113,7 +113,7 @@
             0,
             0});
             this.nudPort.Name = "nudPort";
-            this.nudPort.Size = new System.Drawing.Size(97, 20);
+            this.nudPort.Size = new System.Drawing.Size(97, 22);
             this.nudPort.TabIndex = 5;
             this.nudPort.Value = new decimal(new int[] {
             2407,
@@ -126,7 +126,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(208, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
+            this.label1.Size = new System.Drawing.Size(19, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "IP:";
             // 
@@ -135,7 +135,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(208, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Port:";
             // 
@@ -143,7 +143,7 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(83, 89);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(119, 20);
+            this.txtPassword.Size = new System.Drawing.Size(119, 22);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -152,7 +152,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(19, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Username:";
             // 
@@ -161,7 +161,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(19, 92);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Password:";
             // 
@@ -191,7 +191,7 @@
             this.llServers.AutoSize = true;
             this.llServers.Location = new System.Drawing.Point(224, 116);
             this.llServers.Name = "llServers";
-            this.llServers.Size = new System.Drawing.Size(116, 13);
+            this.llServers.Size = new System.Drawing.Size(125, 13);
             this.llServers.TabIndex = 7;
             this.llServers.TabStop = true;
             this.llServers.Text = "Looking for all servers?";
@@ -211,7 +211,7 @@
             this.rbLogin.Checked = true;
             this.rbLogin.Location = new System.Drawing.Point(23, 34);
             this.rbLogin.Name = "rbLogin";
-            this.rbLogin.Size = new System.Drawing.Size(170, 17);
+            this.rbLogin.Size = new System.Drawing.Size(178, 17);
             this.rbLogin.TabIndex = 1;
             this.rbLogin.TabStop = true;
             this.rbLogin.Text = "I already have a Pinto account";
@@ -222,7 +222,7 @@
             this.rbCreate.AutoSize = true;
             this.rbCreate.Location = new System.Drawing.Point(22, 11);
             this.rbCreate.Name = "rbCreate";
-            this.rbCreate.Size = new System.Drawing.Size(224, 17);
+            this.rbCreate.Size = new System.Drawing.Size(241, 17);
             this.rbCreate.TabIndex = 0;
             this.rbCreate.Text = "I would like to create a new Pinto account";
             this.rbCreate.UseVisualStyleBackColor = true;
@@ -235,7 +235,7 @@
             this.cbSavePassword.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbSavePassword.Location = new System.Drawing.Point(23, 141);
             this.cbSavePassword.Name = "cbSavePassword";
-            this.cbSavePassword.Size = new System.Drawing.Size(196, 17);
+            this.cbSavePassword.Size = new System.Drawing.Size(214, 17);
             this.cbSavePassword.TabIndex = 8;
             this.cbSavePassword.Text = "Store my password on this computer";
             this.cbSavePassword.UseVisualStyleBackColor = true;
@@ -247,7 +247,7 @@
             this.llForgotPassword.Enabled = false;
             this.llForgotPassword.Location = new System.Drawing.Point(20, 116);
             this.llForgotPassword.Name = "llForgotPassword";
-            this.llForgotPassword.Size = new System.Drawing.Size(114, 13);
+            this.llForgotPassword.Size = new System.Drawing.Size(126, 13);
             this.llForgotPassword.TabIndex = 6;
             this.llForgotPassword.TabStop = true;
             this.llForgotPassword.Text = "Forgot your password?";
@@ -352,7 +352,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(208, 11);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 13);
+            this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 4;
             this.label6.Text = "IP:";
             // 
@@ -361,7 +361,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(19, 35);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 9;
             this.label7.Text = "Password:";
             // 
@@ -369,7 +369,7 @@
             // 
             this.txtRegisterIP.Location = new System.Drawing.Point(234, 8);
             this.txtRegisterIP.Name = "txtRegisterIP";
-            this.txtRegisterIP.Size = new System.Drawing.Size(106, 20);
+            this.txtRegisterIP.Size = new System.Drawing.Size(106, 22);
             this.txtRegisterIP.TabIndex = 2;
             this.txtRegisterIP.Text = "ponso00.com";
             // 
@@ -378,7 +378,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(19, 8);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 8;
             this.label8.Text = "Username:";
             // 
@@ -396,7 +396,7 @@
             0,
             0});
             this.nudRegisterPort.Name = "nudRegisterPort";
-            this.nudRegisterPort.Size = new System.Drawing.Size(97, 20);
+            this.nudRegisterPort.Size = new System.Drawing.Size(97, 22);
             this.nudRegisterPort.TabIndex = 3;
             this.nudRegisterPort.Value = new decimal(new int[] {
             2407,
@@ -408,7 +408,7 @@
             // 
             this.txtRegisterPassword.Location = new System.Drawing.Point(83, 32);
             this.txtRegisterPassword.Name = "txtRegisterPassword";
-            this.txtRegisterPassword.Size = new System.Drawing.Size(119, 20);
+            this.txtRegisterPassword.Size = new System.Drawing.Size(119, 22);
             this.txtRegisterPassword.TabIndex = 1;
             this.txtRegisterPassword.UseSystemPasswordChar = true;
             // 
@@ -417,7 +417,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(208, 34);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 5;
             this.label9.Text = "Port:";
             // 
@@ -425,7 +425,7 @@
             // 
             this.txtRegisterUsername.Location = new System.Drawing.Point(83, 5);
             this.txtRegisterUsername.Name = "txtRegisterUsername";
-            this.txtRegisterUsername.Size = new System.Drawing.Size(119, 20);
+            this.txtRegisterUsername.Size = new System.Drawing.Size(119, 22);
             this.txtRegisterUsername.TabIndex = 0;
             // 
             // btnRegister
@@ -448,7 +448,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UsingPintoForm";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pinto! - Using Pinto";
             this.Load += new System.EventHandler(this.UsingPintoForm_Load);

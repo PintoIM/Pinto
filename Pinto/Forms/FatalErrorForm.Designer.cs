@@ -38,7 +38,7 @@
             this.lFatalError.AutoSize = true;
             this.lFatalError.Location = new System.Drawing.Point(12, 9);
             this.lFatalError.Name = "lFatalError";
-            this.lFatalError.Size = new System.Drawing.Size(250, 13);
+            this.lFatalError.Size = new System.Drawing.Size(277, 13);
             this.lFatalError.TabIndex = 0;
             this.lFatalError.Text = "Pinto! has ran into an fatal error! Sorry about that.... ";
             // 
@@ -47,7 +47,7 @@
             this.lReport.AutoSize = true;
             this.lReport.Location = new System.Drawing.Point(12, 22);
             this.lReport.Name = "lReport";
-            this.lReport.Size = new System.Drawing.Size(377, 13);
+            this.lReport.Size = new System.Drawing.Size(424, 13);
             this.lReport.TabIndex = 2;
             this.lReport.Text = "If you want to prevent this from happening in the future, report the attached log" +
     "";
@@ -61,7 +61,7 @@
             this.rtxtLog.Location = new System.Drawing.Point(15, 38);
             this.rtxtLog.Name = "rtxtLog";
             this.rtxtLog.ReadOnly = true;
-            this.rtxtLog.Size = new System.Drawing.Size(374, 258);
+            this.rtxtLog.Size = new System.Drawing.Size(418, 295);
             this.rtxtLog.TabIndex = 3;
             this.rtxtLog.Text = "";
             // 
@@ -69,12 +69,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(405, 312);
+            this.ClientSize = new System.Drawing.Size(449, 349);
             this.Controls.Add(this.rtxtLog);
             this.Controls.Add(this.lReport);
             this.Controls.Add(this.lFatalError);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(465, 388);
             this.Name = "FatalErrorForm";
             this.Text = "Pinto! - Fatal Error";
             this.ResumeLayout(false);

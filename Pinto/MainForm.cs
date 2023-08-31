@@ -317,6 +317,9 @@ namespace PintoNS
         {
             Program.Console.WriteMessage($"Getting MessageForm for {name}...");
 
+            if (MessageForms == null) 
+                return null;
+
             foreach (MessageForm msgForm in MessageForms.ToArray())
             {
                 if (msgForm.Receiver.Name == name)

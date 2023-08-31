@@ -52,7 +52,6 @@
             this.MinimizeBox = false;
             this.Name = "ViewAllPopupContentForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "View popup content";
             this.ResumeLayout(false);

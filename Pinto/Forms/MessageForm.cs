@@ -14,6 +14,7 @@ namespace PintoNS.Forms
         private bool isTypingLastStatus;
         public bool HasBeenInactive;
         public InWindowPopupController InWindowPopupController;
+        private int rateLimitTicks;
 
         public MessageForm(MainForm mainForm, Contact receiver)
         {
@@ -102,10 +103,19 @@ namespace PintoNS.Forms
         {
             Invoke(new Action(() =>
             {
+                int selectionStartOriginal = rtxtMessages.SelectionStart;
+                int selectionEndOriginal = rtxtMessages.SelectionLength;
                 rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
                 rtxtMessages.SelectionColor = color;
                 rtxtMessages.SelectedText = msg;
                 rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
+
+                if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) 
+                {
+                    rtxtMessages.SelectionStart = selectionStartOriginal;
+                    rtxtMessages.SelectionLength = selectionEndOriginal;
+                    rtxtMessages.ScrollToCaret();
+                }
 
                 // Save the chat
                 SaveChat();
@@ -202,9 +212,17 @@ namespace PintoNS.Forms
                 return;
             }
 
+            if (rateLimitTicks > 0) 
+            {
+                MsgBox.Show(this, "You may not send messages more often than 1.5 seconds!", 
+                    "Slow down", MsgBoxIconType.WARNING, true);
+                return;
+            }
+
             rtxtInput.Clear();
             if (mainForm.NetManager != null) 
                 mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
+            rateLimitTicks = 3;
         }
 
         private void MessageForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -244,12 +262,6 @@ namespace PintoNS.Forms
             if (Receiver.Status == UserStatus.BUSY)
                 InWindowPopupController.CreatePopup($"{Receiver.Name} is busy" +
                     $" and may not see your messages");
-        }
-
-        private void rtxtMessages_TextChanged(object sender, EventArgs e)
-        {
-            rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
-            rtxtMessages.ScrollToCaret();
         }
 
         private void rtxtMessages_LinkClicked(object sender, LinkClickedEventArgs e) => Process.Start(e.LinkText);
@@ -303,11 +315,20 @@ namespace PintoNS.Forms
             if (message.Msg == PInvoke.WM_SYSCOMMAND &&
                 (int)message.WParam == PInvoke.SC_RESTORE)
             {
-                MessageBox.Show("call");
                 Invalidate();
             }
 
             base.WndProc(ref message);
+        }
+
+        private void tsmiMenuBarFileDoNotAutomaticallyScroll_Click(object sender, EventArgs e)
+        {
+            tsmiMenuBarFileDoNotAutomaticallyScroll.Checked = !tsmiMenuBarFileDoNotAutomaticallyScroll.Checked;
+        }
+
+        private void tRateLimit_Tick(object sender, EventArgs e)
+        {
+            if (rateLimitTicks > 0) rateLimitTicks--;
         }
     }
 }

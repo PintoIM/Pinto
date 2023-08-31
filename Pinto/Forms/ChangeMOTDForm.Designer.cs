@@ -74,7 +74,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ChangeMOTDForm";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pinto! - Change MOTD";
             this.Load += new System.EventHandler(this.ChangeMOTDForm_Load);
