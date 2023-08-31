@@ -92,7 +92,7 @@ namespace PintoNS.Networking
             bool wasActive = IsActive;
             IsActive = false;
 
-            if (!reason.Equals("User requested disconnect")) 
+            if (reason != null && !reason.Equals("User requested disconnect")) 
             {
                 mainForm.Invoke(new Action(() =>
                 {

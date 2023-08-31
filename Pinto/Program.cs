@@ -211,6 +211,12 @@ namespace PintoNS
             Environment.Exit(0);
         }
 
+        public static IEnumerable<string> SplitStringIntoChunks(string str, int chunkSize)
+        {
+            for (int i = 0; i < str.Length; i += chunkSize)
+                yield return str.Substring(i, Math.Min(chunkSize, str.Length - i));
+        }
+
         private static void CheckForNewFormThread_Func() 
         {
             List<Form> lastOpenedForms = new List<Form>();

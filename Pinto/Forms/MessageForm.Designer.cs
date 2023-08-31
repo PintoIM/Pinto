@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageForm));
             this.btnSend = new System.Windows.Forms.Button();
-            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
             this.cmsInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiInputCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInputPaste = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,21 +40,23 @@
             this.tsmiMenuFileZoomIn = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuFileZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuFileZoomReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tspbStatusStripRateLimit = new System.Windows.Forms.ToolStripProgressBar();
             this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtMessages = new System.Windows.Forms.RichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
+            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -73,23 +74,6 @@
             this.btnSend.Text = "&Send";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // rtxtInput
-            // 
-            this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtxtInput.ContextMenuStrip = this.cmsInput;
-            this.rtxtInput.HideSelection = false;
-            this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.MaxLength = 512;
-            this.rtxtInput.Name = "rtxtInput";
-            this.rtxtInput.Size = new System.Drawing.Size(344, 56);
-            this.rtxtInput.TabIndex = 0;
-            this.rtxtInput.Text = "";
-            this.rtxtInput.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtxtInput_ContentsResized);
-            this.rtxtInput.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
-            this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
-            this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
             // 
             // cmsInput
             // 
@@ -174,6 +158,13 @@
             this.tsmiMenuFileZoomReset.Text = "Zoom Reset";
             this.tsmiMenuFileZoomReset.Click += new System.EventHandler(this.tsmiMenuFileZoomReset_Click);
             // 
+            // tsmiMenuBarFileDoNotAutomaticallyScroll
+            // 
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Name = "tsmiMenuBarFileDoNotAutomaticallyScroll";
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Size = new System.Drawing.Size(232, 22);
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Text = "Do not automatically scroll";
+            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Click += new System.EventHandler(this.tsmiMenuBarFileDoNotAutomaticallyScroll_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -185,13 +176,6 @@
             this.tsmiMenuBarFileClearSavedData.Size = new System.Drawing.Size(232, 22);
             this.tsmiMenuBarFileClearSavedData.Text = "Clear Saved Data";
             this.tsmiMenuBarFileClearSavedData.Click += new System.EventHandler(this.tsmiMenuBarFileClearSavedData_Click);
-            // 
-            // tsmiMenuBarFileDoNotAutomaticallyScroll
-            // 
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Name = "tsmiMenuBarFileDoNotAutomaticallyScroll";
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Size = new System.Drawing.Size(232, 22);
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Text = "Do not automatically scroll";
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Click += new System.EventHandler(this.tsmiMenuBarFileDoNotAutomaticallyScroll_Click);
             // 
             // tsddbMenuBarHelp
             // 
@@ -215,7 +199,8 @@
             // ssStatusStrip
             // 
             this.ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsslStatusBarTypingList});
+            this.tsslStatusBarTypingList,
+            this.tspbStatusStripRateLimit});
             this.ssStatusStrip.Location = new System.Drawing.Point(0, 351);
             this.ssStatusStrip.Name = "ssStatusStrip";
             this.ssStatusStrip.Size = new System.Drawing.Size(433, 22);
@@ -226,6 +211,13 @@
             // 
             this.tsslStatusBarTypingList.Name = "tsslStatusBarTypingList";
             this.tsslStatusBarTypingList.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tspbStatusStripRateLimit
+            // 
+            this.tspbStatusStripRateLimit.Maximum = 6;
+            this.tspbStatusStripRateLimit.Name = "tspbStatusStripRateLimit";
+            this.tspbStatusStripRateLimit.Size = new System.Drawing.Size(100, 16);
+            this.tspbStatusStripRateLimit.Step = 1;
             // 
             // btnColor
             // 
@@ -311,8 +303,24 @@
             // tRateLimit
             // 
             this.tRateLimit.Enabled = true;
-            this.tRateLimit.Interval = 500;
             this.tRateLimit.Tick += new System.EventHandler(this.tRateLimit_Tick);
+            // 
+            // rtxtInput
+            // 
+            this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtxtInput.ContextMenuStrip = this.cmsInput;
+            this.rtxtInput.HideSelection = false;
+            this.rtxtInput.Location = new System.Drawing.Point(12, 283);
+            this.rtxtInput.MaxLength = 512;
+            this.rtxtInput.Name = "rtxtInput";
+            this.rtxtInput.Size = new System.Drawing.Size(344, 56);
+            this.rtxtInput.TabIndex = 0;
+            this.rtxtInput.Text = "";
+            this.rtxtInput.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtxtInput_ContentsResized);
+            this.rtxtInput.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
+            this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
+            this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
             // 
             // MessageForm
             // 
@@ -359,7 +367,7 @@
         public System.Windows.Forms.ColorDialog cdPicker;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
-        public PintoNS.Controls.ExRichTextBox rtxtMessages;
+        public System.Windows.Forms.RichTextBox rtxtMessages;
         public System.Windows.Forms.ContextMenuStrip cmsMessages;
         public System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
         public System.Windows.Forms.ContextMenuStrip cmsInput;
@@ -371,5 +379,6 @@
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileDoNotAutomaticallyScroll;
         private System.Windows.Forms.Timer tRateLimit;
+        private System.Windows.Forms.ToolStripProgressBar tspbStatusStripRateLimit;
     }
 }

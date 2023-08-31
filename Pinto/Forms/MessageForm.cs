@@ -214,7 +214,7 @@ namespace PintoNS.Forms
 
             if (rateLimitTicks > 0) 
             {
-                MsgBox.Show(this, "You may not send messages more often than 1.5 seconds!", 
+                MsgBox.Show(this, "You may not send messages more often than 1.2 seconds!", 
                     "Slow down", MsgBoxIconType.WARNING, true);
                 return;
             }
@@ -222,7 +222,7 @@ namespace PintoNS.Forms
             rtxtInput.Clear();
             if (mainForm.NetManager != null) 
                 mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
-            rateLimitTicks = 3;
+            rateLimitTicks = 12;
         }
 
         private void MessageForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -328,7 +328,12 @@ namespace PintoNS.Forms
 
         private void tRateLimit_Tick(object sender, EventArgs e)
         {
-            if (rateLimitTicks > 0) rateLimitTicks--;
+            if (rateLimitTicks > 0)
+            {
+                rateLimitTicks--;
+                tspbStatusStripRateLimit.PerformStep();
+                if (rateLimitTicks < 1) tspbStatusStripRateLimit.Value = 0;
+            }
         }
     }
 }

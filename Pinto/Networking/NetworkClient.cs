@@ -1,7 +1,11 @@
-﻿using PintoNS.General;
+﻿using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Security;
+using PintoNS.General;
 using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,6 +31,7 @@ namespace PintoNS.Networking
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private object sendLock = new object();
+        private Aes aes;
         
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -45,15 +50,47 @@ namespace PintoNS.Networking
                 tcpBinaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode);
                 tcpBinaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode);
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
-                readThread.Start();
+                Handshake();
 
                 return (true, null);
             }
             catch (Exception ex)
             {
-                Disconnect(null);
                 return (false, ex);
             }
+        }
+
+        private void Handshake()
+        {
+            Program.Console.WriteMessage("[Networking] Handshaking AES key...");
+
+            int sizeOfPublicKey = tcpBinaryReader.ReadBEInt();
+            byte[] publicKey = tcpBinaryReader.ReadBytes(sizeOfPublicKey);
+
+            string publicKeyStr = BitConverter.ToString(publicKey).Replace("-", "");
+            string publicKeyStrSplit = string.Join("\n", Program.SplitStringIntoChunks(publicKeyStr, 64));
+            Program.Console.WriteMessage($"[Networking] RSA public key:\n{publicKeyStrSplit}");
+
+            aes = Aes.Create();
+            aes.KeySize = 256;
+            aes.Mode = CipherMode.ECB;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.GenerateKey();
+            Program.Console.WriteMessage($"[Networking] AES key: {BitConverter.ToString(aes.Key).Replace("-", "")}");
+
+            RsaKeyParameters rsaKeyParameters = (RsaKeyParameters)PublicKeyFactory.CreateKey(publicKey);
+            RSAParameters rsaParameters = new RSAParameters();
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsaParameters.Modulus = rsaKeyParameters.Modulus.ToByteArrayUnsigned();
+            rsaParameters.Exponent = rsaKeyParameters.Exponent.ToByteArrayUnsigned();
+            rsa.ImportParameters(rsaParameters);
+
+            byte[] encryptedAESKey = rsa.Encrypt(aes.Key, RSAEncryptionPadding.Pkcs1);
+            tcpBinaryWriter.WriteBE(encryptedAESKey.Length);
+            tcpBinaryWriter.Write(encryptedAESKey);
+            Program.Console.WriteMessage("[Networking] Handshaking done");
+
+            readThread.Start();
         }
 
         public void Disconnect(string reason) 
