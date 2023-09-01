@@ -131,29 +131,21 @@ namespace PintoNS.Forms
             {
                 switch (msg[i])
                 {
-                    case '#':
-                        if (i + 2 < msg.Length &&
-                            msg[i + 1] == '#' &&
-                            msg[i + 2] == '#' &&
-                            i + 2 + 6 < msg.Length)
+                    case (char)0xA7:
+                        WriteMessageRaw(buffer, currentColor);
+
+                        buffer = "";
+                        try
                         {
-                            WriteMessageRaw(buffer, currentColor);
-
-                            buffer = "";
-                            try
-                            {
-                                currentColor = ColorTranslator.FromHtml(msg.Substring(i + 2, 7));
-                            }
-                            catch
-                            {
-                                currentColor = Color.Black;
-                            }
-
-                            // 0 (#) + 2 (##) + 6 (RRGGBB)
-                            i += 8;
+                            currentColor = ColorTranslator.FromHtml("#" + msg.Substring(i + 1, 6));
                         }
-                        else
-                            buffer += msg[i];
+                        catch
+                        {
+                            currentColor = Color.Black;
+                        }
+
+                        // 0 (0xA7) + 6 (RRGGBB)
+                        i += 6;
 
                         break;
                     default:
@@ -248,7 +240,7 @@ namespace PintoNS.Forms
             if (cdPicker.ShowDialog() != DialogResult.OK) return;
             Color color = cdPicker.Color;
             rtxtInput.SelectionLength = 0;
-            rtxtInput.AppendText($"###{color.R:X2}{color.G:X2}{color.B:X2}");
+            rtxtInput.AppendText(string.Format($"{{0}}{color.R:X2}{color.G:X2}{color.B:X2}", (char)0xA7));
         }
 
         private void tsmiMenuBarFileClearSavedData_Click(object sender, EventArgs e)
@@ -334,6 +326,13 @@ namespace PintoNS.Forms
                 tspbStatusStripRateLimit.PerformStep();
                 if (rateLimitTicks < 1) tspbStatusStripRateLimit.Value = 0;
             }
+        }
+
+        private void rtxtMessages_TextChanged(object sender, EventArgs e)
+        {
+            if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) return;
+            rtxtMessages.SelectionStart = rtxtMessages.TextLength;
+            rtxtMessages.ScrollToCaret();
         }
     }
 }

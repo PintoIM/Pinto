@@ -284,6 +284,7 @@
             this.rtxtMessages.TabIndex = 7;
             this.rtxtMessages.Text = "";
             this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
+            this.rtxtMessages.TextChanged += new System.EventHandler(this.rtxtMessages_TextChanged);
             // 
             // cmsMessages
             // 

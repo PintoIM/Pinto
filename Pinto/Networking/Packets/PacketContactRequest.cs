@@ -15,12 +15,12 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX + 4);
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX + 4);
         }
 
         public void Handle(NetworkHandler netHandler)
