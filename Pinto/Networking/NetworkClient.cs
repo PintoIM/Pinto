@@ -3,6 +3,7 @@ using Org.BouncyCastle.Security;
 using PintoNS.General;
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -25,13 +26,13 @@ namespace PintoNS.Networking
         public int Port;
         private TcpClient tcpClient;
         private NetworkStream tcpStream;
-        private BinaryReader tcpBinaryReader;
-        private BinaryWriter tcpBinaryWriter;
         private Thread readThread;
+        private Aes aes;
+        private ICryptoTransform cryptoDecryptor;
+        private ICryptoTransform cryptoEncryptor;
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private object sendLock = new object();
-        private Aes aes;
         
         public async Task<(bool, Exception)> Connect(string ip, int port) 
         {
@@ -47,8 +48,6 @@ namespace PintoNS.Networking
                 IsConnected = true;
 
                 tcpStream = tcpClient.GetStream();
-                tcpBinaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode);
-                tcpBinaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode);
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
                 Handshake();
 
@@ -64,8 +63,11 @@ namespace PintoNS.Networking
         {
             Program.Console.WriteMessage("[Networking] Handshaking AES key...");
 
-            int sizeOfPublicKey = tcpBinaryReader.ReadBEInt();
-            byte[] publicKey = tcpBinaryReader.ReadBytes(sizeOfPublicKey);
+            BinaryReader binaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode);
+            BinaryWriter binaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode);
+
+            int sizeOfPublicKey = binaryReader.ReadBEInt();
+            byte[] publicKey = binaryReader.ReadBytes(sizeOfPublicKey);
 
             string publicKeyStr = BitConverter.ToString(publicKey).Replace("-", "");
             string publicKeyStrSplit = string.Join("\n", Program.SplitStringIntoChunks(publicKeyStr, 64));
@@ -86,10 +88,12 @@ namespace PintoNS.Networking
             rsa.ImportParameters(rsaParameters);
 
             byte[] encryptedAESKey = rsa.Encrypt(aes.Key, RSAEncryptionPadding.Pkcs1);
-            tcpBinaryWriter.WriteBE(encryptedAESKey.Length);
-            tcpBinaryWriter.Write(encryptedAESKey);
+            binaryWriter.WriteBE(encryptedAESKey.Length);
+            binaryWriter.Write(encryptedAESKey);
             Program.Console.WriteMessage("[Networking] Handshaking done");
 
+            cryptoDecryptor = aes.CreateDecryptor();
+            cryptoEncryptor = aes.CreateEncryptor();
             readThread.Start();
         }
 
@@ -105,8 +109,8 @@ namespace PintoNS.Networking
             tcpClient = null;
             tcpStream = null;
             readThread = null;
-            tcpBinaryReader = null;
-            tcpBinaryWriter = null;
+            cryptoDecryptor = null;
+            cryptoEncryptor = null;
 
             if (IsConnected && !ignoreDisconnectReasonValue) 
             {
@@ -129,9 +133,13 @@ namespace PintoNS.Networking
                 packet.Write(binaryWriter); // Data
                 binaryWriter.Flush();
             }
-            
-            memoryStream.WriteTo(tcpStream);
+
+            byte[] packetData = memoryStream.ToArray();
+            byte[] encryptedPacketData = cryptoEncryptor.TransformFinalBlock(packetData, 0, packetData.Length);
             memoryStream.Dispose();
+
+            tcpStream.Write(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(encryptedPacketData.Length)), 0, 4);
+            tcpStream.Write(encryptedPacketData, 0, encryptedPacketData.Length);
             tcpStream.Flush();
 
             if (packet.GetID() != 255)
@@ -145,16 +153,23 @@ namespace PintoNS.Networking
             {
                 try
                 {
-                    int headerPart0 = tcpBinaryReader.ReadByte();
-                    int headerPart1 = tcpBinaryReader.ReadByte();
-                    int headerPart2 = tcpBinaryReader.ReadByte();
-                    int headerPart3 = tcpBinaryReader.ReadByte();
+                    byte[] encryptedDataSize = new byte[4];
+                    tcpStream.Read(encryptedDataSize, 0, encryptedDataSize.Length);
 
-                    if (headerPart0 == -1 || 
-                        headerPart1 == -1 ||
-                        headerPart2 == -1 ||
-                        headerPart3 == -1)
-                        throw new ConnectionException("Client disconnect");
+                    byte[] encryptedData = new byte[
+                        IPAddress.NetworkToHostOrder(BitConverter.ToInt32(encryptedDataSize, 0))];
+                    int readAmount = tcpStream.Read(encryptedData, 0, encryptedData.Length);
+                    if (readAmount == 0) throw new ConnectionException("Client disconnect");
+
+                    byte[] decryptedData = cryptoDecryptor.TransformFinalBlock(
+                        encryptedData, 0, encryptedData.Length);
+                    BinaryReader binaryReader = new BinaryReader(
+                        new MemoryStream(decryptedData), Encoding.BigEndianUnicode);
+
+                    int headerPart0 = binaryReader.ReadByte();
+                    int headerPart1 = binaryReader.ReadByte();
+                    int headerPart2 = binaryReader.ReadByte();
+                    int headerPart3 = binaryReader.ReadByte();
 
                     // PMSG
                     if (headerPart0 != 'P' || 
@@ -163,13 +178,13 @@ namespace PintoNS.Networking
                         headerPart3 != 'G')
                         throw new ConnectionException("Bad packet header!");
 
-                    int id = tcpBinaryReader.ReadBEInt();
+                    int id = binaryReader.ReadBEInt();
                     IPacket packet = Packets.GetPacketByID(id);
 
                     if (packet == null)
                         throw new ConnectionException($"Bad packet ID: {id}");
 
-                    packet.Read(tcpBinaryReader);
+                    packet.Read(binaryReader);
                     ReceivedPacket.Invoke(packet);
 
                     Thread.Sleep(1);

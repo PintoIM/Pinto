@@ -312,7 +312,7 @@
             this.rtxtInput.ContextMenuStrip = this.cmsInput;
             this.rtxtInput.HideSelection = false;
             this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.MaxLength = 512;
+            this.rtxtInput.MaxLength = 256;
             this.rtxtInput.Name = "rtxtInput";
             this.rtxtInput.Size = new System.Drawing.Size(344, 56);
             this.rtxtInput.TabIndex = 0;

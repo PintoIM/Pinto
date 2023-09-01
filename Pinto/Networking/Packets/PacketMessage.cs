@@ -21,14 +21,14 @@ namespace PintoNS.Networking
         {
             ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
             Sender = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
-            Message = reader.ReadPintoString(512);
+            Message = reader.ReadPintoString(256);
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
             writer.WritePintoString(Sender, BinaryWriterReaderExtensions.USERNAME_MAX);
-            writer.WritePintoString(Message, 512);
+            writer.WritePintoString(Message, 256);
         }
 
         public void Handle(NetworkHandler netHandler)

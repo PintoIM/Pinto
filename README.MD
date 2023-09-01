@@ -28,7 +28,7 @@ Pinto! IM is currently not finished and will take a lot of time to be fully perf
 - Calls ✅ (proof of concept at the moment)
 - Group messaging ❎
 - Server browser  ✅ (proof of concept at the moment)
-- Secure protocol communication ❎
+- Secure protocol communication ✅ (using RSA to transmit a randomly generated AES-256 key)
 - Fully customizable interface ❎
 
 # 🖥️ Server
