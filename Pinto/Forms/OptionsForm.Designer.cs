@@ -84,6 +84,7 @@ namespace PintoNS.Forms
             // flpPrivacyContainer
             // 
             this.flpPrivacyContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpPrivacyContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpPrivacyContainer.Location = new System.Drawing.Point(3, 3);
             this.flpPrivacyContainer.Name = "flpPrivacyContainer";
             this.flpPrivacyContainer.Size = new System.Drawing.Size(459, 277);

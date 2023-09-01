@@ -33,12 +33,10 @@ namespace PintoNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pQA = new System.Windows.Forms.Panel();
-            this.btnQAAddContact = new PintoNS.Controls.NoFocusQueButton();
             this.tcTabs = new System.Windows.Forms.TabControl();
             this.tpLogin = new System.Windows.Forms.TabPage();
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpConnecting = new System.Windows.Forms.TabPage();
-            this.lrConnectingLoader = new PintoNS.Controls.Loader();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpStart = new System.Windows.Forms.TabPage();
             this.llStartContacts = new System.Windows.Forms.LinkLabel();
@@ -93,7 +91,10 @@ namespace PintoNS
             this.tContactsOnlineUpdate = new System.Windows.Forms.Timer(this.components);
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
+            this.tsmiMenuBarToolsServerRules = new System.Windows.Forms.ToolStripMenuItem();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
+            this.lrConnectingLoader = new PintoNS.Controls.Loader();
+            this.btnQAAddContact = new PintoNS.Controls.NoFocusQueButton();
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -118,20 +119,6 @@ namespace PintoNS
             this.pQA.Name = "pQA";
             this.pQA.Size = new System.Drawing.Size(269, 24);
             this.pQA.TabIndex = 1;
-            // 
-            // btnQAAddContact
-            // 
-            this.btnQAAddContact.BackColor = System.Drawing.Color.Transparent;
-            this.btnQAAddContact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQAAddContact.FlatAppearance.BorderSize = 0;
-            this.btnQAAddContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQAAddContact.Image = global::PintoNS.Assets.ADDCONTACT_DISABLED;
-            this.btnQAAddContact.Location = new System.Drawing.Point(3, 4);
-            this.btnQAAddContact.Name = "btnQAAddContact";
-            this.btnQAAddContact.Size = new System.Drawing.Size(16, 16);
-            this.btnQAAddContact.TabIndex = 9;
-            this.btnQAAddContact.UseVisualStyleBackColor = false;
-            this.btnQAAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
             // 
             // tcTabs
             // 
@@ -167,7 +154,7 @@ namespace PintoNS
             this.llLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.llLogin.Location = new System.Drawing.Point(14, 11);
             this.llLogin.Name = "llLogin";
-            this.llLogin.Size = new System.Drawing.Size(94, 13);
+            this.llLogin.Size = new System.Drawing.Size(104, 13);
             this.llLogin.TabIndex = 0;
             this.llLogin.TabStop = true;
             this.llLogin.Text = "Click here to log in";
@@ -185,16 +172,6 @@ namespace PintoNS
             this.tpConnecting.Size = new System.Drawing.Size(258, 238);
             this.tpConnecting.TabIndex = 2;
             this.tpConnecting.Text = "Connecting";
-            // 
-            // lrConnectingLoader
-            // 
-            this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lrConnectingLoader.Location = new System.Drawing.Point(71, 69);
-            this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.Name = "lrConnectingLoader";
-            this.lrConnectingLoader.Size = new System.Drawing.Size(122, 107);
-            this.lrConnectingLoader.TabIndex = 2;
             // 
             // lConnectingStatus
             // 
@@ -224,7 +201,7 @@ namespace PintoNS
             this.llStartContacts.AutoSize = true;
             this.llStartContacts.Location = new System.Drawing.Point(43, 37);
             this.llStartContacts.Name = "llStartContacts";
-            this.llStartContacts.Size = new System.Drawing.Size(91, 13);
+            this.llStartContacts.Size = new System.Drawing.Size(99, 13);
             this.llStartContacts.TabIndex = 3;
             this.llStartContacts.TabStop = true;
             this.llStartContacts.Text = "0 Contacts Online";
@@ -269,7 +246,7 @@ namespace PintoNS
             this.lContactsNoContacts.AutoSize = true;
             this.lContactsNoContacts.Location = new System.Drawing.Point(68, 14);
             this.lContactsNoContacts.Name = "lContactsNoContacts";
-            this.lContactsNoContacts.Size = new System.Drawing.Size(112, 13);
+            this.lContactsNoContacts.Size = new System.Drawing.Size(115, 13);
             this.lContactsNoContacts.TabIndex = 1;
             this.lContactsNoContacts.Text = "You have no contacts";
             this.lContactsNoContacts.Visible = false;
@@ -542,7 +519,8 @@ namespace PintoNS
             this.tsddbMenuBarTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarToolsAddContact,
-            this.tsmiMenuBarToolsRemoveContact});
+            this.tsmiMenuBarToolsRemoveContact,
+            this.tsmiMenuBarToolsServerRules});
             this.tsddbMenuBarTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddbMenuBarTools.Name = "tsddbMenuBarTools";
             this.tsddbMenuBarTools.ShowDropDownArrow = false;
@@ -552,14 +530,14 @@ namespace PintoNS
             // tsmiMenuBarToolsAddContact
             // 
             this.tsmiMenuBarToolsAddContact.Name = "tsmiMenuBarToolsAddContact";
-            this.tsmiMenuBarToolsAddContact.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarToolsAddContact.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarToolsAddContact.Text = "Add a Contact";
             this.tsmiMenuBarToolsAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
             // 
             // tsmiMenuBarToolsRemoveContact
             // 
             this.tsmiMenuBarToolsRemoveContact.Name = "tsmiMenuBarToolsRemoveContact";
-            this.tsmiMenuBarToolsRemoveContact.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarToolsRemoveContact.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarToolsRemoveContact.Text = "Remove a Contact";
             this.tsmiMenuBarToolsRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarToolsRemoveContact_Click);
             // 
@@ -716,6 +694,14 @@ namespace PintoNS
             this.btnEndCall.UseVisualStyleBackColor = false;
             this.btnEndCall.Click += new System.EventHandler(this.btnEndCall_Click);
             // 
+            // tsmiMenuBarToolsServerRules
+            // 
+            this.tsmiMenuBarToolsServerRules.Enabled = false;
+            this.tsmiMenuBarToolsServerRules.Name = "tsmiMenuBarToolsServerRules";
+            this.tsmiMenuBarToolsServerRules.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarToolsServerRules.Text = "Server Rules";
+            this.tsmiMenuBarToolsServerRules.Click += new System.EventHandler(this.tsmiMenuBarToolsServerRules_Click);
+            // 
             // txtSearchBox
             // 
             this.txtSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -728,11 +714,35 @@ namespace PintoNS
             this.txtSearchBox.Name = "txtSearchBox";
             this.txtSearchBox.PlaceholderText = "Type the username you would like to search for";
             this.txtSearchBox.PlaceholderTextForeColor = System.Drawing.Color.DimGray;
-            this.txtSearchBox.Size = new System.Drawing.Size(264, 20);
+            this.txtSearchBox.Size = new System.Drawing.Size(264, 22);
             this.txtSearchBox.TabIndex = 4;
             this.txtSearchBox.Text = "Type the username you would like to search for";
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             this.txtSearchBox.TextChanged2 += new System.EventHandler(this.txtSearchBox_TextChanged2);
+            // 
+            // lrConnectingLoader
+            // 
+            this.lrConnectingLoader.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lrConnectingLoader.Location = new System.Drawing.Point(71, 69);
+            this.lrConnectingLoader.MaximumSize = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.MinimumSize = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.Name = "lrConnectingLoader";
+            this.lrConnectingLoader.Size = new System.Drawing.Size(122, 107);
+            this.lrConnectingLoader.TabIndex = 2;
+            // 
+            // btnQAAddContact
+            // 
+            this.btnQAAddContact.BackColor = System.Drawing.Color.Transparent;
+            this.btnQAAddContact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnQAAddContact.FlatAppearance.BorderSize = 0;
+            this.btnQAAddContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQAAddContact.Image = global::PintoNS.Assets.ADDCONTACT_DISABLED;
+            this.btnQAAddContact.Location = new System.Drawing.Point(3, 4);
+            this.btnQAAddContact.Name = "btnQAAddContact";
+            this.btnQAAddContact.Size = new System.Drawing.Size(16, 16);
+            this.btnQAAddContact.TabIndex = 9;
+            this.btnQAAddContact.UseVisualStyleBackColor = false;
+            this.btnQAAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
             // 
             // MainForm
             // 
@@ -837,5 +847,6 @@ namespace PintoNS
         public System.Windows.Forms.ToolStripDropDownButton tsddbStatusBarMOTD;
         public System.Windows.Forms.Label lContactsNoContacts;
         public System.Windows.Forms.ToolStrip tsMenuBar;
+        public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsServerRules;
     }
 }

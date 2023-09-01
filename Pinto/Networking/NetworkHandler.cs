@@ -239,9 +239,7 @@ namespace PintoNS.Networking
             {
                 MessageForm msgForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName, true);
                 if (msgForm != null)
-                    msgForm.InWindowPopupController.CreatePopup(
-                        $"{packet.ContactName} is now busy" +
-                        $" and may not see your messages");
+                    msgForm.SetReceiverTypingState(packet.State);
             }));
         }
 
@@ -280,6 +278,11 @@ namespace PintoNS.Networking
         public void SendRemoveContactPacket(string name)
         {
             networkClient.SendPacket(new PacketRemoveContact(name));
+        }
+
+        public void SendTypingPacket(string contactName, bool state)
+        {
+            networkClient.SendPacket(new PacketTyping(contactName, state));
         }
     }
 }

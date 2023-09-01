@@ -45,10 +45,11 @@
             this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tslMenuBarMessageTimeout = new System.Windows.Forms.ToolStripLabel();
+            this.tspbMenuBarRateLimit = new System.Windows.Forms.ToolStripProgressBar();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslMessageTimeout = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tspbStatusStripRateLimit = new System.Windows.Forms.ToolStripProgressBar();
+            this.tsslStatusStripTyping = new System.Windows.Forms.ToolStripStatusLabel();
             this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
@@ -111,7 +112,10 @@
             this.tsMenuBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tsMenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsddbMenuBarFile,
-            this.tsddbMenuBarHelp});
+            this.tsddbMenuBarHelp,
+            this.toolStripSeparator2,
+            this.tslMenuBarMessageTimeout,
+            this.tspbMenuBarRateLimit});
             this.tsMenuBar.Location = new System.Drawing.Point(0, 0);
             this.tsMenuBar.Name = "tsMenuBar";
             this.tsMenuBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -197,35 +201,37 @@
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tslMenuBarMessageTimeout
+            // 
+            this.tslMenuBarMessageTimeout.Name = "tslMenuBarMessageTimeout";
+            this.tslMenuBarMessageTimeout.Size = new System.Drawing.Size(103, 22);
+            this.tslMenuBarMessageTimeout.Text = "Message Timeout:";
+            // 
+            // tspbMenuBarRateLimit
+            // 
+            this.tspbMenuBarRateLimit.Name = "tspbMenuBarRateLimit";
+            this.tspbMenuBarRateLimit.Size = new System.Drawing.Size(100, 22);
+            // 
             // ssStatusStrip
             // 
             this.ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsslStatusBarTypingList,
-            this.tsslMessageTimeout,
-            this.tspbStatusStripRateLimit});
+            this.tsslStatusStripTyping});
             this.ssStatusStrip.Location = new System.Drawing.Point(0, 351);
             this.ssStatusStrip.Name = "ssStatusStrip";
             this.ssStatusStrip.Size = new System.Drawing.Size(433, 22);
             this.ssStatusStrip.TabIndex = 5;
             this.ssStatusStrip.Text = "statusStrip1";
             // 
-            // tsslStatusBarTypingList
+            // tsslStatusStripTyping
             // 
-            this.tsslStatusBarTypingList.Name = "tsslStatusBarTypingList";
-            this.tsslStatusBarTypingList.Size = new System.Drawing.Size(0, 17);
-            // 
-            // tsslMessageTimeout
-            // 
-            this.tsslMessageTimeout.Name = "tsslMessageTimeout";
-            this.tsslMessageTimeout.Size = new System.Drawing.Size(103, 17);
-            this.tsslMessageTimeout.Text = "Message Timeout:";
-            // 
-            // tspbStatusStripRateLimit
-            // 
-            this.tspbStatusStripRateLimit.Maximum = 6;
-            this.tspbStatusStripRateLimit.Name = "tspbStatusStripRateLimit";
-            this.tspbStatusStripRateLimit.Size = new System.Drawing.Size(100, 16);
-            this.tspbStatusStripRateLimit.Step = 1;
+            this.tsslStatusStripTyping.Name = "tsslStatusStripTyping";
+            this.tsslStatusStripTyping.Size = new System.Drawing.Size(61, 17);
+            this.tsslStatusStripTyping.Text = "is typing...";
             // 
             // btnColor
             // 
@@ -370,7 +376,6 @@
         public System.Windows.Forms.ToolStrip tsMenuBar;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarHelp;
         public System.Windows.Forms.StatusStrip ssStatusStrip;
-        public System.Windows.Forms.ToolStripStatusLabel tsslStatusBarTypingList;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
         public System.Windows.Forms.Button btnColor;
         public System.Windows.Forms.ColorDialog cdPicker;
@@ -388,7 +393,9 @@
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileDoNotAutomaticallyScroll;
         private System.Windows.Forms.Timer tRateLimit;
-        private System.Windows.Forms.ToolStripProgressBar tspbStatusStripRateLimit;
-        private System.Windows.Forms.ToolStripStatusLabel tsslMessageTimeout;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripProgressBar tspbMenuBarRateLimit;
+        private System.Windows.Forms.ToolStripStatusLabel tsslStatusStripTyping;
+        private System.Windows.Forms.ToolStripLabel tslMenuBarMessageTimeout;
     }
 }

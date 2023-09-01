@@ -1,31 +1,30 @@
-﻿using PintoNS.General;
-using System.IO;
+﻿using System.IO;
 
 namespace PintoNS.Networking
 {
     public class PacketTyping : IPacket
     {
         public string ContactName { get; protected set; }
-        public bool Typing { get; protected set; }
+        public bool State { get; protected set; }
 
         public PacketTyping() { }
 
-        public PacketTyping(string contactName, bool typing)
+        public PacketTyping(string contactName, bool state)
         {
             ContactName = contactName;
-            Typing = typing;
+            State = state;
         }
 
         public void Read(BinaryReader reader)
         {
             ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
-            Typing = reader.ReadByte() == 0x01;
+            State = reader.ReadByte() == 0x01;
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
-            writer.Write(Typing ? 0x01 : 0x00);
+            writer.Write(State ? 0x01 : 0x00);
         }
 
         public void Handle(NetworkHandler netHandler)

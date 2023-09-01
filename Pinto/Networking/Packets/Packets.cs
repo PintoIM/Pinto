@@ -27,6 +27,7 @@ namespace PintoNS.Networking
             PacketMap.Add(15, typeof(PacketCallStart));
             PacketMap.Add(16, typeof(PacketCallEnd));
             PacketMap.Add(17, typeof(PacketServerID));
+            PacketMap.Add(18, typeof(PacketTyping));
             PacketMap.Add(255, typeof(PacketKeepAlive));
         }
 

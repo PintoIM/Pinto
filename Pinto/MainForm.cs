@@ -10,6 +10,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Net;
+using System.Net.Cache;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -30,6 +32,8 @@ namespace PintoNS
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
         public CallManager CallMgr;
+        private bool serverHasRules;
+        private bool serverHasWelcome;
 
         public MainForm()
         {
@@ -50,7 +54,7 @@ namespace PintoNS
             }
         }
 
-        internal void OnLogin()
+        internal async void OnLogin()
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpStart);
@@ -90,6 +94,45 @@ namespace PintoNS
             tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! Beta - {CurrentUser.Name}";
             new SoundPlayer(Sounds.LOGIN).Play();
+
+            if (Settings.NoServerHTTP) return;
+            await Task.Run(new Action(() => 
+            {
+                WebClient webClient = new WebClient();
+                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+
+                string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+                Program.Console.WriteMessage($"[HTTP] HTTP server URL: {serverURL}");
+                try
+                {
+                    Program.Console.WriteMessage($"[HTTP] Checking HTTP server for server rules page...");
+                    webClient.DownloadString(new Uri($"{serverURL}/rules.html"));
+                    serverHasRules = true;
+                }
+                catch { serverHasRules = false; }
+                try
+                {
+                    Program.Console.WriteMessage($"[HTTP] Checking HTTP server for welcome page...");
+                    webClient.DownloadString(new Uri($"{serverURL}/welcome.html"));
+                    serverHasWelcome = true;
+                }
+                catch { serverHasWelcome = false; }
+
+                Invoke(new Action(() => 
+                {
+                    Program.Console.WriteMessage($"[HTTP] serverHasRules: {serverHasRules}");
+                    Program.Console.WriteMessage($"[HTTP] serverHasWelcome: {serverHasWelcome}");
+                    tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
+
+                    if (serverHasWelcome && !Settings.NoWelcomeDialog)
+                    {
+                        BrowserForm welcomeDialog = new BrowserForm();
+                        welcomeDialog.Text = "Pinto! - Welcome";
+                        welcomeDialog.Show();
+                        welcomeDialog.wbBrowser.Navigate($"{serverURL}/welcome.html");
+                    }
+                }));
+            }));
         }
 
         internal void UpdateQuickActions(bool loggedInState) 
@@ -171,6 +214,9 @@ namespace PintoNS
             tsmiMenuBarFileChangeStatus.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
             Text = "Pinto! Beta";
+            serverHasRules = false;
+            serverHasWelcome = false;
+            tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -353,8 +399,8 @@ namespace PintoNS
             Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
-            if (File.Exists(".IS_PORTABLE_CHECK"))
-                isPortable = true;
+            //if (File.Exists(".IS_PORTABLE_CHECK"))
+            isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
@@ -673,6 +719,13 @@ namespace PintoNS
             changeMOTDForm.ShowDialog(this);
         }
 
-
+        private void tsmiMenuBarToolsServerRules_Click(object sender, EventArgs e)
+        {
+            string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+            BrowserForm rulesDialog = new BrowserForm();
+            rulesDialog.Text = "Pinto! - Server Rules";
+            rulesDialog.Show();
+            rulesDialog.wbBrowser.Navigate($"{serverURL}/rules.html");
+        }
     }
 }

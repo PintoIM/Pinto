@@ -1,5 +1,6 @@
 ﻿using PintoNS.Controls;
 using PintoNS.General;
+using PintoNS.Networking;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -21,6 +22,7 @@ namespace PintoNS.Forms
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
+            tsslStatusStripTyping.Text = "";
 
             Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
@@ -195,13 +197,18 @@ namespace PintoNS.Forms
 
             if (mainForm.NetManager == null) return;
 
-            if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
+            if (!Settings.NoTypingIndicator)
             {
-                isTypingLastStatus = true;
-            }
-            else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus) 
-            {
-                isTypingLastStatus = false;
+                if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
+                {
+                    isTypingLastStatus = true;
+                    mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, true);
+                }
+                else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
+                {
+                    isTypingLastStatus = false;
+                    mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
+                }
             }
         }
 
@@ -232,6 +239,7 @@ namespace PintoNS.Forms
         {
             if (mainForm.MessageForms != null)
                 mainForm.MessageForms.Remove(this);
+            mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
             InWindowPopupController.Dispose();
             SaveChat();
         }
@@ -336,8 +344,8 @@ namespace PintoNS.Forms
             if (rateLimitTicks > 0)
             {
                 rateLimitTicks--;
-                tspbStatusStripRateLimit.PerformStep();
-                if (rateLimitTicks < 1) tspbStatusStripRateLimit.Value = 0;
+                tspbMenuBarRateLimit.PerformStep();
+                if (rateLimitTicks < 1) tspbMenuBarRateLimit.Value = 0;
             }
         }
 
@@ -346,6 +354,11 @@ namespace PintoNS.Forms
             if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) return;
             rtxtMessages.SelectionStart = rtxtMessages.TextLength;
             rtxtMessages.ScrollToCaret();
+        }
+
+        public void SetReceiverTypingState(bool state)
+        {
+            tsslStatusStripTyping.Text = state ? $"{Receiver.Name} is typing..." : "";
         }
     }
 }
