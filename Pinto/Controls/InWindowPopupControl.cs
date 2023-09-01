@@ -5,6 +5,8 @@ namespace PintoNS.Controls
 {
     public partial class InWindowPopupControl : UserControl
     {
+        public float TimeBeforeClosure;
+
         public InWindowPopupControl()
         {
             InitializeComponent();

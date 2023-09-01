@@ -47,6 +47,7 @@
             this.tsmiMenuBarHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusBarTypingList = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslMessageTimeout = new System.Windows.Forms.ToolStripStatusLabel();
             this.tspbStatusStripRateLimit = new System.Windows.Forms.ToolStripProgressBar();
             this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.btnColor = new System.Windows.Forms.Button();
@@ -200,6 +201,7 @@
             // 
             this.ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslStatusBarTypingList,
+            this.tsslMessageTimeout,
             this.tspbStatusStripRateLimit});
             this.ssStatusStrip.Location = new System.Drawing.Point(0, 351);
             this.ssStatusStrip.Name = "ssStatusStrip";
@@ -211,6 +213,12 @@
             // 
             this.tsslStatusBarTypingList.Name = "tsslStatusBarTypingList";
             this.tsslStatusBarTypingList.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsslMessageTimeout
+            // 
+            this.tsslMessageTimeout.Name = "tsslMessageTimeout";
+            this.tsslMessageTimeout.Size = new System.Drawing.Size(103, 17);
+            this.tsslMessageTimeout.Text = "Message Timeout:";
             // 
             // tspbStatusStripRateLimit
             // 
@@ -313,7 +321,7 @@
             this.rtxtInput.ContextMenuStrip = this.cmsInput;
             this.rtxtInput.HideSelection = false;
             this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.MaxLength = 256;
+            this.rtxtInput.MaxLength = 2048;
             this.rtxtInput.Name = "rtxtInput";
             this.rtxtInput.Size = new System.Drawing.Size(344, 56);
             this.rtxtInput.TabIndex = 0;
@@ -381,5 +389,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileDoNotAutomaticallyScroll;
         private System.Windows.Forms.Timer tRateLimit;
         private System.Windows.Forms.ToolStripProgressBar tspbStatusStripRateLimit;
+        private System.Windows.Forms.ToolStripStatusLabel tsslMessageTimeout;
     }
 }

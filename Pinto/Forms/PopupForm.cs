@@ -17,6 +17,14 @@ namespace PintoNS.Forms
             InitializeComponent();
         }
 
+        protected override bool ShowWithoutActivation
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private void tAnim_Tick(object sender, EventArgs e)
         {
             if (ReachedTargetY) 

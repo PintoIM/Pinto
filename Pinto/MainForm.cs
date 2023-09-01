@@ -333,7 +333,15 @@ namespace PintoNS
                 Program.Console.WriteMessage($"Creating MessageForm for {name}...");
                 messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
                 MessageForms.Add(messageForm);
-                messageForm.Show();
+                bool isBusy = CurrentUser.Status == UserStatus.BUSY;
+
+                if (ActiveForm == null || !(ActiveForm is MessageForm))
+                    messageForm.Show();
+                else
+                {
+                    PInvoke.ShowFormInactive(messageForm, PInvoke.HWND_BOTTOM);
+                    if (isBusy) messageForm.WindowState = FormWindowState.Minimized;
+                }
             }
 
             return messageForm;
@@ -376,6 +384,7 @@ namespace PintoNS
             bool wasLoggedIn = NetManager != null && NetManager.NetHandler.LoggedIn;
             OnLogout(true);
             Disconnect();
+            InWindowPopupController.Dispose();
 
             if (loginPacketCheckThread != null)
                 loginPacketCheckThread.Abort();

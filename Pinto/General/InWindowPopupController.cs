@@ -6,16 +6,20 @@ using System.Windows.Forms;
 
 namespace PintoNS.General
 {
-    public class InWindowPopupController
+    public class InWindowPopupController : IDisposable
     {
         private Form form;
         private int baseY;
         private List<InWindowPopupControl> popups = new List<InWindowPopupControl>();
+        private Timer autoCloseTimer = new Timer();
 
         public InWindowPopupController(Form form, int baseY)
         {
             this.form = form;
             this.baseY = baseY;
+            autoCloseTimer.Interval = 100;
+            autoCloseTimer.Tick += AutoCloseTimer_Tick;
+            autoCloseTimer.Start();
         }
 
         private int GetYPosForNew()
@@ -32,6 +36,8 @@ namespace PintoNS.General
 
         public void UpdatePopupPositions() 
         {
+            if (form.IsDisposed || form.Disposing) return;
+
             form.Invoke(new Action(() =>
             {
                 int y = baseY;
@@ -44,8 +50,10 @@ namespace PintoNS.General
             }));
         }
 
-        public void CreatePopup(string text)
+        public void CreatePopup(string text, bool isInfo = false, float autoClosureTime = -1)
         {
+            if (form.IsDisposed || form.Disposing) return;
+
             form.Invoke(new Action(() => 
             {
                 InWindowPopupControl popup = new InWindowPopupControl(text);
@@ -58,6 +66,9 @@ namespace PintoNS.General
                 popup.Height = 21;
                 popup.Location = new Point(0, GetYPosForNew());
                 popup.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                popup.BackColor = isInfo ? Color.FromArgb(225, 255, 255) : Color.FromArgb(255, 255, 225);
+                popup.pbIcon.Image = isInfo ? Assets.INFO_ENABLED : Assets.WARNING;
+                popup.TimeBeforeClosure = autoClosureTime;
                 popup.Show();
                 popup.BringToFront();
                 popups.Add(popup);
@@ -66,6 +77,8 @@ namespace PintoNS.General
 
         public void ClosePopup(InWindowPopupControl popup)
         {
+            if (form.IsDisposed || form.Disposing) return;
+
             form.Invoke(new Action(() =>
             {
                 if (popup == null) return;
@@ -78,6 +91,8 @@ namespace PintoNS.General
 
         public void ClearPopups()
         {
+            if (form.IsDisposed || form.Disposing) return;
+
             foreach (InWindowPopupControl popup in popups.ToArray())
             {
                 form.Invoke(new Action(() =>
@@ -88,6 +103,26 @@ namespace PintoNS.General
             }
 
             popups.Clear();
+        }
+
+        private void AutoCloseTimer_Tick(object sender, EventArgs e)
+        {
+            if (form.IsDisposed || form.Disposing) return;
+
+            foreach (InWindowPopupControl popup in popups.ToArray())
+            {
+                if (popup.TimeBeforeClosure == -1.0f) continue;
+                popup.TimeBeforeClosure -= 0.1f;
+                if (popup.TimeBeforeClosure <= 0) ClosePopup(popup);
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (InWindowPopupControl popup in popups.ToArray()) popup.Dispose();
+            popups.Clear();
+            autoCloseTimer.Stop();
+            autoCloseTimer.Dispose();
         }
     }
 }

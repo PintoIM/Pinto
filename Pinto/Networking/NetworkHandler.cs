@@ -105,7 +105,7 @@ namespace PintoNS.Networking
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.InWindowPopupController.CreatePopup(packet.Message);
+                mainForm.InWindowPopupController.CreatePopup(packet.Message, packet.IsInfo);
             }));
         }
 
@@ -184,8 +184,7 @@ namespace PintoNS.Networking
                             .GetMessageFormFromReceiverName(packet.ContactName, true);
                         if (msgForm != null)
                             msgForm.InWindowPopupController.CreatePopup(
-                                $"{packet.ContactName} is now busy" +
-                                $" and may not see your messages");
+                                $"{packet.ContactName} is now busy and may not see your messages", true);
                     }
 
                     mainForm.ContactsMgr.UpdateContact(new Contact()

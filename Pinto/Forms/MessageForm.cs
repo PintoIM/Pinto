@@ -1,8 +1,10 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Controls;
+using PintoNS.General;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PintoNS.Forms
@@ -19,6 +21,7 @@ namespace PintoNS.Forms
         public MessageForm(MainForm mainForm, Contact receiver)
         {
             InitializeComponent();
+
             Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
             InWindowPopupController = new InWindowPopupController(this, 25);
@@ -33,10 +36,12 @@ namespace PintoNS.Forms
                     MsgBoxIconType.WARNING, true);
                 return;
             }
+
             if (!Directory.Exists(Path.Combine(Program.DataFolder, 
                 "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID)))
                 Directory.CreateDirectory(Path.Combine(Program.DataFolder,
                     "chats", mainForm.CurrentUser.Name, mainForm.NetManager.NetHandler.ServerID));
+
             LoadChat();
         }
 
@@ -105,10 +110,18 @@ namespace PintoNS.Forms
             {
                 int selectionStartOriginal = rtxtMessages.SelectionStart;
                 int selectionEndOriginal = rtxtMessages.SelectionLength;
-                rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
-                rtxtMessages.SelectionColor = color;
-                rtxtMessages.SelectedText = msg;
-                rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
+
+                if (string.IsNullOrWhiteSpace(msg.Trim()))
+                {
+                    rtxtMessages.AppendText(msg);
+                }
+                else
+                {
+                    rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
+                    rtxtMessages.SelectionColor = color;
+                    rtxtMessages.SelectedText = msg;
+                    rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
+                }
 
                 if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) 
                 {
@@ -116,9 +129,6 @@ namespace PintoNS.Forms
                     rtxtMessages.SelectionLength = selectionEndOriginal;
                     rtxtMessages.ScrollToCaret();
                 }
-
-                // Save the chat
-                SaveChat();
             }));
         }
 
@@ -206,8 +216,9 @@ namespace PintoNS.Forms
 
             if (rateLimitTicks > 0) 
             {
-                MsgBox.Show(this, "You may not send messages more often than 1.2 seconds!", 
-                    "Slow down", MsgBoxIconType.WARNING, true);
+                InWindowPopupController.ClearPopups();
+                InWindowPopupController.CreatePopup(
+                    "Slow down!\nWait 1.2 seconds before sending another message!", false, 2f);
                 return;
             }
 
@@ -221,6 +232,8 @@ namespace PintoNS.Forms
         {
             if (mainForm.MessageForms != null)
                 mainForm.MessageForms.Remove(this);
+            InWindowPopupController.Dispose();
+            SaveChat();
         }
 
         private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
@@ -253,7 +266,7 @@ namespace PintoNS.Forms
         {
             if (Receiver.Status == UserStatus.BUSY)
                 InWindowPopupController.CreatePopup($"{Receiver.Name} is busy" +
-                    $" and may not see your messages");
+                    $" and may not see your messages", true);
         }
 
         private void rtxtMessages_LinkClicked(object sender, LinkClickedEventArgs e) => Process.Start(e.LinkText);
