@@ -25,10 +25,10 @@ namespace PintoNS.Forms
             tsslStatusStripTyping.Text = "";
 
             Icon = Program.GetFormIcon();
+            Text = $"Pinto! - Instant Messaging - Chatting with {receiver.Name}";
             this.mainForm = mainForm;
-            InWindowPopupController = new InWindowPopupController(this, 25);
             Receiver = receiver;
-            Text = $"Pinto! - Instant Messaging - Chatting with {Receiver.Name}";
+            InWindowPopupController = new InWindowPopupController(this, 25);
 
             if (mainForm.NetManager.NetHandler.ServerID == null) 
             {
@@ -106,7 +106,18 @@ namespace PintoNS.Forms
             }
         }
 
-        private void WriteMessageRaw(string msg, Color color) 
+        private FontStyle GetFontStyles(bool bold, bool italic, bool strikeout, bool underLine)
+        {
+            FontStyle style = FontStyle.Regular;
+            if (bold) style |= FontStyle.Bold;
+            if (italic) style |= FontStyle.Italic;
+            if (strikeout) style |= FontStyle.Strikeout;
+            if (underLine) style |= FontStyle.Underline;
+            return style;
+        }
+
+        private void WriteMessageRaw(string msg, Color color, bool bold = false, bool italic = false,
+            bool strikeout = false, bool underLine = false) 
         {
             Invoke(new Action(() =>
             {
@@ -120,8 +131,13 @@ namespace PintoNS.Forms
                 else
                 {
                     rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
+                    rtxtMessages.SelectionFont = new Font(rtxtMessages.Font, 
+                        GetFontStyles(bold, italic, strikeout, underLine));
                     rtxtMessages.SelectionColor = color;
                     rtxtMessages.SelectedText = msg;
+
+                    // Reset the richtextbox
+                    rtxtMessages.SelectionFont = rtxtMessages.Font;
                     rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
                 }
 
@@ -138,18 +154,38 @@ namespace PintoNS.Forms
         {
             string buffer = "";
             Color currentColor = color;
+            bool bold = false;
+            bool italic = false;
+            bool strikeout = false;
+            bool underline = false;
 
             for (int i = 0; i < msg.Length; ++i)
             {
                 switch (msg[i])
                 {
                     case (char)0xA7:
-                        WriteMessageRaw(buffer, currentColor);
+                        WriteMessageRaw(buffer, currentColor, bold, italic, strikeout, underline);
 
                         buffer = "";
                         try
                         {
-                            currentColor = ColorTranslator.FromHtml("#" + msg.Substring(i + 1, 6));
+                            string code = msg.Substring(i + 1, 6).Replace("####", "");
+                            if (code.Length == 2)
+                            {
+                                char featureType = code[0];
+                                bool featureEnabled = code[1] == 'Y';
+
+                                if (featureType == 'B')
+                                    bold = featureEnabled;
+                                else if (featureType == 'I')
+                                    italic = featureEnabled;
+                                else if (featureType == 'S')
+                                    strikeout = featureEnabled;
+                                else if (featureType == 'U')
+                                    underline = featureEnabled;
+                            }
+                            else
+                                currentColor = ColorTranslator.FromHtml("#" + code);
                         }
                         catch
                         {
@@ -166,7 +202,8 @@ namespace PintoNS.Forms
                 }
             }
 
-            WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor);
+            WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor, 
+                bold, italic, strikeout, underline);
         }
 
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
@@ -359,6 +396,15 @@ namespace PintoNS.Forms
         public void SetReceiverTypingState(bool state)
         {
             tsslStatusStripTyping.Text = state ? $"{Receiver.Name} is typing..." : "";
+        }
+
+        private void btnMoreFontOptions_Click(object sender, EventArgs e)
+        {
+            MoreFontOptionsForm moreFontOptionsForm = new MoreFontOptionsForm(rtxtInput);
+            moreFontOptionsForm.Show(this);
+            moreFontOptionsForm.CenterToParent();
+            moreFontOptionsForm.BringToFront();
+            moreFontOptionsForm.Focus();
         }
     }
 }

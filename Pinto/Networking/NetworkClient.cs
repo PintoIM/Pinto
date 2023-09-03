@@ -2,7 +2,9 @@
 using Org.BouncyCastle.Security;
 using PintoNS.General;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
@@ -10,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
@@ -28,8 +31,6 @@ namespace PintoNS.Networking
         private NetworkStream tcpStream;
         private Thread readThread;
         private Aes aes;
-        private ICryptoTransform cryptoDecryptor;
-        private ICryptoTransform cryptoEncryptor;
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private object sendLock = new object();
@@ -42,14 +43,20 @@ namespace PintoNS.Networking
                 ignoreDisconnectReason = false;
 
                 tcpClient = new TcpClient();
-                await tcpClient.ConnectAsync(ip, port);
+                tcpClient.ReceiveTimeout = 10000;
+
+                try { await Task.Run(() => tcpClient.ConnectAsync(ip, port).Wait(5000)); }
+                catch (AggregateException ex) { throw ex.InnerException; }
+                if (!tcpClient.Connected) throw new ConnectionException("Timed out");
+
                 IP = ip;
                 Port = port;
                 IsConnected = true;
-
                 tcpStream = tcpClient.GetStream();
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
-                Handshake();
+
+                if (!await Task.Run(Handshake))
+                    throw new Exception("Public key memorization failed");
 
                 return (true, null);
             }
@@ -59,7 +66,94 @@ namespace PintoNS.Networking
             }
         }
 
-        private void Handshake()
+        private void MemorizeHost(string publicKeyBase64, string host)
+        {
+            File.AppendAllLines(
+                Path.Combine(Program.DataFolder, "known_hosts.txt"), 
+                new string[] { $"{host};{publicKeyBase64}" });
+        }
+
+        private bool DoPublicKeyMemorization(byte[] publicKeyRaw)
+        {
+            string knownHostsPath = Path.Combine(Program.DataFolder, "known_hosts.txt");
+            if (!File.Exists(knownHostsPath)) File.WriteAllText(knownHostsPath, "");
+            List<string> knownHosts = File.ReadAllLines(knownHostsPath).ToList();
+            string host = $"{IP}:{Port}";
+            string publicKey = Convert.ToBase64String(publicKeyRaw);
+            
+            foreach (string knownHostPair in knownHosts.ToArray())
+            {
+                string[] knownHostPairSplitted = knownHostPair.Split(';');
+                string knownHost = knownHostPairSplitted[0];
+                string knownPublicKey = knownHostPairSplitted[1];
+
+                if (knownHost == host)
+                {
+                    if (knownPublicKey != publicKey)
+                    {
+                        DialogResult result = MessageBox.Show(
+                            $"!!! WARNING !!!{Environment.NewLine}" +
+                            $"THE PUBLIC KEY OF THE SERVER {host} HAS CHANGED" +
+                            $" SINCE LAST TIME YOU CONNECTED{Environment.NewLine}" +
+                            $"{Environment.NewLine}" +
+                            $"THIS INDICATES THE FOLLOWING POSSIBILITIES:{Environment.NewLine}" +
+                            $"1. THE ADMINISTRATOR HAS CHANGED THE PUBLIC KEY{Environment.NewLine}" +
+                            $"2. YOUR CONNECTION IS BEING TAMPERED WITH (more likely){Environment.NewLine}" +
+                            $"{Environment.NewLine}" +
+                            $"IF THE SERVER ADMINISTRATOR HASN'T TOLD YOU ABOUT ANY PUBLIC KEY CHANGES," +
+                            $" THIS IS MOST LIKELY THE LATTER POSSIBILITY{Environment.NewLine}" +
+                            $"{Environment.NewLine}" +
+                            $"Press \"yes\" to continue and update the stored key{Environment.NewLine}" +
+                            $"Press \"no\" to continue without updating the stored key{Environment.NewLine}" +
+                            $"Press \"cancel\" to abandon the connection{Environment.NewLine}" +
+                            $"{Environment.NewLine}" +
+                            $"Old public key: {knownPublicKey}{Environment.NewLine}" +
+                            $"New public key: {publicKey}{Environment.NewLine}",
+                            "Pinto! - Security Alert - PUBLIC KEY MISMATCH",
+                            MessageBoxButtons.YesNoCancel,
+                            MessageBoxIcon.Warning
+                        );
+
+                        if (result == DialogResult.Cancel)
+                            return false;
+                        else if (result == DialogResult.No)
+                            return true;
+                        else
+                        {
+                            knownHosts.Remove(knownHostPair);
+                            File.WriteAllLines(knownHostsPath, knownHosts);
+                            MemorizeHost(publicKey, host);
+                            return true;
+                        }
+                    }
+                    else return true;
+                }
+            }
+
+            DialogResult result2 = MessageBox.Show(
+                $"The server's public key is not known. " +
+                $"You have no guarantee that the server is the computer you think it is{Environment.NewLine}" +
+                $"The server's public key is: {publicKey}{Environment.NewLine}" +
+                $"If you trust this server, press \"yes\" to add this key to the known hosts{Environment.NewLine}" +
+                $"If you want to connect just once, press \"no\"{Environment.NewLine}" +
+                $"If you do not trust this host, press \"cancel\" to abandon the connection",
+                "Pinto! - Security Alert - Unknown Host",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question
+            );
+
+            if (result2 == DialogResult.Cancel)
+                return false;
+            else if (result2 == DialogResult.No)
+                return true;
+            else
+            {
+                MemorizeHost(publicKey, host);
+                return true;
+            }
+        }
+
+        private bool Handshake()
         {
             Program.Console.WriteMessage("[Networking] Handshaking AES key...");
 
@@ -68,16 +162,18 @@ namespace PintoNS.Networking
 
             int sizeOfPublicKey = binaryReader.ReadBEInt();
             byte[] publicKey = binaryReader.ReadBytes(sizeOfPublicKey);
-
             string publicKeyStr = BitConverter.ToString(publicKey).Replace("-", "");
             string publicKeyStrSplit = string.Join("\n", Program.SplitStringIntoChunks(publicKeyStr, 64));
+
             Program.Console.WriteMessage($"[Networking] RSA public key:\n{publicKeyStrSplit}");
+            if (!DoPublicKeyMemorization(publicKey)) return false;
 
             aes = Aes.Create();
             aes.KeySize = 256;
-            aes.Mode = CipherMode.ECB;
+            aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.PKCS7;
             aes.GenerateKey();
+            aes.GenerateIV();
             Program.Console.WriteMessage($"[Networking] AES key: {BitConverter.ToString(aes.Key).Replace("-", "")}");
 
             RsaKeyParameters rsaKeyParameters = (RsaKeyParameters)PublicKeyFactory.CreateKey(publicKey);
@@ -92,9 +188,8 @@ namespace PintoNS.Networking
             binaryWriter.Write(encryptedAESKey);
             Program.Console.WriteMessage("[Networking] Handshaking done");
 
-            cryptoDecryptor = aes.CreateDecryptor();
-            cryptoEncryptor = aes.CreateEncryptor();
             readThread.Start();
+            return true;
         }
 
         public void Disconnect(string reason) 
@@ -109,8 +204,6 @@ namespace PintoNS.Networking
             tcpClient = null;
             tcpStream = null;
             readThread = null;
-            cryptoDecryptor = null;
-            cryptoEncryptor = null;
 
             if (IsConnected && !ignoreDisconnectReasonValue) 
             {
@@ -134,10 +227,13 @@ namespace PintoNS.Networking
                 binaryWriter.Flush();
             }
 
+            aes.GenerateIV();
             byte[] packetData = memoryStream.ToArray();
-            byte[] encryptedPacketData = cryptoEncryptor.TransformFinalBlock(packetData, 0, packetData.Length);
+            byte[] encryptedPacketData = aes.CreateEncryptor()
+                .TransformFinalBlock(packetData, 0, packetData.Length);
             memoryStream.Dispose();
 
+            tcpStream.Write(aes.IV, 0, 16);
             tcpStream.Write(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(encryptedPacketData.Length)), 0, 4);
             tcpStream.Write(encryptedPacketData, 0, encryptedPacketData.Length);
             tcpStream.Flush();
@@ -153,6 +249,8 @@ namespace PintoNS.Networking
             {
                 try
                 {
+                    byte[] iv = new byte[16];
+                    tcpStream.Read(iv, 0, iv.Length);
                     byte[] encryptedDataSize = new byte[4];
                     tcpStream.Read(encryptedDataSize, 0, encryptedDataSize.Length);
 
@@ -161,7 +259,8 @@ namespace PintoNS.Networking
                     int readAmount = tcpStream.Read(encryptedData, 0, encryptedData.Length);
                     if (readAmount == 0) throw new ConnectionException("Client disconnect");
 
-                    byte[] decryptedData = cryptoDecryptor.TransformFinalBlock(
+                    aes.IV = iv;
+                    byte[] decryptedData = aes.CreateDecryptor().TransformFinalBlock(
                         encryptedData, 0, encryptedData.Length);
                     BinaryReader binaryReader = new BinaryReader(
                         new MemoryStream(decryptedData), Encoding.BigEndianUnicode);

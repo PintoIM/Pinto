@@ -34,7 +34,6 @@
             this.cmsInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiInputCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiInputPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.tsMenuBar = new System.Windows.Forms.ToolStrip();
             this.tsddbMenuBarFile = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuFileZoomIn = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +57,9 @@
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
-            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtInput = new System.Windows.Forms.RichTextBox();
+            this.ilButtons = new System.Windows.Forms.ImageList(this.components);
+            this.btnMoreFontOptions = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -99,13 +100,6 @@
             this.tsmiInputPaste.Size = new System.Drawing.Size(77, 22);
             this.tsmiInputPaste.Text = "Paste";
             this.tsmiInputPaste.Click += new System.EventHandler(this.tsmiInputPaste_Click);
-            // 
-            // ilButtons
-            // 
-            this.ilButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilButtons.ImageStream")));
-            this.ilButtons.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilButtons.Images.SetKeyName(0, "BLOCK");
-            this.ilButtons.Images.SetKeyName(1, "TALK");
             // 
             // tsMenuBar
             // 
@@ -214,8 +208,10 @@
             // 
             // tspbMenuBarRateLimit
             // 
+            this.tspbMenuBarRateLimit.Maximum = 6;
             this.tspbMenuBarRateLimit.Name = "tspbMenuBarRateLimit";
             this.tspbMenuBarRateLimit.Size = new System.Drawing.Size(100, 22);
+            this.tspbMenuBarRateLimit.Step = 1;
             // 
             // ssStatusStrip
             // 
@@ -327,7 +323,7 @@
             this.rtxtInput.ContextMenuStrip = this.cmsInput;
             this.rtxtInput.HideSelection = false;
             this.rtxtInput.Location = new System.Drawing.Point(12, 283);
-            this.rtxtInput.MaxLength = 2048;
+            this.rtxtInput.MaxLength = 512;
             this.rtxtInput.Name = "rtxtInput";
             this.rtxtInput.Size = new System.Drawing.Size(344, 56);
             this.rtxtInput.TabIndex = 0;
@@ -337,11 +333,33 @@
             this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
             this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
             // 
+            // ilButtons
+            // 
+            this.ilButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilButtons.ImageStream")));
+            this.ilButtons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilButtons.Images.SetKeyName(0, "BLOCK");
+            this.ilButtons.Images.SetKeyName(1, "TALK");
+            // 
+            // btnMoreFontOptions
+            // 
+            this.btnMoreFontOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMoreFontOptions.FlatAppearance.BorderSize = 0;
+            this.btnMoreFontOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMoreFontOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMoreFontOptions.Image = global::PintoNS.Assets.PLUS_ENABLED;
+            this.btnMoreFontOptions.Location = new System.Drawing.Point(36, 263);
+            this.btnMoreFontOptions.Name = "btnMoreFontOptions";
+            this.btnMoreFontOptions.Size = new System.Drawing.Size(18, 18);
+            this.btnMoreFontOptions.TabIndex = 8;
+            this.btnMoreFontOptions.UseVisualStyleBackColor = true;
+            this.btnMoreFontOptions.Click += new System.EventHandler(this.btnMoreFontOptions_Click);
+            // 
             // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 373);
+            this.Controls.Add(this.btnMoreFontOptions);
             this.Controls.Add(this.rtxtMessages);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.ssStatusStrip);
@@ -369,10 +387,9 @@
 
         #endregion
         public System.Windows.Forms.Button btnSend;
-        public PintoNS.Controls.ExRichTextBox rtxtInput;
+        public System.Windows.Forms.RichTextBox rtxtInput;
         public System.Windows.Forms.Button btnTalk;
         public System.Windows.Forms.Button btnBlock;
-        public System.Windows.Forms.ImageList ilButtons;
         public System.Windows.Forms.ToolStrip tsMenuBar;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarHelp;
         public System.Windows.Forms.StatusStrip ssStatusStrip;
@@ -397,5 +414,7 @@
         private System.Windows.Forms.ToolStripProgressBar tspbMenuBarRateLimit;
         private System.Windows.Forms.ToolStripStatusLabel tsslStatusStripTyping;
         private System.Windows.Forms.ToolStripLabel tslMenuBarMessageTimeout;
+        public System.Windows.Forms.ImageList ilButtons;
+        public System.Windows.Forms.Button btnMoreFontOptions;
     }
 }

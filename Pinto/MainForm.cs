@@ -122,15 +122,11 @@ namespace PintoNS
                 {
                     Program.Console.WriteMessage($"[HTTP] serverHasRules: {serverHasRules}");
                     Program.Console.WriteMessage($"[HTTP] serverHasWelcome: {serverHasWelcome}");
+                    tsmiMenuBarToolsWelcomeDialog.Enabled = serverHasWelcome;
                     tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
 
                     if (serverHasWelcome && !Settings.NoWelcomeDialog)
-                    {
-                        BrowserForm welcomeDialog = new BrowserForm();
-                        welcomeDialog.Text = "Pinto! - Welcome";
-                        welcomeDialog.Show();
-                        welcomeDialog.wbBrowser.Navigate($"{serverURL}/welcome.html");
-                    }
+                        tsmiMenuBarToolsWelcomeDialog.PerformClick();
                 }));
             }));
         }
@@ -216,6 +212,7 @@ namespace PintoNS
             Text = "Pinto! Beta";
             serverHasRules = false;
             serverHasWelcome = false;
+            tsmiMenuBarToolsWelcomeDialog.Enabled = serverHasRules;
             tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
 
             if (!noSound)
@@ -260,30 +257,7 @@ namespace PintoNS
                 if (loginPacketCheckThread != null)
                     loginPacketCheckThread.Abort();
 
-                loginPacketCheckThread = new Thread(new ThreadStart(() =>
-                {
-                    try
-                    {
-                        Thread.Sleep(5000);
-
-                        if (NetManager != null &&
-                            NetManager.NetHandler != null &&
-                            !NetManager.NetHandler.LoggedIn)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                Disconnect();
-                                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
-                                    $" No login packet received from the server in an acceptable time frame");
-                                MsgBox.Show(this,
-                                    $"No login packet received from the server in an acceptable time frame",
-                                    "Connection Error", MsgBoxIconType.ERROR);
-                            }));
-                        }
-                    }
-                    catch { }
-                }));
-                loginPacketCheckThread.Start();
+                StartLoginPacketCheckThread(ip, port);
             }
         }
 
@@ -313,31 +287,36 @@ namespace PintoNS
                 if (loginPacketCheckThread != null)
                     loginPacketCheckThread.Abort();
 
-                loginPacketCheckThread = new Thread(new ThreadStart(() =>
-                {
-                    try
-                    {
-                        Thread.Sleep(5000);
-
-                        if (NetManager != null &&
-                            NetManager.NetHandler != null &&
-                            !NetManager.NetHandler.LoggedIn)
-                        {
-                            Invoke(new Action(() =>
-                            {
-                                Disconnect();
-                                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
-                                    $" No login packet received from the server in an acceptable time frame");
-                                MsgBox.Show(this,
-                                    $"No login packet received from the server in an acceptable time frame",
-                                    "Connection Error", MsgBoxIconType.ERROR);
-                            }));
-                        }
-                    }
-                    catch { }
-                }));
-                loginPacketCheckThread.Start();
+                StartLoginPacketCheckThread(ip, port);
             }
+        }
+
+        private void StartLoginPacketCheckThread(string ip, int port)
+        {
+            loginPacketCheckThread = new Thread(new ThreadStart(() =>
+            {
+                try
+                {
+                    Thread.Sleep(5000);
+
+                    if (NetManager != null &&
+                        NetManager.NetHandler != null &&
+                        !NetManager.NetHandler.LoggedIn)
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            Disconnect();
+                            Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}:" +
+                                $" No login packet received from the server in an acceptable time frame");
+                            MsgBox.Show(this,
+                                $"No login packet received from the server in an acceptable time frame",
+                                "Connection Error", MsgBoxIconType.ERROR);
+                        }));
+                    }
+                }
+                catch { }
+            }));
+            loginPacketCheckThread.Start();
         }
 
         public void Disconnect()
@@ -726,6 +705,15 @@ namespace PintoNS
             rulesDialog.Text = "Pinto! - Server Rules";
             rulesDialog.Show();
             rulesDialog.wbBrowser.Navigate($"{serverURL}/rules.html");
+        }
+
+        private void tsmiMenuBarToolsWelcomeDialog_Click(object sender, EventArgs e)
+        {
+            string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+            BrowserForm welcomeDialog = new BrowserForm();
+            welcomeDialog.Text = "Pinto! - Welcome";
+            welcomeDialog.Show();
+            welcomeDialog.wbBrowser.Navigate($"{serverURL}/welcome.html");
         }
     }
 }

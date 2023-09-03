@@ -99,6 +99,7 @@ namespace PintoNS.Forms
             if (rbCreate.Checked)
             {
                 tcSections.SelectedTab = tpRegister;
+                txtRegisterIP.Text = txtIP.Text;
             }
             else
             {
@@ -167,6 +168,7 @@ namespace PintoNS.Forms
         private void btnRegisterBack_Click(object sender, EventArgs e)
         {
             tcSections.SelectedTab = tpMain;
+            txtIP.Text = txtRegisterIP.Text;
         }
 
         private void cbSavePassword_CheckedChanged(object sender, EventArgs e)

@@ -73,7 +73,7 @@
             this.lSeeContent.BackColor = System.Drawing.Color.Transparent;
             this.lSeeContent.Location = new System.Drawing.Point(61, 155);
             this.lSeeContent.Name = "lSeeContent";
-            this.lSeeContent.Size = new System.Drawing.Size(78, 13);
+            this.lSeeContent.Size = new System.Drawing.Size(83, 13);
             this.lSeeContent.TabIndex = 3;
             this.lSeeContent.TabStop = true;
             this.lSeeContent.Text = "See all content";
