@@ -1,10 +1,7 @@
 {
-    "latest": "exp1-hotfix1",
-    "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
+    "latest": "b1.0",
+    "update_url_1": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
     "supported": [
-		"b1.0-pre1",
-		"exp1-hotfix1",
-		"exp1",
-		"exp0"
+		"b1.0"
     ]
 }
