@@ -27,49 +27,49 @@ namespace PintoNS.Forms
 
         private void btnEnableBold_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFBY", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####BY", (char)0xA7));
             Close();
         }
 
         private void btnEnableItalic_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFIY", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####IY", (char)0xA7));
             Close();
         }
 
         private void btnEnableUnderline_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFUY", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####UY", (char)0xA7));
             Close();
         }
 
         private void btnEnableStrikeout_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFSY", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####SY", (char)0xA7));
             Close();
         }
 
         private void btnDisableBold_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFBN", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####BN", (char)0xA7));
             Close();
         }
 
         private void btnDisableItalic_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFIN", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####IN", (char)0xA7));
             Close();
         }
 
         private void btnDisableUnderline_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFUN", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####UN", (char)0xA7));
             Close();
         }
 
         private void btnDisableStrikeout_Click(object sender, EventArgs e)
         {
-            richTextBox.AppendText(string.Format("{0}FFFFSN", (char)0xA7));
+            richTextBox.AppendText(string.Format("{0}####SN", (char)0xA7));
             Close();
         }
     }

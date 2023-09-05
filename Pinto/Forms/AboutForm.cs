@@ -21,7 +21,7 @@ namespace PintoNS.Forms
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            g.Clear(Color.White);
+            g.Clear(SystemColors.Window);
             // #14b8a6
             g.DrawRectangle(new Pen(Color.FromArgb(0x14, 0xb8, 0xa6), 2.5f), 0, 0, Width - 1, Height - 1);
         }

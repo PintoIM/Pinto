@@ -47,8 +47,8 @@ namespace PintoNS.Networking
         public void HandleLogoutPacket(PacketLogout packet)
         {
             mainForm.NetManager.IsActive = false;
-            Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason}");
-            mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason}");
+            Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason.Replace("\n", "\\n")}");
+            mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason.Replace("\n", "\\n")}");
             mainForm.Invoke(new Action(() =>
             {
                 MsgBox.Show(mainForm, packet.Reason, "Kicked by the server", 
@@ -177,14 +177,16 @@ namespace PintoNS.Networking
                         }
                     }
 
-                    if (packet.Status == UserStatus.BUSY &&
-                        contact.Status != UserStatus.BUSY)
+                    if ((packet.Status == UserStatus.BUSY &&
+                        contact.Status != UserStatus.BUSY) || 
+                        (packet.Status == UserStatus.AWAY && 
+                        contact.Status != UserStatus.AWAY))
                     {
                         MessageForm msgForm = mainForm
                             .GetMessageFormFromReceiverName(packet.ContactName, true);
                         if (msgForm != null)
                             msgForm.InWindowPopupController.CreatePopup(
-                                $"{packet.ContactName} is now busy and may not see your messages", true);
+                                $"{packet.ContactName} is now {packet.Status.ToString().ToLower()} and may not see your messages", true);
                     }
 
                     mainForm.ContactsMgr.UpdateContact(new Contact()

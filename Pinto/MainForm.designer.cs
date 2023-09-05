@@ -75,6 +75,8 @@ namespace PintoNS
             this.tsddbMenuBarTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarToolsAddContact = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarToolsRemoveContact = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiMenuBarToolsWelcomeDialog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuBarToolsServerRules = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiMenuBarHelpCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,7 +97,6 @@ namespace PintoNS
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
-            this.tsmiMenuBarToolsWelcomeDialog = new System.Windows.Forms.ToolStripMenuItem();
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -368,7 +369,6 @@ namespace PintoNS
             this.ssStatusBar.Name = "ssStatusBar";
             this.ssStatusBar.Size = new System.Drawing.Size(269, 22);
             this.ssStatusBar.TabIndex = 3;
-            this.ssStatusBar.Text = "statusStrip1";
             // 
             // tsddbStatusBarStatus
             // 
@@ -545,6 +545,7 @@ namespace PintoNS
             this.tsddbMenuBarTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarToolsAddContact,
             this.tsmiMenuBarToolsRemoveContact,
+            this.toolStripSeparator5,
             this.tsmiMenuBarToolsWelcomeDialog,
             this.tsmiMenuBarToolsServerRules});
             this.tsddbMenuBarTools.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -566,6 +567,19 @@ namespace PintoNS
             this.tsmiMenuBarToolsRemoveContact.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarToolsRemoveContact.Text = "Remove a Contact";
             this.tsmiMenuBarToolsRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarToolsRemoveContact_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiMenuBarToolsWelcomeDialog
+            // 
+            this.tsmiMenuBarToolsWelcomeDialog.Enabled = false;
+            this.tsmiMenuBarToolsWelcomeDialog.Name = "tsmiMenuBarToolsWelcomeDialog";
+            this.tsmiMenuBarToolsWelcomeDialog.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarToolsWelcomeDialog.Text = "Welcome Dialog";
+            this.tsmiMenuBarToolsWelcomeDialog.Click += new System.EventHandler(this.tsmiMenuBarToolsWelcomeDialog_Click);
             // 
             // tsmiMenuBarToolsServerRules
             // 
@@ -746,14 +760,6 @@ namespace PintoNS
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             this.txtSearchBox.TextChanged2 += new System.EventHandler(this.txtSearchBox_TextChanged2);
             // 
-            // tsmiMenuBarToolsWelcomeDialog
-            // 
-            this.tsmiMenuBarToolsWelcomeDialog.Enabled = false;
-            this.tsmiMenuBarToolsWelcomeDialog.Name = "tsmiMenuBarToolsWelcomeDialog";
-            this.tsmiMenuBarToolsWelcomeDialog.Size = new System.Drawing.Size(180, 22);
-            this.tsmiMenuBarToolsWelcomeDialog.Text = "Welcome Dialog";
-            this.tsmiMenuBarToolsWelcomeDialog.Click += new System.EventHandler(this.tsmiMenuBarToolsWelcomeDialog_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -859,5 +865,6 @@ namespace PintoNS
         public System.Windows.Forms.ToolStrip tsMenuBar;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsServerRules;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsWelcomeDialog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

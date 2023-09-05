@@ -4,19 +4,26 @@ using PintoNS.General;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {
     public partial class UsingPintoForm : Form
     {
+        public const string USERNAME_REGEX_CHECK = @"^(?=.{3,15}$)[a-zA-Z0-9._]+$";
         private MainForm mainForm;
+        private ToolTip illegalUsername;
 
         public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
+            illegalUsername = new ToolTip();
+            illegalUsername.IsBalloon = true;
+            illegalUsername.ToolTipTitle = "Illegal Username";
+            illegalUsername.ToolTipIcon = ToolTipIcon.Error;
         }
 
         private void LoadLogin()
@@ -100,6 +107,7 @@ namespace PintoNS.Forms
             {
                 tcSections.SelectedTab = tpRegister;
                 txtRegisterIP.Text = txtIP.Text;
+                nudRegisterPort.Value = nudPort.Value;
             }
             else
             {
@@ -112,6 +120,15 @@ namespace PintoNS.Forms
                 {
                     MsgBox.Show(this, "Blank username or password!",
                         "Error", MsgBoxIconType.ERROR);
+                    return;
+                }
+
+                if (!Regex.IsMatch(username, USERNAME_REGEX_CHECK))
+                {
+                    MsgBox.Show(this, "The specified username is invalid!" +
+                        " It must be 3-16 characters long," +
+                        " contain only alphanumeric characters," +
+                        " underscores and dots", "Error", MsgBoxIconType.ERROR);
                     return;
                 }
 
@@ -130,7 +147,6 @@ namespace PintoNS.Forms
             txtPassword.Enabled = !state;
             txtIP.Enabled = !state;
             nudPort.Enabled = !state;
-            cbSavePassword.Enabled = !state;
             llForgotPassword.Enabled = !state;
 
             if (state)
@@ -161,6 +177,24 @@ namespace PintoNS.Forms
                 return;
             }
 
+            if (!Regex.IsMatch(username, USERNAME_REGEX_CHECK))
+            {
+                MsgBox.Show(this, "The specified username is invalid!" +
+                    " It must be 3-16 characters long," +
+                    " contain only alphanumeric characters," +
+                    " underscores and dots", "Error", MsgBoxIconType.ERROR);
+                return;
+            }
+
+            if (cbSavePassword.Checked)
+            {
+                txtIP.Text = ip;
+                nudPort.Value = port;
+                txtUsername.Text = username;
+                txtPassword.Text = password;
+                SaveLogin();
+            }
+
             Close();
             await mainForm.ConnectRegister(ip, port, username, password);
         }
@@ -169,6 +203,7 @@ namespace PintoNS.Forms
         {
             tcSections.SelectedTab = tpMain;
             txtIP.Text = txtRegisterIP.Text;
+            nudPort.Value = nudRegisterPort.Value;
         }
 
         private void cbSavePassword_CheckedChanged(object sender, EventArgs e)

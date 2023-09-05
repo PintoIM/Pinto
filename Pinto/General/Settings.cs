@@ -58,12 +58,12 @@ namespace PintoNS.General
 
         [OptionsDisplay(DisplayName = "Do not contact server's HTTP server", Category = "Privacy",
             HelpInfo = "When this option is enabled," +
-            " the currently active server's HTTP server won't be contacted," +
+            " the current server's HTTP server won't be contacted," +
             " this means that the welcome and rules pages won't be accessible")]
         public static bool NoServerHTTP = false;
 
-        [OptionsDisplay(DisplayName = "Do not show the welcome dialog", Category = "Privacy",
-            HelpInfo = "When this option is enabled, the welcome dialog won't be shown")]
+        [OptionsDisplay(DisplayName = "Do not automatically show the welcome dialog", Category = "Privacy",
+            HelpInfo = "When this option is enabled, the welcome dialog won't be shown automatically when you login")]
         public static bool NoWelcomeDialog = false;
         #endregion
         #region Hidden

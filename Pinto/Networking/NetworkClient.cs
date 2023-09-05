@@ -28,7 +28,7 @@ namespace PintoNS.Networking
         public string IP;
         public int Port;
         private TcpClient tcpClient;
-        private NetworkStream tcpStream;
+        private NetworkStream netStream;
         private Thread readThread;
         private Aes aes;
         public Action<string> Disconnected = delegate (string reason) { };
@@ -52,7 +52,7 @@ namespace PintoNS.Networking
                 IP = ip;
                 Port = port;
                 IsConnected = true;
-                tcpStream = tcpClient.GetStream();
+                netStream = tcpClient.GetStream();
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
 
                 if (!await Task.Run(Handshake))
@@ -157,8 +157,8 @@ namespace PintoNS.Networking
         {
             Program.Console.WriteMessage("[Networking] Handshaking AES key...");
 
-            BinaryReader binaryReader = new BinaryReader(tcpStream, Encoding.BigEndianUnicode);
-            BinaryWriter binaryWriter = new BinaryWriter(tcpStream, Encoding.BigEndianUnicode);
+            BinaryReader binaryReader = new BinaryReader(netStream, Encoding.BigEndianUnicode);
+            BinaryWriter binaryWriter = new BinaryWriter(netStream, Encoding.BigEndianUnicode);
 
             int sizeOfPublicKey = binaryReader.ReadBEInt();
             byte[] publicKey = binaryReader.ReadBytes(sizeOfPublicKey);
@@ -194,22 +194,27 @@ namespace PintoNS.Networking
 
         public void Disconnect(string reason) 
         {
-            bool ignoreDisconnectReasonValue = ignoreDisconnectReason;
+            bool sendEvent = IsConnected && !ignoreDisconnectReason;
+
+            IsConnected = false;
             ignoreDisconnectReason = true;
-            if (tcpStream != null) tcpStream.Dispose();
+            if (netStream != null) netStream.Dispose();
             if (tcpClient != null) tcpClient.Close();
 
             IP = null;
             Port = 0;
             tcpClient = null;
-            tcpStream = null;
+            netStream = null;
             readThread = null;
 
-            if (IsConnected && !ignoreDisconnectReasonValue) 
-            {
+            if (sendEvent) 
                 Disconnected.Invoke(reason);
-            }
-            IsConnected = false;
+        }
+
+        public void HandleError(Exception ex)
+        {
+            Disconnect($"Internal error -> {ex.Message}");
+            Program.Console.WriteMessage($"[Networking] Internal error: {ex}");
         }
 
         public void SendPacket(IPacket packet) 
@@ -218,29 +223,58 @@ namespace PintoNS.Networking
 
             MemoryStream memoryStream = new MemoryStream();
             BinaryWriter binaryWriter = new BinaryWriter(memoryStream);
+            BufferedStream bufferedNetStream = new BufferedStream(netStream, 4096);
 
-            lock (sendLock)
+            try
             {
-                binaryWriter.Write(Encoding.ASCII.GetBytes("PMSG")); // Header
-                binaryWriter.WriteBE(packet.GetID()); // ID
-                packet.Write(binaryWriter); // Data
-                binaryWriter.Flush();
+                lock (sendLock)
+                {
+                    binaryWriter.WriteBE(packet.GetID()); // ID
+                    packet.Write(binaryWriter); // Data
+                    binaryWriter.Flush();
+                }
+
+                // Encrypt the data
+                aes.GenerateIV();
+                byte[] packetData = memoryStream.ToArray();
+                byte[] encryptedPacketData = aes.CreateEncryptor()
+                    .TransformFinalBlock(packetData, 0, packetData.Length);
+                memoryStream.Dispose();
+
+                // Write the packet
+                byte[] packetHeader = Encoding.ASCII.GetBytes("PMSG");
+                bufferedNetStream.Write(packetHeader, 0, 4); // Header
+                bufferedNetStream.Write(aes.IV, 0, 16); // IV
+                bufferedNetStream.Write(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(encryptedPacketData.Length)), 0, 4); // Encrypted Data Length
+                bufferedNetStream.Write(encryptedPacketData, 0, encryptedPacketData.Length); // Encrypted Data
+                bufferedNetStream.Flush();
+
+                if (packet.GetID() != 255)
+                    Program.Console.WriteMessage($"[Networking] Sent packet" +
+                        $" {packet.GetType().Name.ToUpper()} ({packet.GetID()})");
             }
+            catch (Exception ex)
+            {
+                HandleError(ex);
+            }
+        }
 
-            aes.GenerateIV();
-            byte[] packetData = memoryStream.ToArray();
-            byte[] encryptedPacketData = aes.CreateEncryptor()
-                .TransformFinalBlock(packetData, 0, packetData.Length);
-            memoryStream.Dispose();
+        private void ProcessReceivedEncryptedData(byte[] encryptedData, byte[] iv)
+        {
+            aes.IV = iv;
+            byte[] decryptedData = aes.CreateDecryptor().TransformFinalBlock(
+                encryptedData, 0, encryptedData.Length);
+            BinaryReader binaryReader = new BinaryReader(
+                new MemoryStream(decryptedData), Encoding.BigEndianUnicode);
 
-            tcpStream.Write(aes.IV, 0, 16);
-            tcpStream.Write(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(encryptedPacketData.Length)), 0, 4);
-            tcpStream.Write(encryptedPacketData, 0, encryptedPacketData.Length);
-            tcpStream.Flush();
+            int id = binaryReader.ReadBEInt();
+            IPacket packet = Packets.GetPacketByID(id);
 
-            if (packet.GetID() != 255)
-                Program.Console.WriteMessage($"[Networking] Sent packet" +
-                    $" {packet.GetType().Name.ToUpper()} ({packet.GetID()})");
+            if (packet == null)
+                throw new ConnectionException($"Bad packet ID: {id}");
+
+            packet.Read(binaryReader);
+            ReceivedPacket.Invoke(packet);
         }
 
         private void ReadThread_Func() 
@@ -249,62 +283,54 @@ namespace PintoNS.Networking
             {
                 try
                 {
-                    byte[] iv = new byte[16];
-                    tcpStream.Read(iv, 0, iv.Length);
-                    byte[] encryptedDataSize = new byte[4];
-                    tcpStream.Read(encryptedDataSize, 0, encryptedDataSize.Length);
+                    int headerPart0 = netStream.ReadByte();
+                    int headerPart1 = netStream.ReadByte();
+                    int headerPart2 = netStream.ReadByte();
+                    int headerPart3 = netStream.ReadByte();
 
-                    byte[] encryptedData = new byte[
-                        IPAddress.NetworkToHostOrder(BitConverter.ToInt32(encryptedDataSize, 0))];
-                    int readAmount = tcpStream.Read(encryptedData, 0, encryptedData.Length);
-                    if (readAmount == 0) throw new ConnectionException("Client disconnect");
-
-                    aes.IV = iv;
-                    byte[] decryptedData = aes.CreateDecryptor().TransformFinalBlock(
-                        encryptedData, 0, encryptedData.Length);
-                    BinaryReader binaryReader = new BinaryReader(
-                        new MemoryStream(decryptedData), Encoding.BigEndianUnicode);
-
-                    int headerPart0 = binaryReader.ReadByte();
-                    int headerPart1 = binaryReader.ReadByte();
-                    int headerPart2 = binaryReader.ReadByte();
-                    int headerPart3 = binaryReader.ReadByte();
-
-                    // PMSG
-                    if (headerPart0 != 'P' || 
-                        headerPart1 != 'M' || 
-                        headerPart2 != 'S' || 
+                    if (headerPart0 == -1 || 
+                        headerPart1 == -1 || 
+                        headerPart2 == -1 || 
+                        headerPart3 == -1)
+                        throw new ConnectionException("Client disconnect");
+                    
+                    // Packet header
+                    if (headerPart0 != 'P' ||
+                        headerPart1 != 'M' ||
+                        headerPart2 != 'S' ||
                         headerPart3 != 'G')
                         throw new ConnectionException("Bad packet header!");
 
-                    int id = binaryReader.ReadBEInt();
-                    IPacket packet = Packets.GetPacketByID(id);
+                    byte[] iv = new byte[16];
+                    netStream.Read(iv, 0, iv.Length);
 
-                    if (packet == null)
-                        throw new ConnectionException($"Bad packet ID: {id}");
+                    byte[] encryptedDataSize = new byte[4];
+                    netStream.Read(encryptedDataSize, 0, encryptedDataSize.Length);
 
-                    packet.Read(binaryReader);
-                    ReceivedPacket.Invoke(packet);
+                    byte[] encryptedData = new byte[
+                        IPAddress.NetworkToHostOrder(BitConverter.ToInt32(encryptedDataSize, 0))];
+                    int readAmount = netStream.Read(encryptedData, 0, encryptedData.Length);
+
+                    if (readAmount == 0)
+                        throw new ConnectionException("Client disconnect");
+
+                    ProcessReceivedEncryptedData(encryptedData, iv);
 
                     Thread.Sleep(1);
                 }
                 catch (Exception ex)
                 {
+                    if (!IsConnected)
+                    {
+                        Program.Console.WriteMessage($"Ignoring network client exception" +
+                            $" as we aren't connected");
+                        return;
+                    }
+
                     if (!(ex is IOException || ex is ConnectionException))
-                    {
-                        Disconnect($"Internal error -> {ex.Message}");
-                        Program.Console.WriteMessage($"Internal error: {ex}");
-                        MsgBox.Show(null, 
-                            "An internal error has occured! For more information," +
-                            " check the console (Help > Toggle Console)", 
-                            "Internal Error", 
-                            MsgBoxIconType.ERROR);
-                    }
-                    else 
-                    {
+                        HandleError(ex);
+                    else
                         Disconnect(ex.Message);
-                    }
-                    return;
                 }
             }
         }

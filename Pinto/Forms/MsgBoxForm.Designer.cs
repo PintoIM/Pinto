@@ -74,7 +74,7 @@
             // 
             this.pHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pHeader.BackColor = System.Drawing.Color.White;
+            this.pHeader.BackColor = System.Drawing.SystemColors.Window;
             this.pHeader.Controls.Add(this.pbIcon);
             this.pHeader.Controls.Add(this.lTitle);
             this.pHeader.Location = new System.Drawing.Point(0, 0);

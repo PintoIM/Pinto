@@ -309,8 +309,8 @@ namespace PintoNS.Forms
 
         private void MessageForm_Load(object sender, EventArgs e)
         {
-            if (Receiver.Status == UserStatus.BUSY)
-                InWindowPopupController.CreatePopup($"{Receiver.Name} is busy" +
+            if (Receiver.Status == UserStatus.BUSY || Receiver.Status == UserStatus.AWAY)
+                InWindowPopupController.CreatePopup($"{Receiver.Name} is {Receiver.Status.ToString().ToLower()}" +
                     $" and may not see your messages", true);
         }
 

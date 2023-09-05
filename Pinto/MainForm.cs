@@ -1,5 +1,4 @@
-﻿using NLua;
-using PintoNS.Forms;
+﻿using PintoNS.Forms;
 using PintoNS.General;
 using PintoNS.Networking;
 using System;
@@ -12,8 +11,6 @@ using System.Linq;
 using System.Media;
 using System.Net;
 using System.Net.Cache;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -378,8 +375,8 @@ namespace PintoNS
             Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
-            //if (File.Exists(".IS_PORTABLE_CHECK"))
-            isPortable = true;
+            if (File.Exists(".IS_PORTABLE_CHECK"))
+                isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
@@ -469,7 +466,7 @@ namespace PintoNS
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
             InWindowPopupController.CreatePopup("You are now busy" +
-                ", this means that you will not receive any non-important popups");
+                ", this means that you will not receive any non-important popups", true);
             NetManager.ChangeStatus(UserStatus.BUSY, CurrentUser.MOTD);
         }
 
@@ -478,7 +475,7 @@ namespace PintoNS
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
             MsgBox.Show(this, "If you choose to change your status to invisible," +
-                " your contacts will not be able to send you messages. Are you sure you want to continue?", 
+                " you will no longer be able to receive/send messages. Are you sure you want to continue?", 
                 "Status change confirmation",
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
