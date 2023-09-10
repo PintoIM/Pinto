@@ -1,6 +1,6 @@
 {
     "latest": "b1.0",
-    "update_url_1": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.msi",
+    "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.exe",
     "supported": [
 		"b1.0"
     ]
