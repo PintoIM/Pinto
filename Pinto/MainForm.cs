@@ -393,7 +393,7 @@ namespace PintoNS
                     Settings.DoNotShowSysTrayNotice = true;
                     Settings.Export(Program.SettingsFile);
                     niTray.ShowBalloonTip(0, "Pinto!", "Pinto! is still running in the system tray," +
-                        " you can change this behaviour in the settings, to exit," +
+                        " you can change this behaviour in the settings of Pinto!, to exit," +
                         " go to the \"File\" menu or right click the system tray", ToolTipIcon.Info);
                 }
 
