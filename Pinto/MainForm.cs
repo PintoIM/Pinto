@@ -361,7 +361,7 @@ namespace PintoNS
                     messageForm.Show();
                 else
                 {
-                    PInvoke.ShowFormInactive(messageForm, PInvoke.HWND_BOTTOM);
+                    // TODO: Fix MessageForm yoinking focus
                     if (isBusy) messageForm.WindowState = FormWindowState.Minimized;
                 }
             }
@@ -375,8 +375,8 @@ namespace PintoNS
             Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
-            if (File.Exists(".IS_PORTABLE_CHECK"))
-                isPortable = true;
+            //if (File.Exists(".IS_PORTABLE_CHECK"))
+            isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);

@@ -39,10 +39,6 @@ namespace PintoNS.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            IntPtr systemMenu = PInvoke.GetSystemMenu(Handle, false);
-            PInvoke.EnableMenuItem(systemMenu, PInvoke.SC_CLOSE,
-                PInvoke.MF_BYCOMMAND | PInvoke.MF_DISABLED);
-
             UpdateAudioDevicesLists();
             audioRecPlay.MicrophoneDataAvailable += AudioRecPlay_MicrophoneDataAvailable;
             router = new NATUPNPLib.UPnPNATClass();

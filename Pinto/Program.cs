@@ -30,7 +30,6 @@ namespace PintoNS
 
         // Main variables
         public static bool Running;
-        public static bool ExecutingUnderWine;
         public static MainForm MainFrm;
         public static readonly List<LuaExtension> Extensions = new List<LuaExtension>();
 
@@ -69,28 +68,14 @@ namespace PintoNS
             {
                 string wineVer = PInvoke.GetWineVersion();
                 Console.WriteMessage($"[General] Running under wine ({wineVer})");
-                ExecutingUnderWine = true;
             }
             catch (Exception ex)
             {
                 Console.WriteMessage($"[General] Not running under wine: {ex}");
             }
 
-            if (Type.GetType("Mono.Runtime") != null) 
-            {
+            if (Type.GetType("Mono.Runtime") != null)
                 Console.WriteMessage("[General] Running under mono");
-
-                if (!ExecutingUnderWine) 
-                {
-                    MsgBox.Show(Console,
-                        $"Pinto! has detected it is being ran" +
-                        $" under mono but not under wine!{Environment.NewLine}" +
-                        $"This execution configuration will never be supported!",
-                        "Unsupported Execution Configuration",
-                        MsgBoxIconType.ERROR);
-                    return;
-                }
-            }
 
             // Start the new form checker thread
             Running = true;

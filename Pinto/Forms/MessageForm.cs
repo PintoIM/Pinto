@@ -53,7 +53,7 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 if (!File.Exists(filePath)) return;
                 rtxtMessages.Rtf = File.ReadAllText(filePath);
             }
@@ -73,7 +73,7 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 File.WriteAllText(filePath, rtxtMessages.Rtf);
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.CurrentUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name}.rtf");
+                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 if (!File.Exists(filePath)) return;
                 File.Delete(filePath);
             }
@@ -222,7 +222,6 @@ namespace PintoNS.Forms
             // Strip RTF
             string text = rtxtInput.Text;
             int caretPosition = rtxtInput.SelectionStart;
-            rtxtInput.Clear();
             rtxtInput.Text = text;
             rtxtInput.SelectionStart = caretPosition;
             rtxtInput.SelectionLength = 0;
@@ -362,11 +361,10 @@ namespace PintoNS.Forms
 
         protected override void WndProc(ref Message message)
         {
-            if (message.Msg == PInvoke.WM_SYSCOMMAND &&
-                (int)message.WParam == PInvoke.SC_RESTORE)
-            {
-                Invalidate();
-            }
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                if (message.Msg == PInvoke.WM_SYSCOMMAND && 
+                    (int)message.WParam == PInvoke.SC_RESTORE)
+                    Invalidate();
 
             base.WndProc(ref message);
         }
