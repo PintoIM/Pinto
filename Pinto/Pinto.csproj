@@ -175,11 +175,11 @@
     <Compile Include="Forms\BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CallManager.cs">
+    <Compile Include="Forms\CallManager_DEPRECATED.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CallManager.designer.cs">
-      <DependentUpon>CallManager.cs</DependentUpon>
+    <Compile Include="Forms\CallManager_DEPRECATED.designer.cs">
+      <DependentUpon>CallManager_DEPRECATED.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ChangeMOTDForm.cs">
       <SubType>Form</SubType>
@@ -247,10 +247,13 @@
     <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\AudioPlayer.cs" />
+    <Compile Include="General\CallManager.cs" />
+    <Compile Include="General\CallStatus.cs" />
     <Compile Include="General\LuaExtension.cs" />
     <Compile Include="General\MsgBoxIconType.cs" />
     <Compile Include="General\Contact.cs" />
-    <Compile Include="General\AudioRecorderPlayer.cs" />
+    <Compile Include="General\AudioRecorder.cs" />
     <Compile Include="General\ObjectExtensions.cs" />
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
@@ -339,8 +342,8 @@
     <EmbeddedResource Include="Forms\BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CallManager.resx">
-      <DependentUpon>CallManager.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CallManager_DEPRECATED.resx">
+      <DependentUpon>CallManager_DEPRECATED.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangeMOTDForm.resx">
       <DependentUpon>ChangeMOTDForm.cs</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using PintoNS.General;
 using System;
+using System.Media;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace PintoNS.Networking
         public NetworkClient NetClient;
         public NetworkHandler NetHandler;
         public bool IsActive;
+        public bool InCall;
 
         public NetworkManager(MainForm mainForm)
         {
@@ -103,6 +105,31 @@ namespace PintoNS.Networking
             }
 
             Disconnect(reason);
+        }
+
+        public async void StartCall(string contact)
+        {
+            InCall = true;
+            mainForm.OnCallStatusChanged(CallStatus.CONNECTING, contact);
+            new SoundPlayer(Sounds.CALL_INIT).Play();
+            await Task.Delay(500);
+            if (!InCall) return;
+            FailCall("Calls aren't yet implemented");
+        }
+
+        public void FailCall(string reason)
+        {
+            InCall = false;
+            mainForm.OnCallStatusChanged(CallStatus.ERROR);
+            mainForm.InWindowPopupController.CreatePopup($"Call failed: {reason}");
+            new SoundPlayer(Sounds.CALL_ERROR1).Play();
+        }
+
+        public void EndCall()
+        {
+            InCall = false;
+            mainForm.OnCallStatusChanged(CallStatus.ENDED);
+            new SoundPlayer(Sounds.HANGUP).Play();
         }
     }
 }

@@ -204,6 +204,17 @@ namespace PintoNS
                 yield return str.Substring(i, Math.Min(chunkSize, str.Length - i));
         }
 
+        public static string FirstLetterToUpper(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToUpper(str[0]) + str.Substring(1);
+
+            return str.ToUpper();
+        }
+
         private static void CheckForNewFormThread_Func() 
         {
             List<Form> lastOpenedForms = new List<Form>();

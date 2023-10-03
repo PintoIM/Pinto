@@ -13,11 +13,11 @@ using PintoNS.General;
 
 namespace PintoNS.Forms
 {
-    public partial class CallManager : Form
+    public partial class CallManager_DEPRECATED : Form
     {
         public const int PORT = 65413;
         private MainForm mainForm;
-        private readonly AudioRecorderPlayer audioRecPlay = new AudioRecorderPlayer();
+        private readonly AudioRecorder audioRecPlay = new AudioRecorder();
         private IPEndPoint remote;
         private Socket client;
         private byte[] receiveBuffer = new byte[0x10000];
@@ -30,7 +30,7 @@ namespace PintoNS.Forms
         private Thread measureReceivedPacketsReceivedPerSecond;
         private TimeSpan timeInCall;
 
-        public CallManager(MainForm mainForm)
+        public CallManager_DEPRECATED(MainForm mainForm)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
@@ -52,6 +52,7 @@ namespace PintoNS.Forms
 
         private void UpdateAudioDevicesLists() 
         {
+            /*
             cbMicrophones.Items.Clear();
             cbSpeakers.Items.Clear();
 
@@ -68,12 +69,13 @@ namespace PintoNS.Forms
             }
 
             if (cbMicrophones.Items.Count > 0) cbMicrophones.Text = (string)cbMicrophones.Items[0];
-            if (cbSpeakers.Items.Count > 1) cbSpeakers.Text = (string)cbSpeakers.Items[0];
+            if (cbSpeakers.Items.Count > 1) cbSpeakers.Text = (string)cbSpeakers.Items[0];*/
         }
 
+        /*
         private void btnStart_Click(object sender, EventArgs e) => Start(txtRemoteIP.Text);
 
-        private void btnStop_Click(object sender, EventArgs e) => Stop();
+        private void btnStop_Click(object sender, EventArgs e) => Stop();*/
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -87,6 +89,7 @@ namespace PintoNS.Forms
 
         private void Start(string ip) 
         {
+            /*
             Invoke(new Action(() => 
             {
                 if (client != null) return;
@@ -108,7 +111,7 @@ namespace PintoNS.Forms
 
                 try
                 {
-                    audioRecPlay.MicrophoneDevice = int.Parse(cbMicrophones.Text.Split(':')[0]);
+                    audioRecPlay.Device = int.Parse(cbMicrophones.Text.Split(':')[0]);
                     audioRecPlay.SpeakerDevice = int.Parse(cbSpeakers.Text.Split(':')[0]);
                     audioRecPlay.Start();
 
@@ -170,11 +173,12 @@ namespace PintoNS.Forms
                     MessageBox.Show($"Unable to start:{Environment.NewLine}{ex}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }));
+            }));*/
         }
 
         private void Stop() 
         {
+            /*
             Invoke(new Action(() =>
             {
                 if (measureLatency != null) measureLatency.Abort();
@@ -206,7 +210,7 @@ namespace PintoNS.Forms
                 lExternalIP.Text = "External IP: 0.0.0.0";
                 lLatency.Text = $"Latency: -";
                 lPacketsPerSecond.Text = $"Packets/Second: -";
-            }));
+            }));*/
         }
 
         private void AudioRecPlay_MicrophoneDataAvailable(object sender, byte[] data)
@@ -226,6 +230,7 @@ namespace PintoNS.Forms
 
         private void Client_Receive(IAsyncResult result) 
         {
+            /*
             try 
             {
                 if (client == null || remote == null) return;
@@ -244,7 +249,7 @@ namespace PintoNS.Forms
                     MessageBox.Show($"Unable to receive from the remote host:{Environment.NewLine}{ex}", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }*/
         }
 
         // "Borrowed" from https://stackoverflow.com/a/24814027
@@ -269,6 +274,7 @@ namespace PintoNS.Forms
             return ipAddrList.ToArray();
         }
 
+        /*
         private void MeasureLatencyThread_Func()
         {
             while (client != null && remote != null) 
@@ -317,12 +323,12 @@ namespace PintoNS.Forms
                 }
                 catch { }
             }
-        }
+        }*/
 
         private void tCall_Tick(object sender, EventArgs e)
         {
             timeInCall += TimeSpan.FromSeconds(1);
-            lTime.Text = $"Time: {timeInCall}";
+            //lTime.Text = $"Time: {timeInCall}";
         }
     }
 }

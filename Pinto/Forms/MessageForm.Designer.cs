@@ -39,7 +39,6 @@
             this.tsmiMenuFileZoomIn = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuFileZoomOut = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMenuFileZoomReset = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiMenuBarFileClearSavedData = new System.Windows.Forms.ToolStripMenuItem();
             this.tsddbMenuBarHelp = new System.Windows.Forms.ToolStripDropDownButton();
@@ -52,13 +51,13 @@
             this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
+            this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnTalk = new System.Windows.Forms.Button();
             this.rtxtMessages = new System.Windows.Forms.RichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
             this.rtxtInput = new System.Windows.Forms.RichTextBox();
-            this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnMoreFontOptions = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
@@ -124,7 +123,6 @@
             this.tsmiMenuFileZoomIn,
             this.tsmiMenuFileZoomOut,
             this.tsmiMenuFileZoomReset,
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll,
             this.toolStripSeparator1,
             this.tsmiMenuBarFileClearSavedData});
             this.tsddbMenuBarFile.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -156,13 +154,6 @@
             this.tsmiMenuFileZoomReset.Size = new System.Drawing.Size(232, 22);
             this.tsmiMenuFileZoomReset.Text = "Zoom Reset";
             this.tsmiMenuFileZoomReset.Click += new System.EventHandler(this.tsmiMenuFileZoomReset_Click);
-            // 
-            // tsmiMenuBarFileDoNotAutomaticallyScroll
-            // 
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Name = "tsmiMenuBarFileDoNotAutomaticallyScroll";
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Size = new System.Drawing.Size(232, 22);
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Text = "Do not automatically scroll";
-            this.tsmiMenuBarFileDoNotAutomaticallyScroll.Click += new System.EventHandler(this.tsmiMenuBarFileDoNotAutomaticallyScroll_Click);
             // 
             // toolStripSeparator1
             // 
@@ -261,6 +252,13 @@
             this.btnBlock.UseVisualStyleBackColor = false;
             this.btnBlock.Click += new System.EventHandler(this.btnBlock_Click);
             // 
+            // ilButtons
+            // 
+            this.ilButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilButtons.ImageStream")));
+            this.ilButtons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilButtons.Images.SetKeyName(0, "BLOCK");
+            this.ilButtons.Images.SetKeyName(1, "TALK");
+            // 
             // btnTalk
             // 
             this.btnTalk.BackColor = System.Drawing.Color.Transparent;
@@ -333,13 +331,6 @@
             this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
             this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
             // 
-            // ilButtons
-            // 
-            this.ilButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilButtons.ImageStream")));
-            this.ilButtons.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilButtons.Images.SetKeyName(0, "BLOCK");
-            this.ilButtons.Images.SetKeyName(1, "TALK");
-            // 
             // btnMoreFontOptions
             // 
             this.btnMoreFontOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -408,7 +399,6 @@
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
-        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileDoNotAutomaticallyScroll;
         private System.Windows.Forms.Timer tRateLimit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripProgressBar tspbMenuBarRateLimit;

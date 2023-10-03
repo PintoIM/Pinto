@@ -140,13 +140,6 @@ namespace PintoNS.Forms
                     rtxtMessages.SelectionFont = rtxtMessages.Font;
                     rtxtMessages.SelectionColor = rtxtMessages.ForeColor;
                 }
-
-                if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) 
-                {
-                    rtxtMessages.SelectionStart = selectionStartOriginal;
-                    rtxtMessages.SelectionLength = selectionEndOriginal;
-                    rtxtMessages.ScrollToCaret();
-                }
             }));
         }
 
@@ -369,11 +362,6 @@ namespace PintoNS.Forms
             base.WndProc(ref message);
         }
 
-        private void tsmiMenuBarFileDoNotAutomaticallyScroll_Click(object sender, EventArgs e)
-        {
-            tsmiMenuBarFileDoNotAutomaticallyScroll.Checked = !tsmiMenuBarFileDoNotAutomaticallyScroll.Checked;
-        }
-
         private void tRateLimit_Tick(object sender, EventArgs e)
         {
             if (rateLimitTicks > 0)
@@ -386,7 +374,6 @@ namespace PintoNS.Forms
 
         private void rtxtMessages_TextChanged(object sender, EventArgs e)
         {
-            if (tsmiMenuBarFileDoNotAutomaticallyScroll.Checked) return;
             rtxtMessages.SelectionStart = rtxtMessages.TextLength;
             rtxtMessages.ScrollToCaret();
         }

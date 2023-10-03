@@ -28,9 +28,9 @@ namespace PintoNS
         public List<MessageForm> MessageForms;
         public NetworkManager NetManager;
         private Thread loginPacketCheckThread;
-        public CallManager CallMgr;
         private bool serverHasRules;
         private bool serverHasWelcome;
+        public CallStatus CurrentCallStatus = CallStatus.ENDED;
 
         public MainForm()
         {
@@ -182,15 +182,6 @@ namespace PintoNS
             
             ContactsMgr = null;
             MessageForms = null;
-            // Do not null the datasource as it causes more problems than it solves
-            //dgvContacts.DataSource = null;
-
-            if (CallMgr != null) 
-            {
-                CallMgr.AllowClose = true;
-                CallMgr.Close();
-            }
-            CallMgr = null;
 
             btnStartCall.Enabled = false;
             btnStartCall.Image = Assets.STARTCALL_DISABLED;
@@ -215,6 +206,56 @@ namespace PintoNS
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
             Program.CallExtensionsEvent("OnLogout");
+        }
+
+        internal void OnCallStatusChanged(CallStatus status, string callWith = null)
+        {
+            CallStatus previousStatus = CurrentCallStatus;
+            bool previousStatusEnded = CallStatusMeansEnded(previousStatus);
+            bool callEnded = CallStatusMeansEnded(status);
+            CurrentCallStatus = status;
+            Program.Console.WriteMessage($"[General] Changed call status: {previousStatus} -> {CurrentCallStatus}");
+
+            if (!previousStatusEnded && callEnded)
+            {
+                btnStartCall.Enabled = false;
+                btnStartCall.Image = Assets.STARTCALL_DISABLED;
+                btnEndCall.Enabled = false;
+                btnEndCall.Image = Assets.ENDCALL_DISABLED;
+                tcTabs.TabPages.Remove(tpCall);
+                tcTabs.SelectedTab = tpContacts;
+                dgvContacts.ClearSelection();
+            }
+            else if (previousStatusEnded && !callEnded)
+            {
+                btnStartCall.Enabled = false;
+                btnStartCall.Image = Assets.STARTCALL_DISABLED;
+                btnEndCall.Enabled = true;
+                btnEndCall.Image = Assets.ENDCALL_ENABLED;
+                tcTabs.TabPages.Add(tpCall);
+                tcTabs.SelectedTab = tpCall;
+            }
+
+            if (!callEnded)
+            {
+                Program.Console.WriteMessage($"[General] Updated call details ({callWith}, {status})");
+                tpCall.Text = callWith;
+                lCallTarget.Text = $"In call with {callWith}";
+                lCallStatus.Text = $"{Program.FirstLetterToUpper(status.ToString().ToLower())}" +
+                    $"{(status == CallStatus.CONNECTING ? "..." : "")}";
+            }
+            else
+            {
+                Program.Console.WriteMessage($"[General] Cleared call details");
+                tpCall.Text = null;
+                lCallTarget.Text = "In call with";
+                lCallStatus.Text = "-";
+            }
+        }
+
+        public static bool CallStatusMeansEnded(CallStatus status)
+        {
+            return status == CallStatus.ENDED || status == CallStatus.ERROR;
         }
 
         public void SyncTray()
@@ -505,7 +546,8 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
-            /*
+            if (NetManager == null || NetManager.InCall) return;
+
             if (dgvContacts.SelectedRows.Count > 0)
             {
                 btnStartCall.Enabled = true;
@@ -515,28 +557,19 @@ namespace PintoNS
             {
                 btnStartCall.Enabled = false;
                 btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }*/
+            }
         }
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
-            btnStartCall.Enabled = false;
-            btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            btnEndCall.Enabled = true;
-            btnEndCall.Image = Assets.ENDCALL_ENABLED;
-            CallMgr = new CallManager(this);
-            CallMgr.Show();
-            if (CallMgr != null) CallMgr.BringToFront();
+            if (NetManager == null) return;
+            NetManager.StartCall(ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index));
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
-            btnStartCall.Enabled = true;
-            btnStartCall.Image = Assets.STARTCALL_ENABLED;
-            btnEndCall.Enabled = false;
-            btnEndCall.Image = Assets.ENDCALL_DISABLED;
-            CallMgr.AllowClose = true;
-            CallMgr.Close();
+            if (NetManager == null) return;
+            NetManager.EndCall();
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
