@@ -20,12 +20,8 @@ namespace PintoNS.Networking
             PacketMap.Add(8, typeof(PacketStatus));
             PacketMap.Add(9, typeof(PacketContactRequest));
             PacketMap.Add(10, typeof(PacketClearContacts));
-            PacketMap.Add(11, typeof(PacketCallRequest));
-            PacketMap.Add(12, typeof(PacketCallResponse));
-            PacketMap.Add(13, typeof(PacketCallInit));
-            PacketMap.Add(14, typeof(PacketCallInfo));
-            PacketMap.Add(15, typeof(PacketCallStart));
-            PacketMap.Add(16, typeof(PacketCallEnd));
+            PacketMap.Add(11, typeof(PacketCallChangeStatus));
+            PacketMap.Add(12, typeof(PacketSetOption));
             PacketMap.Add(17, typeof(PacketServerID));
             PacketMap.Add(18, typeof(PacketTyping));
             PacketMap.Add(255, typeof(PacketKeepAlive));

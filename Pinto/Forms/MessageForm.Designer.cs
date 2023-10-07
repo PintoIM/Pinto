@@ -262,7 +262,6 @@
             // btnTalk
             // 
             this.btnTalk.BackColor = System.Drawing.Color.Transparent;
-            this.btnTalk.Enabled = false;
             this.btnTalk.FlatAppearance.BorderSize = 0;
             this.btnTalk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTalk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -359,7 +358,6 @@
             this.Controls.Add(this.rtxtInput);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.tsMenuBar);
-            this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(187, 239);
             this.Name = "MessageForm";
             this.Activated += new System.EventHandler(this.MessageForm_Activated);

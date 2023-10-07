@@ -14,6 +14,10 @@ namespace PintoNS.Networking
         public NetworkHandler NetHandler;
         public bool IsActive;
         public bool InCall;
+        public string InCallWith;
+        public CallManager CallMgr;
+        public AudioPlayer AudioPlyr = new AudioPlayer();
+        public AudioRecorder AudioRcrd = new AudioRecorder();
 
         public NetworkManager(MainForm mainForm)
         {
@@ -31,6 +35,12 @@ namespace PintoNS.Networking
             {
                 NetClient_Disconnected(reason);
             };
+
+            // Always keep the audio player and recorder started
+            // This is due to a bug with Naudio
+            AudioRcrd.MicrophoneDataAvailable += AudioRcrd_MicrophoneDataAvailable;
+            AudioPlyr.Start();
+            AudioRcrd.Start();
         }
 
         public async Task<(bool, Exception)> Connect(string ip, int port)
@@ -47,6 +57,9 @@ namespace PintoNS.Networking
             NetHandler = null;
             mainForm = null;
             IsActive = false;
+            EndCall(true);
+            AudioPlyr.Stop();
+            AudioRcrd.Stop();
         }
 
         public void Login(string username, string password) 
@@ -93,6 +106,7 @@ namespace PintoNS.Networking
 
             bool wasActive = IsActive;
             IsActive = false;
+            EndCall(true);
 
             if (reason != null && !reason.Equals("User requested disconnect")) 
             {
@@ -107,27 +121,133 @@ namespace PintoNS.Networking
             Disconnect(reason);
         }
 
-        public async void StartCall(string contact)
+        public void StartCall(string contact)
         {
+            Program.Console.WriteMessage($"[Networking] Starting call with {contact}");
+
+            EndCall(true);
             InCall = true;
+            InCallWith = contact;
             mainForm.OnCallStatusChanged(CallStatus.CONNECTING, contact);
+
+            CallMgr = new CallManager();
+            CallMgr.CallStarted += CallMgr_CallStarted;
+            CallMgr.CallReceivedAudio += CallMgr_CallReceivedAudio;
+            CallMgr.CallFailed += CallMgr_CallFailed;
+            CallMgr.CallEnded += CallMgr_CallEnded;
+            CallMgr.StartCall();
+            if (CallMgr == null) return;
+
+            NetHandler.SendCallChangeStatusPacket(CallStatus.CONNECTING, 
+                $"{contact}@{CallMgr.ExternalLocalIP}@{CallMgr.ClientPort}");
             new SoundPlayer(Sounds.CALL_INIT).Play();
-            await Task.Delay(500);
-            if (!InCall) return;
-            FailCall("Calls aren't yet implemented");
         }
 
-        public void FailCall(string reason)
+        public void JoinCall(string contact)
         {
-            InCall = false;
-            mainForm.OnCallStatusChanged(CallStatus.ERROR);
-            mainForm.InWindowPopupController.CreatePopup($"Call failed: {reason}");
-            new SoundPlayer(Sounds.CALL_ERROR1).Play();
+            string[] contactSplitted = contact.Split('@');
+            string userName = contactSplitted[0];
+            string userNameIP = contactSplitted[1];
+            int userNamePort = int.Parse(contactSplitted[2]);
+            Program.Console.WriteMessage($"[Networking] Joining {userName}'s call ({userNameIP}:{userNamePort})");
+
+            EndCall(true);
+            InCall = true;
+            InCallWith = userName;
+
+            CallMgr = new CallManager();
+            CallMgr.CallStarted += CallMgr_CallStarted;
+            CallMgr.CallReceivedAudio += CallMgr_CallReceivedAudio;
+            CallMgr.CallFailed += CallMgr_CallFailed;
+            CallMgr.CallEnded += CallMgr_CallEnded;
+            CallMgr.JoinCall(userNameIP, userNamePort, mainForm.CurrentUser.Name);
         }
 
-        public void EndCall()
+        private void CallMgr_CallStarted()
         {
+            mainForm.Invoke(new Action(() =>
+            {
+                ChangeCallStatus(CallStatus.CONNECTED, "");
+            }));
+        }
+
+        private void CallMgr_CallReceivedAudio(byte[] obj)
+        {
+            if (!InCall || CallMgr == null || !CallMgr.InCall || !CallMgr.Started) return;
+            AudioPlyr.Play(obj);
+        }
+
+        private void CallMgr_CallFailed(string reason)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                ChangeCallStatus(CallStatus.ERROR, reason);
+            }));
+        }
+
+        private void CallMgr_CallEnded()
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                ChangeCallStatus(CallStatus.ENDED, "");
+            }));
+        }
+
+        private void AudioRcrd_MicrophoneDataAvailable(byte[] obj)
+        {
+            if (!InCall || CallMgr == null || !CallMgr.InCall || !CallMgr.Started) return;
+            CallManager.CallPacket packet = new CallManager.CallPacket(0x02, obj);
+
+            if (CallMgr.IsHost)
+                CallMgr.SendToParticipants(packet);
+            else
+                CallMgr.SendPacket(packet, CallMgr.CallHost);
+        }
+
+        public void ChangeCallStatus(CallStatus status, string details)
+        {
+            try
+            {
+                switch (status)
+                {
+                    case CallStatus.CONNECTING:
+                        new SoundPlayer(Sounds.CALL_INIT).Play();
+                        JoinCall(details);
+                        details = InCallWith;
+                        break;
+                    case CallStatus.CONNECTED:
+                        details = InCallWith;
+                        break;
+                    case CallStatus.ERROR:
+                        Program.Console.WriteMessage($"[Networking] Call failed: {details}");
+                        EndCall(true);
+                        mainForm.InWindowPopupController.CreatePopup($"Call failed: {details}");
+                        new SoundPlayer(Sounds.CALL_ERROR1).Play();
+                        break;
+                    case CallStatus.ENDED:
+                        EndCall();
+                        break;
+                }
+
+                mainForm.OnCallStatusChanged(status, details);
+            }
+            catch (Exception ex)
+            {
+                Program.Console.WriteMessage($"[Networking] Unable to change the call status: {ex}");
+            }
+        }
+
+        public void EndCall(bool onlyCleanup = false)
+        {
+            if (!onlyCleanup) Program.Console.WriteMessage($"[Networking] Ending call...");
+
+            if (CallMgr != null) CallMgr.StopCall();
+            if (IsActive && NetHandler != null && InCall) NetHandler.SendCallChangeStatusPacket(CallStatus.ENDED, "");
             InCall = false;
+            InCallWith = null;
+            CallMgr = null;
+
+            if (onlyCleanup) return;
             mainForm.OnCallStatusChanged(CallStatus.ENDED);
             new SoundPlayer(Sounds.HANGUP).Play();
         }

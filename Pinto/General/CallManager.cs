@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -22,9 +23,14 @@ namespace PintoNS.General
         public event Action<string> ParticipantRemoved; 
         public event Action CallEnded;
         public event Action CallStarted;
-        public event Action CallFailed;
+        public event Action<string> CallFailed;
         public event Action<byte[]> CallReceivedAudio;
         public Timer TimeOutTimer;
+        public int TicksSinceNoParticipant;
+        public bool Started;
+        private NATUPNPLib.UPnPNATClass upnpRouter;
+        private NATUPNPLib.IStaticPortMapping upnpMapping;
+        public string ExternalLocalIP;
 
         public class CallParticipant
         {
@@ -63,29 +69,10 @@ namespace PintoNS.General
         public void StartCall()
         {
             Program.Console.WriteMessage("[CallManager] Starting to host call...");
-            Client = new UdpClient(60000);
+            Client = new UdpClient(0);
             recvThread = new Thread(new ThreadStart(RecvThread_Func));
             ClientPort = ((IPEndPoint)Client.Client.LocalEndPoint).Port;
-            TimeOutTimer = new Timer(new TimerCallback((object state) =>
-            {
-                foreach (CallParticipant participant in Participants.ToArray())
-                {
-                    participant.TicksSinceLastAudioPacket++;
-
-                    if (participant.TicksSinceLastAudioPacket >= 5)
-                    {
-                        Program.Console.WriteMessage($"[CallManager] {participant.Name} timed out");
-                        RemoveParticipant(participant.Name);
-
-                        // That was the last participant
-                        if (Participants.Count < 1)
-                        {
-                            StopCall();
-                            return;
-                        }
-                    }
-                }
-            }), null, 0, 1000);
+            TimeOutTimer = new Timer(new TimerCallback(TimeOutTimer_Func), null, 0, 1000);
 
             // -1744830452 = SIO_UDP_CONNRESET
             Client.Client.IOControl(
@@ -97,6 +84,32 @@ namespace PintoNS.General
             InCall = true;
             recvThread.Start();
 
+            Program.Console.WriteMessage("[CallManager] Adding the UPnP mapping...");
+            upnpRouter = new NATUPNPLib.UPnPNATClass();
+            if (upnpRouter.StaticPortMappingCollection != null)
+            {
+                try
+                {
+                    upnpMapping = upnpRouter.StaticPortMappingCollection.Add(ClientPort, "UDP",
+                        ClientPort, GetAllLocalIPv4(NetworkInterfaceType.Ethernet).FirstOrDefault(), true, "Pinto!");
+                    ExternalLocalIP = upnpMapping.ExternalIPAddress;
+                    Program.Console.WriteMessage($"[CallManager] Aquired public IP from UPnP: {ExternalLocalIP}");
+                }
+                catch (Exception ex)
+                {
+                    Program.Console.WriteMessage($"[CallManager] Unable to open port" +
+                        $" {ClientPort} using UPnP: {ex}");
+                    StopCall(true, "UPnP failed");
+                    return;
+                }
+            }
+            else
+            {
+                Program.Console.WriteMessage($"[CallManager] Router does not support UPnP");
+                StopCall(true, "UPnP not supported");
+                return;
+            }
+
             Program.Console.WriteMessage($"[CallManager] Started hosting call, listening on {ClientPort}");
             Program.Console.WriteMessage($"[CallManager] IsHost: {IsHost}");
             Program.Console.WriteMessage($"[CallManager] InCall: {InCall}");
@@ -107,6 +120,7 @@ namespace PintoNS.General
             Program.Console.WriteMessage("[CallManager] Joining call...");
             Client = new UdpClient(0);
             recvThread = new Thread(new ThreadStart(RecvThread_Func));
+            TimeOutTimer = new Timer(new TimerCallback(TimeOutTimer_Func), null, 0, 1000);
 
             // -1744830452 = SIO_UDP_CONNRESET
             Client.Client.IOControl(
@@ -126,7 +140,7 @@ namespace PintoNS.General
             SendPacket(new CallPacket(0x00, Encoding.ASCII.GetBytes(name)), CallHost);
         }
 
-        public void StopCall()
+        public void StopCall(bool failed = false, string failureReason = "Authentication failure")
         {
             if (!InCall) return;
             Program.Console.WriteMessage("[CallManager] Stopping the call...");
@@ -134,8 +148,20 @@ namespace PintoNS.General
             InCall = false;
             IsHost = false;
 
+            Program.Console.WriteMessage("[CallManager] Removing the UPnP mapping...");
+            try
+            {
+                if (upnpRouter != null && upnpRouter.StaticPortMappingCollection != null && upnpMapping != null)
+                    upnpRouter.StaticPortMappingCollection.Remove(
+                        upnpMapping.InternalPort, upnpMapping.Protocol);
+            }
+            catch (Exception ex)
+            {
+                Program.Console.WriteMessage($"[CallManager] Failed to remove the UPnP mapping: {ex}");
+            }
+
+            if (Client != null) Client.Close();
             if (recvThread != null) recvThread.Abort();
-            if (Client != null) Client.Dispose();
             if (TimeOutTimer != null) TimeOutTimer.Dispose();
 
             Client = null;
@@ -144,9 +170,14 @@ namespace PintoNS.General
             CallHost = null;
             TimeOutTimer = null;
             Participants.Clear();
+            TicksSinceNoParticipant = 0;
 
-            if (CallEnded != null)
-                CallEnded.Invoke();
+            if (failed)
+                if (CallFailed != null)
+                    CallFailed.Invoke(failureReason);
+            else
+                if (CallEnded != null)
+                    CallEnded.Invoke();
 
             Program.Console.WriteMessage($"[CallManager] Stopped the call");
         }
@@ -218,6 +249,26 @@ namespace PintoNS.General
             Client.Send(data, data.Length, endPoint);
         }
 
+        // "Borrowed" from https://stackoverflow.com/a/24814027
+        public static string[] GetAllLocalIPv4(NetworkInterfaceType type)
+        {
+            List<string> ipAddrList = new List<string>();
+
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (item.NetworkInterfaceType == type && item.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            ipAddrList.Add(ip.Address.ToString());
+                    }
+                }
+            }
+
+            return ipAddrList.ToArray();
+        }
+
         private void HandlePacket_Host(IPEndPoint receiveEndPoint, CallPacket receivePacket, 
             string receiveIP, int receivePort)
         {
@@ -229,7 +280,6 @@ namespace PintoNS.General
             if (callParticipant == null && 
                 receivePacket.ID != 0x00)
             {
-                Program.Console.WriteMessage($"[CallManager] Non-participant sent packet, ignoring...");
                 return;
             }
 
@@ -252,7 +302,7 @@ namespace PintoNS.General
 
                         // This is the first participant
                         if (Participants.Count - 1 < 1 && CallFailed != null)
-                            CallFailed.Invoke();
+                            StopCall(true);
 
                         return;
                     }
@@ -263,13 +313,17 @@ namespace PintoNS.General
 
                     // This is the first participant
                     if (Participants.Count - 1 < 1 && CallStarted != null)
+                    {
                         CallStarted.Invoke();
+                        Started = true;
+                        TicksSinceNoParticipant = 0;
+                    }
 
                     break;
                 // AUDIO_DATA
                 case 0x02:
                     callParticipant.TicksSinceLastAudioPacket = 0;
-                    SendToParticipants(receivePacket, callParticipant.Name);
+                    //SendToParticipants(receivePacket, callParticipant.Name);
                     if (CallReceivedAudio != null)
                         CallReceivedAudio.Invoke(receivePacket.Data);
                     break;
@@ -292,13 +346,13 @@ namespace PintoNS.General
                     Program.Console.WriteMessage("[CallManager] Authenticated successfully");
                     if (CallStarted != null)
                         CallStarted.Invoke();
+                    Started = true;
+                    TicksSinceNoParticipant = -1000;
                     break;
                 // LOGIN_FAILED
                 case 0x01:
                     Program.Console.WriteMessage("[CallManager] Failed to authenticate");
-                    if (CallFailed != null)
-                        CallFailed.Invoke();
-                    StopCall();
+                    StopCall(true);
                     break;
                 // AUDIO_DATA
                 case 0x02:
@@ -311,21 +365,85 @@ namespace PintoNS.General
             }
         }
 
+        private void TimeOutTimer_Func(object state)
+        {
+            if (!InCall) return;
+
+            if (IsHost)
+            {
+                foreach (CallParticipant participant in Participants.ToArray())
+                {
+                    participant.TicksSinceLastAudioPacket++;
+
+                    if (participant.TicksSinceLastAudioPacket >= 5)
+                    {
+                        Program.Console.WriteMessage($"[CallManager] {participant.Name} timed out");
+                        RemoveParticipant(participant.Name);
+
+                        // That was the last participant
+                        if (Participants.Count < 1)
+                        {
+                            StopCall();
+                            return;
+                        }
+                    }
+                }
+
+                if (Participants.Count < 1)
+                {
+                    TicksSinceNoParticipant++;
+
+                    if (TicksSinceNoParticipant >= 5)
+                    {
+                        Program.Console.WriteMessage($"[CallManager] Timed out whilst waiting for participants");
+                        StopCall(true, "Timed out");
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (TicksSinceNoParticipant >= 0)
+                {
+                    TicksSinceNoParticipant++;
+
+                    if (TicksSinceNoParticipant >= 5)
+                    {
+                        Program.Console.WriteMessage($"[CallManager] Timed out whilst connecting to host");
+                        StopCall(true, "Timed out");
+                        return;
+                    }
+                }
+            }
+        }
+
         private void RecvThread_Func()
         {
             while (InCall && IsHost)
             {
-                IPEndPoint receiveEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
-                CallPacket receivePacket = CallPacket.FromData(Client.Receive(ref receiveEndPoint));
-                string receiveIP = receiveEndPoint.Address.ToString();
-                int receivePort = receiveEndPoint.Port;
-                HandlePacket_Host(receiveEndPoint, receivePacket, receiveIP, receivePort);
+                try
+                {
+                    IPEndPoint receiveEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
+                    CallPacket receivePacket = CallPacket.FromData(Client.Receive(ref receiveEndPoint));
+                    string receiveIP = receiveEndPoint.Address.ToString();
+                    int receivePort = receiveEndPoint.Port;
+                    HandlePacket_Host(receiveEndPoint, receivePacket, receiveIP, receivePort);
+                }
+                catch
+                {
+                }
             }
 
             while (InCall && !IsHost)
             {
-                CallPacket receivePacket = CallPacket.FromData(Client.Receive(ref CallHost));
-                HandlePacket_Client(receivePacket);
+                try
+                {
+                    CallPacket receivePacket = CallPacket.FromData(Client.Receive(ref CallHost));
+                    HandlePacket_Client(receivePacket);
+                }
+                catch
+                {
+                }
             }
         }
     }

@@ -45,7 +45,7 @@ namespace PintoNS.Networking
                 tcpClient = new TcpClient();
                 tcpClient.ReceiveTimeout = 10000;
 
-                try { await Task.Run(() => tcpClient.ConnectAsync(ip, port).Wait(5000)); }
+                try { await TaskEx.Run(() => tcpClient.ConnectAsync(ip, port).Wait(5000)); }
                 catch (AggregateException ex) { throw ex.InnerException; }
                 if (!tcpClient.Connected) throw new ConnectionException("Timed out");
 
@@ -55,7 +55,7 @@ namespace PintoNS.Networking
                 netStream = tcpClient.GetStream();
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
 
-                if (!await Task.Run(Handshake))
+                if (!await TaskEx.Run(Handshake))
                     throw new Exception("Public key memorization failed");
 
                 return (true, null);
@@ -183,7 +183,7 @@ namespace PintoNS.Networking
             rsaParameters.Exponent = rsaKeyParameters.Exponent.ToByteArrayUnsigned();
             rsa.ImportParameters(rsaParameters);
 
-            byte[] encryptedAESKey = rsa.Encrypt(aes.Key, RSAEncryptionPadding.Pkcs1);
+            byte[] encryptedAESKey = rsa.Encrypt(aes.Key, false);
             binaryWriter.WriteBE(encryptedAESKey.Length);
             binaryWriter.Write(encryptedAESKey);
             Program.Console.WriteMessage("[Networking] Handshaking done");

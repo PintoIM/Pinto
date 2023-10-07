@@ -772,7 +772,6 @@ namespace PintoNS
             this.Controls.Add(this.tcTabs);
             this.Controls.Add(this.pQA);
             this.Controls.Add(this.tsMenuBar);
-            this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(163, 237);
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

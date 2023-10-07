@@ -48,7 +48,7 @@ namespace PintoNS.Networking
         {
             mainForm.NetManager.IsActive = false;
             Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason.Replace("\n", "\\n")}");
-            mainForm.NetManager.NetClient.Disconnect($"Kicked by the server -> {packet.Reason.Replace("\n", "\\n")}");
+            networkClient.Disconnect($"Kicked by the server -> {packet.Reason.Replace("\n", "\\n")}");
             mainForm.Invoke(new Action(() =>
             {
                 MsgBox.Show(mainForm, packet.Reason, "Kicked by the server", 
@@ -245,6 +245,14 @@ namespace PintoNS.Networking
             }));
         }
 
+        public void HandleCallChangeStatusPacket(PacketCallChangeStatus packet)
+        {
+            mainForm.Invoke(new Action(() =>
+            {
+                mainForm.NetManager.ChangeCallStatus(packet.CallStatus, packet.Details);
+            }));
+        }
+
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 
             string name, string sessionID) 
         {
@@ -285,6 +293,11 @@ namespace PintoNS.Networking
         public void SendTypingPacket(string contactName, bool state)
         {
             networkClient.SendPacket(new PacketTyping(contactName, state));
+        }
+
+        public void SendCallChangeStatusPacket(CallStatus callStatus, string details)
+        {
+            networkClient.SendPacket(new PacketCallChangeStatus(callStatus, details));
         }
     }
 }

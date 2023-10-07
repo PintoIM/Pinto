@@ -8,7 +8,7 @@ namespace PintoNS.General
 {
     public enum CallStatus
     {
-        IN_CALL,
+        CONNECTED,
         CONNECTING,
         ERROR,
         ENDED

@@ -40,17 +40,6 @@ namespace PintoNS
             PopupController = new PopupController();
         }
 
-        // "Borrowed" from https://stackoverflow.com/a/2613272
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
-
         internal async void OnLogin()
         {
             tcTabs.TabPages.Clear();
@@ -93,7 +82,7 @@ namespace PintoNS
             new SoundPlayer(Sounds.LOGIN).Play();
 
             if (Settings.NoServerHTTP) return;
-            await Task.Run(new Action(() => 
+            await TaskEx.Run(new Action(() => 
             {
                 WebClient webClient = new WebClient();
                 webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
@@ -161,7 +150,6 @@ namespace PintoNS
             }
 
             SyncTray();
-            Program.CallExtensionsEvent("OnLogin");
         }
 
         internal void OnLogout(bool noSound = false)
@@ -205,7 +193,6 @@ namespace PintoNS
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
-            Program.CallExtensionsEvent("OnLogout");
         }
 
         internal void OnCallStatusChanged(CallStatus status, string callWith = null)
@@ -372,8 +359,6 @@ namespace PintoNS
             NetManager = null;
             lConnectingStatus.Text = "";
             OnLogout(!wasLoggedIn);
-
-            Program.CallExtensionsEvent("OnDisconnect");
         }
 
         public MessageForm GetMessageFormFromReceiverName(string name, bool doNotCreate = false)
@@ -421,8 +406,6 @@ namespace PintoNS
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
-
-            Program.CallExtensionsEvent("OnFormLoad");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -562,7 +545,7 @@ namespace PintoNS
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || NetManager.InCall) return;
             NetManager.StartCall(ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index));
         }
 

@@ -29,13 +29,8 @@ namespace PintoNS
         public static readonly string SettingsFile = Path.Combine(DataFolder, "settings.json");
 
         // Main variables
-        public static bool Running;
         public static MainForm MainFrm;
-        public static readonly List<LuaExtension> Extensions = new List<LuaExtension>();
-
-        // Check for new form event
-        private static Thread checkForNewForm;
-        public static event EventHandler<Form> FormOpened;
+        public static bool RunningOnLegacyPlatform;
 
         [STAThread]
         static void Main()
@@ -63,6 +58,19 @@ namespace PintoNS
             Console = new ConsoleForm();
             Console.Show();
 
+            // Print the operating system information
+            Console.WriteMessage($"[General] Running on {Environment.OSVersion.Platform}" +
+                $" ({Environment.OSVersion.VersionString})");
+
+            if (Environment.OSVersion.Version.Major < 6)
+            {
+                RunningOnLegacyPlatform = true;
+                Console.WriteMessage($"[General] Running on a legacy platform (<= Windows XP)");
+                MsgBox.Show(null, $"You are running Pinto! on a legacy platform (<= Windows XP)." +
+                    $" This means that you might experience issues unique to this platform that won't be fixed!" +
+                    $" Please update to a newer operating system!", "Legacy Platform", MsgBoxIconType.WARNING);
+            }
+
             // Detect what runtime we are being ran under
             try
             {
@@ -77,11 +85,6 @@ namespace PintoNS
             if (Type.GetType("Mono.Runtime") != null)
                 Console.WriteMessage("[General] Running under mono");
 
-            // Start the new form checker thread
-            Running = true;
-            checkForNewForm = new Thread(new ThreadStart(CheckForNewFormThread_Func));
-            checkForNewForm.Start();
-
             if (!Directory.Exists(DataFolder))
                 Directory.CreateDirectory(DataFolder);
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
@@ -92,90 +95,8 @@ namespace PintoNS
             // Create the main form
             MainFrm = new MainForm();
 
-            // Load extensions
-            LoadExtensions();
-
             // Start Pinto!
             Application.Run(MainFrm);
-
-            // End the new form checker thread
-            Running = false;
-            checkForNewForm.Abort();
-        }
-
-        public static void LoadExtensions()
-        {
-            Console.WriteMessage($"[Extensions] Loading extensions...");
-            List<LuaExtension> highPriority = new List<LuaExtension>();
-            List<LuaExtension> mediumPriority = new List<LuaExtension>();
-            List<LuaExtension> lowPriority = new List<LuaExtension>();
-
-            foreach (string file in Directory.EnumerateFiles(
-                Path.Combine(DataFolder, "extensions"), "*.lua"))
-            {
-                LuaExtension ext = null;
-                try
-                {
-                    ext = new LuaExtension(file, MainFrm);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteMessage($"[Extensions] Unable to load an extension: {ex}");
-                    continue;
-                }
-
-                switch (ext.Priority)
-                {
-                    case 0:
-                        lowPriority.Add(ext);
-                        break;
-                    case 1:
-                        mediumPriority.Add(ext);
-                        break;
-                    case 2:
-                        highPriority.Add(ext);
-                        break;
-                }
-
-                Console.WriteMessage($"[Extensions] Added extension \"{ext.Name}\" by" +
-                    $" \"{ext.Author}\" (version {ext.Version}) to the list of to load extensions" +
-                    $" (priority {ext.Priority})");
-            }
-
-            Action<LuaExtension> forEachExtension = (LuaExtension ext) =>
-            {
-                Extensions.Add(ext);
-                ext.PrintLoadMessage();
-                CallExtensionEvent(ext, "OnLoad");
-            };
-
-            Console.WriteMessage($"[Extensions] Loading high priority extensions...");
-            highPriority.ForEach(forEachExtension);
-
-            Console.WriteMessage($"[Extensions] Loading medium priority extensions...");
-            mediumPriority.ForEach(forEachExtension);
-
-            Console.WriteMessage($"[Extensions] Loading low priority extensions...");
-            lowPriority.ForEach(forEachExtension);
-        }
-
-        public static void CallExtensionEvent(LuaExtension ext, string eventName) 
-        {
-            if (ext.Script[eventName] == null) return;
-            ext.Script.GetFunction(eventName).Call();
-        }
-
-        public static void CallExtensionsEvent(string eventName)
-        {
-            foreach (LuaExtension ext in Extensions)
-                CallExtensionEvent(ext, eventName);
-        }
-
-        public static void UnloadExtension(LuaExtension ext)
-        {
-            CallExtensionEvent(ext, "OnUnload");
-            Extensions.Remove(ext);
-            ext.PrintUnloadMessage();
         }
 
         public static Icon GetFormIcon() => Logo.LOGO_ICO;
@@ -213,32 +134,6 @@ namespace PintoNS
                 return char.ToUpper(str[0]) + str.Substring(1);
 
             return str.ToUpper();
-        }
-
-        private static void CheckForNewFormThread_Func() 
-        {
-            List<Form> lastOpenedForms = new List<Form>();
-
-            while (Running) 
-            {
-                if (lastOpenedForms.Count == Application.OpenForms.Count) 
-                {
-                    Thread.Sleep(1);
-                    continue;
-                }
-
-                List<Form> lastOpenedFormsArr = lastOpenedForms.ToList();
-                lastOpenedForms.Clear();
-
-                foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
-                {
-                    if (!lastOpenedFormsArr.Contains(form) && FormOpened != null)
-                        FormOpened.Invoke(null, form);
-                    lastOpenedForms.Add(form);
-                }
-
-                Thread.Sleep(1);
-            }
         }
     }
 }

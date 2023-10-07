@@ -23,13 +23,11 @@ namespace PintoNS.General
                 }
             }
         }
-        public event EventHandler<byte[]> MicrophoneDataAvailable;
+        public event Action<byte[]> MicrophoneDataAvailable;
 
         public void Start()
         {
             waveIn = new WaveIn();
-            waveIn.BufferMilliseconds = 100;
-            waveIn.NumberOfBuffers = 10;
             waveIn.DeviceNumber = Device;
             waveIn.DataAvailable += new EventHandler<WaveInEventArgs>(waveIn_DataAvailable);
             waveIn.WaveFormat = new WaveFormat(44100, 2);
@@ -40,14 +38,18 @@ namespace PintoNS.General
         private void waveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
             if (MicrophoneDataAvailable != null)
-                MicrophoneDataAvailable.Invoke(this, e.Buffer);
+                MicrophoneDataAvailable.Invoke(e.Buffer);
         }
 
         public void Stop()
         {
             try
             {
-                if (waveIn != null) waveIn.Dispose();
+                if (waveIn != null)
+                {
+                    waveIn.StopRecording();
+                    waveIn.Dispose();
+                }
             }
             catch (Exception) { }
 

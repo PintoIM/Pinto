@@ -279,6 +279,8 @@ namespace PintoNS.Forms
 
         private void btnTalk_Click(object sender, EventArgs e)
         {
+            if (mainForm.NetManager == null || mainForm.NetManager.InCall) return;
+            mainForm.NetManager.StartCall(Receiver.Name);
         }
 
         private void btnBlock_Click(object sender, EventArgs e)

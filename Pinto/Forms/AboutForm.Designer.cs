@@ -108,7 +108,6 @@
             this.Controls.Add(this.lVersion);
             this.Controls.Add(this.lTitle);
             this.Controls.Add(this.pbLogo);
-            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
