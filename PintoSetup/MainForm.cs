@@ -1,5 +1,6 @@
 ﻿using Ionic.Zip;
 using Microsoft.Win32;
+using PintoSetupNS.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,7 @@ namespace PintoSetupNS
         public MainForm()
         {
             InitializeComponent();
+            Icon = Resources.PINTO_BOX;
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -91,7 +93,7 @@ namespace PintoSetupNS
         private async void btnInstall_Click(object sender, EventArgs e)
         {
             string installFolder = txtPath.Text.Trim();
-            bool createShortcuts = cbCreateDesktopIcon.Checked;
+            bool createDesktopShortcut = cbCreateDesktopIcon.Checked;
             bool startAfterInstall = cbLaunchAfterInstall.Checked;
 
             if (!Setup.IsValidPath(installFolder))
@@ -120,7 +122,7 @@ namespace PintoSetupNS
 
                 string uninstallerPath = Path.Combine(installFolder, "Uninstaller.exe");
                 lInstallStatus2.Text = "Creating uninstall registry...";
-                Setup.CreateSetupRegistry(uninstallerPath, installFolder, createShortcuts);
+                Setup.CreateSetupRegistry(uninstallerPath, installFolder, createDesktopShortcut);
 
                 lInstallStatus2.Text = "Creating install directory...";
                 Directory.CreateDirectory(installFolder);
@@ -152,20 +154,21 @@ namespace PintoSetupNS
 
                 lInstallStatus2.Text = $"Extracting files...{Environment.NewLine}{uninstallerPath}";
                 File.Copy(Application.ExecutablePath, uninstallerPath, true);
-                if (createShortcuts) Setup.CreateShortcuts(installFolder);
+                Setup.CreateShortcuts(installFolder, createDesktopShortcut);
 
-                if (!IsUpgrading && !startAfterInstall) 
+                Installing = false;
+                Installed = true;
+
+                if (!IsUpgrading)
                 {
                     lTitle.Text = "Pinto! Setup Complete";
                     ShowInstallEnd($"Pinto! has been successfully installed on your computer and may be started by" +
                         $"{Environment.NewLine}selecting the installed icons.",
                         "Click Finish to exit Pinto! Setup.", "Finish");
-                    return;
                 }
+                else
+                    Close();
 
-                Installing = false;
-                Installed = true;
-                Close();
                 Process.Start(Path.Combine(installFolder, Setup.PROGRAM_EXE));
             }
             catch (Exception ex) 

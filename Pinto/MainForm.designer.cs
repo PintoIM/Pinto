@@ -864,6 +864,6 @@ namespace PintoNS
         public System.Windows.Forms.ToolStrip tsMenuBar;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsServerRules;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsWelcomeDialog;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

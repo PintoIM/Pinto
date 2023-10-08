@@ -123,6 +123,7 @@ namespace PintoNS.Networking
 
         public void StartCall(string contact)
         {
+            if (NetHandler.Options.GetValueOrDefault("exp_calls", "0") != "1") return;
             Program.Console.WriteMessage($"[Networking] Starting call with {contact}");
 
             EndCall(true);

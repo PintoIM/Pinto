@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace PintoSetupNS
     public static class Setup
     {
         public static readonly string DISPLAY_NAME = $"Pinto! Beta";
-        public static readonly string DISPLAY_VERSION = $"b1.0-pre1";
+        public static readonly string DISPLAY_VERSION = $"b1.1";
         public static readonly string DEFAULT_INSTALL_PATH =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Pinto!");
         public static readonly string PROGRAM_EXE = "Pinto.exe";
@@ -76,7 +77,7 @@ namespace PintoSetupNS
         }
 
         public static void CreateSetupRegistry(string uninstallerPath, 
-            string installLocation, bool createdShortcuts)
+            string installLocation, bool createdDesktopShortcut)
         {
             RegistryKey key = Registry.LocalMachine
                 .OpenSubKey("SOFTWARE", true)
@@ -94,7 +95,7 @@ namespace PintoSetupNS
             key.SetValue("UninstallString", $"{uninstallerPath} uninstall", RegistryValueKind.String);
             key.SetValue("NoModify", 1, RegistryValueKind.DWord);
             key.SetValue("NoRepair", 1, RegistryValueKind.DWord);
-            key.SetValue("CreatedShortcuts", createdShortcuts ? 1 : 0, RegistryValueKind.DWord);
+            key.SetValue("CreatedDesktopShortcut", createdDesktopShortcut ? 1 : 0, RegistryValueKind.DWord);
 
             key.Flush();
             key.Close();
@@ -132,7 +133,7 @@ namespace PintoSetupNS
             return installPath;
         }
 
-        public static bool GetCreatedShortcuts()
+        public static bool GetCreatedDesktopShortcut()
         {
             RegistryKey key = Registry.LocalMachine
                 .OpenSubKey("SOFTWARE")
@@ -143,25 +144,25 @@ namespace PintoSetupNS
                 .OpenSubKey("Pinto!");
 
             object value = null;
-            bool createdShortcuts = false;
+            bool createdDesktopShortcut = false;
 
-            if (key != null) value = key.GetValue("CreatedShortcuts");
-            if (value is int) createdShortcuts = ((int)value) == 1;
+            if (key != null) value = key.GetValue("CreatedDesktopShortcut");
+            if (value is int) createdDesktopShortcut = ((int)value) == 1;
 
-            return createdShortcuts;
+            return createdDesktopShortcut;
         }
 
-        public static void CreateShortcuts(string installLocation) 
+        public static void CreateShortcuts(string installLocation, bool desktop) 
         {
             string filePath = Path.Combine(installLocation, PROGRAM_EXE);
 
             IShellLink link = (IShellLink) new ShellLink();
             link.SetPath(filePath);
             link.SetIconLocation(filePath, 0);
-            link.SetDescription("A modernish IM client inspired by Skype 0.97 ");
+            link.SetDescription("A modernish IM client inspired by Skype 0.97");
    
             IPersistFile file = (IPersistFile)link;
-            file.Save(DESKTOP_SHORTCUT, false);
+            if (desktop) file.Save(DESKTOP_SHORTCUT, false);
             file.Save(STARTMENU_SHORTCUT, false);
         }
 

@@ -49,7 +49,7 @@ namespace PintoSetupNS
                     MainForm mainForm = new MainForm();
                     mainForm.IsUpgrading = true;
                     mainForm.txtPath.Text = installPath;
-                    mainForm.cbCreateDesktopIcon.Checked = Setup.GetCreatedShortcuts();
+                    mainForm.cbCreateDesktopIcon.Checked = Setup.GetCreatedDesktopShortcut();
                     Application.Run(mainForm);
 
                     break;

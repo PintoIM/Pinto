@@ -69,8 +69,6 @@ namespace PintoNS
             DataGridViewColumn contactMOTD = dgvContacts.Columns["contactMOTD"];
             contactMOTD.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            btnStartCall.Enabled = true;
-            btnStartCall.Image = Assets.STARTCALL_ENABLED;
             txtSearchBox.Enabled = true;
             lContactsNoContacts.Visible = true;
 
@@ -401,8 +399,8 @@ namespace PintoNS
             Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
-            //if (File.Exists(".IS_PORTABLE_CHECK"))
-            isPortable = true;
+            if (File.Exists(".IS_PORTABLE_CHECK"))
+                isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);
@@ -530,6 +528,7 @@ namespace PintoNS
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
             if (NetManager == null || NetManager.InCall) return;
+            if (NetManager.NetHandler.Options.GetValueOrDefault("exp_calls", "0") != "1") return;
 
             if (dgvContacts.SelectedRows.Count > 0)
             {
@@ -628,7 +627,7 @@ namespace PintoNS
                             Program.Console.WriteMessage($"[Updater] Running installer at {path}...");
                             Process process = new Process();
                             process.StartInfo.FileName = "PintoSetup.exe";
-                            process.StartInfo.Arguments = " upgrade";
+                            process.StartInfo.Arguments = "upgrade";
                             process.StartInfo.WorkingDirectory = Program.DataFolder;
                             process.Start();
 
@@ -682,6 +681,7 @@ namespace PintoNS
             contextMenu.ShowImageMargin = false;
 
             ToolStripMenuItem startMessaging = new ToolStripMenuItem("Start Messaging");
+            ToolStripMenuItem startTalking = new ToolStripMenuItem("Start Talking");
             ToolStripMenuItem removeContact = new ToolStripMenuItem("Remove Contact");
 
             startMessaging.Click += new EventHandler((object sender2, EventArgs e2) =>
@@ -693,6 +693,13 @@ namespace PintoNS
                 messageForm.Focus();
             });
 
+            startTalking.Click += new EventHandler((object sender2, EventArgs e2) =>
+            {
+                if (NetManager == null || NetManager.InCall) return;
+                string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+                NetManager.StartCall(contactName);
+            });
+
             removeContact.Click += new EventHandler((object sender2, EventArgs e2) =>
             {
                 string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
@@ -700,6 +707,7 @@ namespace PintoNS
             });
 
             contextMenu.Items.Add(startMessaging);
+            contextMenu.Items.Add(startTalking);
             contextMenu.Items.Add(removeContact);
             e.ContextMenuStrip = contextMenu;
         }

@@ -13,6 +13,8 @@ using System.Collections;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using System.Runtime.Versioning;
+using System.Reflection;
 
 namespace PintoNS
 {
@@ -20,8 +22,8 @@ namespace PintoNS
     {
         // Constants
         public static ConsoleForm Console;
-        public const string VERSION_STRING = "b1.0";
-        public const int PROTOCOL_VERSION = 2;
+        public const string VERSION_STRING = "b1.1";
+        public const int PROTOCOL_VERSION = 3;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
@@ -31,20 +33,11 @@ namespace PintoNS
         // Main variables
         public static MainForm MainFrm;
         public static bool RunningOnLegacyPlatform;
+        public static List<PintoPluginHost> Plugins = new List<PintoPluginHost>();
 
         [STAThread]
         static void Main()
         {
-            // Enable TLS 1.0, 1.1, 1.2
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = 
-                Environment.OSVersion.Version.Major < 6 || 
-                Environment.OSVersion.Version.Minor < 1 ? SecurityProtocolType.Tls : 
-                // 768 = TLS 1.1
-                // 3072 = TLS 1.2
-                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
-                SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
-
             // Enable visual styles
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -58,17 +51,26 @@ namespace PintoNS
             Console = new ConsoleForm();
             Console.Show();
 
+            // Enable TLS 1.0, 1.1, 1.2
+            Version version = NETFrameworkVersion.GetVersion();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol =
+                version.Minor < 5 ? SecurityProtocolType.Tls :
+                // 768 = TLS 1.1
+                // 3072 = TLS 1.2
+                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
+                SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+            Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
+            Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
+
             // Print the operating system information
-            Console.WriteMessage($"[General] Running on {Environment.OSVersion.Platform}" +
+            Console.WriteMessage($"[General] Operating system: {Environment.OSVersion.Platform}" +
                 $" ({Environment.OSVersion.VersionString})");
 
             if (Environment.OSVersion.Version.Major < 6)
             {
                 RunningOnLegacyPlatform = true;
                 Console.WriteMessage($"[General] Running on a legacy platform (<= Windows XP)");
-                MsgBox.Show(null, $"You are running Pinto! on a legacy platform (<= Windows XP)." +
-                    $" This means that you might experience issues unique to this platform that won't be fixed!" +
-                    $" Please update to a newer operating system!", "Legacy Platform", MsgBoxIconType.WARNING);
             }
 
             // Detect what runtime we are being ran under
@@ -77,13 +79,15 @@ namespace PintoNS
                 string wineVer = PInvoke.GetWineVersion();
                 Console.WriteMessage($"[General] Running under wine ({wineVer})");
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteMessage($"[General] Not running under wine: {ex}");
+                Console.WriteMessage("[General] Not running under wine");
             }
 
             if (Type.GetType("Mono.Runtime") != null)
                 Console.WriteMessage("[General] Running under mono");
+            else
+                Console.WriteMessage("[General] Not running under mono");
 
             if (!Directory.Exists(DataFolder))
                 Directory.CreateDirectory(DataFolder);
@@ -91,12 +95,72 @@ namespace PintoNS
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
             if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
+            if (!Directory.Exists(Path.Combine(DataFolder, "plugins")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "plugins"));
+
+            // Load plugins
+            LoadPlugins();
 
             // Create the main form
             MainFrm = new MainForm();
+            Plugins.ForEach((PintoPluginHost plugin) => { plugin.Plugin.OnMainFormLoad(MainFrm); });
 
             // Start Pinto!
             Application.Run(MainFrm);
+        }
+
+        public static void LoadPlugins()
+        {
+            Console.WriteMessage($"[Plugins] Loading plugins...");
+
+            foreach (string assemblyPath in Directory.EnumerateFiles(Path.Combine(DataFolder, "plugins"), "*.dll"))
+            {
+                try
+                {
+                    Console.WriteMessage($"[Plugins] Loading the assembly \"{Path.GetFileName(assemblyPath)}\"...");
+                    Assembly assembly = Assembly.LoadFrom(assemblyPath);
+                    LoadPlugin(assemblyPath, assembly);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteMessage($"[Plugins] Unable to load the assembly \"{Path.GetFileName(assemblyPath)}\": {ex}");
+                }
+            }
+        }
+
+        public static void LoadPlugin(string assemblyPath, Assembly assembly)
+        {
+            try
+            {
+                Type pluginInterfaceType = typeof(IPintoPlugin);
+                Console.WriteMessage($"[Plugins] Loading plugins from the assembly \"{assembly}\"...");
+
+                foreach (Type assemblyType in assembly.GetTypes())
+                {
+                    if (!assemblyType.IsPublic ||
+                        assemblyType.IsAbstract ||
+                        !pluginInterfaceType.IsAssignableFrom(assemblyType)) continue;
+                    IPintoPlugin plugin = (IPintoPlugin)Activator.CreateInstance(assemblyType);
+                    PintoPluginInfo pluginInfo = plugin.GetInfo();
+
+                    Console.WriteMessage($"[Plugins] Loading plugin \"{pluginInfo.Name}\"" +
+                        $" by {pluginInfo.Author} (v{pluginInfo.Version})...");
+                    if (!plugin.OnLoad()) continue;
+
+                    Console.WriteMessage($"[Plugins] Loaded plugin \"{pluginInfo.Name}\"" +
+                        $" by {pluginInfo.Author} (v{pluginInfo.Version})");
+                    Plugins.Add(new PintoPluginHost()
+                    {
+                        AssemblyPath = assemblyPath,
+                        Assembly = assembly,
+                        Plugin = plugin
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteMessage($"[Plugins] Unable to load a plugin from the assembly \"{assembly}\": {ex}");
+            }
         }
 
         public static Icon GetFormIcon() => Logo.LOGO_ICO;
@@ -134,6 +198,12 @@ namespace PintoNS
                 return char.ToUpper(str[0]) + str.Substring(1);
 
             return str.ToUpper();
+        }
+
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, 
+            TKey key, TValue @default)
+        {
+            return dict.TryGetValue(key, out var value) ? value : @default;
         }
     }
 }

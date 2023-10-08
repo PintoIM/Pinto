@@ -30,6 +30,7 @@ namespace PintoNS.Networking
 
         public void Handle(NetworkHandler netHandler)
         {
+            netHandler.HandleSetOptionPacket(this);
         }
 
         public int GetID()

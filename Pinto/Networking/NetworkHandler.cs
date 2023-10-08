@@ -1,6 +1,7 @@
 ﻿using PintoNS.Forms;
 using PintoNS.General;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Media;
@@ -14,6 +15,7 @@ namespace PintoNS.Networking
         private NetworkClient networkClient;
         public bool LoggedIn;
         public string ServerID;
+        public Dictionary<string, string> Options = new Dictionary<string, string>();
 
         public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
         {
@@ -251,6 +253,12 @@ namespace PintoNS.Networking
             {
                 mainForm.NetManager.ChangeCallStatus(packet.CallStatus, packet.Details);
             }));
+        }
+
+        public void HandleSetOptionPacket(PacketSetOption packet)
+        {
+            Program.Console.WriteMessage($"[Networking] Setting option \"{packet.Option}\" to \"{packet.Value}\"");
+            Options[packet.Option] = packet.Value;
         }
 
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 

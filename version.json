@@ -1,7 +1,7 @@
 {
-    "latest": "b1.0",
+    "latest": "b1.1",
     "update_url": "https://github.com/PintoIM/Pinto/releases/latest/download/PintoSetup.exe",
     "supported": [
-		"b1.0"
+		"b1.1"
     ]
 }

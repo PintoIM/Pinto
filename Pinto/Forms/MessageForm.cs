@@ -30,6 +30,9 @@ namespace PintoNS.Forms
             Receiver = receiver;
             InWindowPopupController = new InWindowPopupController(this, 25);
 
+            if (mainForm.NetManager.NetHandler.Options.GetValueOrDefault("exp_calls", "0") != "1")
+                btnTalk.Enabled = false;
+
             if (mainForm.NetManager.NetHandler.ServerID == null) 
             {
                 MsgBox.Show(this,
