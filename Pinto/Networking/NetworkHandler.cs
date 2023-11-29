@@ -14,6 +14,7 @@ namespace PintoNS.Networking
         private MainForm mainForm;
         private NetworkClient networkClient;
         public bool LoggedIn;
+        public bool ServerClearedContacts;
         public string ServerID;
         public Dictionary<string, string> Options = new Dictionary<string, string>();
 
@@ -116,8 +117,12 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
             mainForm.Invoke(new Action(() =>
             {
+                if (!ServerClearedContacts)
+                {
+                    mainForm.NetManager.Disconnect("Server didn't clear the contacts list (?)");
+                    return;
+                }
                 ContactsManager contactsMgr = mainForm.ContactsMgr;
-                Program.Console.WriteMessage($"ContactsMgr is null: {contactsMgr == null}");
                 if (contactsMgr == null) return;
                 contactsMgr.AddContact(new Contact() 
                 { 
@@ -133,8 +138,12 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Removing {packet.ContactName} from the contact list...");
             mainForm.Invoke(new Action(() =>
             {
+                if (!ServerClearedContacts) 
+                {
+                    mainForm.NetManager.Disconnect("Server didn't clear the contacts list (?)");
+                    return;
+                }
                 ContactsManager contactsMgr = mainForm.ContactsMgr;
-                Program.Console.WriteMessage($"ContactsMgr is null: {contactsMgr == null}");
                 if (contactsMgr == null) return;
                 contactsMgr.RemoveContact(contactsMgr.GetContact(packet.ContactName));
             }));
@@ -219,10 +228,10 @@ namespace PintoNS.Networking
         public void HandleClearContactsPacket()
         {
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
+            ServerClearedContacts = true;
             mainForm.Invoke(new Action(() =>
             {
                 object dataSource = mainForm.dgvContacts.DataSource;
-                Program.Console.WriteMessage($"DataSource is null: {dataSource == null}");
 
                 if (dataSource != null)
                 {
