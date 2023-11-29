@@ -257,19 +257,29 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
-            lConnectingStatus.Text = "Connecting...";
-            Program.Console.WriteMessage($"[Networking] Signing in as {username} at {ip}:{port}...");
 
+            Action<string> changeConnectionStatus = (string status) =>
+            {
+                Invoke(new Action(() =>
+                {
+                    lConnectingStatus.Text = status;
+                }));
+            };
             NetManager = new NetworkManager(this);
-            (bool, Exception) connectResult = await NetManager.Connect(ip, port);
+
+            Program.Console.WriteMessage($"[Networking] Connecting at {ip}:{port} as {username}...");
+            (bool, Exception) connectResult = await NetManager.Connect(ip, port, changeConnectionStatus);
 
             if (!connectResult.Item1)
             {
                 Disconnect();
                 lConnectingStatus.Text = "";
-                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
-                    $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
+                if (connectResult.Item2 != null)
+                {
+                    Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
+                    MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
+                        $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
+                }
             }
             else
             {
@@ -288,11 +298,18 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
-            lConnectingStatus.Text = "Connecting...";
-            Program.Console.WriteMessage($"[Networking] Registering in as {username} at {ip}:{port}...");
 
+            Action<string> changeConnectionStatus = (string status) =>
+            {
+                Invoke(new Action(() =>
+                {
+                    lConnectingStatus.Text = status;
+                }));
+            };
             NetManager = new NetworkManager(this);
-            (bool, Exception) connectResult = await NetManager.Connect(ip, port);
+
+            Program.Console.WriteMessage($"[Networking] Registering in as {username} at {ip}:{port}...");
+            (bool, Exception) connectResult = await NetManager.Connect(ip, port, changeConnectionStatus);
 
             if (!connectResult.Item1)
             {
@@ -350,6 +367,7 @@ namespace PintoNS
             if (NetManager != null)
             {
                 wasLoggedIn = NetManager.NetHandler.LoggedIn;
+                NetManager.IsForceTermination = true;
                 if (NetManager.IsActive)
                     NetManager.Disconnect("User requested disconnect");
             }
@@ -399,11 +417,13 @@ namespace PintoNS
             Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
+            isPortable = true;
+            /*
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
-                await CheckForUpdates(false);
+                await CheckForUpdates(false);*/
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

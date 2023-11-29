@@ -13,6 +13,7 @@ namespace PintoNS.Networking
         public NetworkClient NetClient;
         public NetworkHandler NetHandler;
         public bool IsActive;
+        public bool IsForceTermination;
         public bool InCall;
         public string InCallWith;
         public CallManager CallMgr;
@@ -43,9 +44,9 @@ namespace PintoNS.Networking
             AudioRcrd.Start();
         }
 
-        public async Task<(bool, Exception)> Connect(string ip, int port)
+        public async Task<(bool, Exception)> Connect(string ip, int port, Action<string> changeConnectionStatus)
         {
-            (bool, Exception) connectResult = await NetClient.Connect(ip, port);
+            (bool, Exception) connectResult = await NetClient.Connect(ip, port, changeConnectionStatus);
             return connectResult;
         }
 
@@ -108,7 +109,7 @@ namespace PintoNS.Networking
             IsActive = false;
             EndCall(true);
 
-            if (reason != null && !reason.Equals("User requested disconnect")) 
+            if (reason != null && !IsForceTermination) 
             {
                 mainForm.Invoke(new Action(() =>
                 {

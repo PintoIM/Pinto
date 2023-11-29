@@ -25,9 +25,9 @@ namespace PintoNS.Networking
 
         public void HandlePacket(IPacket packet)
         {
-            if (packet.GetID() != 255)
+            if (!(packet is PacketKeepAlive))
                 Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
-                    $" ({packet.GetID()})");
+                $" ({packet.GetID()})");
             packet.Handle(this);
         }
 

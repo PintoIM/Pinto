@@ -22,8 +22,8 @@ namespace PintoNS
     {
         // Constants
         public static ConsoleForm Console;
-        public const string VERSION_STRING = "b1.1";
-        public const int PROTOCOL_VERSION = 3;
+        public const string VERSION_STRING = "b1.2";
+        public const byte PROTOCOL_VERSION = 10;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
@@ -51,17 +51,39 @@ namespace PintoNS
             Console = new ConsoleForm();
             Console.Show();
 
-            // Enable TLS 1.0, 1.1, 1.2
-            Version version = NETFrameworkVersion.GetVersion();
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol =
-                version.Minor < 5 ? SecurityProtocolType.Tls :
-                // 768 = TLS 1.1
-                // 3072 = TLS 1.2
-                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
-                SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
-            Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
-            Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
+            // Detect what runtime we are being ran under
+            try
+            {
+                string wineVer = PInvoke.GetWineVersion();
+                Console.WriteMessage($"[General] Running under wine ({wineVer})");
+            }
+            catch { Console.WriteMessage("[General] Not running under wine"); }
+
+            bool runningUnderMono = Type.GetType("Mono.Runtime") != null;
+            if (runningUnderMono)
+                Console.WriteMessage("[General] Running under mono");
+            else
+                Console.WriteMessage("[General] Not running under mono");
+
+            if (!runningUnderMono)
+            {
+                // Enable TLS 1.0, 1.1, 1.2
+                Version version = NETFrameworkVersion.GetVersion();
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol =
+                    version.Minor < 5 ? SecurityProtocolType.Tls :
+                    // 768 = TLS 1.1
+                    // 3072 = TLS 1.2
+                    // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
+                    SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+                Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
+                Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
+            }
+            else 
+            {
+                Console.WriteMessage("[General] .NET Framework runtime version: N/A (running on mono)");
+                Console.WriteMessage($"[General] Security protocol: N/A (running on mono)");
+            }
 
             // Print the operating system information
             Console.WriteMessage($"[General] Operating system: {Environment.OSVersion.Platform}" +
@@ -72,22 +94,6 @@ namespace PintoNS
                 RunningOnLegacyPlatform = true;
                 Console.WriteMessage($"[General] Running on a legacy platform (<= Windows XP)");
             }
-
-            // Detect what runtime we are being ran under
-            try
-            {
-                string wineVer = PInvoke.GetWineVersion();
-                Console.WriteMessage($"[General] Running under wine ({wineVer})");
-            }
-            catch
-            {
-                Console.WriteMessage("[General] Not running under wine");
-            }
-
-            if (Type.GetType("Mono.Runtime") != null)
-                Console.WriteMessage("[General] Running under mono");
-            else
-                Console.WriteMessage("[General] Not running under mono");
 
             if (!Directory.Exists(DataFolder))
                 Directory.CreateDirectory(DataFolder);
