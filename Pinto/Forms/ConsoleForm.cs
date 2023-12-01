@@ -17,6 +17,7 @@ namespace PintoNS.Forms
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
+            if (Program.RunningUnderMono) return;
             IntPtr sysMenu = PInvoke.GetSystemMenu(Handle, false);
             PInvoke.AppendMenu(sysMenu, PInvoke.MF_SEPARATOR, 0x00, "");
             PInvoke.AppendMenu(sysMenu, PInvoke.MF_STRING, SM_ITEM_CLEAR, "&Clear Console");
@@ -25,6 +26,7 @@ namespace PintoNS.Forms
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
+            if (Program.RunningUnderMono) return;
             if (m.Msg == PInvoke.WM_SYSCOMMAND && 
                 (int)m.WParam == SM_ITEM_CLEAR) 
             {

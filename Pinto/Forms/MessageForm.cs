@@ -373,7 +373,7 @@ namespace PintoNS.Forms
 
         protected override void WndProc(ref Message message)
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            if (!Program.RunningUnderMono)
                 if (message.Msg == PInvoke.WM_SYSCOMMAND && 
                     (int)message.WParam == PInvoke.SC_RESTORE)
                     Invalidate();
