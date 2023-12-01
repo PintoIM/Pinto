@@ -37,11 +37,12 @@ namespace PintoNS.Networking
                 NetClient_Disconnected(reason);
             };
 
+            // TODO: Fix this somehow
             // Always keep the audio player and recorder started
             // This is due to a bug with Naudio
-            AudioRcrd.MicrophoneDataAvailable += AudioRcrd_MicrophoneDataAvailable;
-            AudioPlyr.Start();
-            AudioRcrd.Start();
+            //AudioRcrd.MicrophoneDataAvailable += AudioRcrd_MicrophoneDataAvailable;
+            //AudioPlyr.Start();
+            //AudioRcrd.Start();
         }
 
         public async Task<(bool, Exception)> Connect(string ip, int port, Action<string> changeConnectionStatus)
@@ -124,7 +125,7 @@ namespace PintoNS.Networking
 
         public void StartCall(string contact)
         {
-            if (NetHandler.Options.GetValueOrDefault("exp_calls", "0") != "1") return;
+            /*
             Program.Console.WriteMessage($"[Networking] Starting call with {contact}");
 
             EndCall(true);
@@ -142,7 +143,7 @@ namespace PintoNS.Networking
 
             NetHandler.SendCallChangeStatusPacket(CallStatus.CONNECTING, 
                 $"{contact}@{CallMgr.ExternalLocalIP}@{CallMgr.ClientPort}");
-            new SoundPlayer(Sounds.CALL_INIT).Play();
+            new SoundPlayer(Sounds.CALL_INIT).Play();*/
         }
 
         public void JoinCall(string contact)

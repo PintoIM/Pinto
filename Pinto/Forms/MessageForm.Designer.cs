@@ -262,6 +262,7 @@
             // btnTalk
             // 
             this.btnTalk.BackColor = System.Drawing.Color.Transparent;
+            this.btnTalk.Enabled = false;
             this.btnTalk.FlatAppearance.BorderSize = 0;
             this.btnTalk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTalk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

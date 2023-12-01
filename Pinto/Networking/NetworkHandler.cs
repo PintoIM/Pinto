@@ -16,7 +16,6 @@ namespace PintoNS.Networking
         public bool LoggedIn;
         public bool ServerClearedContacts;
         public string ServerID;
-        public Dictionary<string, string> Options = new Dictionary<string, string>();
 
         public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
         {
@@ -262,12 +261,6 @@ namespace PintoNS.Networking
             {
                 mainForm.NetManager.ChangeCallStatus(packet.CallStatus, packet.Details);
             }));
-        }
-
-        public void HandleSetOptionPacket(PacketSetOption packet)
-        {
-            Program.Console.WriteMessage($"[Networking] Setting option \"{packet.Option}\" to \"{packet.Value}\"");
-            Options[packet.Option] = packet.Value;
         }
 
         public void SendLoginPacket(byte protocolVersion, string clientVersion, 

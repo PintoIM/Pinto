@@ -549,8 +549,8 @@ namespace PintoNS
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
         {
+            /*
             if (NetManager == null || NetManager.InCall) return;
-            if (NetManager.NetHandler.Options.GetValueOrDefault("exp_calls", "0") != "1") return;
 
             if (dgvContacts.SelectedRows.Count > 0)
             {
@@ -561,7 +561,7 @@ namespace PintoNS
             {
                 btnStartCall.Enabled = false;
                 btnStartCall.Image = Assets.STARTCALL_DISABLED;
-            }
+            }*/
         }
 
         private void btnStartCall_Click(object sender, EventArgs e)

@@ -317,7 +317,6 @@
     <Compile Include="General\MsgBox.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
-    <Compile Include="Networking\Packets\PacketSetOption.cs" />
     <Compile Include="Networking\Packets\PacketTyping.cs" />
     <Compile Include="Networking\Packets\PacketCallChangeStatus.cs" />
     <Compile Include="Networking\Packets\PacketServerID.cs" />
