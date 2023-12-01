@@ -58,6 +58,8 @@ namespace PintoNS.General
                     return "Busy";
                 case UserStatus.INVISIBLE:
                     return "Invisible";
+                case UserStatus.CONNECTING:
+                    return "Connecting...";
                 default:
                     return "Offline";
             }

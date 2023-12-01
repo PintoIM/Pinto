@@ -42,6 +42,7 @@ namespace PintoNS
 
         internal async void OnLogin()
         {
+            Program.Console.WriteMessage("[General] Changing UI state to logged in");
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpStart);
             tcTabs.TabPages.Add(tpContacts);
@@ -80,6 +81,7 @@ namespace PintoNS
             new SoundPlayer(Sounds.LOGIN).Play();
 
             if (Settings.NoServerHTTP) return;
+            if (NetManager == null) return;
             await TaskEx.Run(new Action(() => 
             {
                 WebClient webClient = new WebClient();
@@ -131,17 +133,19 @@ namespace PintoNS
 
         internal void OnStatusChange(UserStatus status, string motd)
         {
-            tsddbStatusBarStatus.Enabled = status != UserStatus.OFFLINE;
+            Program.Console.WriteMessage($"[General] Changing user status to: {status} ({motd})");
+            bool isOnline = status != UserStatus.OFFLINE && status != UserStatus.CONNECTING;
+            tsddbStatusBarStatus.Enabled = isOnline;
             tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
-            tsddbStatusBarMOTD.Enabled = status != UserStatus.OFFLINE;
-            tsddbStatusBarMOTD.Text = status != UserStatus.OFFLINE && 
+            tsddbStatusBarMOTD.Enabled = isOnline;
+            tsddbStatusBarMOTD.Text = isOnline && 
                 !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";
 
             CurrentUser.Status = status;
             CurrentUser.MOTD = motd;
 
-            if (status == UserStatus.OFFLINE)
+            if (!isOnline)
             {
                 CurrentUser.Name = null;
                 CurrentUser.MOTD = null;
@@ -152,6 +156,7 @@ namespace PintoNS
 
         internal void OnLogout(bool noSound = false)
         {
+            Program.Console.WriteMessage("[General] Changing UI state to logged out");
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpLogin);
             UpdateQuickActions(false);
@@ -245,10 +250,11 @@ namespace PintoNS
 
         public void SyncTray()
         {
+            Program.Console.WriteMessage("[General] Synchronizing tray status...");
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(CurrentUser.Status);
             niTray.Text = $"Pinto! Beta - " +
-                (CurrentUser.Status != UserStatus.OFFLINE ?
+                (CurrentUser.Status != UserStatus.OFFLINE && CurrentUser.Status != UserStatus.CONNECTING ?
                 $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
             tsmiTrayChangeStatus.Enabled = CurrentUser.Status != UserStatus.OFFLINE;
         }
@@ -257,6 +263,7 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
+            OnStatusChange(UserStatus.CONNECTING, "");
 
             Action<string> changeConnectionStatus = (string status) =>
             {
@@ -298,6 +305,7 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
+            OnStatusChange(UserStatus.CONNECTING, "");
 
             Action<string> changeConnectionStatus = (string status) =>
             {
