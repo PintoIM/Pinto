@@ -715,6 +715,7 @@ namespace PintoNS
                 messageForm.Focus();
             });
 
+            startTalking.Enabled = false;
             startTalking.Click += new EventHandler((object sender2, EventArgs e2) =>
             {
                 if (NetManager == null || NetManager.InCall) return;
