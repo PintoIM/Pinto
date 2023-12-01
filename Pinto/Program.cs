@@ -15,6 +15,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Runtime.Versioning;
 using System.Reflection;
+using CSScriptLibrary;
 
 namespace PintoNS
 {
@@ -29,6 +30,7 @@ namespace PintoNS
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.ApplicationData), "Pinto!");
         public static readonly string SettingsFile = Path.Combine(DataFolder, "settings.json");
+        public static readonly List<IPintoScript> Scripts = new List<IPintoScript>();
 
         // Main variables
         public static MainForm MainFrm;
@@ -98,16 +100,49 @@ namespace PintoNS
                 Directory.CreateDirectory(DataFolder);
             if (!Directory.Exists(Path.Combine(DataFolder, "chats")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
-            if (!Directory.Exists(Path.Combine(DataFolder, "extensions")))
-                Directory.CreateDirectory(Path.Combine(DataFolder, "extensions"));
-            if (!Directory.Exists(Path.Combine(DataFolder, "plugins")))
-                Directory.CreateDirectory(Path.Combine(DataFolder, "plugins"));
+            if (!Directory.Exists(Path.Combine(DataFolder, "scripts")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "scripts"));
 
             // Create the main form
             MainFrm = new MainForm();
 
+            // Loads all the scripts
+            LoadScripts(MainFrm);
+
             // Start Pinto!
             Application.Run(MainFrm);
+        }
+
+        public static void LoadScripts(MainForm mainForm) 
+        {
+            Console.WriteMessage("[Scripting] Loading scripts...");
+            string[] scripts = Directory.GetFiles(Path.Combine(DataFolder, "scripts"), "*.cs");
+            bool failedToLoad = false;
+
+            foreach (string script in scripts) 
+            {
+                try 
+                {
+                    Console.WriteMessage($"[Scripting] Loading script {script}");
+                    Assembly scriptAsm = CSScript.Load(script);
+                    IPintoScript scriptInstance = scriptAsm.CreateObject("PintoScript", mainForm)
+                        .AlignToInterface<IPintoScript>();
+                    Scripts.Add(scriptInstance);
+                    scriptInstance.OnLoad();
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteMessage($"[Scripting] Failed to load the script {script}: {ex}");
+                    failedToLoad = true;
+                }
+            }
+
+            if (failedToLoad) 
+            {
+                MsgBox.Show(mainForm,
+                    "Some of your scripts have failed to load. Check the console for more information",
+                    "Script Loading Failure", MsgBoxIconType.ERROR);
+            }
         }
 
         public static Icon GetFormIcon() => Logo.LOGO_ICO;

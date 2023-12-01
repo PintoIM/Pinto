@@ -70,6 +70,9 @@
       <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CSScriptLibrary, Version=3.24.2.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.bin.3.24.2.0\lib\net40\CSScriptLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
@@ -81,6 +84,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.bin.3.24.2.0\lib\net40\Mono.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
@@ -278,6 +284,7 @@
     <Compile Include="General\AudioPlayer.cs" />
     <Compile Include="General\CallManager.cs" />
     <Compile Include="General\CallStatus.cs" />
+    <Compile Include="General\IPintoScript.cs" />
     <Compile Include="General\MsgBoxIconType.cs" />
     <Compile Include="General\Contact.cs" />
     <Compile Include="General\AudioRecorder.cs" />

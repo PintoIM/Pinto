@@ -424,6 +424,8 @@ namespace PintoNS
 
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);*/
+
+            Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
