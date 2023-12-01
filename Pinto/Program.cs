@@ -105,6 +105,7 @@ namespace PintoNS
 
             // Create the main form
             MainFrm = new MainForm();
+            MainFrm.Focus();
 
             // Loads all the scripts
             LoadScripts(MainFrm);

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Mono.CSharp;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PintoNS.General;
 using System;
@@ -13,17 +14,22 @@ namespace PintoNS.Forms
     {
         public const string USERNAME_REGEX_CHECK = @"^(?=.{3,15}$)[a-zA-Z0-9._]+$";
         private MainForm mainForm;
-        private ToolTip illegalUsername;
+        private bool hasLoggedIn;
 
         public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
-            illegalUsername = new ToolTip();
-            illegalUsername.IsBalloon = true;
-            illegalUsername.ToolTipTitle = "Illegal Username";
-            illegalUsername.ToolTipIcon = ToolTipIcon.Error;
+        }
+
+        public static void SetHasLoggedIn(bool value) 
+        {
+            UsingPintoForm form = new UsingPintoForm(null);
+            form.LoadLogin();
+            form.hasLoggedIn = value;
+            form.SaveLogin();
+            form.Dispose();
         }
 
         private void LoadLogin()
@@ -41,6 +47,7 @@ namespace PintoNS.Forms
                 txtPassword.Text = data["password"].Value<string>();
                 txtIP.Text = data["ip"].Value<string>();
                 nudPort.Value = data["port"].Value<int>();
+                hasLoggedIn = data["hasLoggedIn"].Value<bool>();
             }
             catch (Exception ex)
             {
@@ -58,12 +65,14 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "login.json");
-                JObject data = new JObject();
-
-                data.Add("username", txtUsername.Text);
-                data.Add("password", txtPassword.Text);
-                data.Add("ip", txtIP.Text);
-                data.Add("port", (int)nudPort.Value);
+                JObject data = new JObject
+                {
+                    { "username", txtUsername.Text },
+                    { "password", txtPassword.Text },
+                    { "ip", txtIP.Text },
+                    { "port", (int)nudPort.Value },
+                    { "hasLoggedIn", hasLoggedIn }
+                };
 
                 File.WriteAllText(filePath, data.ToString(Formatting.Indented));
             }
@@ -135,7 +144,7 @@ namespace PintoNS.Forms
                 if (cbSavePassword.Checked)
                     SaveLogin();
                 Close();
-                await mainForm.Connect(ip, port, username, password);
+                await mainForm.Connect(ip, port, username, password, false);
             }
         }
 
@@ -155,12 +164,24 @@ namespace PintoNS.Forms
                 btnConnect.Text = "Connect";
         }
 
-        private void UsingPintoForm_Load(object sender, EventArgs e)
+        private async void UsingPintoForm_Load(object sender, EventArgs e)
         {
             tcSections.Appearance = TabAppearance.FlatButtons;
             tcSections.ItemSize = new Size(0, 1);
             tcSections.SizeMode = TabSizeMode.Fixed;
             LoadLogin();
+
+            string ip = txtIP.Text.Trim();
+            int port = (int)nudPort.Value;
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text;
+
+            if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 && 
+                username != null && password != null) 
+            {
+                Close();
+                mainForm.ConnectCached(ip, port, username, password);
+            }
         }
 
         private async void btnRegister_Click(object sender, EventArgs e)
@@ -196,7 +217,7 @@ namespace PintoNS.Forms
             }
 
             Close();
-            await mainForm.ConnectRegister(ip, port, username, password);
+            await mainForm.Connect(ip, port, username, password, true);
         }
 
         private void btnRegisterBack_Click(object sender, EventArgs e)

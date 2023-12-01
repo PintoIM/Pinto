@@ -107,6 +107,12 @@ namespace PintoNS.General
             }
         }
 
+        public void Clear() 
+        {
+            dataTable.Clear();
+            contacts.Clear();
+        }
+
         public Contact[] GetContacts() => contacts.ToArray();
     }
 }

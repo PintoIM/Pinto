@@ -3,6 +3,7 @@ using System;
 using System.Media;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PintoNS.Networking
@@ -10,22 +11,49 @@ namespace PintoNS.Networking
     public class NetworkManager
     {
         private MainForm mainForm;
+        private int connectionAttempt;
         public NetworkClient NetClient;
         public NetworkHandler NetHandler;
+        public bool IsCached { get; private set; }
+        public bool WasLoggedInOnce;
         public bool IsActive;
+        public bool IsConnected;
         public bool IsForceTermination;
         public bool InCall;
         public string InCallWith;
         public CallManager CallMgr;
         public AudioPlayer AudioPlyr = new AudioPlayer();
         public AudioRecorder AudioRcrd = new AudioRecorder();
+        private Thread reconnectorHandler;
+        private string serverIP;
+        private int serverPort;
+        private string username;
+        private string password;
 
-        public NetworkManager(MainForm mainForm)
+        public NetworkManager(MainForm mainForm, bool cache, string ip, int port, 
+            string username, string password)
         {
             this.mainForm = mainForm;
+            IsCached = cache;
+            serverIP = ip;
+            serverPort = port;
+            this.username = username;
+            this.password = password;
+            IsActive = true;
+            if (!IsCached) InitNetworking();
+
+            // TODO: Fix this somehow
+            // Always keep the audio player and recorder started
+            // This is due to a bug with Naudio
+            //AudioRcrd.MicrophoneDataAvailable += AudioRcrd_MicrophoneDataAvailable;
+            //AudioPlyr.Start();
+            //AudioRcrd.Start();
+        }
+
+        private void InitNetworking() 
+        {
             NetClient = new NetworkClient();
             NetHandler = new NetworkHandler(mainForm, NetClient);
-            IsActive = true;
 
             NetClient.ReceivedPacket = delegate (IPacket packet)
             {
@@ -36,13 +64,36 @@ namespace PintoNS.Networking
             {
                 NetClient_Disconnected(reason);
             };
+        }
 
-            // TODO: Fix this somehow
-            // Always keep the audio player and recorder started
-            // This is due to a bug with Naudio
-            //AudioRcrd.MicrophoneDataAvailable += AudioRcrd_MicrophoneDataAvailable;
-            //AudioPlyr.Start();
-            //AudioRcrd.Start();
+        public void ScheduleConnecting() 
+        {
+            connectionAttempt = 0;
+            reconnectorHandler = new Thread(new ThreadStart(ReconnectorHandler_Func));
+            reconnectorHandler.Start();
+        }
+
+        private void ReconnectorHandler_Func() 
+        {
+            Action<string> changeConnectionStatus = new Action<string>(str => { });
+
+            while (IsActive) 
+            {
+                connectionAttempt++;
+                Program.Console.WriteMessage($"[Networking] Performing attempt #{connectionAttempt} " +
+                    $"at connecting to {serverIP}:{serverPort} as {username}");
+                InitNetworking();
+                Thread.Sleep(3000);
+                if (!IsActive) return;
+
+                (bool, Exception) result = Connect(serverIP, serverPort, 
+                    changeConnectionStatus).GetAwaiter().GetResult();
+                if (!result.Item1) 
+                    continue;
+
+                Login();
+                return;
+            }
         }
 
         public async Task<(bool, Exception)> Connect(string ip, int port, Action<string> changeConnectionStatus)
@@ -59,12 +110,16 @@ namespace PintoNS.Networking
             NetHandler = null;
             mainForm = null;
             IsActive = false;
+            serverIP = null;
+            serverPort = 0;
+            username = null;
+            password = null;
             EndCall(true);
             AudioPlyr.Stop();
             AudioRcrd.Stop();
         }
 
-        public void Login(string username, string password) 
+        public void Login() 
         {
             string passwordHash = BitConverter.ToString(
                 new SHA256Managed()
@@ -78,7 +133,7 @@ namespace PintoNS.Networking
                 Program.VERSION_STRING, username, passwordHash);
         }
 
-        public void Register(string username, string password)
+        public void Register()
         {
             string passwordHash = BitConverter.ToString(
                 new SHA256Managed()
@@ -105,12 +160,31 @@ namespace PintoNS.Networking
         private void NetClient_Disconnected(string reason)
         {
             Program.Console.WriteMessage($"[Networking] Disconnected: {reason.Replace("\n", "\\n")}");
+            if (IsActive && !IsForceTermination && (IsCached || IsConnected)) 
+            {
+                Program.Console.WriteMessage("[Networking] Ignoring disconnect and attempting reconnection");
+                IsConnected = false;
+                ScheduleConnecting();
+
+                if (mainForm.loginPacketCheckThread != null)
+                    mainForm.loginPacketCheckThread.Abort();
+
+                mainForm.Invoke(new Action(() =>
+                {
+                    mainForm.OnStatusChange(UserStatus.CONNECTING, "");
+                    mainForm.PopupController.CreatePopup("You have lost the connection to the server.\n" +
+                        "We will try to re-connect you...", "Disconnected", 0);
+                    mainForm.InWindowPopupController.CreatePopup("You are being reconnected");
+                }));
+
+                return;
+            }
 
             bool wasActive = IsActive;
             IsActive = false;
             EndCall(true);
 
-            if (reason != null && !IsForceTermination) 
+            if (reason != null && !IsForceTermination)
             {
                 mainForm.Invoke(new Action(() =>
                 {
@@ -163,7 +237,7 @@ namespace PintoNS.Networking
             CallMgr.CallReceivedAudio += CallMgr_CallReceivedAudio;
             CallMgr.CallFailed += CallMgr_CallFailed;
             CallMgr.CallEnded += CallMgr_CallEnded;
-            CallMgr.JoinCall(userNameIP, userNamePort, mainForm.CurrentUser.Name);
+            CallMgr.JoinCall(userNameIP, userNamePort, mainForm.LocalUser.Name);
         }
 
         private void CallMgr_CallStarted()
