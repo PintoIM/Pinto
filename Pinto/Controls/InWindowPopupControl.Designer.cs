@@ -63,6 +63,7 @@
             // 
             this.lText.AutoSize = true;
             this.lText.BackColor = System.Drawing.Color.Transparent;
+            this.lText.ForeColor = System.Drawing.Color.Black;
             this.lText.Location = new System.Drawing.Point(25, 5);
             this.lText.Name = "lText";
             this.lText.Size = new System.Drawing.Size(108, 13);

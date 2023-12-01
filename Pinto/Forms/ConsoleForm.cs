@@ -13,10 +13,10 @@ namespace PintoNS.Forms
 
         public void WriteMessage(string msg)
         {
-            WriteMessage(msg, Color.Lime, true);
+            WriteMessage(msg, true);
         }
 
-        public void WriteMessage(string msg, Color color, bool newLine = true)
+        public void WriteMessage(string msg, bool newLine = true)
         {
             Invoke(new Action(() => 
             {
@@ -26,9 +26,7 @@ namespace PintoNS.Forms
                 {
                     rtxtLog.SelectionStart = rtxtLog.TextLength;
                     rtxtLog.SelectionLength = 0;
-                    rtxtLog.SelectionColor = color;
                     rtxtLog.AppendText(msg + (newLine ? Environment.NewLine : ""));
-                    rtxtLog.SelectionColor = rtxtLog.ForeColor;
                 }));
             }));
         }

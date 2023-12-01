@@ -73,15 +73,16 @@ namespace PintoNS.Networking
                 if (packet.Sender.Trim().Length > 0) 
                 {
                     messageForm.WriteMessage($"{packet.Sender}",
-                        packet.Sender == mainForm.CurrentUser.Name ? Color.Blue : Color.Red, false);
-                    messageForm.WriteMessage($" - ", Color.Black, false);
+                        packet.Sender == mainForm.CurrentUser.Name ? 
+                            MessageForm.MsgSelfSenderColor : MessageForm.MsgOtherSenderColor, false);
+                    messageForm.WriteMessage($" - ", MessageForm.MsgSeparatorColor, false);
                     messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
-                        Color.Gray, false);
-                    messageForm.WriteMessage($":", Color.Black);
-                    messageForm.WriteMessage($"  {packet.Message}", Color.Black);
+                        MessageForm.MsgTimeColor, false);
+                    messageForm.WriteMessage($":", MessageForm.MsgSeparatorColor);
+                    messageForm.WriteMessage($"  {packet.Message}", MessageForm.MsgContentColor);
                 }
                 else
-                    messageForm.WriteMessage($"{packet.Message}", Color.Black);
+                    messageForm.WriteMessage($"{packet.Message}", MessageForm.MsgContentColor);
 
                 if (Form.ActiveForm != messageForm && 
                     !messageForm.HasBeenInactive && 

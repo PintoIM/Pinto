@@ -12,6 +12,11 @@ namespace PintoNS.Forms
 {
     public partial class MessageForm : Form
     {
+        public static Color MsgSelfSenderColor = Color.Blue;
+        public static Color MsgOtherSenderColor = Color.Red;
+        public static Color MsgSeparatorColor = Color.Black;
+        public static Color MsgContentColor = Color.Black;
+        public static Color MsgTimeColor = Color.Gray;
         private MainForm mainForm;
         public Contact Receiver;
         private bool isTypingLastStatus;

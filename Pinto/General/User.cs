@@ -20,6 +20,8 @@ namespace PintoNS.General
                     return Statuses.BUSY;
                 case UserStatus.INVISIBLE: 
                     return Statuses.INVISIBLE;
+                case UserStatus.CONNECTING:
+                    return Statuses.CONNECTING;
                 default:
                     return Statuses.OFFLINE;
             }
@@ -37,6 +39,8 @@ namespace PintoNS.General
                     return Statuses.BUSY1;
                 case UserStatus.INVISIBLE:
                     return Statuses.INVISIBLE1;
+                case UserStatus.CONNECTING:
+                    return Statuses.CONNECTING1;
                 default:
                     return Statuses.OFFLINE1;
             }

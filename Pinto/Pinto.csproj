@@ -536,6 +536,8 @@
     <Content Include="Resources\Statuses\AWAY.png" />
     <Content Include="Resources\Statuses\BUSY.ico" />
     <Content Include="Resources\Statuses\BUSY.png" />
+    <Content Include="Resources\Statuses\CONNECTING.ico" />
+    <Content Include="Resources\Statuses\CONNECTING.png" />
     <Content Include="Resources\Statuses\INVISIBLE.ico" />
     <Content Include="Resources\Statuses\INVISIBLE.png" />
     <Content Include="Resources\Statuses\OFFLINE.ico" />

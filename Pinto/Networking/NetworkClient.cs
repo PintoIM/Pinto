@@ -17,9 +17,9 @@ using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
-    public class ConnectionException : Exception 
+    public class PintoConnectionException : Exception 
     {
-        public ConnectionException(string message) : base(message) { }
+        public PintoConnectionException(string message) : base(message) { }
     }
 
     public class NetworkClient
@@ -49,7 +49,7 @@ namespace PintoNS.Networking
 
                 try { await TaskEx.Run(() => tcpClient.ConnectAsync(ip, port).Wait(5000)); }
                 catch (AggregateException ex) { throw ex.InnerException; }
-                if (!tcpClient.Connected) throw new ConnectionException("Timed out");
+                if (!tcpClient.Connected) throw new PintoConnectionException("Timed out");
 
                 IP = ip;
                 Port = port;
@@ -296,7 +296,7 @@ namespace PintoNS.Networking
             IPacket packet = Packets.GetPacketByID(id);
 
             if (packet == null)
-                throw new ConnectionException($"Bad packet ID: {id}");
+                throw new PintoConnectionException($"Bad packet ID: {id}");
 
             packet.Read(binaryReader);
             ReceivedPacket.Invoke(packet);
@@ -317,14 +317,14 @@ namespace PintoNS.Networking
                         headerPart1 == -1 || 
                         headerPart2 == -1 || 
                         headerPart3 == -1)
-                        throw new ConnectionException("Client disconnect");
+                        throw new PintoConnectionException("Client disconnect");
                     
                     // Packet header
                     if (headerPart0 != 'P' ||
                         headerPart1 != 'M' ||
                         headerPart2 != 'S' ||
                         headerPart3 != 'G')
-                        throw new ConnectionException("Bad packet header!");
+                        throw new PintoConnectionException("Bad packet header!");
 
                     byte[] encryptedDataSize = new byte[4];
                     netStream.Read(encryptedDataSize, 0, encryptedDataSize.Length);
@@ -337,7 +337,7 @@ namespace PintoNS.Networking
                     int readAmount = netStream.Read(encryptedData, 0, encryptedData.Length);
 
                     if (readAmount == 0)
-                        throw new ConnectionException("Client disconnect");
+                        throw new PintoConnectionException("Client disconnect");
 
                     ProcessReceivedEncryptedData(encryptedData, iv);
                     Thread.Sleep(1);
@@ -351,7 +351,7 @@ namespace PintoNS.Networking
                         return;
                     }
 
-                    if (!(ex is IOException || ex is ConnectionException))
+                    if (!(ex is IOException || ex is PintoConnectionException))
                         HandleError(ex);
                     else
                         Disconnect(ex.Message);

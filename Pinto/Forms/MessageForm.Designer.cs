@@ -398,11 +398,11 @@
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomIn;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomOut;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuFileZoomReset;
-        private System.Windows.Forms.Timer tRateLimit;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripProgressBar tspbMenuBarRateLimit;
-        private System.Windows.Forms.ToolStripStatusLabel tsslStatusStripTyping;
-        private System.Windows.Forms.ToolStripLabel tslMenuBarMessageTimeout;
+        public System.Windows.Forms.Timer tRateLimit;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.ToolStripProgressBar tspbMenuBarRateLimit;
+        public System.Windows.Forms.ToolStripStatusLabel tsslStatusStripTyping;
+        public System.Windows.Forms.ToolStripLabel tslMenuBarMessageTimeout;
         public System.Windows.Forms.ImageList ilButtons;
         public System.Windows.Forms.Button btnMoreFontOptions;
     }
