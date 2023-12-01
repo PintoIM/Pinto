@@ -33,7 +33,6 @@ namespace PintoNS
         // Main variables
         public static MainForm MainFrm;
         public static bool RunningOnLegacyPlatform;
-        public static List<PintoPluginHost> Plugins = new List<PintoPluginHost>();
 
         [STAThread]
         static void Main()
@@ -104,69 +103,11 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "plugins")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "plugins"));
 
-            // Load plugins
-            LoadPlugins();
-
             // Create the main form
             MainFrm = new MainForm();
-            Plugins.ForEach((PintoPluginHost plugin) => { plugin.Plugin.OnMainFormLoad(MainFrm); });
 
             // Start Pinto!
             Application.Run(MainFrm);
-        }
-
-        public static void LoadPlugins()
-        {
-            Console.WriteMessage($"[Plugins] Loading plugins...");
-
-            foreach (string assemblyPath in Directory.EnumerateFiles(Path.Combine(DataFolder, "plugins"), "*.dll"))
-            {
-                try
-                {
-                    Console.WriteMessage($"[Plugins] Loading the assembly \"{Path.GetFileName(assemblyPath)}\"...");
-                    Assembly assembly = Assembly.LoadFrom(assemblyPath);
-                    LoadPlugin(assemblyPath, assembly);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteMessage($"[Plugins] Unable to load the assembly \"{Path.GetFileName(assemblyPath)}\": {ex}");
-                }
-            }
-        }
-
-        public static void LoadPlugin(string assemblyPath, Assembly assembly)
-        {
-            try
-            {
-                Type pluginInterfaceType = typeof(IPintoPlugin);
-                Console.WriteMessage($"[Plugins] Loading plugins from the assembly \"{assembly}\"...");
-
-                foreach (Type assemblyType in assembly.GetTypes())
-                {
-                    if (!assemblyType.IsPublic ||
-                        assemblyType.IsAbstract ||
-                        !pluginInterfaceType.IsAssignableFrom(assemblyType)) continue;
-                    IPintoPlugin plugin = (IPintoPlugin)Activator.CreateInstance(assemblyType);
-                    PintoPluginInfo pluginInfo = plugin.GetInfo();
-
-                    Console.WriteMessage($"[Plugins] Loading plugin \"{pluginInfo.Name}\"" +
-                        $" by {pluginInfo.Author} (v{pluginInfo.Version})...");
-                    if (!plugin.OnLoad()) continue;
-
-                    Console.WriteMessage($"[Plugins] Loaded plugin \"{pluginInfo.Name}\"" +
-                        $" by {pluginInfo.Author} (v{pluginInfo.Version})");
-                    Plugins.Add(new PintoPluginHost()
-                    {
-                        AssemblyPath = assemblyPath,
-                        Assembly = assembly,
-                        Plugin = plugin
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteMessage($"[Plugins] Unable to load a plugin from the assembly \"{assembly}\": {ex}");
-            }
         }
 
         public static Icon GetFormIcon() => Logo.LOGO_ICO;

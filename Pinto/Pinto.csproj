@@ -283,7 +283,6 @@
     <Compile Include="General\AudioRecorder.cs" />
     <Compile Include="General\NETFrameworkVersion.cs" />
     <Compile Include="General\ObjectExtensions.cs" />
-    <Compile Include="General\PintoPlugin.cs" />
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
