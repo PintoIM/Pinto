@@ -21,13 +21,13 @@ namespace PintoNS
     {
         private bool doNotCancelClose;
         private bool isPortable;
-        public User CurrentUser = new User();
+        public User LocalUser = new User();
         public ContactsManager ContactsMgr;
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
         public List<MessageForm> MessageForms;
         public NetworkManager NetManager;
-        private Thread loginPacketCheckThread;
+        internal Thread loginPacketCheckThread;
         private bool serverHasRules;
         private bool serverHasWelcome;
         public CallStatus CurrentCallStatus = CallStatus.ENDED;
@@ -60,6 +60,8 @@ namespace PintoNS
             dataTable.Columns.Add("contactName", typeof(string));
             dataTable.Columns.Add("contactMOTD", typeof(string));
             dgvContacts.DataSource = dataTable;
+            ContactsMgr = new ContactsManager(this);
+            ContactsMgr.Clear();
 
             DataGridViewColumn contactStatus = dgvContacts.Columns["contactStatus"];
             contactStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -77,7 +79,7 @@ namespace PintoNS
             tsmiMenuBarToolsRemoveContact.Enabled = true;
             tsmiMenuBarFileChangeStatus.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
-            Text = $"Pinto! Beta - {CurrentUser.Name}";
+            Text = $"Pinto! Beta - {LocalUser.Name}";
             new SoundPlayer(Sounds.LOGIN).Play();
 
             if (Settings.NoServerHTTP) return;
@@ -142,13 +144,13 @@ namespace PintoNS
             tsddbStatusBarMOTD.Text = isOnline && 
                 !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";
 
-            CurrentUser.Status = status;
-            CurrentUser.MOTD = motd;
+            LocalUser.Status = status;
+            LocalUser.MOTD = motd;
 
             if (!isOnline)
             {
-                CurrentUser.Name = null;
-                CurrentUser.MOTD = null;
+                LocalUser.Name = null;
+                LocalUser.MOTD = null;
             }
 
             SyncTray();
@@ -252,14 +254,35 @@ namespace PintoNS
         {
             Program.Console.WriteMessage("[General] Synchronizing tray status...");
             niTray.Visible = true;
-            niTray.Icon = User.StatusToIcon(CurrentUser.Status);
+            niTray.Icon = User.StatusToIcon(LocalUser.Status);
             niTray.Text = $"Pinto! Beta - " +
-                (CurrentUser.Status != UserStatus.OFFLINE && CurrentUser.Status != UserStatus.CONNECTING ?
-                $"{CurrentUser.Name} - {User.StatusToText(CurrentUser.Status)}" : "Not logged in");
-            tsmiTrayChangeStatus.Enabled = CurrentUser.Status != UserStatus.OFFLINE;
+                (LocalUser.Status != UserStatus.OFFLINE && LocalUser.Status != UserStatus.CONNECTING ?
+                $"{LocalUser.Name} - {User.StatusToText(LocalUser.Status)}" : "Not logged in");
+            tsmiTrayChangeStatus.Enabled = LocalUser.Status != UserStatus.OFFLINE;
         }
 
-        public async Task Connect(string ip, int port, string username, string password)
+        public void ConnectCached(string ip, int port, string username, string password) 
+        {
+            Program.Console.WriteMessage($"[Networking] Cache connecting at {ip}:{port} as {username}...");
+            LocalUser.Name = username;
+            NetManager = new NetworkManager(this, true, ip, port, username, password);
+            NetManager.ScheduleConnecting();
+
+            OnLogin();
+            OnStatusChange(UserStatus.CONNECTING, "");
+
+            foreach (string contact in LastContacts.GetLastContacts()) 
+            {
+                ContactsMgr.AddContact(new Contact()
+                {
+                    Name = contact,
+                    MOTD = "",
+                    Status = UserStatus.CONNECTING
+                });
+            }
+        }
+
+        public async Task Connect(string ip, int port, string username, string password, bool register)
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
@@ -272,7 +295,7 @@ namespace PintoNS
                     lConnectingStatus.Text = status;
                 }));
             };
-            NetManager = new NetworkManager(this);
+            NetManager = new NetworkManager(this, false, ip, port, username, password);
 
             Program.Console.WriteMessage($"[Networking] Connecting at {ip}:{port} as {username}...");
             (bool, Exception) connectResult = await NetManager.Connect(ip, port, changeConnectionStatus);
@@ -281,56 +304,22 @@ namespace PintoNS
             {
                 Disconnect();
                 lConnectingStatus.Text = "";
-                if (connectResult.Item2 != null)
+                if (connectResult.Item2 != null && !(connectResult.Item2 is PintoVerificationException))
                 {
                     Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                     MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
                         $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
                 }
+                UsingPintoForm.SetHasLoggedIn(false);
             }
             else
             {
-                CurrentUser.Name = username;
-                lConnectingStatus.Text = "Authenticating...";
-                NetManager.Login(username, password);
-
-                if (loginPacketCheckThread != null)
-                    loginPacketCheckThread.Abort();
-
-                StartLoginPacketCheckThread(ip, port);
-            }
-        }
-
-        public async Task ConnectRegister(string ip, int port, string username, string password)
-        {
-            tcTabs.TabPages.Clear();
-            tcTabs.TabPages.Add(tpConnecting);
-            OnStatusChange(UserStatus.CONNECTING, "");
-
-            Action<string> changeConnectionStatus = (string status) =>
-            {
-                Invoke(new Action(() =>
-                {
-                    lConnectingStatus.Text = status;
-                }));
-            };
-            NetManager = new NetworkManager(this);
-
-            Program.Console.WriteMessage($"[Networking] Registering in as {username} at {ip}:{port}...");
-            (bool, Exception) connectResult = await NetManager.Connect(ip, port, changeConnectionStatus);
-
-            if (!connectResult.Item1)
-            {
-                Disconnect();
-                Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
-                    $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
-            }
-            else
-            {
-                CurrentUser.Name = username;
-                lConnectingStatus.Text = "Registering...";
-                NetManager.Register(username, password);
+                LocalUser.Name = username;
+                lConnectingStatus.Text = register ? "Registering..." : "Authenticating...";
+                if (!register)
+                    NetManager.Login();
+                else
+                    NetManager.Register();
 
                 if (loginPacketCheckThread != null)
                     loginPacketCheckThread.Abort();
@@ -405,7 +394,7 @@ namespace PintoNS
                 Program.Console.WriteMessage($"Creating MessageForm for {name}...");
                 messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
                 MessageForms.Add(messageForm);
-                bool isBusy = CurrentUser.Status == UserStatus.BUSY;
+                bool isBusy = LocalUser.Status == UserStatus.BUSY;
 
                 if (ActiveForm == null || !(ActiveForm is MessageForm))
                     messageForm.Show();
@@ -433,6 +422,7 @@ namespace PintoNS
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);*/
 
+            llLogin_LinkClicked(this, null);
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
         }
 
@@ -494,6 +484,7 @@ namespace PintoNS
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
+            UsingPintoForm.SetHasLoggedIn(false);
             Disconnect();
         }
 
@@ -503,14 +494,14 @@ namespace PintoNS
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.ONLINE, CurrentUser.MOTD);
+            NetManager.ChangeStatus(UserStatus.ONLINE, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
             if (NetManager == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.AWAY, CurrentUser.MOTD);
+            NetManager.ChangeStatus(UserStatus.AWAY, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
@@ -519,7 +510,7 @@ namespace PintoNS
             Program.Console.WriteMessage("[General] Changing status...");
             InWindowPopupController.CreatePopup("You are now busy" +
                 ", this means that you will not receive any non-important popups", true);
-            NetManager.ChangeStatus(UserStatus.BUSY, CurrentUser.MOTD);
+            NetManager.ChangeStatus(UserStatus.BUSY, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
@@ -532,7 +523,7 @@ namespace PintoNS
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
                 if (button == MsgBoxButtonType.YES)
-                    NetManager.ChangeStatus(UserStatus.INVISIBLE, CurrentUser.MOTD);
+                    NetManager.ChangeStatus(UserStatus.INVISIBLE, LocalUser.MOTD);
             });
         }
 

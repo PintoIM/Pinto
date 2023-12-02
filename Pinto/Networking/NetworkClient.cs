@@ -22,6 +22,10 @@ namespace PintoNS.Networking
         public PintoConnectionException(string message) : base(message) { }
     }
 
+    public class PintoVerificationException : Exception
+    {
+    }
+
     public class NetworkClient
     {
         private bool ignoreDisconnectReason;
@@ -59,7 +63,7 @@ namespace PintoNS.Networking
 
                 changeConnectionStatus.Invoke("Handshaking...");
                 if (!await Handshake())
-                    return (false, null);
+                    return (false, new PintoVerificationException());
 
                 return (true, null);
             }
@@ -76,7 +80,7 @@ namespace PintoNS.Networking
                 new string[] { $"{host};{publicKeyBase64}" });
         }
 
-        private async Task<bool> DoPublicKeyVerification(byte[] publicKeyRaw, CancellationToken token)
+        private bool DoPublicKeyVerification(byte[] publicKeyRaw, CancellationToken token)
         {
             string knownHostsPath = Path.Combine(Program.DataFolder, "known_hosts.txt");
             if (!File.Exists(knownHostsPath)) File.WriteAllText(knownHostsPath, "");
@@ -88,7 +92,7 @@ namespace PintoNS.Networking
             bool result = false;
             bool failedVerification = false;
             string oldKnownHostPair = null;
-            
+
             foreach (string knownHostPair in knownHosts.ToArray())
             {
                 string[] knownHostPairSplitted = knownHostPair.Split(';');
@@ -130,22 +134,25 @@ namespace PintoNS.Networking
                 }
             };
 
-            verifier.Show();
-            await TaskEx.Run(() =>
+            new Thread(new ThreadStart(() => 
             {
                 try
                 {
+                    Program.Console.WriteMessage("[Networking] Starting verifier form result thread");
                     while (!verifier.IsDisposed)
                     {
                         token.ThrowIfCancellationRequested();
+                        Thread.Sleep(100);
                     }
                 }
                 catch
                 {
+                    Program.Console.WriteMessage("[Networking] Aborting verifier form result thread");
                     verifier.Close();
                     result = false;
                 }
-            });
+            })).Start();
+            verifier.ShowDialog();
 
             return result;
         }
@@ -182,7 +189,7 @@ namespace PintoNS.Networking
             }));
             staller.Start();
 
-            if (!await DoPublicKeyVerification(publicKey, cancellationToken.Token))
+            if (!DoPublicKeyVerification(publicKey, cancellationToken.Token))
             {
                 finishedVerif = true;
                 staller.Interrupt();

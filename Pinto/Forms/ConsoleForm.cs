@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PintoNS.General;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,9 +7,31 @@ namespace PintoNS.Forms
 {
     public partial class ConsoleForm : Form
     {
+        private const int SM_ITEM_CLEAR = 0x01;
+
         public ConsoleForm()
         {
             InitializeComponent();
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            if (Program.RunningUnderMono) return;
+            IntPtr sysMenu = PInvoke.GetSystemMenu(Handle, false);
+            PInvoke.AppendMenu(sysMenu, PInvoke.MF_SEPARATOR, 0x00, "");
+            PInvoke.AppendMenu(sysMenu, PInvoke.MF_STRING, SM_ITEM_CLEAR, "&Clear Console");
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (Program.RunningUnderMono) return;
+            if (m.Msg == PInvoke.WM_SYSCOMMAND && 
+                (int)m.WParam == SM_ITEM_CLEAR) 
+            {
+                rtxtLog.Clear();
+            }
         }
 
         public void WriteMessage(string msg)

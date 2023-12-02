@@ -35,6 +35,7 @@ namespace PintoNS
         // Main variables
         public static MainForm MainFrm;
         public static bool RunningOnLegacyPlatform;
+        public static bool RunningUnderMono;
 
         [STAThread]
         static void Main()
@@ -60,13 +61,13 @@ namespace PintoNS
             }
             catch { Console.WriteMessage("[General] Not running under wine"); }
 
-            bool runningUnderMono = Type.GetType("Mono.Runtime") != null;
-            if (runningUnderMono)
+            RunningUnderMono = Type.GetType("Mono.Runtime") != null;
+            if (RunningUnderMono)
                 Console.WriteMessage("[General] Running under mono");
             else
                 Console.WriteMessage("[General] Not running under mono");
 
-            if (!runningUnderMono)
+            if (!RunningUnderMono)
             {
                 // Enable TLS 1.0, 1.1, 1.2
                 Version version = NETFrameworkVersion.GetVersion();
@@ -105,6 +106,7 @@ namespace PintoNS
 
             // Create the main form
             MainFrm = new MainForm();
+            MainFrm.Focus();
 
             // Loads all the scripts
             LoadScripts(MainFrm);
