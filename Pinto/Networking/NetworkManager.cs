@@ -26,18 +26,18 @@ namespace PintoNS.Networking
         public AudioPlayer AudioPlyr = new AudioPlayer();
         public AudioRecorder AudioRcrd = new AudioRecorder();
         private Thread reconnectorHandler;
-        private string serverIP;
-        private int serverPort;
-        private string username;
-        private string password;
+        public string ServerIP { get; private set; }
+        public int ServerPort { get; private set; }
+        internal string username;
+        internal string password;
 
         public NetworkManager(MainForm mainForm, bool cache, string ip, int port, 
             string username, string password)
         {
             this.mainForm = mainForm;
             IsCached = cache;
-            serverIP = ip;
-            serverPort = port;
+            ServerIP = ip;
+            ServerPort = port;
             this.username = username;
             this.password = password;
             IsActive = true;
@@ -82,12 +82,12 @@ namespace PintoNS.Networking
             {
                 connectionAttempt++;
                 Program.Console.WriteMessage($"[Networking] Performing attempt #{connectionAttempt} " +
-                    $"at connecting to {serverIP}:{serverPort} as {username}");
+                    $"at connecting to {ServerIP}:{ServerPort} as {username}");
                 InitNetworking();
                 Thread.Sleep(3000);
                 if (!IsActive) return;
 
-                (bool, Exception) result = await Connect(serverIP, serverPort, changeConnectionStatus);
+                (bool, Exception) result = await Connect(ServerIP, ServerPort, changeConnectionStatus);
                 if (!result.Item1) 
                 {
                     if (result.Item2 == null || !(result.Item2 is PintoVerificationException))
@@ -122,8 +122,8 @@ namespace PintoNS.Networking
             NetHandler = null;
             mainForm = null;
             IsActive = false;
-            serverIP = null;
-            serverPort = 0;
+            ServerIP = null;
+            ServerPort = 0;
             username = null;
             password = null;
             EndCall(true);
@@ -183,7 +183,7 @@ namespace PintoNS.Networking
 
                 mainForm.Invoke(new Action(() =>
                 {
-                    mainForm.OnStatusChange(UserStatus.CONNECTING, "");
+                    mainForm.SetConnectingState(true);
                     new SoundPlayer() { Stream = Sounds.VC_BEEP_1 }.Play();
                     mainForm.PopupController.CreatePopup("You have lost the connection to the server.\n" +
                         "We will try to re-connect you...", "Disconnected", 0);

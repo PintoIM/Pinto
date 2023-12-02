@@ -89,7 +89,7 @@ namespace PintoNS
                 WebClient webClient = new WebClient();
                 webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
 
-                string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+                string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
                 Program.Console.WriteMessage($"[HTTP] HTTP server URL: {serverURL}");
                 try
                 {
@@ -200,6 +200,19 @@ namespace PintoNS
                 new SoundPlayer(Sounds.LOGOUT).Play();
         }
 
+        internal void SetConnectingState(bool state) 
+        {
+            if (state)
+                OnStatusChange(UserStatus.CONNECTING, "");
+            else
+                OnStatusChange(UserStatus.ONLINE, "");
+            UpdateQuickActions(!state);
+            tsmiMenuBarToolsAddContact.Enabled = !state;
+            tsmiMenuBarToolsRemoveContact.Enabled = !state;
+            tsmiMenuBarFileChangeStatus.Enabled = !state;
+            tsmiMenuBarFileLogOff.Enabled = !state;
+        }
+
         internal void OnCallStatusChanged(CallStatus status, string callWith = null)
         {
             CallStatus previousStatus = CurrentCallStatus;
@@ -269,7 +282,7 @@ namespace PintoNS
             NetManager.ScheduleConnecting();
 
             OnLogin();
-            OnStatusChange(UserStatus.CONNECTING, "");
+            SetConnectingState(true);
 
             foreach (string contact in LastContacts.GetLastContacts()) 
             {
@@ -743,7 +756,7 @@ namespace PintoNS
 
         private void tsmiMenuBarToolsServerRules_Click(object sender, EventArgs e)
         {
-            string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+            string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
             BrowserForm rulesDialog = new BrowserForm();
             rulesDialog.Text = "Pinto! - Server Rules";
             rulesDialog.Show();
@@ -752,7 +765,7 @@ namespace PintoNS
 
         private void tsmiMenuBarToolsWelcomeDialog_Click(object sender, EventArgs e)
         {
-            string serverURL = $"http://{NetManager.NetClient.IP}:{NetManager.NetClient.Port + 10}";
+            string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
             BrowserForm welcomeDialog = new BrowserForm();
             welcomeDialog.Text = "Pinto! - Welcome";
             welcomeDialog.Show();

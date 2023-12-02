@@ -30,8 +30,8 @@ namespace PintoNS.Networking
     {
         private bool ignoreDisconnectReason;
         public bool IsConnected { get; private set; }
-        public string IP;
-        public int Port;
+        private string serverIP;
+        private int serverPort;
         private TcpClient tcpClient;
         private NetworkStream netStream;
         private Thread readThread;
@@ -55,8 +55,8 @@ namespace PintoNS.Networking
                 catch (AggregateException ex) { throw ex.InnerException; }
                 if (!tcpClient.Connected) throw new PintoConnectionException("Timed out");
 
-                IP = ip;
-                Port = port;
+                serverIP = ip;
+                serverPort = port;
                 IsConnected = true;
                 netStream = tcpClient.GetStream();
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
@@ -86,7 +86,7 @@ namespace PintoNS.Networking
             if (!File.Exists(knownHostsPath)) File.WriteAllText(knownHostsPath, "");
 
             List<string> knownHosts = File.ReadAllLines(knownHostsPath).ToList();
-            string host = $"{IP}:{Port}";
+            string host = $"{serverIP}:{serverPort}";
             string publicKey = Convert.ToBase64String(publicKeyRaw);
 
             bool result = false;
@@ -233,8 +233,8 @@ namespace PintoNS.Networking
             if (netStream != null) netStream.Dispose();
             if (tcpClient != null) tcpClient.Close();
 
-            IP = null;
-            Port = 0;
+            serverIP = null;
+            serverPort = 0;
             tcpClient = null;
             netStream = null;
             readThread = null;
@@ -353,7 +353,7 @@ namespace PintoNS.Networking
                 {
                     if (!IsConnected)
                     {
-                        Program.Console.WriteMessage($"Ignoring network client exception" +
+                        Program.Console.WriteMessage($"[Networking] Ignoring network client exception" +
                             $" as we aren't connected");
                         return;
                     }

@@ -35,12 +35,15 @@ namespace PintoNS.Networking
             LoggedIn = true;
             mainForm.NetManager.IsConnected = true;
 
-            if (mainForm.NetManager.WasLoggedInOnce) return;
-            mainForm.NetManager.WasLoggedInOnce = true;
-
-            if (mainForm.NetManager.IsCached) return;
             mainForm.Invoke(new Action(() => 
             {
+                if (mainForm.NetManager.WasLoggedInOnce || mainForm.NetManager.IsCached) 
+                {
+                    mainForm.SetConnectingState(false);
+                    return;
+                }
+                mainForm.NetManager.WasLoggedInOnce = true;
+
                 UsingPintoForm.SetHasLoggedIn(true);
                 mainForm.OnLogin();
             }));
