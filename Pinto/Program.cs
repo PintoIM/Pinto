@@ -135,11 +135,17 @@ namespace PintoNS
                 try 
                 {
                     Console.WriteMessage($"[Scripting] Loading script {script}");
+
                     Assembly scriptAsm = CSScript.Load(script);
                     IPintoScript scriptInstance = scriptAsm.CreateObject("PintoScript", mainForm)
                         .AlignToInterface<IPintoScript>();
-                    Scripts.Add(scriptInstance);
+                    PintoScriptInfo scriptInfo = scriptInstance.GetScriptInfo();
+
                     scriptInstance.OnLoad();
+                    Console.WriteMessage($"[Scripting] Loaded {scriptInfo.Name}" +
+                        $" v{scriptInfo.Version} by {scriptInfo.Author}");
+
+                    Scripts.Add(scriptInstance);
                 }
                 catch (Exception ex) 
                 {

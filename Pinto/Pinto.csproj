@@ -201,6 +201,12 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ScriptsViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ScriptsViewerForm.Designer.cs">
+      <DependentUpon>ScriptsViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ServerInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,7 +373,7 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Assets.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Assets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Loader.resx">
@@ -378,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScriptsViewerForm.resx">
+      <DependentUpon>ScriptsViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServerInfoForm.resx">
       <DependentUpon>ServerInfoForm.cs</DependentUpon>
@@ -425,7 +434,7 @@
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logo.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Logo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -442,11 +451,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Sounds.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Sounds.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Statuses.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Statuses.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">

@@ -19,10 +19,10 @@ namespace PintoNS {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Sounds {
+    public class Sounds {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PintoNS {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PintoNS.Sounds", typeof(Sounds).Assembly);
@@ -51,7 +51,7 @@ namespace PintoNS {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream BUSY {
+        public static System.IO.UnmanagedMemoryStream BUSY {
             get {
                 return ResourceManager.GetStream("BUSY", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_ERROR1 {
+        public static System.IO.UnmanagedMemoryStream CALL_ERROR1 {
             get {
                 return ResourceManager.GetStream("CALL_ERROR1", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_ERROR2 {
+        public static System.IO.UnmanagedMemoryStream CALL_ERROR2 {
             get {
                 return ResourceManager.GetStream("CALL_ERROR2", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_IN {
+        public static System.IO.UnmanagedMemoryStream CALL_IN {
             get {
                 return ResourceManager.GetStream("CALL_IN", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_INIT {
+        public static System.IO.UnmanagedMemoryStream CALL_INIT {
             get {
                 return ResourceManager.GetStream("CALL_INIT", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_OUT {
+        public static System.IO.UnmanagedMemoryStream CALL_OUT {
             get {
                 return ResourceManager.GetStream("CALL_OUT", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_RECONNECT_CONTINUOUS {
+        public static System.IO.UnmanagedMemoryStream CALL_RECONNECT_CONTINUOUS {
             get {
                 return ResourceManager.GetStream("CALL_RECONNECT_CONTINUOUS", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CALL_RECONNECT_FRONT {
+        public static System.IO.UnmanagedMemoryStream CALL_RECONNECT_FRONT {
             get {
                 return ResourceManager.GetStream("CALL_RECONNECT_FRONT", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream FORWARDED {
+        public static System.IO.UnmanagedMemoryStream FORWARDED {
             get {
                 return ResourceManager.GetStream("FORWARDED", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream FT_COMPLETE {
+        public static System.IO.UnmanagedMemoryStream FT_COMPLETE {
             get {
                 return ResourceManager.GetStream("FT_COMPLETE", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream FT_FAILED {
+        public static System.IO.UnmanagedMemoryStream FT_FAILED {
             get {
                 return ResourceManager.GetStream("FT_FAILED", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream HANGUP {
+        public static System.IO.UnmanagedMemoryStream HANGUP {
             get {
                 return ResourceManager.GetStream("HANGUP", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream HOLD {
+        public static System.IO.UnmanagedMemoryStream HOLD {
             get {
                 return ResourceManager.GetStream("HOLD", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream IM {
+        public static System.IO.UnmanagedMemoryStream IM {
             get {
                 return ResourceManager.GetStream("IM", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream IM_ACC {
+        public static System.IO.UnmanagedMemoryStream IM_ACC {
             get {
                 return ResourceManager.GetStream("IM_ACC", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream IM_SENT {
+        public static System.IO.UnmanagedMemoryStream IM_SENT {
             get {
                 return ResourceManager.GetStream("IM_SENT", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream INCOMING_AUTH {
+        public static System.IO.UnmanagedMemoryStream INCOMING_AUTH {
             get {
                 return ResourceManager.GetStream("INCOMING_AUTH", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream INCOMING_CONTACTS {
+        public static System.IO.UnmanagedMemoryStream INCOMING_CONTACTS {
             get {
                 return ResourceManager.GetStream("INCOMING_CONTACTS", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream INCOMING_FILE {
+        public static System.IO.UnmanagedMemoryStream INCOMING_FILE {
             get {
                 return ResourceManager.GetStream("INCOMING_FILE", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream INCOMING_VOICEMAIL {
+        public static System.IO.UnmanagedMemoryStream INCOMING_VOICEMAIL {
             get {
                 return ResourceManager.GetStream("INCOMING_VOICEMAIL", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream KNOCKING {
+        public static System.IO.UnmanagedMemoryStream KNOCKING {
             get {
                 return ResourceManager.GetStream("KNOCKING", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream LOGIN {
+        public static System.IO.UnmanagedMemoryStream LOGIN {
             get {
                 return ResourceManager.GetStream("LOGIN", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream LOGOUT {
+        public static System.IO.UnmanagedMemoryStream LOGOUT {
             get {
                 return ResourceManager.GetStream("LOGOUT", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream OFFLINE {
+        public static System.IO.UnmanagedMemoryStream OFFLINE {
             get {
                 return ResourceManager.GetStream("OFFLINE", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream ONLINE {
+        public static System.IO.UnmanagedMemoryStream ONLINE {
             get {
                 return ResourceManager.GetStream("ONLINE", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream RESUME {
+        public static System.IO.UnmanagedMemoryStream RESUME {
             get {
                 return ResourceManager.GetStream("RESUME", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SEND_VM {
+        public static System.IO.UnmanagedMemoryStream SEND_VM {
             get {
                 return ResourceManager.GetStream("SEND_VM", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream USER_ADDED {
+        public static System.IO.UnmanagedMemoryStream USER_ADDED {
             get {
                 return ResourceManager.GetStream("USER_ADDED", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream USER_LEFT {
+        public static System.IO.UnmanagedMemoryStream USER_LEFT {
             get {
                 return ResourceManager.GetStream("USER_LEFT", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace PintoNS {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream VC_BEEP_1 {
+        public static System.IO.UnmanagedMemoryStream VC_BEEP_1 {
             get {
                 return ResourceManager.GetStream("VC_BEEP_1", resourceCulture);
             }

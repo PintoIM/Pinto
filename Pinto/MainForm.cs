@@ -211,7 +211,6 @@ namespace PintoNS
             tsmiMenuBarToolsRemoveContact.Enabled = !state;
             tsmiMenuBarToolsServerInfo.Enabled = !state;
             tsmiMenuBarFileChangeStatus.Enabled = !state;
-            tsmiMenuBarFileLogOff.Enabled = !state;
 
             if (state)
                 OnStatusChange(UserStatus.CONNECTING, "");
@@ -788,6 +787,12 @@ namespace PintoNS
                 NetManager.NetHandler.ServerSoftware);
             form.Show();
             form.MoveCenteredToWindow(this);
+        }
+
+        private void tsmiMenuBarHelpViewScripts_Click(object sender, EventArgs e)
+        {
+            ScriptsViewerForm form = new ScriptsViewerForm();
+            form.Show();
         }
     }
 }
