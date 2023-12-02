@@ -21,7 +21,7 @@ namespace PintoNS.Networking
             PacketMap.Add(9, typeof(PacketContactRequest));
             PacketMap.Add(10, typeof(PacketClearContacts));
             PacketMap.Add(11, typeof(PacketCallChangeStatus));
-            PacketMap.Add(17, typeof(PacketServerID));
+            PacketMap.Add(17, typeof(PacketServerInfo));
             PacketMap.Add(18, typeof(PacketTyping));
             PacketMap.Add(255, typeof(PacketKeepAlive));
         }

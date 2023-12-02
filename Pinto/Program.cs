@@ -103,13 +103,22 @@ namespace PintoNS
                 Directory.CreateDirectory(Path.Combine(DataFolder, "chats"));
             if (!Directory.Exists(Path.Combine(DataFolder, "scripts")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "scripts"));
+            if (!Directory.Exists(Path.Combine(DataFolder, "scripts", "settings")))
+                Directory.CreateDirectory(Path.Combine(DataFolder, "scripts", "settings"));
+
+            // Load the settings
+            Console.WriteMessage("[General] Loading the settings");
+            Settings.Import(SettingsFile);
 
             // Create the main form
             MainFrm = new MainForm();
             MainFrm.Focus();
 
-            // Loads all the scripts
-            LoadScripts(MainFrm);
+            if (!Settings.NoLoadScripts)
+                // Loads all the scripts
+                LoadScripts(MainFrm);
+            else
+                Console.WriteMessage("[Scripting] Loading of scripts is disabled!");
 
             // Start Pinto!
             Application.Run(MainFrm);

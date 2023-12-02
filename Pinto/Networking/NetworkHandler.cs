@@ -15,6 +15,7 @@ namespace PintoNS.Networking
         private NetworkClient networkClient;
         public bool LoggedIn;
         public string ServerID;
+        public string ServerSoftware;
 
         public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
         {
@@ -49,10 +50,12 @@ namespace PintoNS.Networking
             }));
         }
 
-        public void HandleServerIDPacket(PacketServerID packet)
+        public void HandleServerInfoPacket(PacketServerInfo packet)
         {
             ServerID = packet.ServerID;
+            ServerSoftware = packet.ServerSoftware;
             Program.Console.WriteMessage($"[Networking] The ID of the server is {ServerID}");
+            Program.Console.WriteMessage($"[Networking] Server software: {ServerSoftware}");
         }
 
         public void HandleLogoutPacket(PacketLogout packet)

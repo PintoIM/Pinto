@@ -77,14 +77,21 @@ namespace PintoNS
 
             tsmiMenuBarToolsAddContact.Enabled = true;
             tsmiMenuBarToolsRemoveContact.Enabled = true;
+            tsmiMenuBarToolsServerInfo.Enabled = true;
             tsmiMenuBarFileChangeStatus.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! Beta - {LocalUser.Name}";
             new SoundPlayer(Sounds.LOGIN).Play();
 
+            await UpdateHTTP();
+        }
+
+        internal async Task UpdateHTTP() 
+        {
             if (Settings.NoServerHTTP) return;
-            if (NetManager == null) return;
-            await TaskEx.Run(new Action(() => 
+            if (NetManager == null || !NetManager.IsConnected) return;
+
+            await TaskEx.Run(new Action(() =>
             {
                 WebClient webClient = new WebClient();
                 webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
@@ -106,7 +113,7 @@ namespace PintoNS
                 }
                 catch { serverHasWelcome = false; }
 
-                Invoke(new Action(() => 
+                Invoke(new Action(() =>
                 {
                     Program.Console.WriteMessage($"[HTTP] serverHasRules: {serverHasRules}");
                     Program.Console.WriteMessage($"[HTTP] serverHasWelcome: {serverHasWelcome}");
@@ -147,12 +154,6 @@ namespace PintoNS
             LocalUser.Status = status;
             LocalUser.MOTD = motd;
 
-            if (!isOnline)
-            {
-                LocalUser.Name = null;
-                LocalUser.MOTD = null;
-            }
-
             SyncTray();
         }
 
@@ -163,6 +164,8 @@ namespace PintoNS
             tcTabs.TabPages.Add(tpLogin);
             UpdateQuickActions(false);
             OnStatusChange(UserStatus.OFFLINE, "");
+            LocalUser.Name = null;
+            LocalUser.MOTD = null;
 
             if (MessageForms != null && MessageForms.Count > 0)
             {
@@ -188,6 +191,7 @@ namespace PintoNS
 
             tsmiMenuBarToolsAddContact.Enabled = false;
             tsmiMenuBarToolsRemoveContact.Enabled = false;
+            tsmiMenuBarToolsServerInfo.Enabled = false;
             tsmiMenuBarFileChangeStatus.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
             Text = "Pinto! Beta";
@@ -200,17 +204,22 @@ namespace PintoNS
                 new SoundPlayer(Sounds.LOGOUT).Play();
         }
 
-        internal void SetConnectingState(bool state) 
+        internal async void SetConnectingState(bool state) 
         {
-            if (state)
-                OnStatusChange(UserStatus.CONNECTING, "");
-            else
-                OnStatusChange(UserStatus.ONLINE, "");
             UpdateQuickActions(!state);
             tsmiMenuBarToolsAddContact.Enabled = !state;
             tsmiMenuBarToolsRemoveContact.Enabled = !state;
+            tsmiMenuBarToolsServerInfo.Enabled = !state;
             tsmiMenuBarFileChangeStatus.Enabled = !state;
             tsmiMenuBarFileLogOff.Enabled = !state;
+
+            if (state)
+                OnStatusChange(UserStatus.CONNECTING, "");
+            else
+            {
+                OnStatusChange(UserStatus.ONLINE, "");
+                await UpdateHTTP();
+            }
         }
 
         internal void OnCallStatusChanged(CallStatus status, string callWith = null)
@@ -424,7 +433,6 @@ namespace PintoNS
         private async void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("[General] Performing first time initialization...");
-            Settings.Import(Program.SettingsFile);
 
             OnLogout(true);
             isPortable = true;
@@ -435,8 +443,8 @@ namespace PintoNS
             if (Settings.AutoCheckForUpdates && !isPortable)
                 await CheckForUpdates(false);*/
 
-            llLogin_LinkClicked(this, null);
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
+            llLogin_LinkClicked(this, null);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -505,21 +513,21 @@ namespace PintoNS
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             Program.Console.WriteMessage("[General] Changing status...");
             NetManager.ChangeStatus(UserStatus.ONLINE, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             Program.Console.WriteMessage("[General] Changing status...");
             NetManager.ChangeStatus(UserStatus.AWAY, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             Program.Console.WriteMessage("[General] Changing status...");
             InWindowPopupController.CreatePopup("You are now busy" +
                 ", this means that you will not receive any non-important popups", true);
@@ -528,7 +536,7 @@ namespace PintoNS
 
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             Program.Console.WriteMessage("[General] Changing status...");
             MsgBox.Show(this, "If you choose to change your status to invisible," +
                 " you will no longer be able to receive/send messages. Are you sure you want to continue?", 
@@ -542,14 +550,14 @@ namespace PintoNS
 
         private void tsmiMenuBarToolsAddContact_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             AddContactForm addContactForm = new AddContactForm(this);
             addContactForm.ShowDialog(this);
         }
 
         private void tsmiMenuBarToolsRemoveContact_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             if (dgvContacts.SelectedRows.Count < 1)
             {
                 MsgBox.Show(this, "You have not selected any contact!", "Error", MsgBoxIconType.ERROR);
@@ -578,13 +586,13 @@ namespace PintoNS
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || NetManager.InCall) return;
+            if (NetManager == null || !NetManager.IsConnected || NetManager.InCall) return;
             NetManager.StartCall(ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index));
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             NetManager.EndCall();
         }
 
@@ -749,7 +757,7 @@ namespace PintoNS
 
         private void tsddbStatusBarMOTD_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetManager == null || !NetManager.IsConnected) return;
             ChangeMOTDForm changeMOTDForm = new ChangeMOTDForm(this);
             changeMOTDForm.ShowDialog(this);
         }
@@ -770,6 +778,16 @@ namespace PintoNS
             welcomeDialog.Text = "Pinto! - Welcome";
             welcomeDialog.Show();
             welcomeDialog.wbBrowser.Navigate($"{serverURL}/welcome.html");
+        }
+
+        private void tsmiMenuBarToolsServerInfo_Click(object sender, EventArgs e)
+        {
+            if (NetManager == null || !NetManager.IsConnected) return;
+            ServerInfoForm form = new ServerInfoForm();
+            form.lInfo.Text = string.Format(form.lInfo.Text, NetManager.NetHandler.ServerID, 
+                NetManager.NetHandler.ServerSoftware);
+            form.Show();
+            form.MoveCenteredToWindow(this);
         }
     }
 }

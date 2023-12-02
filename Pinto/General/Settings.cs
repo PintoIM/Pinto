@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -50,6 +51,12 @@ namespace PintoNS.General
             " and exitting can be performed by going to \"File > Exit\" or from the system tray," +
             " when this is enabled Pinto! will immediately exit when you try to close it")]
         public static bool NoMinimizeToSysTray = false;
+
+        [OptionsDisplay(DisplayName = "Do not load scripts (restart required)",
+            Category = "General", HelpInfo = "When this is enabled," +
+            " Pinto! will no longer load your scripts." +
+            " A restart is required for this option to take effect.")]
+        public static bool NoLoadScripts = false;
         #endregion
         #region Privacy
         [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy", 

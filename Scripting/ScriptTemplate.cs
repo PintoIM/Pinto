@@ -5,22 +5,28 @@ using PintoNS;
 using PintoNS.General;
 
 /*
-Template Pinto! script file
-This is as a template for all script files that comes with some examples to get you started
+	Template Pinto! script file
 */
 public class PintoScript : IPintoScript
 {
 	private MainForm mainForm;
+	private PintoScriptInfo scriptInfo;
 	
 	public PintoScript(MainForm mainForm)
 	{
 		this.mainForm = mainForm;
+		scriptInfo = new PintoScriptInfo("TemplateScript", "PintoIM", "1.0", "b1.2");
 	}
 	
 	public void Log(string message)
 	{
 		// TODO: Change the name
 		Program.Console.WriteMessage("[<name>] " + message);	
+	}
+	
+	public PintoScriptInfo GetScriptInfo()
+	{
+		return scriptInfo; 
 	}
 	
 	public void OnLoad()

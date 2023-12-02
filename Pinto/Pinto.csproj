@@ -201,6 +201,12 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ServerInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ServerInfoForm.Designer.cs">
+      <DependentUpon>ServerInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddContactForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,7 @@
     <Compile Include="General\AudioPlayer.cs" />
     <Compile Include="General\CallManager.cs" />
     <Compile Include="General\CallStatus.cs" />
+    <Compile Include="General\FormEx.cs" />
     <Compile Include="General\IPintoScript.cs" />
     <Compile Include="General\LastContacts.cs" />
     <Compile Include="General\MsgBoxIconType.cs" />
@@ -295,6 +302,7 @@
     <Compile Include="General\AudioRecorder.cs" />
     <Compile Include="General\NETFrameworkVersion.cs" />
     <Compile Include="General\ObjectExtensions.cs" />
+    <Compile Include="General\PintoScriptInfo.cs" />
     <Compile Include="General\PInvoke.cs" />
     <Compile Include="General\PopupController.cs" />
     <Compile Include="General\InWindowPopupController.cs" />
@@ -324,7 +332,7 @@
     <Compile Include="Networking\Packets\IPacket.cs" />
     <Compile Include="Networking\Packets\PacketTyping.cs" />
     <Compile Include="Networking\Packets\PacketCallChangeStatus.cs" />
-    <Compile Include="Networking\Packets\PacketServerID.cs" />
+    <Compile Include="Networking\Packets\PacketServerInfo.cs" />
     <Compile Include="Networking\Packets\PacketPopup.cs" />
     <Compile Include="Networking\Packets\PacketKeepAlive.cs" />
     <Compile Include="Networking\Packets\PacketClearContacts.cs" />
@@ -370,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ServerInfoForm.resx">
+      <DependentUpon>ServerInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddContactForm.resx">
       <DependentUpon>AddContactForm.cs</DependentUpon>

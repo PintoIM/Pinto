@@ -62,7 +62,7 @@ namespace PintoNS.Networking
                 readThread = new Thread(new ThreadStart(ReadThread_Func));
 
                 changeConnectionStatus.Invoke("Handshaking...");
-                if (!await Handshake())
+                if (!Handshake())
                     return (false, new PintoVerificationException());
 
                 return (true, null);
@@ -157,7 +157,7 @@ namespace PintoNS.Networking
             return result;
         }
 
-        private async Task<bool> Handshake()
+        private bool Handshake()
         {
             Program.Console.WriteMessage("[Networking] Handshaking AES key...");
 

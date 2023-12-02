@@ -57,16 +57,15 @@ namespace PintoNS.General
             if (nonBlocking)
             {
                 msgBox.Show();
-
                 if (parent != null)
-                {
-                    int x = parent.Location.X + ((parent.Width - msgBox.Width) / 2);
-                    int y = parent.Location.Y + ((parent.Height - msgBox.Height) / 2);
-                    msgBox.Location = new Point(Math.Max(x, 0), Math.Max(y, 0));
-                }
+                    msgBox.MoveCenteredToWindow(parent);
             }
-            else
-                msgBox.ShowDialog();
+            else 
+            {
+                if (parent != null)
+                    msgBox.StartPosition = FormStartPosition.CenterParent;
+                msgBox.ShowDialog(parent);
+            }
         }
 
         [Obsolete("The Show method should be used instead")]
