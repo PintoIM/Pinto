@@ -304,7 +304,7 @@ namespace PintoNS
             {
                 Disconnect();
                 lConnectingStatus.Text = "";
-                if (connectResult.Item2 != null)
+                if (connectResult.Item2 != null && !(connectResult.Item2 is PintoVerificationException))
                 {
                     Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
                     MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +

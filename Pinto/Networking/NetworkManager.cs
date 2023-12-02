@@ -1,4 +1,5 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Forms;
+using PintoNS.General;
 using System;
 using System.Media;
 using System.Security.Cryptography;
@@ -73,7 +74,7 @@ namespace PintoNS.Networking
             reconnectorHandler.Start();
         }
 
-        private void ReconnectorHandler_Func() 
+        private async void ReconnectorHandler_Func() 
         {
             Action<string> changeConnectionStatus = new Action<string>(str => { });
 
@@ -86,10 +87,21 @@ namespace PintoNS.Networking
                 Thread.Sleep(3000);
                 if (!IsActive) return;
 
-                (bool, Exception) result = Connect(serverIP, serverPort, 
-                    changeConnectionStatus).GetAwaiter().GetResult();
+                (bool, Exception) result = await Connect(serverIP, serverPort, changeConnectionStatus);
                 if (!result.Item1) 
-                    continue;
+                {
+                    if (result.Item2 == null || !(result.Item2 is PintoVerificationException))
+                        continue;
+                    else 
+                    {
+                        IsCached = false;
+                        IsConnected = false;
+                        UsingPintoForm.SetHasLoggedIn(false);
+                        Program.Console.WriteMessage("[Networking] Aborting re-connect as handshaking failed");
+                        Disconnect("Handshaking failed");
+                        return;
+                    }
+                } 
 
                 Login();
                 return;
@@ -162,7 +174,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Networking] Disconnected: {reason.Replace("\n", "\\n")}");
             if (IsActive && !IsForceTermination && (IsCached || IsConnected)) 
             {
-                Program.Console.WriteMessage("[Networking] Ignoring disconnect and attempting reconnection");
+                Program.Console.WriteMessage("[Networking] Ignoring disconnect and attempting re-connection");
                 IsConnected = false;
                 ScheduleConnecting();
 
@@ -172,6 +184,7 @@ namespace PintoNS.Networking
                 mainForm.Invoke(new Action(() =>
                 {
                     mainForm.OnStatusChange(UserStatus.CONNECTING, "");
+                    new SoundPlayer() { Stream = Sounds.VC_BEEP_1 }.Play();
                     mainForm.PopupController.CreatePopup("You have lost the connection to the server.\n" +
                         "We will try to re-connect you...", "Disconnected", 0);
                     mainForm.InWindowPopupController.CreatePopup("You are being reconnected");

@@ -25,6 +25,7 @@ namespace PintoNS.Forms
 
         public static void SetHasLoggedIn(bool value) 
         {
+            Program.Console.WriteMessage($"[General] Setting has logged in to {value}");
             UsingPintoForm form = new UsingPintoForm(null);
             form.LoadLogin();
             form.hasLoggedIn = value;
