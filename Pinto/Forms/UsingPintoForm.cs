@@ -48,7 +48,8 @@ namespace PintoNS.Forms
                 txtPassword.Text = data["password"].Value<string>();
                 txtIP.Text = data["ip"].Value<string>();
                 nudPort.Value = data["port"].Value<int>();
-                hasLoggedIn = data["hasLoggedIn"].Value<bool>();
+                if (data.ContainsKey("hasLoggedIn"))
+                    hasLoggedIn = data["hasLoggedIn"].Value<bool>();
             }
             catch (Exception ex)
             {
@@ -165,7 +166,7 @@ namespace PintoNS.Forms
                 btnConnect.Text = "Connect";
         }
 
-        private async void UsingPintoForm_Load(object sender, EventArgs e)
+        private void UsingPintoForm_Load(object sender, EventArgs e)
         {
             tcSections.Appearance = TabAppearance.FlatButtons;
             tcSections.ItemSize = new Size(0, 1);

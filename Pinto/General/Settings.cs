@@ -36,7 +36,7 @@ namespace PintoNS.General
             " if this option is disabled, the contacts page will be shown instead")]
         public static bool AutoStartPage = true;
 
-        [OptionsDisplay(DisplayName = "Do not ask for confirmation when exitting", Category = "General", 
+        [OptionsDisplay(DisplayName = "Do not ask for confirmation when exiting", Category = "General", 
             HelpInfo = "When this option is enabled, Pinto! will not ask you for confirmation when you try to exit")]
         public static bool NoExitPrompt = false;
 
