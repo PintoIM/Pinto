@@ -40,7 +40,7 @@ namespace PintoNS
             PopupController = new PopupController();
         }
 
-        internal async void OnLogin()
+        internal void OnLogin()
         {
             Program.Console.WriteMessage("[General] Changing UI state to logged in");
             tcTabs.TabPages.Clear();
@@ -82,48 +82,6 @@ namespace PintoNS
             tsmiMenuBarFileLogOff.Enabled = true;
             Text = $"Pinto! Beta - {LocalUser.Name}";
             new SoundPlayer(Sounds.LOGIN).Play();
-
-            await UpdateHTTP();
-        }
-
-        internal async Task UpdateHTTP() 
-        {
-            if (Settings.NoServerHTTP) return;
-            if (NetManager == null || !NetManager.IsConnected) return;
-
-            await TaskEx.Run(new Action(() =>
-            {
-                WebClient webClient = new WebClient();
-                webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-
-                string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
-                Program.Console.WriteMessage($"[HTTP] HTTP server URL: {serverURL}");
-                try
-                {
-                    Program.Console.WriteMessage($"[HTTP] Checking HTTP server for server rules page...");
-                    webClient.DownloadString(new Uri($"{serverURL}/rules.html"));
-                    serverHasRules = true;
-                }
-                catch { serverHasRules = false; }
-                try
-                {
-                    Program.Console.WriteMessage($"[HTTP] Checking HTTP server for welcome page...");
-                    webClient.DownloadString(new Uri($"{serverURL}/welcome.html"));
-                    serverHasWelcome = true;
-                }
-                catch { serverHasWelcome = false; }
-
-                Invoke(new Action(() =>
-                {
-                    Program.Console.WriteMessage($"[HTTP] serverHasRules: {serverHasRules}");
-                    Program.Console.WriteMessage($"[HTTP] serverHasWelcome: {serverHasWelcome}");
-                    tsmiMenuBarToolsWelcomeDialog.Enabled = serverHasWelcome;
-                    tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
-
-                    if (serverHasWelcome && !Settings.NoWelcomeDialog)
-                        tsmiMenuBarToolsWelcomeDialog.PerformClick();
-                }));
-            }));
         }
 
         internal void UpdateQuickActions(bool loggedInState) 
@@ -197,8 +155,6 @@ namespace PintoNS
             Text = "Pinto! Beta";
             serverHasRules = false;
             serverHasWelcome = false;
-            tsmiMenuBarToolsWelcomeDialog.Enabled = serverHasRules;
-            tsmiMenuBarToolsServerRules.Enabled = serverHasRules;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -215,10 +171,7 @@ namespace PintoNS
             if (state)
                 OnStatusChange(UserStatus.CONNECTING, "");
             else
-            {
                 OnStatusChange(UserStatus.ONLINE, "");
-                await UpdateHTTP();
-            }
         }
 
         internal void OnCallStatusChanged(CallStatus status, string callWith = null)

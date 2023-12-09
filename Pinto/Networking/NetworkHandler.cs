@@ -109,19 +109,22 @@ namespace PintoNS.Networking
             }));
         }
 
-        public void HandlePopupPacket(PacketPopup packetPopup)
+        public void HandleNotificationPacket(PacketNotification packet)
         {
             mainForm.Invoke(new Action(() =>
             {
-                mainForm.PopupController.CreatePopup(packetPopup.Body, packetPopup.Title);
-            }));
-        }
-
-        public void HandleInWindowPopupPacket(PacketInWindowPopup packet)
-        {
-            mainForm.Invoke(new Action(() =>
-            {
-                mainForm.InWindowPopupController.CreatePopup(packet.Message, packet.IsInfo);
+                switch (packet.Type)
+                {
+                    case 0:
+                        mainForm.InWindowPopupController.CreatePopup(packet.Body, false, packet.AutoCloseDelay);
+                        break;
+                    case 1:
+                        mainForm.InWindowPopupController.CreatePopup(packet.Body, true, packet.AutoCloseDelay);
+                        break;
+                    case 2:
+                        mainForm.PopupController.CreatePopup(packet.Body, packet.Title, packet.AutoCloseDelay);
+                        break;
+                }
             }));
         }
 
