@@ -219,6 +219,18 @@ namespace PintoNS
             }
         }
 
+        internal void UpdateOnlineContacts() 
+        {
+            if (ContactsMgr == null) return;
+            int online = ContactsMgr.GetContacts().Count((Contact contact) =>
+            {
+                return !contact.Name.StartsWith("G:") && 
+                        contact.Status != UserStatus.OFFLINE && 
+                        contact.Status != UserStatus.CONNECTING;
+            });
+            llStartContacts.Text = $"{online} Contacts Online";
+        }
+
         public static bool CallStatusMeansEnded(CallStatus status)
         {
             return status == CallStatus.ENDED || status == CallStatus.ERROR;
@@ -657,16 +669,6 @@ namespace PintoNS
 
         private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e) 
             => Process.Start("https://github.com/PintoIM/Pinto/issues");
-
-        private void tContactsOnlineUpdate_Tick(object sender, EventArgs e)
-        {
-            if (ContactsMgr == null) return;
-            int online = ContactsMgr.GetContacts().Count((Contact contact) =>
-            {
-                return contact.Status != UserStatus.OFFLINE;
-            });
-            llStartContacts.Text = $"{online} Contacts Online";
-        }
 
         private void dgvContacts_CellContextMenuStripNeeded(object sender,
             DataGridViewCellContextMenuStripNeededEventArgs e)

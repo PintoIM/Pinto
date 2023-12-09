@@ -141,6 +141,7 @@ namespace PintoNS.Networking
                     Status = packet.Status,
                     MOTD = packet.MOTD
                 });
+                mainForm.UpdateOnlineContacts();
                 LastContacts.AddToLastContacts(packet.ContactName);
             }));
         }
@@ -153,6 +154,7 @@ namespace PintoNS.Networking
                 ContactsManager contactsMgr = mainForm.ContactsMgr;
                 if (contactsMgr == null) return;
                 contactsMgr.RemoveContact(contactsMgr.GetContact(packet.ContactName));
+                mainForm.UpdateOnlineContacts();
                 LastContacts.RemoveFromLastContacts(packet.ContactName);
             }));
         }
@@ -214,6 +216,7 @@ namespace PintoNS.Networking
                         Status = packet.Status,
                         MOTD = packet.MOTD
                     });
+                    mainForm.UpdateOnlineContacts();
                 }
             }));
         }
@@ -239,6 +242,7 @@ namespace PintoNS.Networking
             mainForm.Invoke(new Action(() =>
             {
                 mainForm.ContactsMgr.Clear();
+                mainForm.UpdateOnlineContacts();
                 LastContacts.ClearLastContacts();
             }));
         }

@@ -94,7 +94,6 @@ namespace PintoNS
             this.tsmiTrayChangeStatusBusy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayChangeStatusInvisible = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tContactsOnlineUpdate = new System.Windows.Forms.Timer(this.components);
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
             this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
@@ -557,26 +556,26 @@ namespace PintoNS
             // tsmiMenuBarToolsAddContact
             // 
             this.tsmiMenuBarToolsAddContact.Name = "tsmiMenuBarToolsAddContact";
-            this.tsmiMenuBarToolsAddContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarToolsAddContact.Size = new System.Drawing.Size(171, 22);
             this.tsmiMenuBarToolsAddContact.Text = "Add a Contact";
             this.tsmiMenuBarToolsAddContact.Click += new System.EventHandler(this.tsmiMenuBarToolsAddContact_Click);
             // 
             // tsmiMenuBarToolsRemoveContact
             // 
             this.tsmiMenuBarToolsRemoveContact.Name = "tsmiMenuBarToolsRemoveContact";
-            this.tsmiMenuBarToolsRemoveContact.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarToolsRemoveContact.Size = new System.Drawing.Size(171, 22);
             this.tsmiMenuBarToolsRemoveContact.Text = "Remove a Contact";
             this.tsmiMenuBarToolsRemoveContact.Click += new System.EventHandler(this.tsmiMenuBarToolsRemoveContact_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(168, 6);
             // 
             // tsmiMenuBarToolsServerInfo
             // 
             this.tsmiMenuBarToolsServerInfo.Name = "tsmiMenuBarToolsServerInfo";
-            this.tsmiMenuBarToolsServerInfo.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarToolsServerInfo.Size = new System.Drawing.Size(171, 22);
             this.tsmiMenuBarToolsServerInfo.Text = "View Server Info";
             this.tsmiMenuBarToolsServerInfo.Click += new System.EventHandler(this.tsmiMenuBarToolsServerInfo_Click);
             // 
@@ -712,12 +711,6 @@ namespace PintoNS
             this.tsmiTrayExit.Size = new System.Drawing.Size(150, 22);
             this.tsmiTrayExit.Text = "Exit";
             this.tsmiTrayExit.Click += new System.EventHandler(this.tsmiMenuBarFileExit_Click);
-            // 
-            // tContactsOnlineUpdate
-            // 
-            this.tContactsOnlineUpdate.Enabled = true;
-            this.tContactsOnlineUpdate.Interval = 1000;
-            this.tContactsOnlineUpdate.Tick += new System.EventHandler(this.tContactsOnlineUpdate_Tick);
             // 
             // btnStartCall
             // 
@@ -860,7 +853,6 @@ namespace PintoNS
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpReportAProblem;
-        public System.Windows.Forms.Timer tContactsOnlineUpdate;
         public System.Windows.Forms.Button btnStartCall;
         public System.Windows.Forms.Button btnEndCall;
         public PintoNS.Controls.NoFocusQueButton btnQAAddContact;
