@@ -239,12 +239,12 @@ namespace PintoNS
         public void SyncTray()
         {
             Program.Console.WriteMessage("[General] Synchronizing tray status...");
+            bool isOnline = LocalUser.Status != UserStatus.OFFLINE && LocalUser.Status != UserStatus.CONNECTING;
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(LocalUser.Status);
-            niTray.Text = $"Pinto! Beta - " +
-                (LocalUser.Status != UserStatus.OFFLINE && LocalUser.Status != UserStatus.CONNECTING ?
-                $"{LocalUser.Name} - {User.StatusToText(LocalUser.Status)}" : "Not logged in");
-            tsmiTrayChangeStatus.Enabled = LocalUser.Status != UserStatus.OFFLINE;
+            niTray.Text = $"Pinto! Beta - " + (isOnline ? $"{LocalUser.Name} - " +
+                $"{User.StatusToText(LocalUser.Status)}" : "Not logged in");
+            tsmiTrayChangeStatus.Enabled = isOnline;
         }
 
         public void ConnectCached(string ip, int port, string username, string password) 

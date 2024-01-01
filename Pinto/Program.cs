@@ -40,6 +40,16 @@ namespace PintoNS
         [STAThread]
         static void Main()
         {
+            bool createdNew;
+            Mutex mutex = new Mutex(true, "PintoIM/Pinto", out createdNew);
+
+            if (!createdNew) 
+            {
+                MessageBox.Show("Only one instance of Pinto! can run at the same time", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Enable visual styles
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
