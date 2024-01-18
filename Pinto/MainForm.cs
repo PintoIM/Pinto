@@ -161,7 +161,7 @@ namespace PintoNS
                 new SoundPlayer(Sounds.LOGOUT).Play();
         }
 
-        internal async void SetConnectingState(bool state)
+        internal void SetConnectingState(bool state)
         {
             UpdateQuickActions(!state);
             tsmiMenuBarToolsAddContact.Enabled = !state;
@@ -401,12 +401,11 @@ namespace PintoNS
 
             OnLogout(true);
             isPortable = true;
-            /*
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
 
             if (Settings.AutoCheckForUpdates && !isPortable)
-                await CheckForUpdates(false);*/
+                await CheckForUpdates(false);
 
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
             llLogin_LinkClicked(this, null);
@@ -632,10 +631,15 @@ namespace PintoNS
                             Program.Console.WriteMessage($"[Updater] Saved update file at {path}");
 
                             Program.Console.WriteMessage($"[Updater] Running installer at {path}...");
-                            Process process = new Process();
-                            process.StartInfo.FileName = "PintoSetup.exe";
-                            process.StartInfo.Arguments = "upgrade";
-                            process.StartInfo.WorkingDirectory = Program.DataFolder;
+                            Process process = new Process()
+                            {
+                                StartInfo = new ProcessStartInfo()
+                                {
+                                    FileName = "PintoSetup.exe",
+                                    Arguments = "upgrade",
+                                    WorkingDirectory = Program.DataFolder
+                                }
+                            };
                             process.Start();
 
                             Program.Console.WriteMessage($"[Updater] Exitting...");
