@@ -168,6 +168,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assets.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ExRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>

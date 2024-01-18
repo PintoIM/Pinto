@@ -14,6 +14,9 @@ namespace PintoNS.General
         public const int MF_STRING = 0x00;
         public const int MF_SEPARATOR = 0x0800;
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern IntPtr LoadLibraryW(string lpLibFileName);
+
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
