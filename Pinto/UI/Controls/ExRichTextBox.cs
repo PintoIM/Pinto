@@ -23,12 +23,15 @@ namespace PintoNS.UI.Controls
             {
                 CreateParams createParams = base.CreateParams;
 
-                try
+                if (!Program.RunningUnderMono) 
                 {
-                    LoadLibrary("MsftEdit.dll");
-                    createParams.ClassName = "RichEdit50W";
+                    try
+                    {
+                        LoadLibrary("MsftEdit.dll");
+                        createParams.ClassName = "RichEdit50W";
+                    }
+                    catch { }
                 }
-                catch { }
 
                 return createParams;
             }
