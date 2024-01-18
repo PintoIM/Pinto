@@ -67,21 +67,5 @@ namespace PintoNS.UI
                 msgBox.ShowDialog(parent);
             }
         }
-
-        [Obsolete("The Show method should be used instead")]
-        public static void ShowNotification(Form parent, string body, string title = "Notification",
-            MsgBoxIconType icon = MsgBoxIconType.INFORMATION,
-            bool nonBlocking = false, Action<MsgBoxButtonType> callback = null)
-        {
-            Show(parent, body, title, icon, nonBlocking, false, callback);
-        }
-
-        [Obsolete("The Show method should be used instead")]
-        public static void ShowPromptNotification(Form parent, string body, string title = "Notification",
-            MsgBoxIconType icon = MsgBoxIconType.INFORMATION,
-            bool nonBlocking = false, Action<MsgBoxButtonType> callback = null)
-        {
-            Show(parent, body, title, icon, nonBlocking, true, callback);
-        }
     }
 }
