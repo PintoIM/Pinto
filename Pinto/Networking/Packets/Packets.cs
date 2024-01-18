@@ -7,7 +7,7 @@ namespace PintoNS.Networking
     {
         private static Dictionary<int, Type> PacketMap = new Dictionary<int, Type>();
 
-        static Packets() 
+        static Packets()
         {
             PacketMap.Add(0, typeof(PacketLogin));
             PacketMap.Add(1, typeof(PacketRegister));
@@ -25,13 +25,13 @@ namespace PintoNS.Networking
             PacketMap.Add(255, typeof(PacketKeepAlive));
         }
 
-        public static IPacket GetPacketByID(int id) 
+        public static IPacket GetPacketByID(int id)
         {
-            if (PacketMap.TryGetValue(id, out Type packetType)) 
+            if (PacketMap.TryGetValue(id, out Type packetType))
             {
-                if (typeof(IPacket).IsAssignableFrom(packetType)) 
+                if (typeof(IPacket).IsAssignableFrom(packetType))
                 {
-                    return (IPacket) Activator.CreateInstance(packetType);
+                    return (IPacket)Activator.CreateInstance(packetType);
                 }
             }
 

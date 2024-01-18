@@ -1,11 +1,5 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Scripting;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PintoNS.Forms
@@ -20,7 +14,7 @@ namespace PintoNS.Forms
 
         private void ScriptsViewerForm_Load(object sender, EventArgs e)
         {
-            foreach (IPintoScript script in Program.Scripts) 
+            foreach (IPintoScript script in Program.Scripts)
             {
                 PintoScriptInfo info = script.GetScriptInfo();
                 dgvScripts.Rows.Add(info.Name, info.Author, info.Version, info.TestedPintoVersion);
@@ -30,7 +24,7 @@ namespace PintoNS.Forms
 
         private void dgvScripts_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvScripts.SelectedRows.Count < 1) 
+            if (dgvScripts.SelectedRows.Count < 1)
             {
                 lScriptInfo.Text = "No script selected";
                 return;
@@ -38,9 +32,9 @@ namespace PintoNS.Forms
 
             DataGridViewRow selectedRow = null;
 
-            foreach (DataGridViewRow row in dgvScripts.Rows) 
+            foreach (DataGridViewRow row in dgvScripts.Rows)
             {
-                if (row.Index == dgvScripts.SelectedRows[0].Index) 
+                if (row.Index == dgvScripts.SelectedRows[0].Index)
                 {
                     selectedRow = row;
                     break;
@@ -50,10 +44,10 @@ namespace PintoNS.Forms
             if (selectedRow == null)
                 return;
 
-            string name = (string) selectedRow.Cells["name"].Value;
-            string author = (string) selectedRow.Cells["author"].Value;
-            string version = (string) selectedRow.Cells["version"].Value;
-            string testedpintoversion = (string) selectedRow.Cells["testedpintoversion"].Value;
+            string name = (string)selectedRow.Cells["name"].Value;
+            string author = (string)selectedRow.Cells["author"].Value;
+            string version = (string)selectedRow.Cells["version"].Value;
+            string testedpintoversion = (string)selectedRow.Cells["testedpintoversion"].Value;
             lScriptInfo.Text = $"" +
                 $"Name: {name}\n" +
                 $"Author: {author}\n" +

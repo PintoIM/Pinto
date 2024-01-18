@@ -1,21 +1,15 @@
-﻿using PintoNS.Forms;
-using PintoNS.General;
+﻿using CSScriptLibrary;
+using PintoNS.Forms;
+using PintoNS.Scripting;
+using PintoNS.UI;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Net;
-using System.Runtime.InteropServices;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using System.Collections;
-using System.IO;
-using System.Text;
-using Newtonsoft.Json;
-using System.Runtime.Versioning;
-using System.Reflection;
-using CSScriptLibrary;
 
 namespace PintoNS
 {
@@ -43,9 +37,9 @@ namespace PintoNS
             bool createdNew;
             Mutex mutex = new Mutex(true, "PintoIM/Pinto", out createdNew);
 
-            if (!createdNew) 
+            if (!createdNew)
             {
-                MessageBox.Show("Only one instance of Pinto! can run at the same time", "Error", 
+                MessageBox.Show("Only one instance of Pinto! can run at the same time", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -91,7 +85,7 @@ namespace PintoNS
                 Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
                 Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
             }
-            else 
+            else
             {
                 Console.WriteMessage("[General] .NET Framework runtime version: N/A (running on mono)");
                 Console.WriteMessage($"[General] Security protocol: N/A (running on mono)");
@@ -134,15 +128,15 @@ namespace PintoNS
             Application.Run(MainFrm);
         }
 
-        public static void LoadScripts(MainForm mainForm) 
+        public static void LoadScripts(MainForm mainForm)
         {
             Console.WriteMessage("[Scripting] Loading scripts...");
             string[] scripts = Directory.GetFiles(Path.Combine(DataFolder, "scripts"), "*.cs");
             bool failedToLoad = false;
 
-            foreach (string script in scripts) 
+            foreach (string script in scripts)
             {
-                try 
+                try
                 {
                     Console.WriteMessage($"[Scripting] Loading script {script}");
 
@@ -157,14 +151,14 @@ namespace PintoNS
 
                     Scripts.Add(scriptInstance);
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Console.WriteMessage($"[Scripting] Failed to load the script {script}: {ex}");
                     failedToLoad = true;
                 }
             }
 
-            if (failedToLoad) 
+            if (failedToLoad)
             {
                 MsgBox.Show(mainForm,
                     "Some of your scripts have failed to load. Check the console for more information",
@@ -184,7 +178,7 @@ namespace PintoNS
             UnhandledExceptionHandler(e.ExceptionObject);
         }
 
-        private static void UnhandledExceptionHandler(object ex) 
+        private static void UnhandledExceptionHandler(object ex)
         {
             FatalErrorForm fatalErrorForm = new FatalErrorForm();
             fatalErrorForm.rtxtLog.Text = $"{ex}";
@@ -209,7 +203,7 @@ namespace PintoNS
             return str.ToUpper();
         }
 
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, 
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict,
             TKey key, TValue @default)
         {
             return dict.TryGetValue(key, out var value) ? value : @default;

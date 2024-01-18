@@ -1,7 +1,6 @@
-﻿using Mono.CSharp;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PintoNS.General;
+using PintoNS.UI;
 using System;
 using System.Drawing;
 using System.IO;
@@ -23,7 +22,7 @@ namespace PintoNS.Forms
             this.mainForm = mainForm;
         }
 
-        public static void SetHasLoggedIn(bool value) 
+        public static void SetHasLoggedIn(bool value)
         {
             Program.Console.WriteMessage($"[General] Setting has logged in to {value}");
             UsingPintoForm form = new UsingPintoForm(null);
@@ -178,8 +177,8 @@ namespace PintoNS.Forms
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 && 
-                username != null && password != null) 
+            if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 &&
+                username != null && password != null)
             {
                 Close();
                 mainForm.ConnectCached(ip, port, username, password);
@@ -238,7 +237,7 @@ namespace PintoNS.Forms
         private void llServers_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ServerListForm serverListForm = new ServerListForm();
-            serverListForm.ServerUse += (object sender2, ServerUseEventArgs e2) => 
+            serverListForm.ServerUse += (object sender2, ServerUseEventArgs e2) =>
             {
                 txtIP.Text = e2.IP;
                 nudPort.Value = e2.Port;

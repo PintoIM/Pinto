@@ -1,4 +1,4 @@
-﻿using PintoNS.Controls;
+﻿using PintoNS.UI.Controls;
 
 namespace PintoNS
 {
@@ -33,12 +33,12 @@ namespace PintoNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pQA = new System.Windows.Forms.Panel();
-            this.btnQAAddContact = new PintoNS.Controls.NoFocusQueButton();
+            this.btnQAAddContact = new NoFocusQueButton();
             this.tcTabs = new System.Windows.Forms.TabControl();
             this.tpLogin = new System.Windows.Forms.TabPage();
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpConnecting = new System.Windows.Forms.TabPage();
-            this.lrConnectingLoader = new PintoNS.Controls.Loader();
+            this.lrConnectingLoader = new Loader();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpStart = new System.Windows.Forms.TabPage();
             this.llStartContacts = new System.Windows.Forms.LinkLabel();
@@ -96,7 +96,7 @@ namespace PintoNS
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
-            this.txtSearchBox = new PintoNS.Controls.TextBoxWithPlaceholderSupport();
+            this.txtSearchBox = new TextBoxWithPlaceholderSupport();
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -803,7 +803,7 @@ namespace PintoNS
         public System.Windows.Forms.TabPage tpLogin;
         public System.Windows.Forms.ImageList ilTabImages;
         public System.Windows.Forms.StatusStrip ssStatusBar;
-        public Controls.TextBoxWithPlaceholderSupport txtSearchBox;
+        public TextBoxWithPlaceholderSupport txtSearchBox;
         public System.Windows.Forms.ToolStripDropDownButton tsddbStatusBarStatus;
         public System.Windows.Forms.ToolStripStatusLabel tsslStatusBarStatusText;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
@@ -855,7 +855,7 @@ namespace PintoNS
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpReportAProblem;
         public System.Windows.Forms.Button btnStartCall;
         public System.Windows.Forms.Button btnEndCall;
-        public PintoNS.Controls.NoFocusQueButton btnQAAddContact;
+        public NoFocusQueButton btnQAAddContact;
         public System.Windows.Forms.ToolStripDropDownButton tsddbStatusBarMOTD;
         public System.Windows.Forms.Label lContactsNoContacts;
         public System.Windows.Forms.ToolStrip tsMenuBar;

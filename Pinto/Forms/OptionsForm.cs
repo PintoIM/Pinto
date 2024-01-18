@@ -1,8 +1,5 @@
-﻿using PintoNS.Controls;
-using PintoNS.General;
-using System;
+﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -19,20 +16,20 @@ namespace PintoNS.Forms
             Icon = Program.GetFormIcon();
         }
 
-        private void ChangedValue(FieldInfo field, object value) 
+        private void ChangedValue(FieldInfo field, object value)
         {
             field.SetValue(null, value);
             Settings.Export(Program.SettingsFile);
         }
 
-        private Control GetControlFromValue(string displayName, FieldInfo field, string helpInfo, 
-            int numMin, int numMax) 
+        private Control GetControlFromValue(string displayName, FieldInfo field, string helpInfo,
+            int numMin, int numMax)
         {
             Control control = null;
             Panel p = new Panel();
             Label l = new Label();
 
-            switch (field.FieldType.Name) 
+            switch (field.FieldType.Name)
             {
                 case nameof(Boolean):
                     CheckBox cb = new CheckBox();
@@ -91,20 +88,20 @@ namespace PintoNS.Forms
             foreach (FieldInfo field in type.GetFields())
             {
                 object[] attributes = field.GetCustomAttributes(typeof(OptionsDisplayAttribute), false);
-                OptionsDisplayAttribute displayAttribute = attributes.Length > 0 ? 
+                OptionsDisplayAttribute displayAttribute = attributes.Length > 0 ?
                     (OptionsDisplayAttribute)attributes[0] : null;
                 if (displayAttribute != null && displayAttribute.Hidden) continue;
 
                 string category = displayAttribute != null && displayAttribute.Category != null ?
                     displayAttribute.Category : "General";
-                string displayName = displayAttribute != null && displayAttribute.DisplayName != null ? 
+                string displayName = displayAttribute != null && displayAttribute.DisplayName != null ?
                     displayAttribute.DisplayName : field.Name;
-                string helpInfo = displayAttribute != null && displayAttribute .HelpInfo != null ? 
+                string helpInfo = displayAttribute != null && displayAttribute.HelpInfo != null ?
                     displayAttribute.HelpInfo : "No help available for this item";
                 int numMin = displayAttribute != null ? displayAttribute.NumMin : int.MinValue;
                 int numMax = displayAttribute != null ? displayAttribute.NumMax : int.MaxValue;
 
-                switch (category) 
+                switch (category)
                 {
                     case "General":
                         flpGeneralContainer.Controls.Add(GetControlFromValue(displayName, field, helpInfo,

@@ -1,4 +1,4 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Calls;
 using System.IO;
 
 namespace PintoNS.Networking
@@ -18,7 +18,7 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            CallStatus = (CallStatus) reader.ReadBEInt();
+            CallStatus = (CallStatus)reader.ReadBEInt();
             Details = reader.ReadPintoString(64);
         }
 

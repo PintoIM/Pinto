@@ -1,4 +1,4 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Contacts;
 using System.IO;
 
 namespace PintoNS.Networking

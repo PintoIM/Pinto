@@ -1,15 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace PintoSetupNS
 {
@@ -76,7 +73,7 @@ namespace PintoSetupNS
             return true;
         }
 
-        public static void CreateSetupRegistry(string uninstallerPath, 
+        public static void CreateSetupRegistry(string uninstallerPath,
             string installLocation, bool createdDesktopShortcut)
         {
             RegistryKey key = Registry.LocalMachine
@@ -114,7 +111,7 @@ namespace PintoSetupNS
             key.Close();
         }
 
-        public static string GetInstallPath() 
+        public static string GetInstallPath()
         {
             RegistryKey key = Registry.LocalMachine
                 .OpenSubKey("SOFTWARE")
@@ -152,15 +149,15 @@ namespace PintoSetupNS
             return createdDesktopShortcut;
         }
 
-        public static void CreateShortcuts(string installLocation, bool desktop) 
+        public static void CreateShortcuts(string installLocation, bool desktop)
         {
             string filePath = Path.Combine(installLocation, PROGRAM_EXE);
 
-            IShellLink link = (IShellLink) new ShellLink();
+            IShellLink link = (IShellLink)new ShellLink();
             link.SetPath(filePath);
             link.SetIconLocation(filePath, 0);
             link.SetDescription("A modernish IM client inspired by Skype 0.97");
-   
+
             IPersistFile file = (IPersistFile)link;
             if (desktop) file.Save(DESKTOP_SHORTCUT, false);
             file.Save(STARTMENU_SHORTCUT, false);
@@ -172,7 +169,7 @@ namespace PintoSetupNS
             if (File.Exists(STARTMENU_SHORTCUT)) File.Delete(STARTMENU_SHORTCUT);
         }
 
-        public static void PerformUninstall(string installLocation, out bool unableToDeleteFiles) 
+        public static void PerformUninstall(string installLocation, out bool unableToDeleteFiles)
         {
             try
             {
@@ -181,10 +178,10 @@ namespace PintoSetupNS
             catch { unableToDeleteFiles = true; }
             unableToDeleteFiles = false;
 
-            try 
+            try
             {
                 RemoveSetupRegistry();
-            } 
+            }
             catch { }
 
             try

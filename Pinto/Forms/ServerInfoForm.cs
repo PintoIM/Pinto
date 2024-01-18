@@ -1,6 +1,4 @@
-﻿using PintoNS.General;
-using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {

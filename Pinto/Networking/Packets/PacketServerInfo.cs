@@ -9,7 +9,7 @@ namespace PintoNS.Networking
 
         public PacketServerInfo() { }
 
-        public PacketServerInfo(string serverID, string serverSoftware) 
+        public PacketServerInfo(string serverID, string serverSoftware)
         {
             ServerID = serverID;
             ServerSoftware = serverSoftware;

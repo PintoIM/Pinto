@@ -1,16 +1,9 @@
 ﻿using Ionic.Zip;
-using Microsoft.Win32;
 using PintoSetupNS.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,7 +63,7 @@ namespace PintoSetupNS
                 return;
             }
 
-            if (!Installed) 
+            if (!Installed)
             {
                 DialogResult result = MessageBox.Show($"Pinto! installation is not complete." +
                     $" Try again later by running the Pinto! installer.{Environment.NewLine}{Environment.NewLine}" +
@@ -111,7 +104,7 @@ namespace PintoSetupNS
                 return;
             }
 
-            try 
+            try
             {
                 Installing = true;
                 pFirstStage.Enabled = false;
@@ -134,7 +127,7 @@ namespace PintoSetupNS
                 pbInstallProgress.Value = 0;
                 pbInstallProgress.Maximum = zipFile.Count;
 
-                await Task.Factory.StartNew(new Action(() => 
+                await Task.Factory.StartNew(new Action(() =>
                 {
                     for (int i = 0; i < zipFile.Count; i++)
                     {
@@ -171,26 +164,26 @@ namespace PintoSetupNS
 
                 Process.Start(Path.Combine(installFolder, Setup.PROGRAM_EXE));
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 bool unableToDeleteFiles = false;
                 if (!IsUpgrading) Setup.PerformUninstall(installFolder, out unableToDeleteFiles);
 
                 lTitle.Text = "Pinto! Setup Failed";
-                ShowInstallEnd("Pinto! was unable to be successfully installed on your computer", 
+                ShowInstallEnd("Pinto! was unable to be successfully installed on your computer",
                     "Click Close to exit Pinto! Setup.", "Close");
                 MessageBox.Show($"Pinto! was unable to be successfully" +
-                    $" installed on your computer:{Environment.NewLine}{ex}", 
+                    $" installed on your computer:{Environment.NewLine}{ex}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                if (unableToDeleteFiles) 
+                if (unableToDeleteFiles)
                     MessageBox.Show($"Pinto! Setup was unable to delete the installation files. ({installFolder})" +
                         $"{Environment.NewLine}They can be safely removed manually.",
                         "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void ShowInstallEnd(string status1, string status2, string cancelText) 
+        private void ShowInstallEnd(string status1, string status2, string cancelText)
         {
             lInstallStatus1.Text = status1;
             lInstallStatus2.Text = status2;

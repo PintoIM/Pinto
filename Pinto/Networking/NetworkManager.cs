@@ -1,5 +1,7 @@
-﻿using PintoNS.Forms;
-using PintoNS.General;
+﻿using PintoNS.Calls;
+using PintoNS.Contacts;
+using PintoNS.Forms;
+using PintoNS.UI;
 using System;
 using System.Media;
 using System.Security.Cryptography;
@@ -31,7 +33,7 @@ namespace PintoNS.Networking
         internal string username;
         internal string password;
 
-        public NetworkManager(MainForm mainForm, bool cache, string ip, int port, 
+        public NetworkManager(MainForm mainForm, bool cache, string ip, int port,
             string username, string password)
         {
             this.mainForm = mainForm;
@@ -51,7 +53,7 @@ namespace PintoNS.Networking
             //AudioRcrd.Start();
         }
 
-        private void InitNetworking() 
+        private void InitNetworking()
         {
             NetClient = new NetworkClient();
             NetHandler = new NetworkHandler(mainForm, NetClient);
@@ -67,18 +69,18 @@ namespace PintoNS.Networking
             };
         }
 
-        public void ScheduleConnecting() 
+        public void ScheduleConnecting()
         {
             connectionAttempt = 0;
             reconnectorHandler = new Thread(new ThreadStart(ReconnectorHandler_Func));
             reconnectorHandler.Start();
         }
 
-        private async void ReconnectorHandler_Func() 
+        private async void ReconnectorHandler_Func()
         {
             Action<string> changeConnectionStatus = new Action<string>(str => { });
 
-            while (IsActive) 
+            while (IsActive)
             {
                 connectionAttempt++;
                 Program.Console.WriteMessage($"[Networking] Performing attempt #{connectionAttempt} " +
@@ -88,11 +90,11 @@ namespace PintoNS.Networking
                 if (!IsActive) return;
 
                 (bool, Exception) result = await Connect(ServerIP, ServerPort, changeConnectionStatus);
-                if (!result.Item1) 
+                if (!result.Item1)
                 {
                     if (result.Item2 == null || !(result.Item2 is PintoVerificationException))
                         continue;
-                    else 
+                    else
                     {
                         IsCached = false;
                         IsConnected = false;
@@ -101,7 +103,7 @@ namespace PintoNS.Networking
                         Disconnect("Handshaking failed");
                         return;
                     }
-                } 
+                }
 
                 Login();
                 return;
@@ -131,7 +133,7 @@ namespace PintoNS.Networking
             AudioRcrd.Stop();
         }
 
-        public void Login() 
+        public void Login()
         {
             string passwordHash = BitConverter.ToString(
                 new SHA256Managed()
@@ -141,7 +143,7 @@ namespace PintoNS.Networking
                 .GetBytes(password)))
                 .Replace("-", "")
                 .ToUpper();
-            NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION, 
+            NetHandler.SendLoginPacket(Program.PROTOCOL_VERSION,
                 Program.VERSION_STRING, username, passwordHash);
         }
 
@@ -159,7 +161,7 @@ namespace PintoNS.Networking
                 Program.VERSION_STRING, username, passwordHash);
         }
 
-        public void ChangeStatus(UserStatus status, string motd) 
+        public void ChangeStatus(UserStatus status, string motd)
         {
             NetHandler.SendStatusPacket(status, motd);
         }
@@ -172,7 +174,7 @@ namespace PintoNS.Networking
         private void NetClient_Disconnected(string reason)
         {
             Program.Console.WriteMessage($"[Networking] Disconnected: {reason.Replace("\n", "\\n")}");
-            if (IsActive && !IsForceTermination && (IsCached || IsConnected)) 
+            if (IsActive && !IsForceTermination && (IsCached || IsConnected))
             {
                 Program.Console.WriteMessage("[Networking] Ignoring disconnect and attempting re-connection");
                 IsConnected = false;

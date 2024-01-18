@@ -29,7 +29,7 @@ namespace PintoNS.Forms
             await LoadServers();
         }
 
-        public async Task LoadServers() 
+        public async Task LoadServers()
         {
             btnRefresh.Enabled = false;
             btnUse.Enabled = false;
@@ -39,7 +39,7 @@ namespace PintoNS.Forms
             dgvServersOfficial.Rows.Clear();
             dgvServersUnofficial.Rows.Clear();
 
-            try 
+            try
             {
                 WebClient webClient = new WebClient();
                 webClient.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
@@ -50,7 +50,7 @@ namespace PintoNS.Forms
 
                 Program.Console.WriteMessage($"[General] Got the server list, parsing the response...");
                 JArray response = JsonConvert.DeserializeObject<JArray>(responseRaw);
-                
+
                 foreach (JObject server in response)
                 {
                     string name = server["name"].Value<string>();
@@ -79,7 +79,7 @@ namespace PintoNS.Forms
 
                 Program.Console.WriteMessage($"[General] Got {response.Count} servers");
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 lError.Visible = true;
                 lError.Text = $"Error: {ex.Message}";
@@ -121,7 +121,7 @@ namespace PintoNS.Forms
                 (tcServers.SelectedTab == tpServersUnofficial &&
                 dgvServersUnofficial.SelectedRows.Count < 1)) return;
 
-            if (tcServers.SelectedTab == tpServersOfficial) 
+            if (tcServers.SelectedTab == tpServersOfficial)
             {
                 ip = (string)dgvServersOfficial.SelectedRows[0].Cells["ip"].Value;
                 port = (int)dgvServersOfficial.SelectedRows[0].Cells["port"].Value;

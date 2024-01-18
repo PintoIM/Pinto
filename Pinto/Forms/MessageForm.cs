@@ -1,11 +1,9 @@
-﻿using PintoNS.Controls;
-using PintoNS.General;
-using PintoNS.Networking;
+﻿using PintoNS.Contacts;
+using PintoNS.UI;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace PintoNS.Forms
@@ -35,13 +33,13 @@ namespace PintoNS.Forms
             Receiver = receiver;
             InWindowPopupController = new InWindowPopupController(this, 25);
 
-            if (!mainForm.NetManager.IsConnected) 
+            if (!mainForm.NetManager.IsConnected)
             {
                 Program.Console.WriteMessage("[General] Not loading the chat as we aren't connected");
                 return;
             }
 
-            if (mainForm.NetManager.NetHandler.ServerID == null) 
+            if (mainForm.NetManager.NetHandler.ServerID == null)
             {
                 MsgBox.Show(this,
                     "The server has not yet sent it's server ID," +
@@ -50,7 +48,7 @@ namespace PintoNS.Forms
                 return;
             }
 
-            if (!Directory.Exists(Path.Combine(Program.DataFolder, 
+            if (!Directory.Exists(Path.Combine(Program.DataFolder,
                 "chats", mainForm.LocalUser.Name, mainForm.NetManager.NetHandler.ServerID)))
                 Directory.CreateDirectory(Path.Combine(Program.DataFolder,
                     "chats", mainForm.LocalUser.Name, mainForm.NetManager.NetHandler.ServerID));
@@ -103,7 +101,7 @@ namespace PintoNS.Forms
             }
         }
 
-        private void DeleteChat() 
+        private void DeleteChat()
         {
             Program.Console.WriteMessage("[General] Deleting chat...");
             try
@@ -134,7 +132,7 @@ namespace PintoNS.Forms
         }
 
         private void WriteMessageRaw(string msg, Color color, bool bold = false, bool italic = false,
-            bool strikeout = false, bool underLine = false) 
+            bool strikeout = false, bool underLine = false)
         {
             Invoke(new Action(() =>
             {
@@ -148,7 +146,7 @@ namespace PintoNS.Forms
                 else
                 {
                     rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
-                    rtxtMessages.SelectionFont = new Font(rtxtMessages.Font, 
+                    rtxtMessages.SelectionFont = new Font(rtxtMessages.Font,
                         GetFontStyles(bold, italic, strikeout, underLine));
                     rtxtMessages.SelectionColor = color;
                     rtxtMessages.SelectedText = msg;
@@ -212,13 +210,13 @@ namespace PintoNS.Forms
                 }
             }
 
-            WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor, 
+            WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor,
                 bold, italic, strikeout, underline);
         }
 
         private void rtxtInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!e.Modifiers.HasFlag(Keys.Control) && 
+            if (!e.Modifiers.HasFlag(Keys.Control) &&
                 e.KeyCode == Keys.Enter)
             {
                 btnSend.PerformClick();
@@ -267,7 +265,7 @@ namespace PintoNS.Forms
                 return;
             }
 
-            if (rateLimitTicks > 0) 
+            if (rateLimitTicks > 0)
             {
                 InWindowPopupController.ClearPopups();
                 InWindowPopupController.CreatePopup(
@@ -276,7 +274,7 @@ namespace PintoNS.Forms
             }
 
             rtxtInput.Clear();
-            if (mainForm.NetManager != null) 
+            if (mainForm.NetManager != null)
                 mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
             rateLimitTicks = 12;
         }
@@ -374,7 +372,7 @@ namespace PintoNS.Forms
         protected override void WndProc(ref Message message)
         {
             if (!Program.RunningUnderMono)
-                if (message.Msg == PInvoke.WM_SYSCOMMAND && 
+                if (message.Msg == PInvoke.WM_SYSCOMMAND &&
                     (int)message.WParam == PInvoke.SC_RESTORE)
                     Invalidate();
 

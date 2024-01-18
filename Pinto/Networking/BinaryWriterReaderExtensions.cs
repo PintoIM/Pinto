@@ -13,7 +13,7 @@ namespace PintoNS.Networking
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
-        
+
         public static void WriteBE(this BinaryWriter writer, int value)
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
@@ -24,7 +24,7 @@ namespace PintoNS.Networking
             if (str.Length > maxLength)
                 str = str.Substring(0, maxLength);
             byte[] stringData = Encoding.BigEndianUnicode.GetBytes(str);
-            
+
             writer.WriteBE(stringData.Length);
             if (stringData.Length < 1) return;
 
@@ -44,7 +44,7 @@ namespace PintoNS.Networking
         public static string ReadPintoString(this BinaryReader reader, int maxLength)
         {
             int length = reader.ReadBEInt();
-            if (length < 0) 
+            if (length < 0)
                 throw new InvalidDataException("Weird string, the length is less than 0!");
             if (length < 1) return "";
 
@@ -58,7 +58,7 @@ namespace PintoNS.Networking
             return str;
         }
 
-        public static int GetPintoStringSize(string str) 
+        public static int GetPintoStringSize(string str)
         {
             return 4 + Encoding.BigEndianUnicode.GetByteCount(str);
         }

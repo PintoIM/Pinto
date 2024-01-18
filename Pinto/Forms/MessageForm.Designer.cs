@@ -1,4 +1,6 @@
-﻿namespace PintoNS.Forms
+﻿using PintoNS.UI.Controls;
+
+namespace PintoNS.Forms
 {
     partial class MessageForm
     {
@@ -53,11 +55,11 @@
             this.btnBlock = new System.Windows.Forms.Button();
             this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtMessages = new ExRichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
-            this.rtxtInput = new PintoNS.Controls.ExRichTextBox();
+            this.rtxtInput = new ExRichTextBox();
             this.btnMoreFontOptions = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
@@ -377,7 +379,7 @@
 
         #endregion
         public System.Windows.Forms.Button btnSend;
-        public PintoNS.Controls.ExRichTextBox rtxtInput;
+        public ExRichTextBox rtxtInput;
         public System.Windows.Forms.Button btnTalk;
         public System.Windows.Forms.Button btnBlock;
         public System.Windows.Forms.ToolStrip tsMenuBar;
@@ -388,7 +390,7 @@
         public System.Windows.Forms.ColorDialog cdPicker;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
-        public PintoNS.Controls.ExRichTextBox rtxtMessages;
+        public ExRichTextBox rtxtMessages;
         public System.Windows.Forms.ContextMenuStrip cmsMessages;
         public System.Windows.Forms.ToolStripMenuItem tsmiMessagesCopy;
         public System.Windows.Forms.ContextMenuStrip cmsInput;

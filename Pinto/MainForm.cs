@@ -1,6 +1,8 @@
-﻿using PintoNS.Forms;
-using PintoNS.General;
+﻿using PintoNS.Calls;
+using PintoNS.Contacts;
+using PintoNS.Forms;
 using PintoNS.Networking;
+using PintoNS.Scripting;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,11 +11,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Net;
-using System.Net.Cache;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PintoNS.UI;
 
 namespace PintoNS
 {
@@ -84,14 +85,14 @@ namespace PintoNS
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
-        internal void UpdateQuickActions(bool loggedInState) 
+        internal void UpdateQuickActions(bool loggedInState)
         {
-            if (loggedInState) 
+            if (loggedInState)
             {
                 btnQAAddContact.Image = Assets.ADDCONTACT_ENABLED;
                 btnQAAddContact.Enabled = true;
             }
-            else 
+            else
             {
                 btnQAAddContact.Image = Assets.ADDCONTACT_DISABLED;
                 btnQAAddContact.Enabled = false;
@@ -106,7 +107,7 @@ namespace PintoNS
             tsddbStatusBarStatus.Image = User.StatusToBitmap(status);
             tsslStatusBarStatusText.Text = status != UserStatus.OFFLINE ? User.StatusToText(status) : "Not logged in";
             tsddbStatusBarMOTD.Enabled = isOnline;
-            tsddbStatusBarMOTD.Text = isOnline && 
+            tsddbStatusBarMOTD.Text = isOnline &&
                 !string.IsNullOrWhiteSpace(motd.Trim()) ? motd.Trim() : "(no MOTD set)";
 
             LocalUser.Status = status;
@@ -133,7 +134,7 @@ namespace PintoNS
                     msgForm.Dispose();
                 }
             }
-            
+
             ContactsMgr = null;
             MessageForms = null;
 
@@ -160,7 +161,7 @@ namespace PintoNS
                 new SoundPlayer(Sounds.LOGOUT).Play();
         }
 
-        internal async void SetConnectingState(bool state) 
+        internal async void SetConnectingState(bool state)
         {
             UpdateQuickActions(!state);
             tsmiMenuBarToolsAddContact.Enabled = !state;
@@ -219,13 +220,13 @@ namespace PintoNS
             }
         }
 
-        internal void UpdateOnlineContacts() 
+        internal void UpdateOnlineContacts()
         {
             if (ContactsMgr == null) return;
             int online = ContactsMgr.GetContacts().Count((Contact contact) =>
             {
-                return !contact.Name.StartsWith("G:") && 
-                        contact.Status != UserStatus.OFFLINE && 
+                return !contact.Name.StartsWith("G:") &&
+                        contact.Status != UserStatus.OFFLINE &&
                         contact.Status != UserStatus.CONNECTING;
             });
             llStartContacts.Text = $"{online} Contacts Online";
@@ -247,7 +248,7 @@ namespace PintoNS
             tsmiTrayChangeStatus.Enabled = isOnline;
         }
 
-        public void ConnectCached(string ip, int port, string username, string password) 
+        public void ConnectCached(string ip, int port, string username, string password)
         {
             Program.Console.WriteMessage($"[Networking] Cache connecting at {ip}:{port} as {username}...");
             LocalUser.Name = username;
@@ -257,7 +258,7 @@ namespace PintoNS
             OnLogin();
             SetConnectingState(true);
 
-            foreach (string contact in LastContacts.GetLastContacts()) 
+            foreach (string contact in LastContacts.GetLastContacts())
             {
                 ContactsMgr.AddContact(new Contact()
                 {
@@ -364,7 +365,7 @@ namespace PintoNS
         {
             Program.Console.WriteMessage($"Getting MessageForm for {name}...");
 
-            if (MessageForms == null) 
+            if (MessageForms == null)
                 return null;
 
             foreach (MessageForm msgForm in MessageForms.ToArray())
@@ -375,7 +376,7 @@ namespace PintoNS
 
             MessageForm messageForm = null;
 
-            if (!doNotCreate) 
+            if (!doNotCreate)
             {
                 Program.Console.WriteMessage($"Creating MessageForm for {name}...");
                 messageForm = new MessageForm(this, ContactsMgr.GetContact(name));
@@ -413,9 +414,9 @@ namespace PintoNS
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Settings.NoMinimizeToSysTray && !doNotCancelClose && e.CloseReason == CloseReason.UserClosing) 
+            if (!Settings.NoMinimizeToSysTray && !doNotCancelClose && e.CloseReason == CloseReason.UserClosing)
             {
-                if (!Settings.DoNotShowSysTrayNotice) 
+                if (!Settings.DoNotShowSysTrayNotice)
                 {
                     Settings.DoNotShowSysTrayNotice = true;
                     Settings.Export(Program.SettingsFile);
@@ -439,7 +440,7 @@ namespace PintoNS
                 loginPacketCheckThread.Abort();
 
             if (!Settings.NoGracefulExit && wasLoggedIn)
-                new Thread(new ThreadStart(() => 
+                new Thread(new ThreadStart(() =>
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
                 })).Start();
@@ -503,7 +504,7 @@ namespace PintoNS
             if (NetManager == null || !NetManager.IsConnected) return;
             Program.Console.WriteMessage("[General] Changing status...");
             MsgBox.Show(this, "If you choose to change your status to invisible," +
-                " you will no longer be able to receive/send messages. Are you sure you want to continue?", 
+                " you will no longer be able to receive/send messages. Are you sure you want to continue?",
                 "Status change confirmation",
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
@@ -581,9 +582,9 @@ namespace PintoNS
             optionsForm.ShowDialog(this);
         }
 
-        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e) 
+        private void tsmiMenuBarFileExit_Click(object sender, EventArgs e)
         {
-            if (Settings.NoExitPrompt) 
+            if (Settings.NoExitPrompt)
             {
                 Shutdown();
                 return;
@@ -597,22 +598,22 @@ namespace PintoNS
                 });
         }
 
-        public void Shutdown() 
+        public void Shutdown()
         {
             doNotCancelClose = true;
             Close();
         }
 
-        public async Task CheckForUpdates(bool showLatestMessage) 
+        public async Task CheckForUpdates(bool showLatestMessage)
         {
-            if (isPortable) 
+            if (isPortable)
             {
                 MsgBox.Show(this, "Checking for updates is not available on the portable version!",
                     "Updates Unavailable", MsgBoxIconType.WARNING, true);
                 return;
             }
 
-            if (!await Updater.IsLatest())
+            if (!await UpdaterUtils.IsLatest())
                 MsgBox.Show(this,
                     "An update is available, do you want to download it and install it?",
                     "Update Available",
@@ -625,7 +626,7 @@ namespace PintoNS
                             if (File.Exists(path))
                                 File.Delete(path);
 
-                            byte[] file = await Updater.GetUpdateFile();
+                            byte[] file = await UpdaterUtils.GetUpdateFile();
                             if (file == null) return;
                             File.WriteAllBytes(path, file);
                             Program.Console.WriteMessage($"[Updater] Saved update file at {path}");
@@ -667,7 +668,7 @@ namespace PintoNS
             tcTabs.SelectedTab = tpContacts;
         }
 
-        private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e) 
+        private void tsmiMenuBarHelpReportAProblem_Click(object sender, EventArgs e)
             => Process.Start("https://github.com/PintoIM/Pinto/issues");
 
         private void dgvContacts_CellContextMenuStripNeeded(object sender,
@@ -738,7 +739,7 @@ namespace PintoNS
         {
             if (NetManager == null || !NetManager.IsConnected) return;
             ServerInfoForm form = new ServerInfoForm();
-            form.lInfo.Text = string.Format(form.lInfo.Text, NetManager.NetHandler.ServerID, 
+            form.lInfo.Text = string.Format(form.lInfo.Text, NetManager.NetHandler.ServerID,
                 NetManager.NetHandler.ServerSoftware);
             form.Show();
             form.MoveCenteredToWindow(this);

@@ -1,4 +1,4 @@
-﻿using PintoNS.General;
+﻿using PintoNS.UI;
 using System;
 using System.Windows.Forms;
 

@@ -1,4 +1,4 @@
-﻿using PintoNS.General;
+﻿using PintoNS.Contacts;
 using System.IO;
 
 namespace PintoNS.Networking
@@ -21,14 +21,14 @@ namespace PintoNS.Networking
         public void Read(BinaryReader reader)
         {
             ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
-            Status = (UserStatus) reader.ReadBEInt();
+            Status = (UserStatus)reader.ReadBEInt();
             MOTD = reader.ReadPintoString(64);
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
-            writer.WriteBE((int) Status);
+            writer.WriteBE((int)Status);
             writer.WritePintoString(MOTD, 64);
         }
 

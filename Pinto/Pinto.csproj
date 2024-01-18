@@ -168,34 +168,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assets.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ExRichTextBox.cs">
+    <Compile Include="UI\Controls\ExRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Header.cs">
+    <Compile Include="UI\Controls\Header.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Header.Designer.cs">
+    <Compile Include="UI\Controls\Header.Designer.cs">
       <DependentUpon>Header.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Loader.cs">
+    <Compile Include="UI\Controls\Loader.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Loader.Designer.cs">
+    <Compile Include="UI\Controls\Loader.Designer.cs">
       <DependentUpon>Loader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NoFocusQueButton.cs">
+    <Compile Include="UI\Controls\NoFocusQueButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Separator.cs">
+    <Compile Include="UI\Controls\Separator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\Separator.Designer.cs">
+    <Compile Include="UI\Controls\Separator.Designer.cs">
       <DependentUpon>Separator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\InWindowPopupControl.cs">
+    <Compile Include="UI\Controls\InWindowPopupControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\InWindowPopupControl.Designer.cs">
+    <Compile Include="UI\Controls\InWindowPopupControl.Designer.cs">
       <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AboutForm.cs">
@@ -300,24 +300,23 @@
     <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
       <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="General\AudioPlayer.cs" />
-    <Compile Include="General\CallManager.cs" />
-    <Compile Include="General\CallStatus.cs" />
-    <Compile Include="General\FormEx.cs" />
-    <Compile Include="General\IPintoScript.cs" />
-    <Compile Include="General\LastContacts.cs" />
-    <Compile Include="General\MsgBoxIconType.cs" />
-    <Compile Include="General\Contact.cs" />
-    <Compile Include="General\AudioRecorder.cs" />
-    <Compile Include="General\NETFrameworkVersion.cs" />
-    <Compile Include="General\ObjectExtensions.cs" />
-    <Compile Include="General\PintoScriptInfo.cs" />
-    <Compile Include="General\PInvoke.cs" />
-    <Compile Include="General\PopupController.cs" />
-    <Compile Include="General\InWindowPopupController.cs" />
-    <Compile Include="General\Settings.cs" />
-    <Compile Include="General\Updater.cs" />
-    <Compile Include="General\UserStatus.cs" />
+    <Compile Include="Calls\AudioPlayer.cs" />
+    <Compile Include="Calls\CallManager.cs" />
+    <Compile Include="Calls\CallStatus.cs" />
+    <Compile Include="UI\FormEx.cs" />
+    <Compile Include="Scripting\IPintoScript.cs" />
+    <Compile Include="Contacts\LastContacts.cs" />
+    <Compile Include="UI\MsgBoxIconType.cs" />
+    <Compile Include="Contacts\Contact.cs" />
+    <Compile Include="Calls\AudioRecorder.cs" />
+    <Compile Include="NETFrameworkVersion.cs" />
+    <Compile Include="Scripting\PintoScriptInfo.cs" />
+    <Compile Include="PInvoke.cs" />
+    <Compile Include="UI\PopupController.cs" />
+    <Compile Include="UI\InWindowPopupController.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="UpdaterUtils.cs" />
+    <Compile Include="Contacts\UserStatus.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,8 +325,8 @@
     </Compile>
     <Compile Include="Networking\BinaryWriterReaderExtensions.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
-    <Compile Include="General\ContactsManager.cs" />
-    <Compile Include="Controls\TextBoxWithPlaceholderSupport.cs">
+    <Compile Include="Contacts\ContactsManager.cs" />
+    <Compile Include="UI\Controls\TextBoxWithPlaceholderSupport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Logo.Designer.cs">
@@ -335,8 +334,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Logo.resx</DependentUpon>
     </Compile>
-    <Compile Include="General\MsgBoxButtonType.cs" />
-    <Compile Include="General\MsgBox.cs" />
+    <Compile Include="UI\MsgBoxButtonType.cs" />
+    <Compile Include="UI\MsgBox.cs" />
     <Compile Include="Networking\NetworkClient.cs" />
     <Compile Include="Networking\Packets\IPacket.cs" />
     <Compile Include="Networking\Packets\PacketTyping.cs" />
@@ -367,21 +366,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Statuses.resx</DependentUpon>
     </Compile>
-    <Compile Include="General\User.cs" />
-    <Compile Include="TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Contacts\User.cs" />
     <EmbeddedResource Include="Assets.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Assets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Loader.resx">
+    <EmbeddedResource Include="UI\Controls\Loader.resx">
       <DependentUpon>Loader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\InWindowPopupControl.resx">
+    <EmbeddedResource Include="UI\Controls\InWindowPopupControl.resx">
       <DependentUpon>InWindowPopupControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
@@ -459,9 +452,6 @@
     <EmbeddedResource Include="Statuses.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Statuses.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />

@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace PintoNS.Networking
+﻿namespace PintoNS.Networking
 {
     public class PacketRegister : PacketLogin
     {

@@ -1,9 +1,8 @@
-﻿using PintoNS.Forms;
-using PintoNS.General;
+﻿using PintoNS.Calls;
+using PintoNS.Contacts;
+using PintoNS.Forms;
+using PintoNS.UI;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
 
@@ -31,14 +30,14 @@ namespace PintoNS.Networking
             packet.Handle(this);
         }
 
-        public void HandleLoginPacket(PacketLogin packet) 
+        public void HandleLoginPacket(PacketLogin packet)
         {
             LoggedIn = true;
             mainForm.NetManager.IsConnected = true;
 
-            mainForm.Invoke(new Action(() => 
+            mainForm.Invoke(new Action(() =>
             {
-                if (mainForm.NetManager.WasLoggedInOnce || mainForm.NetManager.IsCached) 
+                if (mainForm.NetManager.WasLoggedInOnce || mainForm.NetManager.IsCached)
                 {
                     mainForm.SetConnectingState(false);
                     return;
@@ -66,27 +65,27 @@ namespace PintoNS.Networking
             mainForm.Invoke(new Action(() =>
             {
                 UsingPintoForm.SetHasLoggedIn(false);
-                MsgBox.Show(mainForm, packet.Reason, "Kicked by the server", 
+                MsgBox.Show(mainForm, packet.Reason, "Kicked by the server",
                     MsgBoxIconType.WARNING, true);
             }));
         }
 
-        public void HandleMessagePacket(PacketMessage packet) 
+        public void HandleMessagePacket(PacketMessage packet)
         {
             mainForm.Invoke(new Action(() =>
             {
                 MessageForm messageForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName);
-                if (messageForm == null) 
+                if (messageForm == null)
                 {
                     Program.Console.WriteMessage($"[Networking]" +
                         $" Unable to get a message form for {packet.ContactName}!");
                     return;
                 }
 
-                if (packet.Sender.Trim().Length > 0) 
+                if (packet.Sender.Trim().Length > 0)
                 {
                     messageForm.WriteMessage($"{packet.Sender}",
-                        packet.Sender == mainForm.LocalUser.Name ? 
+                        packet.Sender == mainForm.LocalUser.Name ?
                             MessageForm.MsgSelfSenderColor : MessageForm.MsgOtherSenderColor, false);
                     messageForm.WriteMessage($" - ", MessageForm.MsgSeparatorColor, false);
                     messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
@@ -97,12 +96,12 @@ namespace PintoNS.Networking
                 else
                     messageForm.WriteMessage($"{packet.Message}", MessageForm.MsgContentColor);
 
-                if (Form.ActiveForm != messageForm && 
-                    !messageForm.HasBeenInactive && 
+                if (Form.ActiveForm != messageForm &&
+                    !messageForm.HasBeenInactive &&
                     mainForm.LocalUser.Status != UserStatus.BUSY)
                 {
                     messageForm.HasBeenInactive = true;
-                    mainForm.PopupController.CreatePopup($"Received a new message from {packet.ContactName}!", 
+                    mainForm.PopupController.CreatePopup($"Received a new message from {packet.ContactName}!",
                         "New message");
                     new SoundPlayer() { Stream = Sounds.IM }.Play();
                 }
@@ -135,9 +134,9 @@ namespace PintoNS.Networking
             {
                 ContactsManager contactsMgr = mainForm.ContactsMgr;
                 if (contactsMgr == null) return;
-                contactsMgr.AddContact(new Contact() 
-                { 
-                    Name = packet.ContactName, 
+                contactsMgr.AddContact(new Contact()
+                {
+                    Name = packet.ContactName,
                     Status = packet.Status,
                     MOTD = packet.MOTD
                 });
@@ -164,7 +163,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage(
                 $"[General] Status change: " +
                 $"{(string.IsNullOrWhiteSpace(packet.ContactName) ? "SELF" : packet.ContactName)} -> {packet.Status}");
-            
+
             mainForm.Invoke(new Action(() =>
             {
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
@@ -173,14 +172,14 @@ namespace PintoNS.Networking
                 {
                     Contact contact = mainForm.ContactsMgr.GetContact(packet.ContactName);
 
-                    if (contact == null) 
+                    if (contact == null)
                     {
                         Program.Console.WriteMessage($"[General] Received invalid status change" +
                             $", \"{packet.ContactName}\" is not a valid contact!");
                         return;
                     }
 
-                    if (mainForm.LocalUser.Status != UserStatus.BUSY) 
+                    if (mainForm.LocalUser.Status != UserStatus.BUSY)
                     {
                         if (packet.Status == UserStatus.OFFLINE &&
                             contact.Status != UserStatus.OFFLINE)
@@ -199,8 +198,8 @@ namespace PintoNS.Networking
                     }
 
                     if ((packet.Status == UserStatus.BUSY &&
-                        contact.Status != UserStatus.BUSY) || 
-                        (packet.Status == UserStatus.AWAY && 
+                        contact.Status != UserStatus.BUSY) ||
+                        (packet.Status == UserStatus.AWAY &&
                         contact.Status != UserStatus.AWAY))
                     {
                         MessageForm msgForm = mainForm
@@ -247,7 +246,7 @@ namespace PintoNS.Networking
             }));
         }
 
-        public void HandleKeepAlivePacket() 
+        public void HandleKeepAlivePacket()
         {
             networkClient.SendPacket(new PacketKeepAlive());
         }
@@ -270,13 +269,13 @@ namespace PintoNS.Networking
             }));
         }
 
-        public void SendLoginPacket(byte protocolVersion, string clientVersion, 
-            string name, string sessionID) 
+        public void SendLoginPacket(byte protocolVersion, string clientVersion,
+            string name, string sessionID)
         {
             networkClient.SendPacket(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
         }
 
-        public void SendRegisterPacket(byte protocolVersion, string clientVersion, 
+        public void SendRegisterPacket(byte protocolVersion, string clientVersion,
             string name, string sessionID)
         {
             networkClient.SendPacket(new PacketRegister(protocolVersion, clientVersion, name, sessionID));

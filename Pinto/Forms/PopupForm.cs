@@ -27,7 +27,7 @@ namespace PintoNS.Forms
 
         private void tAnim_Tick(object sender, EventArgs e)
         {
-            if (ReachedTargetY) 
+            if (ReachedTargetY)
             {
                 tAnim.Stop();
                 return;

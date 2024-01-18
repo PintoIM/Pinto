@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PintoSetupNS
@@ -23,7 +20,7 @@ namespace PintoSetupNS
             string setupMode = args.Length > 0 ? args[0].ToLower() : "install";
             string installPath = Setup.GetInstallPath();
 
-            switch (setupMode) 
+            switch (setupMode)
             {
                 case "install":
                     Application.Run(new MainForm());
@@ -60,7 +57,7 @@ namespace PintoSetupNS
             }
         }
 
-        private static void SetupUninstall(string installPath) 
+        private static void SetupUninstall(string installPath)
         {
             if (installPath == null)
             {

@@ -1,6 +1,4 @@
-﻿using PintoNS.General;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Windows.Forms;
 
 namespace PintoNS.Forms
@@ -27,8 +25,8 @@ namespace PintoNS.Forms
         {
             base.WndProc(ref m);
             if (Program.RunningUnderMono) return;
-            if (m.Msg == PInvoke.WM_SYSCOMMAND && 
-                (int)m.WParam == SM_ITEM_CLEAR) 
+            if (m.Msg == PInvoke.WM_SYSCOMMAND &&
+                (int)m.WParam == SM_ITEM_CLEAR)
             {
                 rtxtLog.Clear();
             }
@@ -41,7 +39,7 @@ namespace PintoNS.Forms
 
         public void WriteMessage(string msg, bool newLine = true)
         {
-            Invoke(new Action(() => 
+            Invoke(new Action(() =>
             {
                 if (Disposing || IsDisposed) return;
 

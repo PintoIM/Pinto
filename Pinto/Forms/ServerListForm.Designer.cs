@@ -1,4 +1,5 @@
-﻿
+﻿using PintoNS.UI.Controls;
+
 namespace PintoNS.Forms
 {
     partial class ServerListForm
@@ -40,7 +41,7 @@ namespace PintoNS.Forms
             this.tags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpLoading = new System.Windows.Forms.TabPage();
-            this.lrLoadingLoader = new PintoNS.Controls.Loader();
+            this.lrLoadingLoader = new Loader();
             this.lLoadingText = new System.Windows.Forms.Label();
             this.tpServers = new System.Windows.Forms.TabPage();
             this.tcServers = new System.Windows.Forms.TabControl();
@@ -365,6 +366,6 @@ namespace PintoNS.Forms
         public System.Windows.Forms.DataGridViewTextBoxColumn users2;
         public System.Windows.Forms.DataGridViewTextBoxColumn max_users2;
         public System.Windows.Forms.DataGridViewTextBoxColumn tags2;
-        public Controls.Loader lrLoadingLoader;
+        public Loader lrLoadingLoader;
     }
 }

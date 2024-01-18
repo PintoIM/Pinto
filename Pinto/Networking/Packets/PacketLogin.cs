@@ -11,7 +11,7 @@ namespace PintoNS.Networking
 
         public PacketLogin() { }
 
-        public PacketLogin(byte protocolVersion, string clientVersion, 
+        public PacketLogin(byte protocolVersion, string clientVersion,
             string name, string passwordHash)
         {
             ProtocolVersion = protocolVersion;

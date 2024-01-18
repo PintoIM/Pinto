@@ -1,7 +1,6 @@
 ﻿using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using PintoNS.Forms;
-using PintoNS.General;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,15 +8,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
-    public class PintoConnectionException : Exception 
+    public class PintoConnectionException : Exception
     {
         public PintoConnectionException(string message) : base(message) { }
     }
@@ -39,8 +36,8 @@ namespace PintoNS.Networking
         public Action<string> Disconnected = delegate (string reason) { };
         public Action<IPacket> ReceivedPacket = delegate (IPacket packet) { };
         private object sendLock = new object();
-        
-        public async Task<(bool, Exception)> Connect(string ip, int port, Action<string> changeConnectionStatus) 
+
+        public async Task<(bool, Exception)> Connect(string ip, int port, Action<string> changeConnectionStatus)
         {
             try
             {
@@ -76,7 +73,7 @@ namespace PintoNS.Networking
         private void MemorizeHost(string publicKeyBase64, string host)
         {
             File.AppendAllLines(
-                Path.Combine(Program.DataFolder, "known_hosts.txt"), 
+                Path.Combine(Program.DataFolder, "known_hosts.txt"),
                 new string[] { $"{host};{publicKeyBase64}" });
         }
 
@@ -134,7 +131,7 @@ namespace PintoNS.Networking
                 }
             };
 
-            new Thread(new ThreadStart(() => 
+            new Thread(new ThreadStart(() =>
             {
                 try
                 {
@@ -172,7 +169,7 @@ namespace PintoNS.Networking
 
             bool finishedVerif = false;
             CancellationTokenSource cancellationToken = new CancellationTokenSource();
-            Thread staller = new Thread(new ThreadStart(() => 
+            Thread staller = new Thread(new ThreadStart(() =>
             {
                 try
                 {
@@ -224,7 +221,7 @@ namespace PintoNS.Networking
             return true;
         }
 
-        public void Disconnect(string reason) 
+        public void Disconnect(string reason)
         {
             bool sendEvent = IsConnected && !ignoreDisconnectReason;
 
@@ -239,7 +236,7 @@ namespace PintoNS.Networking
             netStream = null;
             readThread = null;
 
-            if (sendEvent) 
+            if (sendEvent)
                 Disconnected.Invoke(reason);
         }
 
@@ -249,7 +246,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Networking] Internal error: {ex}");
         }
 
-        public void SendPacket(IPacket packet) 
+        public void SendPacket(IPacket packet)
         {
             if (!IsConnected) return;
 
@@ -309,7 +306,7 @@ namespace PintoNS.Networking
             ReceivedPacket.Invoke(packet);
         }
 
-        private void ReadThread_Func() 
+        private void ReadThread_Func()
         {
             while (IsConnected)
             {
@@ -320,12 +317,12 @@ namespace PintoNS.Networking
                     int headerPart2 = netStream.ReadByte();
                     int headerPart3 = netStream.ReadByte();
 
-                    if (headerPart0 == -1 || 
-                        headerPart1 == -1 || 
-                        headerPart2 == -1 || 
+                    if (headerPart0 == -1 ||
+                        headerPart1 == -1 ||
+                        headerPart2 == -1 ||
                         headerPart3 == -1)
                         throw new PintoConnectionException("Client disconnect");
-                    
+
                     // Packet header
                     if (headerPart0 != 'P' ||
                         headerPart1 != 'M' ||
