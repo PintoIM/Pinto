@@ -23,6 +23,7 @@ namespace PintoNS.Networking
     {
     }
 
+    [Obsolete("Networking is about to be re-written")]
     public class NetworkClient
     {
         private bool ignoreDisconnectReason;

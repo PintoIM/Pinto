@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
+    [Obsolete("Networking is about to be re-written")]
     public class NetworkHandler
     {
         private MainForm mainForm;

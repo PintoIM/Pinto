@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace PintoNS.Networking
 {
+    [Obsolete("Networking is about to be re-written")]
     public interface IPacket
     {
         void Write(BinaryWriter writer);

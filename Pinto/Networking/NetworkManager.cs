@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace PintoNS.Networking
 {
+    [Obsolete("Networking is about to be re-written")]
     public class NetworkManager
     {
         private MainForm mainForm;

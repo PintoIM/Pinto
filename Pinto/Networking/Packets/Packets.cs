@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace PintoNS.Networking
 {
+    [Obsolete("Networking is about to be re-written")]
     public static class Packets
     {
         private static Dictionary<int, Type> PacketMap = new Dictionary<int, Type>();
