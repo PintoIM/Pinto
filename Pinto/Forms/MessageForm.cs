@@ -288,7 +288,7 @@ namespace PintoNS.Forms
             SaveChat();
         }
 
-        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
+        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().ShowDialog(this);
 
         private void MessageForm_Activated(object sender, EventArgs e) => HasBeenInactive = false;
 

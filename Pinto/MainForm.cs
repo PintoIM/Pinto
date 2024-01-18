@@ -474,7 +474,7 @@ namespace PintoNS
             Disconnect();
         }
 
-        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().Show();
+        private void tsmiMenuBarHelpAbout_Click(object sender, EventArgs e) => new AboutForm().ShowDialog(this);
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
@@ -715,24 +715,6 @@ namespace PintoNS
             if (NetManager == null || !NetManager.IsConnected) return;
             ChangeMOTDForm changeMOTDForm = new ChangeMOTDForm(this);
             changeMOTDForm.ShowDialog(this);
-        }
-
-        private void tsmiMenuBarToolsServerRules_Click(object sender, EventArgs e)
-        {
-            string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
-            BrowserForm rulesDialog = new BrowserForm();
-            rulesDialog.Text = "Pinto! - Server Rules";
-            rulesDialog.Show();
-            rulesDialog.wbBrowser.Navigate($"{serverURL}/rules.html");
-        }
-
-        private void tsmiMenuBarToolsWelcomeDialog_Click(object sender, EventArgs e)
-        {
-            string serverURL = $"http://{NetManager.ServerIP}:{NetManager.ServerPort + 10}";
-            BrowserForm welcomeDialog = new BrowserForm();
-            welcomeDialog.Text = "Pinto! - Welcome";
-            welcomeDialog.Show();
-            welcomeDialog.wbBrowser.Navigate($"{serverURL}/welcome.html");
         }
 
         private void tsmiMenuBarToolsServerInfo_Click(object sender, EventArgs e)
