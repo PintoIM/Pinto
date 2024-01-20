@@ -1,7 +1,7 @@
 ﻿using PintoNS.Calls;
 using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketCallChangeStatus : IPacket
     {
@@ -24,13 +24,13 @@ namespace PintoNS.Networking
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteBE((int)CallStatus);
+            writer.WriteInt((int)CallStatus);
             writer.WritePintoString(Details, 64);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleCallChangeStatusPacket(this);
+            return 4 + 64;
         }
 
         public int GetID()

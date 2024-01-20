@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketLogin : IPacket
     {
@@ -24,7 +24,7 @@ namespace PintoNS.Networking
         {
             ProtocolVersion = reader.ReadByte();
             ClientVersion = reader.ReadPintoString(32);
-            Name = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            Name = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
             PasswordHash = reader.ReadPintoString(64);
         }
 
@@ -32,13 +32,13 @@ namespace PintoNS.Networking
         {
             writer.Write(ProtocolVersion);
             writer.WritePintoString(ClientVersion, 32);
-            writer.WritePintoString(Name, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(Name, NetBaseHandler.USERNAME_MAX);
             writer.WritePintoString(PasswordHash, 64);
         }
 
-        public virtual void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleLoginPacket(this);
+            return 1 + 32 + NetBaseHandler.USERNAME_MAX + 64;
         }
 
         public virtual int GetID()

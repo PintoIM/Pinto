@@ -172,17 +172,17 @@ namespace PintoNS.Forms
             tcSections.SizeMode = TabSizeMode.Fixed;
             LoadLogin();
 
-            string ip = txtIP.Text.Trim();
-            int port = (int)nudPort.Value;
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
+            //string ip = txtIP.Text.Trim();
+            //int port = (int)nudPort.Value;
+            //string username = txtUsername.Text.Trim();
+            //string password = txtPassword.Text;
 
-            if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 &&
-                username != null && password != null)
-            {
-                Close();
-                mainForm.ConnectCached(ip, port, username, password);
-            }
+            //if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 &&
+            //    username != null && password != null)
+            //{
+            //    Close();
+            //    mainForm.ConnectCached(ip, port, username, password);
+            //}
         }
 
         private async void btnRegister_Click(object sender, EventArgs e)

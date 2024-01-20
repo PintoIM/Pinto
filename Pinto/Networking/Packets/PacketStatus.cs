@@ -1,7 +1,7 @@
 ﻿using PintoNS.Contacts;
 using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketStatus : IPacket
     {
@@ -20,21 +20,21 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            ContactName = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
             Status = (UserStatus)reader.ReadBEInt();
             MOTD = reader.ReadPintoString(64);
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
-            writer.WriteBE((int)Status);
+            writer.WritePintoString(ContactName, NetBaseHandler.USERNAME_MAX);
+            writer.WriteInt((int)Status);
             writer.WritePintoString(MOTD, 64);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleStatusPacket(this);
+            return NetBaseHandler.USERNAME_MAX + 4 + 64;
         }
 
         public int GetID()

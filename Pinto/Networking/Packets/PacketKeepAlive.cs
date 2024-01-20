@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketKeepAlive : IPacket
     {
@@ -12,9 +12,9 @@ namespace PintoNS.Networking
         {
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleKeepAlivePacket();
+            return 0;
         }
 
         public int GetID()

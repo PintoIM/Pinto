@@ -33,12 +33,12 @@ namespace PintoNS
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pQA = new System.Windows.Forms.Panel();
-            this.btnQAAddContact = new NoFocusQueButton();
+            this.btnQAAddContact = new PintoNS.UI.Controls.NoFocusQueButton();
             this.tcTabs = new System.Windows.Forms.TabControl();
             this.tpLogin = new System.Windows.Forms.TabPage();
             this.llLogin = new System.Windows.Forms.LinkLabel();
             this.tpConnecting = new System.Windows.Forms.TabPage();
-            this.lrConnectingLoader = new Loader();
+            this.lrConnectingLoader = new PintoNS.UI.Controls.Loader();
             this.lConnectingStatus = new System.Windows.Forms.Label();
             this.tpStart = new System.Windows.Forms.TabPage();
             this.llStartContacts = new System.Windows.Forms.LinkLabel();
@@ -96,7 +96,8 @@ namespace PintoNS
             this.tsmiTrayExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnStartCall = new System.Windows.Forms.Button();
             this.btnEndCall = new System.Windows.Forms.Button();
-            this.txtSearchBox = new TextBoxWithPlaceholderSupport();
+            this.txtSearchBox = new PintoNS.UI.Controls.TextBoxWithPlaceholderSupport();
+            this.tNetUpdate = new System.Windows.Forms.Timer(this.components);
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -758,6 +759,11 @@ namespace PintoNS
             this.txtSearchBox.TextForeColor = System.Drawing.Color.Black;
             this.txtSearchBox.TextChanged2 += new System.EventHandler(this.txtSearchBox_TextChanged2);
             // 
+            // tNetUpdate
+            // 
+            this.tNetUpdate.Interval = 50;
+            this.tNetUpdate.Tick += new System.EventHandler(this.tNetUpdate_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -863,5 +869,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarToolsServerInfo;
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpViewScripts;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.Timer tNetUpdate;
     }
 }

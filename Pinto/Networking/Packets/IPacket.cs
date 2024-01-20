@@ -1,14 +1,16 @@
 ﻿using System;
 using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
-    [Obsolete("Networking is about to be re-written")]
     public interface IPacket
     {
-        void Write(BinaryWriter writer);
-        void Read(BinaryReader reader);
-        void Handle(NetworkHandler netHandler);
+        int GetPacketSize();
+
+        void Read(BinaryReader stream);
+
+        void Write(BinaryWriter stream);
+
         int GetID();
     }
 }

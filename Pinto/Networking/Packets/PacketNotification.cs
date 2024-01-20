@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketNotification : IPacket
     {
@@ -11,6 +11,16 @@ namespace PintoNS.Networking
 
         public PacketNotification() { }
 
+        /// <summary>
+        /// Types:<para />
+        /// - 0 -> In Window Pop-up (Warning)<para />
+        /// - 1 -> In Window Pop-up (Information)<para />
+        /// - 2 -> Pop-up (Notification)<para />
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="autoCloseDelay"></param>
+        /// <param name="title"></param>
+        /// <param name="body"></param>
         public PacketNotification(byte type, int autoCloseDelay, string title, string body)
         {
             Type = type;
@@ -30,14 +40,14 @@ namespace PintoNS.Networking
         public void Write(BinaryWriter writer)
         {
             writer.Write(Type);
-            writer.WriteBE(AutoCloseDelay);
+            writer.WriteInt(AutoCloseDelay);
             writer.WritePintoString(Title, 32);
             writer.WritePintoString(Body, 1024);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleNotificationPacket(this);
+            return 1 + 4 + 32 + 1024;
         }
 
         public int GetID()

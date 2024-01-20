@@ -1,7 +1,6 @@
 ﻿using PintoNS.Calls;
 using PintoNS.Contacts;
 using PintoNS.Forms;
-using PintoNS.Networking;
 using PintoNS.Scripting;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PintoNS.UI;
+using PintoNS.Networking;
 
 namespace PintoNS
 {
@@ -27,10 +27,8 @@ namespace PintoNS
         public InWindowPopupController InWindowPopupController;
         public PopupController PopupController;
         public List<MessageForm> MessageForms;
-        public NetworkManager NetManager;
+        public NetClientHandler NetHandler;
         internal Thread loginPacketCheckThread;
-        private bool serverHasRules;
-        private bool serverHasWelcome;
         public CallStatus CurrentCallStatus = CallStatus.ENDED;
 
         public MainForm()
@@ -154,8 +152,6 @@ namespace PintoNS
             tsmiMenuBarFileChangeStatus.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
             Text = "Pinto! Beta";
-            serverHasRules = false;
-            serverHasWelcome = false;
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -244,29 +240,30 @@ namespace PintoNS
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(LocalUser.Status);
             niTray.Text = $"Pinto! Beta - " + (isOnline ? $"{LocalUser.Name} - " +
-                $"{User.StatusToText(LocalUser.Status)}" : "Not logged in");
+                $"{User.StatusToText(LocalUser.Status)}" : 
+                LocalUser.Status == UserStatus.CONNECTING ? "Connecting..." : "Not logged in");
             tsmiTrayChangeStatus.Enabled = isOnline;
         }
 
         public void ConnectCached(string ip, int port, string username, string password)
         {
-            Program.Console.WriteMessage($"[Networking] Cache connecting at {ip}:{port} as {username}...");
-            LocalUser.Name = username;
-            NetManager = new NetworkManager(this, true, ip, port, username, password);
-            NetManager.ScheduleConnecting();
+            //Program.Console.WriteMessage($"[Networking] Cache connecting at {ip}:{port} as {username}...");
+            //LocalUser.Name = username;
+            //NetManager = new NetworkManager(this, true, ip, port, username, password);
+            //NetManager.ScheduleConnecting();
 
-            OnLogin();
-            SetConnectingState(true);
+            //OnLogin();
+            //SetConnectingState(true);
 
-            foreach (string contact in LastContacts.GetLastContacts())
-            {
-                ContactsMgr.AddContact(new Contact()
-                {
-                    Name = contact,
-                    MOTD = "",
-                    Status = UserStatus.CONNECTING
-                });
-            }
+            //foreach (string contact in LastContacts.GetLastContacts())
+            //{
+            //    ContactsMgr.AddContact(new Contact()
+            //    {
+            //        Name = contact,
+            //        MOTD = "",
+            //        Status = UserStatus.CONNECTING
+            //    });
+            //}
         }
 
         public async Task Connect(string ip, int port, string username, string password, bool register)
@@ -282,36 +279,36 @@ namespace PintoNS
                     lConnectingStatus.Text = status;
                 }));
             };
-            NetManager = new NetworkManager(this, false, ip, port, username, password);
 
-            Program.Console.WriteMessage($"[Networking] Connecting at {ip}:{port} as {username}...");
-            (bool, Exception) connectResult = await NetManager.Connect(ip, port, changeConnectionStatus);
-
-            if (!connectResult.Item1)
+            try 
             {
-                Disconnect();
-                lConnectingStatus.Text = "";
-                if (connectResult.Item2 != null && !(connectResult.Item2 is PintoVerificationException))
-                {
-                    Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {connectResult.Item2}");
-                    MsgBox.Show(this, $"Unable to connect to {ip}:{port}:" +
-                        $" {connectResult.Item2.Message}", "Connection Error", MsgBoxIconType.ERROR);
-                }
-                UsingPintoForm.SetHasLoggedIn(false);
-            }
-            else
-            {
+                Program.Console.WriteMessage($"[Networking] Connecting at {ip}:{port} as {username}...");
+                NetHandler = await NetClientHandlerFactory.Create(this, ip, port, changeConnectionStatus);
+                tNetUpdate.Start();
                 LocalUser.Name = username;
                 lConnectingStatus.Text = register ? "Registering..." : "Authenticating...";
+
                 if (!register)
-                    NetManager.Login();
+                    NetHandler.Login(username, password);
                 else
-                    NetManager.Register();
+                    NetHandler.Register(username, password);
 
                 if (loginPacketCheckThread != null)
                     loginPacketCheckThread.Abort();
 
                 StartLoginPacketCheckThread(ip, port);
+            }
+            catch (Exception ex) 
+            {
+                Disconnect();
+                lConnectingStatus.Text = "";
+                if (!(ex is PintoVerificationException))
+                {
+                    Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {ex}");
+                    MsgBox.Show(this, $"Unable to connect to {ip}:{port}: {ex.Message}", 
+                        "Connection Error", MsgBoxIconType.ERROR);
+                }
+                UsingPintoForm.SetHasLoggedIn(false);
             }
         }
 
@@ -323,9 +320,7 @@ namespace PintoNS
                 {
                     Thread.Sleep(5000);
 
-                    if (NetManager != null &&
-                        NetManager.NetHandler != null &&
-                        !NetManager.NetHandler.LoggedIn)
+                    if (NetHandler != null && !NetHandler.LoggedIn)
                     {
                         Invoke(new Action(() =>
                         {
@@ -346,17 +341,13 @@ namespace PintoNS
         public void Disconnect()
         {
             Program.Console.WriteMessage("[Networking] Disconnecting...");
-            bool wasLoggedIn = false;
+            bool wasLoggedIn = NetHandler != null ? NetHandler.LoggedIn : false;
 
-            if (NetManager != null)
-            {
-                wasLoggedIn = NetManager.NetHandler.LoggedIn;
-                NetManager.IsForceTermination = true;
-                if (NetManager.IsActive)
-                    NetManager.Disconnect("User requested disconnect");
-            }
+            tNetUpdate.Stop();
+            if (NetHandler != null)
+                NetHandler.Disconnect();
+            NetHandler = null;
 
-            NetManager = null;
             lConnectingStatus.Text = "";
             OnLogout(!wasLoggedIn);
         }
@@ -408,7 +399,7 @@ namespace PintoNS
                 await CheckForUpdates(false);
 
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
-            llLogin_LinkClicked(this, null);
+            //llLogin_LinkClicked(this, null);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -430,8 +421,8 @@ namespace PintoNS
             }
 
             Program.Console.WriteMessage("Quitting...");
-            bool wasLoggedIn = NetManager != null && NetManager.NetHandler.LoggedIn;
-            OnLogout(true);
+            bool wasLoggedIn = NetHandler != null && NetHandler.LoggedIn;
+            if (NetHandler != null) NetHandler.LoggedIn = false;
             Disconnect();
             InWindowPopupController.Dispose();
 
@@ -443,6 +434,8 @@ namespace PintoNS
                 {
                     new SoundPlayer(Sounds.LOGOUT).PlaySync();
                 })).Start();
+            else
+                Environment.Exit(0);
         }
 
         private void dgvContacts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -468,7 +461,7 @@ namespace PintoNS
 
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
         {
-            if (NetManager == null) return;
+            if (NetHandler == null) return;
             UsingPintoForm.SetHasLoggedIn(false);
             Disconnect();
         }
@@ -477,30 +470,30 @@ namespace PintoNS
 
         private void tsmiStatusBarStatusOnline_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.ONLINE, LocalUser.MOTD);
+            NetHandler.SendStatusChange(UserStatus.ONLINE, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusAway_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
-            NetManager.ChangeStatus(UserStatus.AWAY, LocalUser.MOTD);
+            NetHandler.SendStatusChange(UserStatus.AWAY, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusBusy_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
             InWindowPopupController.CreatePopup("You are now busy" +
                 ", this means that you will not receive any non-important popups", true);
-            NetManager.ChangeStatus(UserStatus.BUSY, LocalUser.MOTD);
+            NetHandler.SendStatusChange(UserStatus.BUSY, LocalUser.MOTD);
         }
 
         private void tsmiStatusBarStatusInvisible_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             Program.Console.WriteMessage("[General] Changing status...");
             MsgBox.Show(this, "If you choose to change your status to invisible," +
                 " you will no longer be able to receive/send messages. Are you sure you want to continue?",
@@ -508,27 +501,27 @@ namespace PintoNS
                 MsgBoxIconType.WARNING, false, true, (MsgBoxButtonType button) =>
             {
                 if (button == MsgBoxButtonType.YES)
-                    NetManager.ChangeStatus(UserStatus.INVISIBLE, LocalUser.MOTD);
+                    NetHandler.SendStatusChange(UserStatus.INVISIBLE, LocalUser.MOTD);
             });
         }
 
         private void tsmiMenuBarToolsAddContact_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             AddContactForm addContactForm = new AddContactForm(this);
             addContactForm.ShowDialog(this);
         }
 
         private void tsmiMenuBarToolsRemoveContact_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             if (dgvContacts.SelectedRows.Count < 1)
             {
                 MsgBox.Show(this, "You have not selected any contact!", "Error", MsgBoxIconType.ERROR);
                 return;
             }
             string contactName = ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index);
-            NetManager.NetHandler.SendRemoveContactPacket(contactName);
+            NetHandler.RemoveContact(contactName);
         }
 
         private void dgvContacts_SelectionChanged(object sender, EventArgs e)
@@ -550,14 +543,14 @@ namespace PintoNS
 
         private void btnStartCall_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected || NetManager.InCall) return;
-            NetManager.StartCall(ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index));
+            //if (NetHandler == null || NetHandler.InCall) return;
+            //NetHandler.StartCall(ContactsMgr.GetContactNameFromRow(dgvContacts.SelectedRows[0].Index));
         }
 
         private void btnEndCall_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
-            NetManager.EndCall();
+            //if (NetHandler == null) return;
+            //NetHandler.EndCall();
         }
 
         private void tsmiMenuBarHelpToggleConsole_Click(object sender, EventArgs e)
@@ -697,15 +690,15 @@ namespace PintoNS
             startTalking.Enabled = false;
             startTalking.Click += new EventHandler((object sender2, EventArgs e2) =>
             {
-                if (NetManager == null || NetManager.InCall) return;
-                string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
-                NetManager.StartCall(contactName);
+                //if (NetHandler == null || NetHandler.InCall) return;
+                //string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
+                //NetHandler.StartCall(contactName);
             });
 
             removeContact.Click += new EventHandler((object sender2, EventArgs e2) =>
             {
                 string contactName = ContactsMgr.GetContactNameFromRow(e.RowIndex);
-                NetManager.NetHandler.SendRemoveContactPacket(contactName);
+                NetHandler.RemoveContact(contactName);
             });
 
             contextMenu.Items.Add(startMessaging);
@@ -716,17 +709,17 @@ namespace PintoNS
 
         private void tsddbStatusBarMOTD_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             ChangeMOTDForm changeMOTDForm = new ChangeMOTDForm(this);
             changeMOTDForm.ShowDialog(this);
         }
 
         private void tsmiMenuBarToolsServerInfo_Click(object sender, EventArgs e)
         {
-            if (NetManager == null || !NetManager.IsConnected) return;
+            if (NetHandler == null) return;
             ServerInfoForm form = new ServerInfoForm();
-            form.lInfo.Text = string.Format(form.lInfo.Text, NetManager.NetHandler.ServerID,
-                NetManager.NetHandler.ServerSoftware);
+            form.lInfo.Text = string.Format(form.lInfo.Text, NetHandler.ServerID,
+                NetHandler.ServerSoftware);
             form.Show();
             form.MoveCenteredToWindow(this);
         }
@@ -735,6 +728,12 @@ namespace PintoNS
         {
             ScriptsViewerForm form = new ScriptsViewerForm();
             form.Show();
+        }
+
+        private void tNetUpdate_Tick(object sender, EventArgs e)
+        {
+            if (NetHandler == null) return;
+            NetHandler.OnUpdate();
         }
     }
 }

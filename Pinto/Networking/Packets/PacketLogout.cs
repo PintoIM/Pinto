@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketLogout : IPacket
     {
@@ -23,9 +23,9 @@ namespace PintoNS.Networking
             writer.WritePintoString(Reason, 256);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleLogoutPacket(this);
+            return 256;
         }
 
         public int GetID()

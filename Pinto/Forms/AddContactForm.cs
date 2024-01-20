@@ -24,8 +24,8 @@ namespace PintoNS.Forms
             }
 
             Close();
-            if (mainForm.NetManager != null)
-                mainForm.NetManager.NetHandler.SendAddContactPacket(txtContactName.Text);
+            if (mainForm.NetHandler != null)
+                mainForm.NetHandler.AddContact(txtContactName.Text);
         }
 
         private void txtContactName_KeyDown(object sender, KeyEventArgs e)

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketTyping : IPacket
     {
@@ -17,19 +17,19 @@ namespace PintoNS.Networking
 
         public void Read(BinaryReader reader)
         {
-            ContactName = reader.ReadPintoString(BinaryWriterReaderExtensions.USERNAME_MAX);
+            ContactName = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
             State = reader.ReadByte() == 0x01;
         }
 
         public void Write(BinaryWriter writer)
         {
-            writer.WritePintoString(ContactName, BinaryWriterReaderExtensions.USERNAME_MAX);
+            writer.WritePintoString(ContactName, NetBaseHandler.USERNAME_MAX);
             writer.Write(State ? 0x01 : 0x00);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleTypingPacket(this);
+            return NetBaseHandler.USERNAME_MAX + 1;
         }
 
         public int GetID()

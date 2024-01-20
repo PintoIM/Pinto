@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketServerInfo : IPacket
     {
@@ -27,9 +27,9 @@ namespace PintoNS.Networking
             writer.WritePintoString(ServerSoftware, 128);
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleServerInfoPacket(this);
+            return 36 + 128;
         }
 
         public int GetID()

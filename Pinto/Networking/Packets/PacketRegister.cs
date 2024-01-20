@@ -1,17 +1,47 @@
-﻿namespace PintoNS.Networking
+﻿using System.IO;
+
+namespace PintoNS.Networking.Packets
 {
-    public class PacketRegister : PacketLogin
+    public class PacketRegister : IPacket
     {
-        public PacketRegister() : base() { }
+        public byte ProtocolVersion { get; protected set; }
+        public string ClientVersion { get; protected set; }
+        public string Name { get; protected set; }
+        public string PasswordHash { get; protected set; }
+
+        public PacketRegister() { }
 
         public PacketRegister(byte protocolVersion, string clientVersion,
-            string name, string passwordHash) : base(protocolVersion, clientVersion, name, passwordHash) { }
-
-        public override void Handle(NetworkHandler netHandler)
+            string name, string passwordHash)
         {
+            ProtocolVersion = protocolVersion;
+            ClientVersion = clientVersion;
+            Name = name;
+            PasswordHash = passwordHash;
         }
 
-        public override int GetID()
+        public void Read(BinaryReader reader)
+        {
+            ProtocolVersion = reader.ReadByte();
+            ClientVersion = reader.ReadPintoString(32);
+            Name = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
+            PasswordHash = reader.ReadPintoString(64);
+        }
+
+        public void Write(BinaryWriter writer)
+        {
+            writer.Write(ProtocolVersion);
+            writer.WritePintoString(ClientVersion, 32);
+            writer.WritePintoString(Name, NetBaseHandler.USERNAME_MAX);
+            writer.WritePintoString(PasswordHash, 64);
+        }
+
+        public int GetPacketSize()
+        {
+            return 1 + 32 + NetBaseHandler.USERNAME_MAX + 64;
+        }
+
+        public virtual int GetID()
         {
             return 1;
         }

@@ -33,13 +33,7 @@ namespace PintoNS.Forms
             Receiver = receiver;
             InWindowPopupController = new InWindowPopupController(this, 25);
 
-            if (!mainForm.NetManager.IsConnected)
-            {
-                Program.Console.WriteMessage("[General] Not loading the chat as we aren't connected");
-                return;
-            }
-
-            if (mainForm.NetManager.NetHandler.ServerID == null)
+            if (mainForm.NetHandler.ServerID == null)
             {
                 MsgBox.Show(this,
                     "The server has not yet sent it's server ID," +
@@ -49,9 +43,9 @@ namespace PintoNS.Forms
             }
 
             if (!Directory.Exists(Path.Combine(Program.DataFolder,
-                "chats", mainForm.LocalUser.Name, mainForm.NetManager.NetHandler.ServerID)))
+                "chats", mainForm.LocalUser.Name, mainForm.NetHandler.ServerID)))
                 Directory.CreateDirectory(Path.Combine(Program.DataFolder,
-                    "chats", mainForm.LocalUser.Name, mainForm.NetManager.NetHandler.ServerID));
+                    "chats", mainForm.LocalUser.Name, mainForm.NetHandler.ServerID));
 
             LoadChat();
         }
@@ -62,7 +56,7 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.LocalUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
+                    mainForm.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 if (!File.Exists(filePath)) return;
                 rtxtMessages.Rtf = File.ReadAllText(filePath);
             }
@@ -78,17 +72,11 @@ namespace PintoNS.Forms
 
         private void SaveChat()
         {
-            if (!mainForm.NetManager.IsConnected)
-            {
-                Program.Console.WriteMessage("[General] Not saving the chat as we aren't connected");
-                return;
-            }
-
             Program.Console.WriteMessage("[General] Saving chat...");
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.LocalUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
+                    mainForm.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 File.WriteAllText(filePath, rtxtMessages.Rtf);
             }
             catch (Exception ex)
@@ -107,7 +95,7 @@ namespace PintoNS.Forms
             try
             {
                 string filePath = Path.Combine(Program.DataFolder, "chats", mainForm.LocalUser.Name,
-                    mainForm.NetManager.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
+                    mainForm.NetHandler.ServerID, $"{Receiver.Name.Replace(":", "%3A")}.rtf");
                 if (!File.Exists(filePath)) return;
                 File.Delete(filePath);
             }
@@ -239,19 +227,19 @@ namespace PintoNS.Forms
             else
                 btnSend.Enabled = true;
 
-            if (mainForm.NetManager == null) return;
+            if (mainForm.NetHandler == null) return;
 
             if (!Settings.NoTypingIndicator)
             {
                 if (!string.IsNullOrWhiteSpace(text) && !isTypingLastStatus)
                 {
                     isTypingLastStatus = true;
-                    mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, true);
+                    mainForm.NetHandler.ChangeTypingState(Receiver.Name, true);
                 }
                 else if (string.IsNullOrWhiteSpace(text) && isTypingLastStatus)
                 {
                     isTypingLastStatus = false;
-                    mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
+                    mainForm.NetHandler.ChangeTypingState(Receiver.Name, false);
                 }
             }
         }
@@ -274,8 +262,8 @@ namespace PintoNS.Forms
             }
 
             rtxtInput.Clear();
-            if (mainForm.NetManager != null)
-                mainForm.NetManager.NetHandler.SendMessagePacket(Receiver.Name, input);
+            if (mainForm.NetHandler != null)
+                mainForm.NetHandler.MessageContact(Receiver.Name, input);
             rateLimitTicks = 12;
         }
 
@@ -283,7 +271,7 @@ namespace PintoNS.Forms
         {
             if (mainForm.MessageForms != null)
                 mainForm.MessageForms.Remove(this);
-            mainForm.NetManager.NetHandler.SendTypingPacket(Receiver.Name, false);
+            mainForm.NetHandler.ChangeTypingState(Receiver.Name, false);
             InWindowPopupController.Dispose();
             SaveChat();
         }
@@ -294,8 +282,8 @@ namespace PintoNS.Forms
 
         private void btnTalk_Click(object sender, EventArgs e)
         {
-            if (mainForm.NetManager == null || mainForm.NetManager.InCall) return;
-            mainForm.NetManager.StartCall(Receiver.Name);
+            //if (mainForm.NetHandler == null || mainForm.NetHandler.InCall) return;
+            //mainForm.NetHandler.StartCall(Receiver.Name);
         }
 
         private void btnBlock_Click(object sender, EventArgs e)

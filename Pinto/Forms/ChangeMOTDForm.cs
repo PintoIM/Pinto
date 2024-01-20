@@ -18,8 +18,8 @@ namespace PintoNS.Forms
         {
             string motd = txtMOTD.Text.Trim();
             Close();
-            if (mainForm.NetManager != null)
-                mainForm.NetManager.NetHandler.SendStatusPacket(mainForm.LocalUser.Status, motd);
+            if (mainForm.NetHandler != null)
+                mainForm.NetHandler.SendStatusChange(mainForm.LocalUser.Status, motd);
         }
 
         private void txtMOTD_KeyDown(object sender, KeyEventArgs e)

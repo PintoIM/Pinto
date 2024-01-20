@@ -5,17 +5,27 @@ using System.Text;
 
 namespace PintoNS.Networking
 {
-    public static class BinaryWriterReaderExtensions
+    public static class NetExtensions
     {
         [Obsolete("Networking is about to be re-written")]
         public const int USERNAME_MAX = 16;
 
-        public static void WriteBE(this BinaryWriter writer, short value)
+        public static void WriteBytes(this BufferedStream stream, byte[] bytes)
+        {
+            stream.Write(bytes, 0, bytes.Length);
+        }
+
+        public static void WriteBytes(this BinaryWriter writer, byte[] bytes)
+        {
+            writer.Write(bytes, 0, bytes.Length);
+        }
+
+        public static void WriteShort(this BinaryWriter writer, short value)
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
 
-        public static void WriteBE(this BinaryWriter writer, int value)
+        public static void WriteInt(this BinaryWriter writer, int value)
         {
             writer.Write(IPAddress.HostToNetworkOrder(value));
         }
@@ -26,7 +36,7 @@ namespace PintoNS.Networking
                 str = str.Substring(0, maxLength);
             byte[] stringData = Encoding.BigEndianUnicode.GetBytes(str);
 
-            writer.WriteBE(stringData.Length);
+            writer.WriteInt(stringData.Length);
             if (stringData.Length < 1) return;
 
             writer.Write(stringData);

@@ -1,81 +1,62 @@
-﻿using PintoNS.Calls;
-using PintoNS.Contacts;
+﻿using PintoNS.Contacts;
 using PintoNS.Forms;
+using PintoNS.Networking.Packets;
 using PintoNS.UI;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Media;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {
-    [Obsolete("Networking is about to be re-written")]
-    public class NetworkHandler
+    internal class NetClientPacketsHandler
     {
-        private MainForm mainForm;
-        private NetworkClient networkClient;
-        public bool LoggedIn;
-        public string ServerID;
-        public string ServerSoftware;
+        private MainForm instance;
+        private NetClientHandler netHandler;
 
-        public NetworkHandler(MainForm mainForm, NetworkClient networkClient)
+        public NetClientPacketsHandler(MainForm instance, NetClientHandler netHandler)
         {
-            this.mainForm = mainForm;
-            this.networkClient = networkClient;
-        }
-
-        public void HandlePacket(IPacket packet)
-        {
-            if (!(packet is PacketKeepAlive))
-                Program.Console.WriteMessage($"[Networking] Received packet {packet.GetType().Name.ToUpper()}" +
-                $" ({packet.GetID()})");
-            packet.Handle(this);
+            this.instance = instance;
+            this.netHandler = netHandler;
         }
 
         public void HandleLoginPacket(PacketLogin packet)
         {
-            LoggedIn = true;
-            mainForm.NetManager.IsConnected = true;
-
-            mainForm.Invoke(new Action(() =>
+            netHandler.LoggedIn = true;
+            instance.Invoke(new Action(() =>
             {
-                if (mainForm.NetManager.WasLoggedInOnce || mainForm.NetManager.IsCached)
-                {
-                    mainForm.SetConnectingState(false);
-                    return;
-                }
-                mainForm.NetManager.WasLoggedInOnce = true;
-
-                UsingPintoForm.SetHasLoggedIn(true);
-                mainForm.OnLogin();
+                //UsingPintoForm.SetHasLoggedIn(true);
+                instance.OnLogin();
             }));
         }
 
         public void HandleServerInfoPacket(PacketServerInfo packet)
         {
-            ServerID = packet.ServerID;
-            ServerSoftware = packet.ServerSoftware;
-            Program.Console.WriteMessage($"[Networking] The ID of the server is {ServerID}");
-            Program.Console.WriteMessage($"[Networking] Server software: {ServerSoftware}");
+            netHandler.ServerID = packet.ServerID;
+            netHandler.ServerSoftware = packet.ServerSoftware;
+            Program.Console.WriteMessage($"[Networking] The ID of the server is {netHandler.ServerID}");
+            Program.Console.WriteMessage($"[Networking] Server software: {netHandler.ServerSoftware}");
         }
 
         public void HandleLogoutPacket(PacketLogout packet)
         {
-            mainForm.NetManager.IsActive = false;
             Program.Console.WriteMessage($"[Networking] Kicked by the server: {packet.Reason.Replace("\n", "\\n")}");
-            networkClient.Disconnect($"Kicked by the server -> {packet.Reason.Replace("\n", "\\n")}");
-            mainForm.Invoke(new Action(() =>
+            netHandler.NetManager.Shutdown($"Kicked by the server");
+            instance.Invoke(new Action(() =>
             {
-                UsingPintoForm.SetHasLoggedIn(false);
-                MsgBox.Show(mainForm, packet.Reason, "Kicked by the server",
+                //UsingPintoForm.SetHasLoggedIn(false);
+                MsgBox.Show(instance, packet.Reason, "Kicked by the server",
                     MsgBoxIconType.WARNING, true);
             }));
         }
 
         public void HandleMessagePacket(PacketMessage packet)
         {
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                MessageForm messageForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName);
+                MessageForm messageForm = instance.GetMessageFormFromReceiverName(packet.ContactName);
                 if (messageForm == null)
                 {
                     Program.Console.WriteMessage($"[Networking]" +
@@ -86,7 +67,7 @@ namespace PintoNS.Networking
                 if (packet.Sender.Trim().Length > 0)
                 {
                     messageForm.WriteMessage($"{packet.Sender}",
-                        packet.Sender == mainForm.LocalUser.Name ?
+                        packet.Sender == instance.LocalUser.Name ?
                             MessageForm.MsgSelfSenderColor : MessageForm.MsgOtherSenderColor, false);
                     messageForm.WriteMessage($" - ", MessageForm.MsgSeparatorColor, false);
                     messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
@@ -99,10 +80,10 @@ namespace PintoNS.Networking
 
                 if (Form.ActiveForm != messageForm &&
                     !messageForm.HasBeenInactive &&
-                    mainForm.LocalUser.Status != UserStatus.BUSY)
+                    instance.LocalUser.Status != UserStatus.BUSY)
                 {
                     messageForm.HasBeenInactive = true;
-                    mainForm.PopupController.CreatePopup($"Received a new message from {packet.ContactName}!",
+                    instance.PopupController.CreatePopup($"Received a new message from {packet.ContactName}!",
                         "New message");
                     new SoundPlayer() { Stream = Sounds.IM }.Play();
                 }
@@ -111,18 +92,18 @@ namespace PintoNS.Networking
 
         public void HandleNotificationPacket(PacketNotification packet)
         {
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
                 switch (packet.Type)
                 {
                     case 0:
-                        mainForm.InWindowPopupController.CreatePopup(packet.Body, false, packet.AutoCloseDelay);
+                        instance.InWindowPopupController.CreatePopup(packet.Body, false, packet.AutoCloseDelay);
                         break;
                     case 1:
-                        mainForm.InWindowPopupController.CreatePopup(packet.Body, true, packet.AutoCloseDelay);
+                        instance.InWindowPopupController.CreatePopup(packet.Body, true, packet.AutoCloseDelay);
                         break;
                     case 2:
-                        mainForm.PopupController.CreatePopup(packet.Body, packet.Title, packet.AutoCloseDelay);
+                        instance.PopupController.CreatePopup(packet.Body, packet.Title, packet.AutoCloseDelay);
                         break;
                 }
             }));
@@ -131,9 +112,9 @@ namespace PintoNS.Networking
         public void HandleAddContactPacket(PacketAddContact packet)
         {
             Program.Console.WriteMessage($"[Contacts] Adding {packet.ContactName} to the contact list...");
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                ContactsManager contactsMgr = mainForm.ContactsMgr;
+                ContactsManager contactsMgr = instance.ContactsMgr;
                 if (contactsMgr == null) return;
                 contactsMgr.AddContact(new Contact()
                 {
@@ -141,7 +122,7 @@ namespace PintoNS.Networking
                     Status = packet.Status,
                     MOTD = packet.MOTD
                 });
-                mainForm.UpdateOnlineContacts();
+                instance.UpdateOnlineContacts();
                 LastContacts.AddToLastContacts(packet.ContactName);
             }));
         }
@@ -149,12 +130,12 @@ namespace PintoNS.Networking
         public void HandleRemoveContactPacket(PacketRemoveContact packet)
         {
             Program.Console.WriteMessage($"[Contacts] Removing {packet.ContactName} from the contact list...");
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                ContactsManager contactsMgr = mainForm.ContactsMgr;
+                ContactsManager contactsMgr = instance.ContactsMgr;
                 if (contactsMgr == null) return;
                 contactsMgr.RemoveContact(contactsMgr.GetContact(packet.ContactName));
-                mainForm.UpdateOnlineContacts();
+                instance.UpdateOnlineContacts();
                 LastContacts.RemoveFromLastContacts(packet.ContactName);
             }));
         }
@@ -165,13 +146,13 @@ namespace PintoNS.Networking
                 $"[General] Status change: " +
                 $"{(string.IsNullOrWhiteSpace(packet.ContactName) ? "SELF" : packet.ContactName)} -> {packet.Status}");
 
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
                 if (string.IsNullOrWhiteSpace(packet.ContactName))
-                    mainForm.OnStatusChange(packet.Status, packet.MOTD);
+                    instance.OnStatusChange(packet.Status, packet.MOTD);
                 else
                 {
-                    Contact contact = mainForm.ContactsMgr.GetContact(packet.ContactName);
+                    Contact contact = instance.ContactsMgr.GetContact(packet.ContactName);
 
                     if (contact == null)
                     {
@@ -180,19 +161,19 @@ namespace PintoNS.Networking
                         return;
                     }
 
-                    if (mainForm.LocalUser.Status != UserStatus.BUSY)
+                    if (instance.LocalUser.Status != UserStatus.BUSY)
                     {
                         if (packet.Status == UserStatus.OFFLINE &&
                             contact.Status != UserStatus.OFFLINE)
                         {
-                            mainForm.PopupController.CreatePopup($"{packet.ContactName} is now offline",
+                            instance.PopupController.CreatePopup($"{packet.ContactName} is now offline",
                                 "Status change");
                             new SoundPlayer() { Stream = Sounds.OFFLINE }.Play();
                         }
                         else if (packet.Status != UserStatus.OFFLINE &&
                             contact.Status == UserStatus.OFFLINE)
                         {
-                            mainForm.PopupController.CreatePopup($"{packet.ContactName} is now online",
+                            instance.PopupController.CreatePopup($"{packet.ContactName} is now online",
                                 "Status change");
                             new SoundPlayer() { Stream = Sounds.ONLINE }.Play();
                         }
@@ -203,20 +184,20 @@ namespace PintoNS.Networking
                         (packet.Status == UserStatus.AWAY &&
                         contact.Status != UserStatus.AWAY))
                     {
-                        MessageForm msgForm = mainForm
+                        MessageForm msgForm = instance
                             .GetMessageFormFromReceiverName(packet.ContactName, true);
                         if (msgForm != null)
                             msgForm.InWindowPopupController.CreatePopup(
                                 $"{packet.ContactName} is now {packet.Status.ToString().ToLower()} and may not see your messages", true);
                     }
 
-                    mainForm.ContactsMgr.UpdateContact(new Contact()
+                    instance.ContactsMgr.UpdateContact(new Contact()
                     {
                         Name = packet.ContactName,
                         Status = packet.Status,
                         MOTD = packet.MOTD
                     });
-                    mainForm.UpdateOnlineContacts();
+                    instance.UpdateOnlineContacts();
                 }
             }));
         }
@@ -224,39 +205,39 @@ namespace PintoNS.Networking
         public void HandleContactRequestPacket(PacketContactRequest packet)
         {
             Program.Console.WriteMessage($"[Networking] Received contact request from {packet.ContactName}");
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                MsgBox.Show(mainForm,
+                MsgBox.Show(instance,
                     $"{packet.ContactName} wants to add you to their contact list. Proceed?", "Contact request",
                     MsgBoxIconType.QUESTION, true, true,
                     (MsgBoxButtonType button) =>
                     {
-                        SendContactRequestPacket(packet.ContactName, button == MsgBoxButtonType.YES);
+                        netHandler.RespondContactRequest(packet.ContactName, button == MsgBoxButtonType.YES);
                     });
             }));
         }
 
-        public void HandleClearContactsPacket()
+        public void HandleClearContactsPacket(PacketClearContacts packet)
         {
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                mainForm.ContactsMgr.Clear();
-                mainForm.UpdateOnlineContacts();
+                instance.ContactsMgr.Clear();
+                instance.UpdateOnlineContacts();
                 LastContacts.ClearLastContacts();
             }));
         }
 
-        public void HandleKeepAlivePacket()
+        public void HandleKeepAlivePacket(PacketKeepAlive packet)
         {
-            networkClient.SendPacket(new PacketKeepAlive());
+            netHandler.SendPacket(new PacketKeepAlive());
         }
 
         public void HandleTypingPacket(PacketTyping packet)
         {
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                MessageForm msgForm = mainForm.GetMessageFormFromReceiverName(packet.ContactName, true);
+                MessageForm msgForm = instance.GetMessageFormFromReceiverName(packet.ContactName, true);
                 if (msgForm != null)
                     msgForm.SetReceiverTypingState(packet.State);
             }));
@@ -264,57 +245,10 @@ namespace PintoNS.Networking
 
         public void HandleCallChangeStatusPacket(PacketCallChangeStatus packet)
         {
-            mainForm.Invoke(new Action(() =>
+            instance.Invoke(new Action(() =>
             {
-                mainForm.NetManager.ChangeCallStatus(packet.CallStatus, packet.Details);
+                // TODO: Add this
             }));
-        }
-
-        public void SendLoginPacket(byte protocolVersion, string clientVersion,
-            string name, string sessionID)
-        {
-            networkClient.SendPacket(new PacketLogin(protocolVersion, clientVersion, name, sessionID));
-        }
-
-        public void SendRegisterPacket(byte protocolVersion, string clientVersion,
-            string name, string sessionID)
-        {
-            networkClient.SendPacket(new PacketRegister(protocolVersion, clientVersion, name, sessionID));
-        }
-
-        public void SendMessagePacket(string contactName, string message)
-        {
-            networkClient.SendPacket(new PacketMessage(contactName, message));
-        }
-
-        public void SendStatusPacket(UserStatus status, string motd)
-        {
-            networkClient.SendPacket(new PacketStatus("", status, motd));
-        }
-
-        public void SendContactRequestPacket(string name, bool approved)
-        {
-            networkClient.SendPacket(new PacketContactRequest($"{name}:{(approved ? "yes" : "no")}"));
-        }
-
-        public void SendAddContactPacket(string name)
-        {
-            networkClient.SendPacket(new PacketAddContact(name, UserStatus.OFFLINE, ""));
-        }
-
-        public void SendRemoveContactPacket(string name)
-        {
-            networkClient.SendPacket(new PacketRemoveContact(name));
-        }
-
-        public void SendTypingPacket(string contactName, bool state)
-        {
-            networkClient.SendPacket(new PacketTyping(contactName, state));
-        }
-
-        public void SendCallChangeStatusPacket(CallStatus callStatus, string details)
-        {
-            networkClient.SendPacket(new PacketCallChangeStatus(callStatus, details));
         }
     }
 }

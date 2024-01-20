@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PintoNS.Networking
+namespace PintoNS.Networking.Packets
 {
     public class PacketClearContacts : IPacket
     {
@@ -12,9 +12,9 @@ namespace PintoNS.Networking
         {
         }
 
-        public void Handle(NetworkHandler netHandler)
+        public int GetPacketSize()
         {
-            netHandler.HandleClearContactsPacket();
+            return 0;
         }
 
         public int GetID()
