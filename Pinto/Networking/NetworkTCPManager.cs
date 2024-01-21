@@ -159,16 +159,6 @@ namespace PintoNS.Networking
                 int headerPart2 = inputStream.ReadByte();
                 int headerPart3 = inputStream.ReadByte();
 
-                // C#'s BinaryReader throws an exception if reached the end
-                //if (headerPart0 == -1 ||
-                //    headerPart1 == -1 ||
-                //    headerPart2 == -1 ||
-                //    headerPart3 == -1)
-                //{
-                //    Shutdown("Server disconnect");
-                //    return;
-                //}
-
                 if (headerPart0 != 'P' ||
                     headerPart1 != 'M' ||
                     headerPart2 != 'S' ||
@@ -284,12 +274,9 @@ namespace PintoNS.Networking
             if (sendQueueByteLength > 0x100000) // A megabyte
                 Shutdown("Send buffer overflow");
 
-            if (readPackets.Count == 0) 
-            {
-                if (timeSinceLastRead++ == 600) // 30 seconds
-                    Shutdown("No packet read within 30 seconds");
-            }
-            else
+            if (readPackets.Count == 0 && timeSinceLastRead++ == 600) // 30 seconds
+                Shutdown("No packet read within 30 seconds");
+            else if (readPackets.Count > 0)
                 timeSinceLastRead = 0;
 
             int packetsLimit = 100;
