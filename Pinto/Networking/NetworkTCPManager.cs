@@ -286,7 +286,6 @@ namespace PintoNS.Networking
 
             if (readPackets.Count == 0) 
             {
-                Program.Console.WriteMessage($"{timeSinceLastRead}");
                 if (timeSinceLastRead++ == 600) // 30 seconds
                     Shutdown("No packet read within 30 seconds");
             }
