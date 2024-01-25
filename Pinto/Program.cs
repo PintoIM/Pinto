@@ -18,7 +18,7 @@ namespace PintoNS
         // Constants
         public static ConsoleForm Console;
         public const string VERSION_STRING = "b1.2";
-        public const byte PROTOCOL_VERSION = 10;
+        public const byte PROTOCOL_VERSION = 11;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
@@ -30,6 +30,7 @@ namespace PintoNS
         public static MainForm MainFrm;
         public static bool RunningOnLegacyPlatform;
         public static bool RunningUnderMono;
+        public static bool UseExRichTextBox;
 
         [STAThread]
         static void Main()
@@ -100,6 +101,10 @@ namespace PintoNS
                 RunningOnLegacyPlatform = true;
                 Console.WriteMessage($"[General] Running on a legacy platform (<= Windows XP)");
             }
+
+            // Load MsftEdit for RichEdit50W
+            UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
+            Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
 
             if (!Directory.Exists(DataFolder))
                 Directory.CreateDirectory(DataFolder);

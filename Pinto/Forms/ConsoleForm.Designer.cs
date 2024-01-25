@@ -39,7 +39,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtxtLog.BackColor = System.Drawing.Color.Black;
-            this.rtxtLog.ForeColor = System.Drawing.Color.Lime;
+            this.rtxtLog.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtLog.ForeColor = System.Drawing.Color.White;
             this.rtxtLog.Location = new System.Drawing.Point(10, 12);
             this.rtxtLog.Name = "rtxtLog";
             this.rtxtLog.ReadOnly = true;
@@ -53,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInput.Location = new System.Drawing.Point(10, 292);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(366, 22);
+            this.txtInput.Size = new System.Drawing.Size(366, 20);
             this.txtInput.TabIndex = 4;
             this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
             // 

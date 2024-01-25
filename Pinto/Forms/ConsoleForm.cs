@@ -6,6 +6,7 @@ namespace PintoNS.Forms
     public partial class ConsoleForm : Form
     {
         private const int SM_ITEM_CLEAR = 0x01;
+        private const int SM_RESET_ZOOM = 0x02;
 
         public ConsoleForm()
         {
@@ -15,20 +16,33 @@ namespace PintoNS.Forms
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
-            if (Program.RunningUnderMono) return;
+            if (Program.RunningUnderMono) 
+                return;
+
             IntPtr sysMenu = PInvoke.GetSystemMenu(Handle, false);
             PInvoke.AppendMenu(sysMenu, PInvoke.MF_SEPARATOR, 0x00, "");
             PInvoke.AppendMenu(sysMenu, PInvoke.MF_STRING, SM_ITEM_CLEAR, "&Clear Console");
+            PInvoke.AppendMenu(sysMenu, PInvoke.MF_STRING, SM_RESET_ZOOM, "R&eset zoom");
         }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            if (Program.RunningUnderMono) return;
-            if (m.Msg == PInvoke.WM_SYSCOMMAND &&
-                (int)m.WParam == SM_ITEM_CLEAR)
+            if (Program.RunningUnderMono) 
+                return;
+
+            if (m.Msg != PInvoke.WM_SYSCOMMAND)
+                return;
+
+            switch ((int)m.WParam) 
             {
-                rtxtLog.Clear();
+                case SM_ITEM_CLEAR:
+                    rtxtLog.Clear();
+                    break;
+                case SM_RESET_ZOOM:
+                    while (rtxtLog.ZoomFactor != 1.0F)
+                        rtxtLog.ZoomFactor = 1.0F;
+                    break;
             }
         }
 
