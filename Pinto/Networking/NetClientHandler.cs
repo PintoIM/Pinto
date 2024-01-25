@@ -33,10 +33,9 @@ namespace PintoNS.Networking
             this.instance = instance;
             NetManager = new NetworkTCPManager(tcpClient, "Network-Client", this);
             packetsHandler = new NetClientPacketsHandler(instance, this);
-            Handshake();
         }
 
-        public void Handshake()
+        internal void Handshake()
         {
             Program.Console.WriteMessage($"[Networking] Handshaking...");
             BinaryReader binaryReader = NetManager.GetInputStream();

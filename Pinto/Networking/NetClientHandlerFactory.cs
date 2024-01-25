@@ -26,7 +26,9 @@ namespace PintoNS.Networking
                 throw new PintoConnectionException("Timed out");
 
             changeConnectionStatus.Invoke("Handshaking...");
-            return new NetClientHandler(instance, tcpClient);
+            NetClientHandler netHandler = new NetClientHandler(instance, tcpClient);
+            await TaskEx.Run(() => netHandler.Handshake());
+            return netHandler;
         }
     }
 }
