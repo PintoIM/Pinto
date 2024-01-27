@@ -13,7 +13,7 @@ namespace PintoNS.UI.Controls
             {
                 CreateParams createParams = base.CreateParams;
 
-                if (!Program.RunningUnderMono && Program.UseExRichTextBox) 
+                if (Program.UseExRichTextBox) 
                     createParams.ClassName = "RichEdit50W";
 
                 return createParams;

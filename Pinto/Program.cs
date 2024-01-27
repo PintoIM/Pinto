@@ -10,6 +10,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace PintoNS
 {
@@ -29,10 +30,9 @@ namespace PintoNS
         // Main variables
         public static MainForm MainFrm;
         public static bool RunningOnLegacyPlatform;
-        public static bool RunningUnderMono;
         public static bool UseExRichTextBox;
 
-        private static bool PerformSanityChecks() 
+        private static void PerformSanityChecks() 
         {
             if (Path.GetFullPath(Assembly.GetEntryAssembly().Location).IndexOf(
                 Path.GetTempPath(), StringComparison.OrdinalIgnoreCase) == 0)
@@ -41,7 +41,8 @@ namespace PintoNS
                     $"This means you are running it inside your archiving software!{Environment.NewLine}" +
                     $"Make sure to extract Pinto! properly and try again!", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                Environment.Exit(1);
+                return;
             }
 
             foreach (AssemblyName assembly in Assembly.GetEntryAssembly().GetReferencedAssemblies())
@@ -56,7 +57,8 @@ namespace PintoNS
                     $"Either you misplaced Pinto!, or you are running it inside your archiving software!{Environment.NewLine}" +
                     $"Make sure to extract Pinto! properly and try again!", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                Environment.Exit(1);
+                return;
             }
 
             bool createdNew;
@@ -66,52 +68,48 @@ namespace PintoNS
             {
                 MessageBox.Show("Only one instance of Pinto! can run at the same time", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                Environment.Exit(1);
+                return;
             }
-
-            return true;
         }
 
         private static void PrepareForPlatform() 
         {
-            try
-            {
-                string wineVer = PInvoke.GetWineVersion();
-                Console.WriteMessage($"[General] Running under wine ({wineVer})");
-            }
-            catch { Console.WriteMessage("[General] Not running under wine"); }
+            string wineVersion = null;
+            try { wineVersion = PInvoke.GetWineVersion(); } catch { }
 
-            RunningUnderMono = Type.GetType("Mono.Runtime") != null;
-            if (RunningUnderMono)
-                Console.WriteMessage("[General] Running under mono");
+            if (wineVersion == null && Type.GetType("Mono.Runtime") != null)
+            {
+                MessageBox.Show($"Pinto! is not compatible with plain mono!{Environment.NewLine}" +
+                    $"Please use wine with wine-mono!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+                return;
+            }
+
+            Console = new ConsoleForm();
+            Console.Show();
+
+            if (wineVersion != null)
+                Console.WriteMessage($"[General] Running under wine ({wineVersion})");
             else
-                Console.WriteMessage("[General] Not running under mono");
+                Console.WriteMessage($"[General] Not running under wine");
 
-            if (!RunningUnderMono)
-            {
-                // Enable TLS 1.0, 1.1, 1.2
-                Version version = NETFrameworkVersion.GetVersion();
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol =
-                    version.Minor < 5 ? SecurityProtocolType.Tls :
-                    // 768 = TLS 1.1
-                    // 3072 = TLS 1.2
-                    // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
-                    SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
-                Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
-                Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
+            // Enable TLS 1.0, 1.1, 1.2
+            Version version = NETFrameworkVersion.GetVersion();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol =
+                version.Minor < 5 ? SecurityProtocolType.Tls :
+                // 768 = TLS 1.1
+                // 3072 = TLS 1.2
+                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
+                SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+            Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
+            Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
 
-                // Load MsftEdit for RichEdit50W
-                UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
-                Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
-            }
-            else
-            {
-                Console.WriteMessage("[General] .NET Framework runtime version: N/A (running on mono)");
-                Console.WriteMessage($"[General] Security protocol: N/A (running on mono)");
-                Console.WriteMessage($"[General] Can't load MsftEdit for RichEdit50W (running on mono)");
-            }
-
+            // Load MsftEdit for RichEdit50W
+            UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
+            Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
             Console.WriteMessage($"[General] Operating system: {Environment.OSVersion.Platform}" +
                 $" ({Environment.OSVersion.VersionString})");
 
@@ -125,17 +123,13 @@ namespace PintoNS
         [STAThread]
         static void Main()
         {
-            if (!PerformSanityChecks()) return;
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            Console = new ConsoleForm();
-            Console.Show();
+            PerformSanityChecks();
             PrepareForPlatform();
 
             if (!Directory.Exists(DataFolder))

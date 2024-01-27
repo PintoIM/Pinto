@@ -359,10 +359,9 @@ namespace PintoNS.Forms
 
         protected override void WndProc(ref Message message)
         {
-            if (!Program.RunningUnderMono)
-                if (message.Msg == PInvoke.WM_SYSCOMMAND &&
-                    (int)message.WParam == PInvoke.SC_RESTORE)
-                    Invalidate();
+            if (message.Msg == PInvoke.WM_SYSCOMMAND &&
+                (int)message.WParam == PInvoke.SC_RESTORE)
+                Invalidate();
 
             base.WndProc(ref message);
         }
