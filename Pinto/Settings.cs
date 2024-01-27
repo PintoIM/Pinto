@@ -53,6 +53,13 @@ namespace PintoNS
             " Pinto! will no longer load your scripts." +
             " A restart is required for this option to take effect.")]
         public static bool NoLoadScripts = false;
+
+        [OptionsDisplay(DisplayName = "Alter networking to improve performance" +
+            " (may not work on older systems) (reconnect required)",
+            Category = "General", HelpInfo = "When this is enabled," +
+            " Pinto! will set the TypeOfService field in the IP header to improve networking performance." +
+            " This option breaks networking on older systems, so disable it if you encounter issues")]
+        public static bool SpecifySocketTOS = false;
         #endregion
         #region Privacy
         [OptionsDisplay(DisplayName = "Do not show that I am typing to others", Category = "Privacy",

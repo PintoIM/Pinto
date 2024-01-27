@@ -32,9 +32,33 @@ namespace PintoNS
         public static bool RunningUnderMono;
         public static bool UseExRichTextBox;
 
-        [STAThread]
-        static void Main()
+        private static bool PerformSanityChecks() 
         {
+            if (Path.GetFullPath(Assembly.GetEntryAssembly().Location).IndexOf(
+                Path.GetTempPath(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                MessageBox.Show($"Pinto! is running from a temporary directory!{Environment.NewLine}" +
+                    $"This means you are running it inside your archiving software!{Environment.NewLine}" +
+                    $"Make sure to extract Pinto! properly and try again!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            foreach (AssemblyName assembly in Assembly.GetEntryAssembly().GetReferencedAssemblies())
+            {
+                string name = assembly.Name;
+                string fileName = $"{name}.dll";
+
+                if (name == "mscorlib" || name == "System.Core") continue;
+                if (File.Exists(fileName)) continue;
+
+                MessageBox.Show($"Pinto was unable to find the required component {fileName}!{Environment.NewLine}" +
+                    $"Either you misplaced Pinto!, or you are running it inside your archiving software!{Environment.NewLine}" +
+                    $"Make sure to extract Pinto! properly and try again!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             bool createdNew;
             Mutex mutex = new Mutex(true, "PintoIM/Pinto", out createdNew);
 
@@ -42,23 +66,14 @@ namespace PintoNS
             {
                 MessageBox.Show("Only one instance of Pinto! can run at the same time", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
-            // Enable visual styles
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            return true;
+        }
 
-            // Unhandled exception handler
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-            Application.ThreadException += Application_ThreadException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
-            // Setup console
-            Console = new ConsoleForm();
-            Console.Show();
-
-            // Detect what runtime we are being ran under
+        private static void PrepareForPlatform() 
+        {
             try
             {
                 string wineVer = PInvoke.GetWineVersion();
@@ -85,14 +100,18 @@ namespace PintoNS
                     SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
                 Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
                 Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
+
+                // Load MsftEdit for RichEdit50W
+                UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
+                Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
             }
             else
             {
                 Console.WriteMessage("[General] .NET Framework runtime version: N/A (running on mono)");
                 Console.WriteMessage($"[General] Security protocol: N/A (running on mono)");
+                Console.WriteMessage($"[General] Can't load MsftEdit for RichEdit50W (running on mono)");
             }
 
-            // Print the operating system information
             Console.WriteMessage($"[General] Operating system: {Environment.OSVersion.Platform}" +
                 $" ({Environment.OSVersion.VersionString})");
 
@@ -101,10 +120,23 @@ namespace PintoNS
                 RunningOnLegacyPlatform = true;
                 Console.WriteMessage($"[General] Running on a legacy platform (<= Windows XP)");
             }
+        }
 
-            // Load MsftEdit for RichEdit50W
-            UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
-            Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
+        [STAThread]
+        static void Main()
+        {
+            if (!PerformSanityChecks()) return;
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            Console = new ConsoleForm();
+            Console.Show();
+            PrepareForPlatform();
 
             if (!Directory.Exists(DataFolder))
                 Directory.CreateDirectory(DataFolder);
@@ -115,21 +147,17 @@ namespace PintoNS
             if (!Directory.Exists(Path.Combine(DataFolder, "scripts", "settings")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "scripts", "settings"));
 
-            // Load the settings
             Console.WriteMessage("[General] Loading the settings");
             Settings.Import(SettingsFile);
 
-            // Create the main form
             MainFrm = new MainForm();
             MainFrm.Focus();
 
             if (!Settings.NoLoadScripts)
-                // Loads all the scripts
                 LoadScripts(MainFrm);
             else
                 Console.WriteMessage("[Scripting] Loading of scripts is disabled!");
 
-            // Start Pinto!
             Application.Run(MainFrm);
         }
 
@@ -189,29 +217,6 @@ namespace PintoNS
             fatalErrorForm.rtxtLog.Text = $"{ex}";
             fatalErrorForm.ShowDialog();
             Environment.Exit(0);
-        }
-
-        public static IEnumerable<string> SplitStringIntoChunks(string str, int chunkSize)
-        {
-            for (int i = 0; i < str.Length; i += chunkSize)
-                yield return str.Substring(i, Math.Min(chunkSize, str.Length - i));
-        }
-
-        public static string FirstLetterToUpper(string str)
-        {
-            if (str == null)
-                return null;
-
-            if (str.Length > 1)
-                return char.ToUpper(str[0]) + str.Substring(1);
-
-            return str.ToUpper();
-        }
-
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict,
-            TKey key, TValue @default)
-        {
-            return dict.TryGetValue(key, out var value) ? value : @default;
         }
     }
 }

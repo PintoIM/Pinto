@@ -40,7 +40,8 @@ namespace PintoNS.Networking
             
             this.tcpClient = tcpClient;
             this.netHandler = netHandler;
-            tcpClient.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.TypeOfService, 24); // IPTOS_THROUGHPUT + IPTOS_LOWDELAY
+            if (Settings.SpecifySocketTOS)
+                tcpClient.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.TypeOfService, 24); // IPTOS_THROUGHPUT + IPTOS_LOWDELAY
             inputStream = new BinaryReader(tcpClient.GetStream());
             outputStream = new BinaryWriter(tcpClient.GetStream());
             address = new NetworkAddress(tcpClient.Client);

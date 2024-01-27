@@ -55,11 +55,11 @@ namespace PintoNS.Forms
             this.btnBlock = new System.Windows.Forms.Button();
             this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new ExRichTextBox();
+            this.rtxtMessages = new PintoNS.UI.Controls.ExRichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
-            this.rtxtInput = new ExRichTextBox();
+            this.rtxtInput = new PintoNS.UI.Controls.ExRichTextBox();
             this.btnMoreFontOptions = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();

@@ -133,7 +133,6 @@ namespace PintoNS.Networking
             Username = username;
             SendPacket(new PacketLogin(Program.PROTOCOL_VERSION, Program.VERSION_STRING, 
                 username, GetPasswordHash(password)));
-
         }
 
         public void Register(string username, string password)

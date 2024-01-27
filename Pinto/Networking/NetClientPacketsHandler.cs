@@ -73,10 +73,10 @@ namespace PintoNS.Networking
                     messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
                         MessageForm.MsgTimeColor, false);
                     messageForm.WriteMessage($":", MessageForm.MsgSeparatorColor);
-                    messageForm.WriteMessage($"  {packet.Message}", MessageForm.MsgContentColor);
+                    messageForm.WriteMessage($"  {packet.Payload}", MessageForm.MsgContentColor);
                 }
                 else
-                    messageForm.WriteMessage($"{packet.Message}", MessageForm.MsgContentColor);
+                    messageForm.WriteMessage($"{packet.Payload}", MessageForm.MsgContentColor);
 
                 if (Form.ActiveForm != messageForm &&
                     !messageForm.HasBeenInactive &&

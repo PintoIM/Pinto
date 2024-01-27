@@ -204,7 +204,7 @@ namespace PintoNS
                 Program.Console.WriteMessage($"[General] Updated call details ({callWith}, {status})");
                 tpCall.Text = callWith;
                 lCallTarget.Text = $"In call with {callWith}";
-                lCallStatus.Text = $"{Program.FirstLetterToUpper(status.ToString().ToLower())}" +
+                lCallStatus.Text = $"{Utils.FirstLetterToUpper(status.ToString().ToLower())}" +
                     $"{(status == CallStatus.CONNECTING ? "..." : "")}";
             }
             else

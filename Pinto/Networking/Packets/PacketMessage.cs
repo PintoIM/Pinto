@@ -6,7 +6,7 @@ namespace PintoNS.Networking.Packets
     {
         public string ContactName { get; protected set; }
         public string Sender { get; protected set; }
-        public string Message { get; protected set; }
+        public string Payload { get; protected set; }
 
         public PacketMessage() { }
 
@@ -14,26 +14,26 @@ namespace PintoNS.Networking.Packets
         {
             ContactName = contactName;
             Sender = "";
-            Message = message;
+            Payload = message;
         }
 
         public void Read(BinaryReader reader)
         {
             ContactName = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
             Sender = reader.ReadPintoString(NetBaseHandler.USERNAME_MAX);
-            Message = reader.ReadPintoString(512);
+            Payload = reader.ReadPintoString(16384);
         }
 
         public void Write(BinaryWriter writer)
         {
             writer.WritePintoString(ContactName, NetBaseHandler.USERNAME_MAX);
             writer.WritePintoString(Sender, NetBaseHandler.USERNAME_MAX);
-            writer.WritePintoString(Message, 512);
+            writer.WritePintoString(Payload, 16384);
         }
 
         public int GetPacketSize()
         {
-            return NetBaseHandler.USERNAME_MAX * 2 + 512;
+            return (NetBaseHandler.USERNAME_MAX * 2) + 16384;
         }
 
         public int GetID()
