@@ -80,7 +80,7 @@ namespace PintoNS
 
             if (wineVersion == null && Type.GetType("Mono.Runtime") != null)
             {
-                MessageBox.Show($"Pinto! is not compatible with plain mono!{Environment.NewLine}" +
+                MessageBox.Show($"Pinto! is not compatible with plain Mono!{Environment.NewLine}" +
                     $"Please use wine with wine-mono!", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
