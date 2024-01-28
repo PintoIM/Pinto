@@ -735,5 +735,18 @@ namespace PintoNS
             if (NetHandler == null) return;
             NetHandler.OnUpdate();
         }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            // Retarded hack to bypass shitty windowing issues on start-up
+            TopMost = true;
+            Focus();
+            Invalidate();
+            Update();
+            Refresh();
+            Application.DoEvents();
+            TopMost = false;
+            Focus();
+        }
     }
 }

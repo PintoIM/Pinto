@@ -108,7 +108,8 @@ namespace PintoNS
             Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
 
             // Load MsftEdit for RichEdit50W
-            UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
+            if (wineVersion == null)
+                UseExRichTextBox = PInvoke.LoadLibraryW("MsftEdit.dll") != IntPtr.Zero;
             Console.WriteMessage($"[General] Loaded MsftEdit for RichEdit50W: {UseExRichTextBox}");
             Console.WriteMessage($"[General] Operating system: {Environment.OSVersion.Platform}" +
                 $" ({Environment.OSVersion.VersionString})");
@@ -145,7 +146,6 @@ namespace PintoNS
             Settings.Import(SettingsFile);
 
             MainFrm = new MainForm();
-            MainFrm.Focus();
 
             if (!Settings.NoLoadScripts)
                 LoadScripts(MainFrm);
