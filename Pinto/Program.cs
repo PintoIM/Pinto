@@ -18,7 +18,7 @@ namespace PintoNS
         // Constants
         public static ConsoleForm Console;
         public const string VERSION_STRING = "b1.2";
-        public const byte PROTOCOL_VERSION = 11;
+        public const byte PROTOCOL_VERSION = 12;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
