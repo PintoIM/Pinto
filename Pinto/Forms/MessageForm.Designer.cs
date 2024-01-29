@@ -50,30 +50,36 @@ namespace PintoNS.Forms
             this.tspbMenuBarRateLimit = new System.Windows.Forms.ToolStripProgressBar();
             this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslStatusStripTyping = new System.Windows.Forms.ToolStripStatusLabel();
-            this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.btnColor = new System.Windows.Forms.Button();
             this.btnBlock = new System.Windows.Forms.Button();
             this.ilButtons = new System.Windows.Forms.ImageList(this.components);
             this.btnTalk = new System.Windows.Forms.Button();
-            this.rtxtMessages = new PintoNS.UI.Controls.ExRichTextBox();
             this.cmsMessages = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiMessagesCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.tRateLimit = new System.Windows.Forms.Timer(this.components);
+            this.cdPicker = new System.Windows.Forms.ColorDialog();
+            this.fdPicker = new System.Windows.Forms.FontDialog();
+            this.scSections = new System.Windows.Forms.SplitContainer();
+            this.btnFont = new System.Windows.Forms.Button();
+            this.rtxtMessages = new PintoNS.UI.Controls.ExRichTextBox();
             this.rtxtInput = new PintoNS.UI.Controls.ExRichTextBox();
-            this.btnMoreFontOptions = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
             this.cmsMessages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scSections)).BeginInit();
+            this.scSections.Panel1.SuspendLayout();
+            this.scSections.Panel2.SuspendLayout();
+            this.scSections.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSend
             // 
-            this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSend.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnSend.Enabled = false;
-            this.btnSend.Location = new System.Drawing.Point(362, 283);
+            this.btnSend.Location = new System.Drawing.Point(349, 24);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(60, 56);
+            this.btnSend.Size = new System.Drawing.Size(60, 59);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "&Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -224,12 +230,11 @@ namespace PintoNS.Forms
             // 
             // btnColor
             // 
-            this.btnColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnColor.FlatAppearance.BorderSize = 0;
             this.btnColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnColor.Image = global::PintoNS.Assets.COLOR_PALETTE;
-            this.btnColor.Location = new System.Drawing.Point(12, 263);
+            this.btnColor.Location = new System.Drawing.Point(3, 3);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(18, 18);
             this.btnColor.TabIndex = 6;
@@ -279,23 +284,6 @@ namespace PintoNS.Forms
             this.btnTalk.UseVisualStyleBackColor = false;
             this.btnTalk.Click += new System.EventHandler(this.btnTalk_Click);
             // 
-            // rtxtMessages
-            // 
-            this.rtxtMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtxtMessages.BackColor = System.Drawing.SystemColors.Window;
-            this.rtxtMessages.ContextMenuStrip = this.cmsMessages;
-            this.rtxtMessages.HideSelection = false;
-            this.rtxtMessages.Location = new System.Drawing.Point(12, 69);
-            this.rtxtMessages.Name = "rtxtMessages";
-            this.rtxtMessages.ReadOnly = true;
-            this.rtxtMessages.Size = new System.Drawing.Size(410, 193);
-            this.rtxtMessages.TabIndex = 7;
-            this.rtxtMessages.Text = "";
-            this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
-            this.rtxtMessages.TextChanged += new System.EventHandler(this.rtxtMessages_TextChanged);
-            // 
             // cmsMessages
             // 
             this.cmsMessages.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -316,51 +304,91 @@ namespace PintoNS.Forms
             this.tRateLimit.Enabled = true;
             this.tRateLimit.Tick += new System.EventHandler(this.tRateLimit_Tick);
             // 
+            // scSections
+            // 
+            this.scSections.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scSections.BackColor = System.Drawing.Color.DarkGray;
+            this.scSections.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.scSections.Location = new System.Drawing.Point(12, 69);
+            this.scSections.Name = "scSections";
+            this.scSections.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // scSections.Panel1
+            // 
+            this.scSections.Panel1.Controls.Add(this.rtxtMessages);
+            this.scSections.Panel1MinSize = 95;
+            // 
+            // scSections.Panel2
+            // 
+            this.scSections.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scSections.Panel2.Controls.Add(this.rtxtInput);
+            this.scSections.Panel2.Controls.Add(this.btnSend);
+            this.scSections.Panel2.Controls.Add(this.btnColor);
+            this.scSections.Panel2.Controls.Add(this.btnFont);
+            this.scSections.Panel2MinSize = 65;
+            this.scSections.Size = new System.Drawing.Size(409, 270);
+            this.scSections.SplitterDistance = 187;
+            this.scSections.SplitterWidth = 2;
+            this.scSections.TabIndex = 8;
+            // 
+            // btnFont
+            // 
+            this.btnFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFont.FlatAppearance.BorderSize = 0;
+            this.btnFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFont.Image = global::PintoNS.Assets.PLUS_ENABLED;
+            this.btnFont.Location = new System.Drawing.Point(27, 3);
+            this.btnFont.Name = "btnFont";
+            this.btnFont.Size = new System.Drawing.Size(18, 18);
+            this.btnFont.TabIndex = 8;
+            this.btnFont.UseVisualStyleBackColor = true;
+            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
+            // 
+            // rtxtMessages
+            // 
+            this.rtxtMessages.BackColor = System.Drawing.SystemColors.Window;
+            this.rtxtMessages.ContextMenuStrip = this.cmsMessages;
+            this.rtxtMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxtMessages.HideSelection = false;
+            this.rtxtMessages.Location = new System.Drawing.Point(0, 0);
+            this.rtxtMessages.Name = "rtxtMessages";
+            this.rtxtMessages.ReadOnly = true;
+            this.rtxtMessages.Size = new System.Drawing.Size(409, 187);
+            this.rtxtMessages.TabIndex = 7;
+            this.rtxtMessages.Text = "";
+            this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
+            this.rtxtMessages.TextChanged += new System.EventHandler(this.rtxtMessages_TextChanged);
+            // 
             // rtxtInput
             // 
-            this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.rtxtInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtxtInput.ContextMenuStrip = this.cmsInput;
             this.rtxtInput.HideSelection = false;
-            this.rtxtInput.Location = new System.Drawing.Point(12, 283);
+            this.rtxtInput.Location = new System.Drawing.Point(0, 24);
             this.rtxtInput.MaxLength = 512;
             this.rtxtInput.Name = "rtxtInput";
-            this.rtxtInput.Size = new System.Drawing.Size(344, 56);
+            this.rtxtInput.Size = new System.Drawing.Size(348, 59);
             this.rtxtInput.TabIndex = 0;
             this.rtxtInput.Text = "";
-            this.rtxtInput.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtxtInput_ContentsResized);
             this.rtxtInput.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
             this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
             this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
-            // 
-            // btnMoreFontOptions
-            // 
-            this.btnMoreFontOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnMoreFontOptions.FlatAppearance.BorderSize = 0;
-            this.btnMoreFontOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMoreFontOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoreFontOptions.Image = global::PintoNS.Assets.PLUS_ENABLED;
-            this.btnMoreFontOptions.Location = new System.Drawing.Point(36, 263);
-            this.btnMoreFontOptions.Name = "btnMoreFontOptions";
-            this.btnMoreFontOptions.Size = new System.Drawing.Size(18, 18);
-            this.btnMoreFontOptions.TabIndex = 8;
-            this.btnMoreFontOptions.UseVisualStyleBackColor = true;
-            this.btnMoreFontOptions.Click += new System.EventHandler(this.btnMoreFontOptions_Click);
             // 
             // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 373);
-            this.Controls.Add(this.btnMoreFontOptions);
-            this.Controls.Add(this.rtxtMessages);
-            this.Controls.Add(this.btnColor);
             this.Controls.Add(this.ssStatusStrip);
             this.Controls.Add(this.btnBlock);
             this.Controls.Add(this.btnTalk);
-            this.Controls.Add(this.rtxtInput);
-            this.Controls.Add(this.btnSend);
             this.Controls.Add(this.tsMenuBar);
+            this.Controls.Add(this.scSections);
             this.MinimumSize = new System.Drawing.Size(187, 239);
             this.Name = "MessageForm";
             this.Activated += new System.EventHandler(this.MessageForm_Activated);
@@ -372,6 +400,10 @@ namespace PintoNS.Forms
             this.ssStatusStrip.ResumeLayout(false);
             this.ssStatusStrip.PerformLayout();
             this.cmsMessages.ResumeLayout(false);
+            this.scSections.Panel1.ResumeLayout(false);
+            this.scSections.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scSections)).EndInit();
+            this.scSections.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -387,7 +419,6 @@ namespace PintoNS.Forms
         public System.Windows.Forms.StatusStrip ssStatusStrip;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpAbout;
         public System.Windows.Forms.Button btnColor;
-        public System.Windows.Forms.ColorDialog cdPicker;
         public System.Windows.Forms.ToolStripDropDownButton tsddbMenuBarFile;
         public System.Windows.Forms.ToolStripMenuItem tsmiMenuBarFileClearSavedData;
         public ExRichTextBox rtxtMessages;
@@ -406,6 +437,9 @@ namespace PintoNS.Forms
         public System.Windows.Forms.ToolStripStatusLabel tsslStatusStripTyping;
         public System.Windows.Forms.ToolStripLabel tslMenuBarMessageTimeout;
         public System.Windows.Forms.ImageList ilButtons;
-        public System.Windows.Forms.Button btnMoreFontOptions;
+        public System.Windows.Forms.ColorDialog cdPicker;
+        private System.Windows.Forms.FontDialog fdPicker;
+        private System.Windows.Forms.SplitContainer scSections;
+        public System.Windows.Forms.Button btnFont;
     }
 }

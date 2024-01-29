@@ -1,4 +1,5 @@
 ﻿using PintoNS.Contacts;
+using PintoNS.Networking;
 using PintoNS.UI;
 using System;
 using System.Diagnostics;
@@ -13,7 +14,6 @@ namespace PintoNS.Forms
         public static Color MsgSelfSenderColor = Color.Blue;
         public static Color MsgOtherSenderColor = Color.Red;
         public static Color MsgSeparatorColor = Color.Black;
-        public static Color MsgContentColor = Color.Black;
         public static Color MsgTimeColor = Color.Gray;
         private MainForm mainForm;
         public Contact Receiver;
@@ -119,13 +119,29 @@ namespace PintoNS.Forms
             return style;
         }
 
-        private void WriteMessageRaw(string msg, Color color, bool bold = false, bool italic = false,
-            bool strikeout = false, bool underLine = false)
+        public void WriteRTF(string rtf) 
         {
             Invoke(new Action(() =>
             {
-                int selectionStartOriginal = rtxtMessages.SelectionStart;
-                int selectionEndOriginal = rtxtMessages.SelectionLength;
+                try 
+                {
+                    rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
+                    rtxtMessages.SelectedRtf = rtf;
+                }
+                catch 
+                {
+                    WriteMessage("(INVALID RTF) ", Color.Red, false);
+                    WriteMessage(rtf, Color.Red);
+                }
+            }));
+        }
+
+        public void WriteMessage(string msg, Color color, bool newLine = true, bool bold = false, 
+            bool italic = false, bool strikeout = false, bool underLine = false)
+        {
+            Invoke(new Action(() =>
+            {
+                msg += newLine ? Environment.NewLine : "";
 
                 if (string.IsNullOrWhiteSpace(msg.Trim()))
                 {
@@ -146,7 +162,7 @@ namespace PintoNS.Forms
             }));
         }
 
-        public void WriteMessage(string msg, Color color, bool newLine = true)
+        public void WriteFeatureMessage(string msg, Color color, bool newLine = true)
         {
             string buffer = "";
             Color currentColor = color;
@@ -160,7 +176,7 @@ namespace PintoNS.Forms
                 switch (msg[i])
                 {
                     case (char)0xA7:
-                        WriteMessageRaw(buffer, currentColor, bold, italic, strikeout, underline);
+                        WriteMessage(buffer, currentColor, false, bold, italic, strikeout, underline);
 
                         buffer = "";
                         try
@@ -198,7 +214,7 @@ namespace PintoNS.Forms
                 }
             }
 
-            WriteMessageRaw(buffer + (newLine ? Environment.NewLine : ""), currentColor,
+            WriteMessage(buffer, currentColor, newLine,
                 bold, italic, strikeout, underline);
         }
 
@@ -217,10 +233,6 @@ namespace PintoNS.Forms
         {
             // Strip RTF
             string text = rtxtInput.Text;
-            int caretPosition = rtxtInput.SelectionStart;
-            rtxtInput.Text = text;
-            rtxtInput.SelectionStart = caretPosition;
-            rtxtInput.SelectionLength = 0;
 
             if (text.Trim().Length < 1)
                 btnSend.Enabled = false;
@@ -246,9 +258,9 @@ namespace PintoNS.Forms
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            string input = rtxtInput.Text;
+            string input = rtxtInput.Rtf;
 
-            if (string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(rtxtInput.Text))
             {
                 return;
             }
@@ -261,9 +273,12 @@ namespace PintoNS.Forms
                 return;
             }
 
+            if (rtxtInput.Text.StartsWith("/")) 
+                input = rtxtInput.Text;
+
             rtxtInput.Clear();
             if (mainForm.NetHandler != null)
-                mainForm.NetHandler.MessageContact(Receiver.Name, input);
+                mainForm.NetHandler.MessageContact(Receiver.Name, new PMSGMessage(input));
             rateLimitTicks = 12;
         }
 
@@ -293,9 +308,13 @@ namespace PintoNS.Forms
         private void btnColor_Click(object sender, EventArgs e)
         {
             if (cdPicker.ShowDialog() != DialogResult.OK) return;
-            Color color = cdPicker.Color;
-            rtxtInput.SelectionLength = 0;
-            rtxtInput.AppendText(string.Format($"{{0}}{color.R:X2}{color.G:X2}{color.B:X2}", (char)0xA7));
+            rtxtInput.SelectionColor = cdPicker.Color;
+        }
+
+        private void btnFont_Click(object sender, EventArgs e)
+        {
+            if (fdPicker.ShowDialog() != DialogResult.OK) return;
+            rtxtInput.SelectionFont = fdPicker.Font;
         }
 
         private void tsmiMenuBarFileClearSavedData_Click(object sender, EventArgs e)
@@ -348,11 +367,7 @@ namespace PintoNS.Forms
             // While loop here to bypass a bug when scrolling in with the mouse
             while (rtxtMessages.ZoomFactor != 1.0f)
                 rtxtMessages.ZoomFactor = 1.0f;
-        }
 
-        private void rtxtInput_ContentsResized(object sender, ContentsResizedEventArgs e)
-        {
-            // While loop here to bypass a bug when scrolling in with the mouse
             while (rtxtInput.ZoomFactor != 1.0f)
                 rtxtInput.ZoomFactor = 1.0f;
         }
@@ -385,15 +400,6 @@ namespace PintoNS.Forms
         public void SetReceiverTypingState(bool state)
         {
             tsslStatusStripTyping.Text = state ? $"{Receiver.Name} is typing..." : "";
-        }
-
-        private void btnMoreFontOptions_Click(object sender, EventArgs e)
-        {
-            MoreFontOptionsForm moreFontOptionsForm = new MoreFontOptionsForm(rtxtInput);
-            moreFontOptionsForm.Show(this);
-            moreFontOptionsForm.CenterToParent();
-            moreFontOptionsForm.BringToFront();
-            moreFontOptionsForm.Focus();
         }
     }
 }

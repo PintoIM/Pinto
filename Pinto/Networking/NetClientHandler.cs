@@ -167,7 +167,7 @@ namespace PintoNS.Networking
             SendPacket(new PacketTyping(contact, state));
         }
 
-        public void MessageContact(string contact, string msg)
+        public void MessageContact(string contact, PMSGMessage msg)
         {
             SendPacket(new PacketMessage(contact, msg));
         }

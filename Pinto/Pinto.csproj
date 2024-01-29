@@ -66,6 +66,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -179,6 +180,7 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Networking\PMSGMessage.cs" />
     <Compile Include="Networking\NetClientHandler.cs" />
     <Compile Include="Networking\NetClientHandlerFactory.cs" />
     <Compile Include="Networking\NetClientPacketsHandler.cs" />
@@ -282,12 +284,6 @@
     </Compile>
     <Compile Include="Forms\MessageForm.Designer.cs">
       <DependentUpon>MessageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MoreFontOptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MoreFontOptionsForm.Designer.cs">
-      <DependentUpon>MoreFontOptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MsgBoxForm.cs">
       <SubType>Form</SubType>
@@ -415,9 +411,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MessageForm.resx">
       <DependentUpon>MessageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MoreFontOptionsForm.resx">
-      <DependentUpon>MoreFontOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>

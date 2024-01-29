@@ -4,6 +4,7 @@ using PintoNS.Networking.Packets;
 using PintoNS.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -73,10 +74,11 @@ namespace PintoNS.Networking
                     messageForm.WriteMessage($"{DateTime.Now.ToString("HH:mm:ss")}",
                         MessageForm.MsgTimeColor, false);
                     messageForm.WriteMessage($":", MessageForm.MsgSeparatorColor);
-                    messageForm.WriteMessage($"  {packet.Payload}", MessageForm.MsgContentColor);
+                    messageForm.WriteMessage($" ", MessageForm.MsgSeparatorColor, false);
+                    messageForm.WriteRTF(Encoding.BigEndianUnicode.GetString(packet.Payload.Data));
                 }
                 else
-                    messageForm.WriteMessage($"{packet.Payload}", MessageForm.MsgContentColor);
+                    messageForm.WriteFeatureMessage(Encoding.BigEndianUnicode.GetString(packet.Payload.Data), Color.Black);
 
                 if (Form.ActiveForm != messageForm &&
                     !messageForm.HasBeenInactive &&
