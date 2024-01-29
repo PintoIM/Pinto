@@ -60,9 +60,9 @@ namespace PintoNS.Forms
             this.cdPicker = new System.Windows.Forms.ColorDialog();
             this.fdPicker = new System.Windows.Forms.FontDialog();
             this.scSections = new System.Windows.Forms.SplitContainer();
-            this.btnFont = new System.Windows.Forms.Button();
             this.rtxtMessages = new PintoNS.UI.Controls.ExRichTextBox();
             this.rtxtInput = new PintoNS.UI.Controls.ExRichTextBox();
+            this.btnFont = new System.Windows.Forms.Button();
             this.cmsInput.SuspendLayout();
             this.tsMenuBar.SuspendLayout();
             this.ssStatusStrip.SuspendLayout();
@@ -329,23 +329,9 @@ namespace PintoNS.Forms
             this.scSections.Panel2.Controls.Add(this.btnFont);
             this.scSections.Panel2MinSize = 65;
             this.scSections.Size = new System.Drawing.Size(409, 270);
-            this.scSections.SplitterDistance = 187;
+            this.scSections.SplitterDistance = 189;
             this.scSections.SplitterWidth = 2;
             this.scSections.TabIndex = 8;
-            // 
-            // btnFont
-            // 
-            this.btnFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnFont.FlatAppearance.BorderSize = 0;
-            this.btnFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFont.Image = global::PintoNS.Assets.PLUS_ENABLED;
-            this.btnFont.Location = new System.Drawing.Point(27, 3);
-            this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(18, 18);
-            this.btnFont.TabIndex = 8;
-            this.btnFont.UseVisualStyleBackColor = true;
-            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
             // 
             // rtxtMessages
             // 
@@ -356,7 +342,7 @@ namespace PintoNS.Forms
             this.rtxtMessages.Location = new System.Drawing.Point(0, 0);
             this.rtxtMessages.Name = "rtxtMessages";
             this.rtxtMessages.ReadOnly = true;
-            this.rtxtMessages.Size = new System.Drawing.Size(409, 187);
+            this.rtxtMessages.Size = new System.Drawing.Size(409, 189);
             this.rtxtMessages.TabIndex = 7;
             this.rtxtMessages.Text = "";
             this.rtxtMessages.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
@@ -378,6 +364,19 @@ namespace PintoNS.Forms
             this.rtxtInput.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtxtMessages_LinkClicked);
             this.rtxtInput.TextChanged += new System.EventHandler(this.rtxtInput_TextChanged);
             this.rtxtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtxtInput_KeyDown);
+            // 
+            // btnFont
+            // 
+            this.btnFont.FlatAppearance.BorderSize = 0;
+            this.btnFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFont.Image = global::PintoNS.Assets.PLUS_ENABLED;
+            this.btnFont.Location = new System.Drawing.Point(27, 3);
+            this.btnFont.Name = "btnFont";
+            this.btnFont.Size = new System.Drawing.Size(18, 18);
+            this.btnFont.TabIndex = 8;
+            this.btnFont.UseVisualStyleBackColor = true;
+            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
             // 
             // MessageForm
             // 
