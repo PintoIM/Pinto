@@ -92,7 +92,7 @@ namespace PintoNS.Calls
                     upnpMapping = upnpRouter.StaticPortMappingCollection.Add(ClientPort, "UDP",
                         ClientPort, GetAllLocalIPv4(NetworkInterfaceType.Ethernet).FirstOrDefault(), true, "Pinto!");
                     ExternalLocalIP = upnpMapping.ExternalIPAddress;
-                    Program.Console.WriteMessage($"[CallManager] Aquired public IP from UPnP: {ExternalLocalIP}");
+                    Program.Console.WriteMessage($"[CallManager] Acquired public IP from UPnP: {ExternalLocalIP}");
                 }
                 catch (Exception ex)
                 {
