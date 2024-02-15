@@ -225,7 +225,12 @@ namespace PintoNS
                         contact.Status != UserStatus.OFFLINE &&
                         contact.Status != UserStatus.CONNECTING;
             });
-            llStartContacts.Text = $"{online} Contacts Online";
+            if(online==0)
+                llStartContacts.Text = $"No Contacts Online";
+            else if(online==1)
+                llStartContacts.Text = $"1 Contact Online";
+            else
+                llStartContacts.Text = $"{online} Contacts Online";
         }
 
         public static bool CallStatusMeansEnded(CallStatus status)
