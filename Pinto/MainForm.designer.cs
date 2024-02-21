@@ -452,6 +452,7 @@ namespace PintoNS
             // 
             // tsddbMenuBarFile
             // 
+            this.tsddbMenuBarFile.AutoToolTip = false;
             this.tsddbMenuBarFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarFileChangeStatus,
@@ -542,6 +543,7 @@ namespace PintoNS
             // 
             // tsddbMenuBarTools
             // 
+            this.tsddbMenuBarTools.AutoToolTip = false;
             this.tsddbMenuBarTools.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarToolsAddContact,
@@ -582,6 +584,7 @@ namespace PintoNS
             // 
             // tsddbMenuBarHelp
             // 
+            this.tsddbMenuBarHelp.AutoToolTip = false;
             this.tsddbMenuBarHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarHelpCheckForUpdates,
