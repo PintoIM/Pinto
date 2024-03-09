@@ -39,6 +39,11 @@ namespace PintoNS
             PopupController = new PopupController();
         }
 
+        internal string GetBaseTitle() 
+        {
+            return $"Pinto! {Program.VERSION_STRING}";
+        }
+
         internal void OnLogin()
         {
             Program.Console.WriteMessage("[General] Changing UI state to logged in");
@@ -79,7 +84,7 @@ namespace PintoNS
             tsmiMenuBarToolsServerInfo.Enabled = true;
             tsmiMenuBarFileChangeStatus.Enabled = true;
             tsmiMenuBarFileLogOff.Enabled = true;
-            Text = $"Pinto! Beta - {LocalUser.Name}";
+            Text = $"{GetBaseTitle()} - {LocalUser.Name}";
             new SoundPlayer(Sounds.LOGIN).Play();
         }
 
@@ -151,7 +156,7 @@ namespace PintoNS
             tsmiMenuBarToolsServerInfo.Enabled = false;
             tsmiMenuBarFileChangeStatus.Enabled = false;
             tsmiMenuBarFileLogOff.Enabled = false;
-            Text = "Pinto! Beta";
+            Text = GetBaseTitle();
 
             if (!noSound)
                 new SoundPlayer(Sounds.LOGOUT).Play();
@@ -245,27 +250,6 @@ namespace PintoNS
             tsmiTrayChangeStatus.Enabled = isOnline;
         }
 
-        public void ConnectCached(string ip, int port, string username, string password)
-        {
-            //Program.Console.WriteMessage($"[Networking] Cache connecting at {ip}:{port} as {username}...");
-            //LocalUser.Name = username;
-            //NetManager = new NetworkManager(this, true, ip, port, username, password);
-            //NetManager.ScheduleConnecting();
-
-            //OnLogin();
-            //SetConnectingState(true);
-
-            //foreach (string contact in LastContacts.GetLastContacts())
-            //{
-            //    ContactsMgr.AddContact(new Contact()
-            //    {
-            //        Name = contact,
-            //        MOTD = "",
-            //        Status = UserStatus.CONNECTING
-            //    });
-            //}
-        }
-
         public async Task Connect(string ip, int port, string username, string password, bool register)
         {
             tcTabs.TabPages.Clear();
@@ -309,7 +293,6 @@ namespace PintoNS
                     MsgBox.Show(this, $"Unable to connect to {ip}:{port}: {ex.Message}", 
                         "Connection Error", MsgBoxIconType.ERROR);
                 }
-                UsingPintoForm.SetHasLoggedIn(false);
             }
         }
 
@@ -404,7 +387,8 @@ namespace PintoNS
             netMonitor.Show();
             netMonitor.Hide();
 
-            //llLogin_LinkClicked(this, null);
+            InWindowPopupController.CreatePopup("You are currently using BETA software" +
+                " that could be prone to bugs or other issues!", true);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -467,7 +451,6 @@ namespace PintoNS
         private void tsmiMenuBarFileLogOut_Click(object sender, EventArgs e)
         {
             if (NetHandler == null) return;
-            UsingPintoForm.SetHasLoggedIn(false);
             Disconnect();
         }
 
@@ -743,15 +726,8 @@ namespace PintoNS
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // Retarded hack to bypass shitty windowing issues on start-up
-            TopMost = true;
-            Focus();
-            Invalidate();
-            Update();
-            Refresh();
-            Application.DoEvents();
-            TopMost = false;
-            Focus();
+            Activate();
+            BringToFront();
         }
 
         private void tsmiMenuBarHelpNetMonitor_Click(object sender, EventArgs e)

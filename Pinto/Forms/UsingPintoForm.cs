@@ -13,23 +13,12 @@ namespace PintoNS.Forms
     {
         public const string USERNAME_REGEX_CHECK = @"^(?=.{3,15}$)[a-zA-Z0-9._]+$";
         private MainForm mainForm;
-        private bool hasLoggedIn;
 
         public UsingPintoForm(MainForm mainForm)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
             this.mainForm = mainForm;
-        }
-
-        public static void SetHasLoggedIn(bool value)
-        {
-            Program.Console.WriteMessage($"[General] Setting has logged in to {value}");
-            UsingPintoForm form = new UsingPintoForm(null);
-            form.LoadLogin();
-            form.hasLoggedIn = value;
-            form.SaveLogin();
-            form.Dispose();
         }
 
         private void LoadLogin()
@@ -47,8 +36,6 @@ namespace PintoNS.Forms
                 txtPassword.Text = data["password"].Value<string>();
                 txtIP.Text = data["ip"].Value<string>();
                 nudPort.Value = data["port"].Value<int>();
-                if (data.ContainsKey("hasLoggedIn"))
-                    hasLoggedIn = data["hasLoggedIn"].Value<bool>();
             }
             catch (Exception ex)
             {
@@ -72,7 +59,6 @@ namespace PintoNS.Forms
                     { "password", txtPassword.Text },
                     { "ip", txtIP.Text },
                     { "port", (int)nudPort.Value },
-                    { "hasLoggedIn", hasLoggedIn }
                 };
 
                 File.WriteAllText(filePath, data.ToString(Formatting.Indented));
@@ -171,18 +157,6 @@ namespace PintoNS.Forms
             tcSections.ItemSize = new Size(0, 1);
             tcSections.SizeMode = TabSizeMode.Fixed;
             LoadLogin();
-
-            //string ip = txtIP.Text.Trim();
-            //int port = (int)nudPort.Value;
-            //string username = txtUsername.Text.Trim();
-            //string password = txtPassword.Text;
-
-            //if (cbSavePassword.Checked && hasLoggedIn && ip != null && port != 0 &&
-            //    username != null && password != null)
-            //{
-            //    Close();
-            //    mainForm.ConnectCached(ip, port, username, password);
-            //}
         }
 
         private async void btnRegister_Click(object sender, EventArgs e)

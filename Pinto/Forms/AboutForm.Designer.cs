@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.lPlatform = new System.Windows.Forms.Label();
+            this.lProtocolVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,9 +65,9 @@
             this.lVersion.BackColor = System.Drawing.Color.Transparent;
             this.lVersion.Location = new System.Drawing.Point(12, 195);
             this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(89, 13);
+            this.lVersion.Size = new System.Drawing.Size(68, 13);
             this.lVersion.TabIndex = 3;
-            this.lVersion.Text = "Version unknown";
+            this.lVersion.Text = "Version: N/A";
             // 
             // label3
             // 
@@ -77,6 +79,26 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Take a deep breath...";
             // 
+            // lPlatform
+            // 
+            this.lPlatform.AutoSize = true;
+            this.lPlatform.BackColor = System.Drawing.Color.Transparent;
+            this.lPlatform.Location = new System.Drawing.Point(12, 182);
+            this.lPlatform.Name = "lPlatform";
+            this.lPlatform.Size = new System.Drawing.Size(71, 13);
+            this.lPlatform.TabIndex = 5;
+            this.lPlatform.Text = "Platform: N/A";
+            // 
+            // lProtocolVersion
+            // 
+            this.lProtocolVersion.AutoSize = true;
+            this.lProtocolVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lProtocolVersion.Location = new System.Drawing.Point(12, 169);
+            this.lProtocolVersion.Name = "lProtocolVersion";
+            this.lProtocolVersion.Size = new System.Drawing.Size(110, 13);
+            this.lProtocolVersion.TabIndex = 6;
+            this.lProtocolVersion.Text = "Protocol Version: N/A";
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,6 +106,8 @@
             this.BackgroundImage = global::PintoNS.Logo.LOGO_BACKGROUND;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(240, 217);
+            this.Controls.Add(this.lProtocolVersion);
+            this.Controls.Add(this.lPlatform);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lVersion);
             this.Controls.Add(this.label1);
@@ -111,5 +135,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lVersion;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lPlatform;
+        private System.Windows.Forms.Label lProtocolVersion;
     }
 }

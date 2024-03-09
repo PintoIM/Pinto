@@ -1,6 +1,4 @@
 ﻿using Be.Windows.Forms;
-using Mono.CSharp;
-using Newtonsoft.Json.Linq;
 using PintoNS.Networking.Packets;
 using System;
 using System.Collections.Generic;
@@ -34,7 +32,10 @@ namespace PintoNS.Forms
 
         public void UpdateMonitor() 
         {
+            int prevRowCount = dgvPackets.Rows.Count;
             dgvPackets.Rows.AddRange(packetsToAdd.ToArray());
+            if (dgvPackets.Rows.Count > prevRowCount && prevRowCount < 1)
+                dgvPackets.ClearSelection();
             packetsToAdd.Clear();
         }
 
@@ -69,6 +70,11 @@ namespace PintoNS.Forms
             lID.Text = $"ID: {(string)row.Cells["name"].Value} ({(int)row.Cells["id"].Value})";
             lSize.Text = $"Size: {value.Length}";
             hbData.ByteProvider = new DynamicByteProvider(value); 
+        }
+
+        private void NetMonitorForm_VisibleChanged(object sender, EventArgs e)
+        {
+            dgvPackets.ClearSelection();
         }
     }
 }

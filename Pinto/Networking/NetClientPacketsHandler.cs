@@ -24,11 +24,7 @@ namespace PintoNS.Networking
         public void HandleLoginPacket(PacketLogin packet)
         {
             netHandler.LoggedIn = true;
-            instance.Invoke(new Action(() =>
-            {
-                //UsingPintoForm.SetHasLoggedIn(true);
-                instance.OnLogin();
-            }));
+            instance.lConnectingStatus.Text = "Waiting for server...";
         }
 
         public void HandleServerInfoPacket(PacketServerInfo packet)
@@ -222,6 +218,7 @@ namespace PintoNS.Networking
             Program.Console.WriteMessage($"[Contacts] Clearing contact list...");
             instance.Invoke(new Action(() =>
             {
+                instance.OnLogin();
                 instance.ContactsMgr.Clear();
                 instance.UpdateOnlineContacts();
                 LastContacts.ClearLastContacts();
