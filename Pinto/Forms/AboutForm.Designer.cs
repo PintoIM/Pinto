@@ -30,10 +30,10 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lVersion = new System.Windows.Forms.Label();
+            this.lProtocol = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lPlatform = new System.Windows.Forms.Label();
-            this.lProtocolVersion = new System.Windows.Forms.Label();
+            this.lVersion = new System.Windows.Forms.Label();
+            this.lCommit = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,15 +59,15 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Pinto!";
             // 
-            // lVersion
+            // lProtocol
             // 
-            this.lVersion.AutoSize = true;
-            this.lVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lVersion.Location = new System.Drawing.Point(12, 195);
-            this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(68, 13);
-            this.lVersion.TabIndex = 3;
-            this.lVersion.Text = "Version: N/A";
+            this.lProtocol.AutoSize = true;
+            this.lProtocol.BackColor = System.Drawing.Color.Transparent;
+            this.lProtocol.Location = new System.Drawing.Point(12, 195);
+            this.lProtocol.Name = "lProtocol";
+            this.lProtocol.Size = new System.Drawing.Size(110, 13);
+            this.lProtocol.TabIndex = 3;
+            this.lProtocol.Text = "Protocol Version: N/A";
             // 
             // label3
             // 
@@ -79,25 +79,27 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Take a deep breath...";
             // 
-            // lPlatform
+            // lVersion
             // 
-            this.lPlatform.AutoSize = true;
-            this.lPlatform.BackColor = System.Drawing.Color.Transparent;
-            this.lPlatform.Location = new System.Drawing.Point(12, 182);
-            this.lPlatform.Name = "lPlatform";
-            this.lPlatform.Size = new System.Drawing.Size(71, 13);
-            this.lPlatform.TabIndex = 5;
-            this.lPlatform.Text = "Platform: N/A";
+            this.lVersion.AutoSize = true;
+            this.lVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lVersion.Location = new System.Drawing.Point(12, 182);
+            this.lVersion.Name = "lVersion";
+            this.lVersion.Size = new System.Drawing.Size(68, 13);
+            this.lVersion.TabIndex = 6;
+            this.lVersion.Text = "Version: N/A";
             // 
-            // lProtocolVersion
+            // lCommit
             // 
-            this.lProtocolVersion.AutoSize = true;
-            this.lProtocolVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lProtocolVersion.Location = new System.Drawing.Point(12, 169);
-            this.lProtocolVersion.Name = "lProtocolVersion";
-            this.lProtocolVersion.Size = new System.Drawing.Size(110, 13);
-            this.lProtocolVersion.TabIndex = 6;
-            this.lProtocolVersion.Text = "Protocol Version: N/A";
+            this.lCommit.AutoSize = true;
+            this.lCommit.BackColor = System.Drawing.Color.Transparent;
+            this.lCommit.Location = new System.Drawing.Point(84, 182);
+            this.lCommit.Name = "lCommit";
+            this.lCommit.Size = new System.Drawing.Size(68, 13);
+            this.lCommit.TabIndex = 7;
+            this.lCommit.TabStop = true;
+            this.lCommit.Text = "(See commit)";
+            this.lCommit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lCommit_LinkClicked);
             // 
             // AboutForm
             // 
@@ -106,10 +108,10 @@
             this.BackgroundImage = global::PintoNS.Logo.LOGO_BACKGROUND;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(240, 217);
-            this.Controls.Add(this.lProtocolVersion);
-            this.Controls.Add(this.lPlatform);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lCommit);
             this.Controls.Add(this.lVersion);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lProtocol);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -133,9 +135,9 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lVersion;
+        private System.Windows.Forms.Label lProtocol;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lPlatform;
-        private System.Windows.Forms.Label lProtocolVersion;
+        private System.Windows.Forms.Label lVersion;
+        private System.Windows.Forms.LinkLabel lCommit;
     }
 }

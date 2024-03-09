@@ -20,9 +20,16 @@ namespace PintoNS.Forms
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            lProtocolVersion.Text = $"Protocol Version: {Program.PROTOCOL_VERSION}";
-            lPlatform.Text = $"Platform: {Environment.OSVersion.Platform}";
             lVersion.Text = $"Version: {Program.VERSION_STRING}";
+            lProtocol.Text = $"Protocol Version: {Program.PROTOCOL_VERSION}";
+        }
+
+        private void lCommit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ViewAllPopupContentForm form = new ViewAllPopupContentForm();
+            form.Text = "Commit";
+            form.rtxtContent.Text = Program.VERSION_COMMIT;
+            form.ShowDialog();
         }
     }
 }

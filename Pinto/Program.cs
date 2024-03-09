@@ -1,4 +1,4 @@
-﻿using CSScriptLibrary;
+using CSScriptLibrary;
 using PintoNS.Forms;
 using PintoNS.Scripting;
 using PintoNS.UI;
@@ -18,6 +18,7 @@ namespace PintoNS
         // Constants
         public static ConsoleForm Console;
         public const string VERSION_STRING = "b1.2";
+        public const string VERSION_COMMIT = "-";
         public const byte PROTOCOL_VERSION = 12;
 
         // Data paths
@@ -89,6 +90,11 @@ namespace PintoNS
 
             Console = new ConsoleForm();
             Console.Show();
+
+            Console.WriteMessage($"Pinto! Beta");
+            Console.WriteMessage($"Version: {VERSION_STRING}");
+            Console.WriteMessage($"Protocol Version: {PROTOCOL_VERSION}");
+            Console.WriteMessage($"Commit: {VERSION_COMMIT}");
 
             if (wineVersion != null)
                 Console.WriteMessage($"[General] Running under wine ({wineVersion})");
