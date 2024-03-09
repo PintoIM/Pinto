@@ -1,6 +1,4 @@
 ﻿using PintoNS.Networking.Packets;
-using System;
-using System.IO;
 
 namespace PintoNS.Networking
 {

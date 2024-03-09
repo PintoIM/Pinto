@@ -1,22 +1,13 @@
 ﻿using PintoNS.Contacts;
-using PintoNS.Networking;
-using PintoNS.UI.Controls;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using PintoNS.Networking.Packets;
-using Mono.CSharp;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using System.Net.Sockets;
-using Org.BouncyCastle.Crypto.Tls;
-using System.Threading.Tasks;
-using NAudio.Gui;
 using System.Reflection;
-using PintoNS.Forms;
-using System.Windows.Forms;
 
 namespace PintoNS.Networking
 {

@@ -40,7 +40,7 @@
             this.lFatalError.Name = "lFatalError";
             this.lFatalError.Size = new System.Drawing.Size(277, 13);
             this.lFatalError.TabIndex = 0;
-            this.lFatalError.Text = "Pinto! has ran into an fatal error! Sorry about that.... ";
+            this.lFatalError.Text = "Pinto! has run into a fatal error! Sorry about that... ";
             // 
             // lReport
             // 

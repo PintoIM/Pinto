@@ -249,27 +249,19 @@
     <Compile Include="Forms\ServerInfoForm.Designer.cs">
       <DependentUpon>ServerInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddContactForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\AddContactForm.cs" />
     <Compile Include="Forms\AddContactForm.Designer.cs">
       <DependentUpon>AddContactForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BrowserForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\BrowserForm.cs" />
     <Compile Include="Forms\BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ChangeMOTDForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\ChangeMOTDForm.cs" />
     <Compile Include="Forms\ChangeMOTDForm.Designer.cs">
       <DependentUpon>ChangeMOTDForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ConsoleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Forms\ConsoleForm.cs" />
     <Compile Include="Forms\ConsoleForm.Designer.cs">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
     </Compile>

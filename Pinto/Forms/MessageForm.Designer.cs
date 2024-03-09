@@ -126,6 +126,7 @@ namespace PintoNS.Forms
             // 
             // tsddbMenuBarFile
             // 
+            this.tsddbMenuBarFile.AutoToolTip = false;
             this.tsddbMenuBarFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuFileZoomIn,
@@ -138,7 +139,6 @@ namespace PintoNS.Forms
             this.tsddbMenuBarFile.ShowDropDownArrow = false;
             this.tsddbMenuBarFile.Size = new System.Drawing.Size(29, 22);
             this.tsddbMenuBarFile.Text = "File";
-            this.tsddbMenuBarFile.ToolTipText = "File";
             // 
             // tsmiMenuFileZoomIn
             // 
@@ -177,6 +177,7 @@ namespace PintoNS.Forms
             // 
             // tsddbMenuBarHelp
             // 
+            this.tsddbMenuBarHelp.AutoToolTip = false;
             this.tsddbMenuBarHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsddbMenuBarHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMenuBarHelpAbout});
@@ -185,7 +186,6 @@ namespace PintoNS.Forms
             this.tsddbMenuBarHelp.ShowDropDownArrow = false;
             this.tsddbMenuBarHelp.Size = new System.Drawing.Size(36, 22);
             this.tsddbMenuBarHelp.Text = "Help";
-            this.tsddbMenuBarHelp.ToolTipText = "Help";
             // 
             // tsmiMenuBarHelpAbout
             // 

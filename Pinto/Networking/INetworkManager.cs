@@ -1,8 +1,5 @@
-﻿using Mono.CSharp;
-using PintoNS.Networking.Packets;
-using System;
+﻿using PintoNS.Networking.Packets;
 using System.IO;
-using System.Net;
 using System.Security.Cryptography;
 
 namespace PintoNS.Networking
