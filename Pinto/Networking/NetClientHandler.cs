@@ -8,6 +8,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using System.Net.Sockets;
 using System.Reflection;
+using PintoNS.Forms;
 
 namespace PintoNS.Networking
 {

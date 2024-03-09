@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {
+    // TODO: Add a proper logger
     public partial class ConsoleForm : Form
     {
         private const int SM_ITEM_CLEAR = 0x01;
