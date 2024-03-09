@@ -98,6 +98,7 @@ namespace PintoNS
             this.btnEndCall = new System.Windows.Forms.Button();
             this.txtSearchBox = new PintoNS.UI.Controls.TextBoxWithPlaceholderSupport();
             this.tNetUpdate = new System.Windows.Forms.Timer(this.components);
+            this.tsmiMenuBarHelpNetMonitor = new System.Windows.Forms.ToolStripMenuItem();
             this.pQA.SuspendLayout();
             this.tcTabs.SuspendLayout();
             this.tpLogin.SuspendLayout();
@@ -593,6 +594,7 @@ namespace PintoNS
             this.toolStripSeparator2,
             this.tsmiMenuBarHelpToggleConsole,
             this.tsmiMenuBarHelpViewScripts,
+            this.tsmiMenuBarHelpNetMonitor,
             this.toolStripSeparator7,
             this.tsmiMenuBarHelpAbout});
             this.tsddbMenuBarHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -604,50 +606,50 @@ namespace PintoNS
             // tsmiMenuBarHelpCheckForUpdates
             // 
             this.tsmiMenuBarHelpCheckForUpdates.Name = "tsmiMenuBarHelpCheckForUpdates";
-            this.tsmiMenuBarHelpCheckForUpdates.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarHelpCheckForUpdates.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpCheckForUpdates.Text = "Check for Updates";
             this.tsmiMenuBarHelpCheckForUpdates.Click += new System.EventHandler(this.tsmiMenuBarHelpCheckForUpdates_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiMenuBarHelpReportAProblem
             // 
             this.tsmiMenuBarHelpReportAProblem.Name = "tsmiMenuBarHelpReportAProblem";
-            this.tsmiMenuBarHelpReportAProblem.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarHelpReportAProblem.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpReportAProblem.Text = "Report an Issue";
             this.tsmiMenuBarHelpReportAProblem.Click += new System.EventHandler(this.tsmiMenuBarHelpReportAProblem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiMenuBarHelpToggleConsole
             // 
             this.tsmiMenuBarHelpToggleConsole.Name = "tsmiMenuBarHelpToggleConsole";
-            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarHelpToggleConsole.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpToggleConsole.Text = "Toggle Console";
             this.tsmiMenuBarHelpToggleConsole.Click += new System.EventHandler(this.tsmiMenuBarHelpToggleConsole_Click);
             // 
             // tsmiMenuBarHelpViewScripts
             // 
             this.tsmiMenuBarHelpViewScripts.Name = "tsmiMenuBarHelpViewScripts";
-            this.tsmiMenuBarHelpViewScripts.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarHelpViewScripts.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpViewScripts.Text = "View Scripts";
             this.tsmiMenuBarHelpViewScripts.Click += new System.EventHandler(this.tsmiMenuBarHelpViewScripts_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(168, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
             // 
             // tsmiMenuBarHelpAbout
             // 
             this.tsmiMenuBarHelpAbout.Name = "tsmiMenuBarHelpAbout";
-            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(171, 22);
+            this.tsmiMenuBarHelpAbout.Size = new System.Drawing.Size(180, 22);
             this.tsmiMenuBarHelpAbout.Text = "About";
             this.tsmiMenuBarHelpAbout.Click += new System.EventHandler(this.tsmiMenuBarHelpAbout_Click);
             // 
@@ -767,6 +769,13 @@ namespace PintoNS
             this.tNetUpdate.Interval = 50;
             this.tNetUpdate.Tick += new System.EventHandler(this.tNetUpdate_Tick);
             // 
+            // tsmiMenuBarHelpNetMonitor
+            // 
+            this.tsmiMenuBarHelpNetMonitor.Name = "tsmiMenuBarHelpNetMonitor";
+            this.tsmiMenuBarHelpNetMonitor.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMenuBarHelpNetMonitor.Text = "Network Monitor";
+            this.tsmiMenuBarHelpNetMonitor.Click += new System.EventHandler(this.tsmiMenuBarHelpNetMonitor_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,5 +883,6 @@ namespace PintoNS
         private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpViewScripts;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.Timer tNetUpdate;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMenuBarHelpNetMonitor;
     }
 }

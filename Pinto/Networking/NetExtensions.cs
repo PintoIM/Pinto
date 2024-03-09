@@ -7,9 +7,6 @@ namespace PintoNS.Networking
 {
     public static class NetExtensions
     {
-        [Obsolete("Networking is about to be re-written")]
-        public const int USERNAME_MAX = 16;
-
         public static void WriteBytes(this BufferedStream stream, byte[] bytes)
         {
             stream.Write(bytes, 0, bytes.Length);

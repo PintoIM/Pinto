@@ -68,6 +68,7 @@ namespace PintoNS.Networking
                 return;
             NetManager.Interrupt();
             NetManager.ProcessReceivedPackets();
+            NetMonitorForm.Instance.UpdateMonitor();
         }
 
         protected override void OnDisconnect()
@@ -79,7 +80,7 @@ namespace PintoNS.Networking
         {
             try
             {
-                if (!(packet is PacketKeepAlive))
+                if (!(packet is PacketKeepAlive)) 
                     Program.Console.WriteMessage($"[Networking] Received {packet.GetType().Name}");
 
                 if (packetsHandler == null)
@@ -106,6 +107,8 @@ namespace PintoNS.Networking
 
         public void Disconnect()
         {
+            if (ConnectionClosed)
+                return;
             ConnectionClosed = true;
             NetManager.Interrupt();
             NetManager.Close();
