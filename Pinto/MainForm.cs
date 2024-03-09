@@ -270,6 +270,7 @@ namespace PintoNS
         {
             tcTabs.TabPages.Clear();
             tcTabs.TabPages.Add(tpConnecting);
+            NetMonitorForm.Instance.Clear();
             OnStatusChange(UserStatus.CONNECTING, "");
 
             Action<string> changeConnectionStatus = (string status) =>
@@ -399,6 +400,10 @@ namespace PintoNS
                 await CheckForUpdates(false);
 
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
+            NetMonitorForm netMonitor = new NetMonitorForm();
+            netMonitor.Show();
+            netMonitor.Hide();
+
             //llLogin_LinkClicked(this, null);
         }
 
@@ -747,6 +752,11 @@ namespace PintoNS
             Application.DoEvents();
             TopMost = false;
             Focus();
+        }
+
+        private void tsmiMenuBarHelpNetMonitor_Click(object sender, EventArgs e)
+        {
+            NetMonitorForm.Instance.Show();
         }
     }
 }

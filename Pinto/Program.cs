@@ -49,6 +49,7 @@ namespace PintoNS
                 string name = assembly.Name;
                 string fileName = $"{name}.dll";
 
+                // These are internal .NET libraries
                 if (name == "mscorlib" || name == "System.Core") continue;
                 if (File.Exists(fileName)) continue;
 
@@ -101,7 +102,7 @@ namespace PintoNS
                 version.Minor < 5 ? SecurityProtocolType.Tls :
                 // 768 = TLS 1.1
                 // 3072 = TLS 1.2
-                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5
+                // These are not available in a .NET 4.0 runtime, but available in a .NET 4.5 runtime
                 SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
             Console.WriteMessage($"[General] .NET Framework runtime version: {version}");
             Console.WriteMessage($"[General] Security protocol: {ServicePointManager.SecurityProtocol}");
@@ -140,6 +141,12 @@ namespace PintoNS
                 Directory.CreateDirectory(Path.Combine(DataFolder, "scripts"));
             if (!Directory.Exists(Path.Combine(DataFolder, "scripts", "settings")))
                 Directory.CreateDirectory(Path.Combine(DataFolder, "scripts", "settings"));
+
+            // Delete stuff from older versions
+            if (Directory.Exists(Path.Combine(DataFolder, "extensions")))
+                Directory.Delete(Path.Combine(DataFolder, "extensions"), true);
+            if (Directory.Exists(Path.Combine(DataFolder, "plugins")))
+                Directory.Delete(Path.Combine(DataFolder, "plugins"), true);
 
             Console.WriteMessage("[General] Loading the settings");
             Settings.Import(SettingsFile);

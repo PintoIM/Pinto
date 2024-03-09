@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using PintoNS.Forms;
 
 namespace PintoNS.Networking
 {
@@ -139,6 +140,10 @@ namespace PintoNS.Networking
                 bufferedStream.Write(aes.IV, 0, 16);
                 bufferedStream.WriteBytes(encryptedPacketData);
                 bufferedStream.Flush();
+
+                // Network monitor snippet
+                if (!(packet is PacketKeepAlive))
+                    NetMonitorForm.Instance.AddPacket(packet, packetData, false);
             }
             catch (ThreadInterruptedException)
             {
@@ -180,9 +185,9 @@ namespace PintoNS.Networking
 
                 aes.IV = iv;
                 byte[] decryptedData = aes.CreateDecryptor().TransformFinalBlock(encryptedData, 0, encryptedData.Length);
-                BinaryReader dataInputStream = new BinaryReader(new MemoryStream(decryptedData));
+                BinaryReader binaryReader = new BinaryReader(new MemoryStream(decryptedData));
 
-                int packetID = dataInputStream.ReadBEInt();
+                int packetID = binaryReader.ReadBEInt();
                 IPacket packet = PacketFactory.GetPacketByID(packetID);
 
                 if (packet == null)
@@ -191,8 +196,12 @@ namespace PintoNS.Networking
                     return;
                 }
 
-                packet.Read(dataInputStream);
+                packet.Read(binaryReader);
                 readPackets.Add(packet);
+
+                // Network monitor snippet
+                if (!(packet is PacketKeepAlive))
+                    NetMonitorForm.Instance.AddPacket(packet, decryptedData, true);
             }
             catch (Exception ex)
             {

@@ -9,6 +9,7 @@ using System.Threading;
 
 namespace PintoNS.Calls
 {
+    [Obsolete("Calls are going to be re-worked!")]
     public class CallManager
     {
         public bool InCall;
