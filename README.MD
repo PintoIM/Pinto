@@ -29,6 +29,17 @@ Pinto! IM is currently not finished and will take a lot of time to be fully perf
 - Secure protocol communication ✅ (using RSA to transmit a randomly generated AES-256 key)
 - Fully customizable interface ❎
 
+# ♥️ Third-party attributions
+Thanks to all of these great projects that made Pinto! possible!<br>
+The version that Pinto! uses is listed next to the links
+- [CS-Script](https://www.csscript.net/) v3.24.2
+- [Microsoft.Bcl.Async](https://www.nuget.org/packages/Microsoft.Bcl.Async/1.0.168) v1.0.168
+- [NAudio](https://github.com/naudio/NAudio) v1.10.0
+- [Newtonsoft.Json](https://www.newtonsoft.com/json) v13.0.3
+- [System.ValueTuple](https://www.nuget.org/packages/System.ValueTuple/4.5.0) v4.5.0
+- [Bouncycastle](https://www.bouncycastle.org/csharp/index.html) v1.8.4
+- [Hexbox](https://sourceforge.net/projects/hexbox/) v1.6.0
+
 # 🖥️ Server
 Looking for a server implementation?<br>
 [Here](https://github.com/vlOd2/PintoServer) you can find an official implementation
