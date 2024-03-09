@@ -52,7 +52,7 @@ namespace PintoNS
                 MsgBox.Show(null,
                     "Unable to check for updates!" +
                     " Check the console for more information," +
-                    " you can also perform a re-check by going into the \"Help\" menu",
+                    " you can also try again by going into the \"Help\" menu",
                     "Error",
                     MsgBoxIconType.ERROR);
                 return true;
@@ -82,7 +82,7 @@ namespace PintoNS
                 MsgBox.Show(null,
                     "Unable to download the update file!" +
                     " Check the console for more information," +
-                    " you can perform a re-check by going into the \"Help\" menu",
+                    " you can also try again by going into the \"Help\" menu",
                     "Error",
                     MsgBoxIconType.ERROR);
                 return null;

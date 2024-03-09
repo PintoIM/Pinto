@@ -31,7 +31,7 @@ namespace PintoNS
         public static bool RunningOnLegacyPlatform;
         public static bool UseExRichTextBox;
 
-        private static void PerformSanityChecks() 
+        private static void PerformSanityChecks()
         {
             if (Path.GetFullPath(Assembly.GetEntryAssembly().Location).IndexOf(
                 Path.GetTempPath(), StringComparison.OrdinalIgnoreCase) == 0)
@@ -73,7 +73,7 @@ namespace PintoNS
             }
         }
 
-        private static void PrepareForPlatform() 
+        private static void PrepareForPlatform()
         {
             string wineVersion = null;
             try { wineVersion = PInvoke.GetWineVersion(); } catch { }

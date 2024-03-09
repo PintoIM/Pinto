@@ -640,7 +640,7 @@ namespace PintoNS
                             };
                             process.Start();
 
-                            Program.Console.WriteMessage($"[Updater] Exitting...");
+                            Program.Console.WriteMessage($"[Updater] Exiting...");
                             doNotCancelClose = true;
                             Close();
                         }
