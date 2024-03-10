@@ -41,7 +41,7 @@ namespace PintoNS.Forms
             this.tags = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpLoading = new System.Windows.Forms.TabPage();
-            this.lrLoadingLoader = new Loader();
+            this.lrLoadingLoader = new PintoNS.UI.Controls.Loader();
             this.lLoadingText = new System.Windows.Forms.Label();
             this.tpServers = new System.Windows.Forms.TabPage();
             this.tcServers = new System.Windows.Forms.TabControl();
@@ -91,7 +91,6 @@ namespace PintoNS.Forms
             // 
             this.dgvServersOfficial.AllowUserToAddRows = false;
             this.dgvServersOfficial.AllowUserToDeleteRows = false;
-            this.dgvServersOfficial.AllowUserToResizeColumns = false;
             this.dgvServersOfficial.AllowUserToResizeRows = false;
             this.dgvServersOfficial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvServersOfficial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -242,7 +241,6 @@ namespace PintoNS.Forms
             // 
             this.dgvServersUnofficial.AllowUserToAddRows = false;
             this.dgvServersUnofficial.AllowUserToDeleteRows = false;
-            this.dgvServersUnofficial.AllowUserToResizeColumns = false;
             this.dgvServersUnofficial.AllowUserToResizeRows = false;
             this.dgvServersUnofficial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvServersUnofficial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
