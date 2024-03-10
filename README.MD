@@ -12,7 +12,7 @@
 # 💬 Pinto IM
 A modernish IM client inspired by Skype 0.97
 
-# 📃 Note
+# ⚠️ Warning
 Pinto! IM is currently not finished and will take a lot of time to be fully perfected and done, it is not yet ready to be used as a daily IM platform
 
 # 📌 Information
