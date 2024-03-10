@@ -114,6 +114,7 @@ namespace PintoNS.Networking
             if (ConnectionClosed)
                 return;
             ConnectionClosed = true;
+            SendPacket(new PacketLogout(""));
             NetManager.Interrupt();
             NetManager.Close();
         }

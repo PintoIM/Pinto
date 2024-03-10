@@ -19,7 +19,7 @@ namespace PintoNS
         public static ConsoleForm Console;
         public const string VERSION_STRING = "b1.2";
         public const string VERSION_COMMIT = "-";
-        public const byte PROTOCOL_VERSION = 12;
+        public const byte PROTOCOL_VERSION = 13;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
