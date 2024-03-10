@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace PintoNS.UI.Controls
 {
@@ -13,7 +10,7 @@ namespace PintoNS.UI.Controls
             {
                 CreateParams createParams = base.CreateParams;
 
-                if (Program.UseExRichTextBox) 
+                if (Program.UseExRichTextBox)
                     createParams.ClassName = "RichEdit50W";
 
                 return createParams;

@@ -30,7 +30,7 @@ namespace PintoNS.Forms
             if (m.Msg != PInvoke.WM_SYSCOMMAND)
                 return;
 
-            switch ((int)m.WParam) 
+            switch ((int)m.WParam)
             {
                 case SM_ITEM_CLEAR:
                     rtxtLog.Clear();

@@ -1,4 +1,5 @@
-﻿using PintoNS.Networking.Packets;
+﻿using PintoNS.Forms;
+using PintoNS.Networking.Packets;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using PintoNS.Forms;
 
 namespace PintoNS.Networking
 {
@@ -36,7 +36,7 @@ namespace PintoNS.Networking
         {
             if (tcpClient == null)
                 throw new ArgumentException("No socket specified");
-            
+
             this.tcpClient = tcpClient;
             this.netHandler = netHandler;
             if (Settings.SpecifySocketTOS)
@@ -206,7 +206,7 @@ namespace PintoNS.Networking
                 if (isTerminating || isClosing)
                     return;
 
-                if (ex is EndOfStreamException) 
+                if (ex is EndOfStreamException)
                 {
                     Shutdown("Server disconnect");
                     return;
@@ -242,7 +242,7 @@ namespace PintoNS.Networking
                         catch (Exception) { }
                     }
 
-                    if (writeThread.IsAlive) 
+                    if (writeThread.IsAlive)
                     {
                         try
                         {

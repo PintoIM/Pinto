@@ -10,15 +10,15 @@ namespace PintoNS.Networking
         public Dictionary<string, string> Headers;
         public byte[] Data;
 
-        public PMSGMessage() 
+        public PMSGMessage()
         {
             Headers = new Dictionary<string, string>();
             Data = new byte[0];
         }
 
-        public PMSGMessage(string body) 
+        public PMSGMessage(string body)
         {
-            Headers = new Dictionary<string, string>() 
+            Headers = new Dictionary<string, string>()
             {
                 { "Content-Type", "pinto/text" }
             };

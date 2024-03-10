@@ -1,7 +1,9 @@
 ﻿using PintoNS.Calls;
 using PintoNS.Contacts;
 using PintoNS.Forms;
+using PintoNS.Networking;
 using PintoNS.Scripting;
+using PintoNS.UI;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,8 +15,6 @@ using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PintoNS.UI;
-using PintoNS.Networking;
 
 namespace PintoNS
 {
@@ -39,7 +39,7 @@ namespace PintoNS
             PopupController = new PopupController();
         }
 
-        internal string GetBaseTitle() 
+        internal string GetBaseTitle()
         {
             return $"Pinto! {Program.VERSION_STRING}";
         }
@@ -245,7 +245,7 @@ namespace PintoNS
             niTray.Visible = true;
             niTray.Icon = User.StatusToIcon(LocalUser.Status);
             niTray.Text = $"Pinto! Beta - " + (isOnline ? $"{LocalUser.Name} - " +
-                $"{User.StatusToText(LocalUser.Status)}" : 
+                $"{User.StatusToText(LocalUser.Status)}" :
                 LocalUser.Status == UserStatus.CONNECTING ? "Connecting..." : "Not logged in");
             tsmiTrayChangeStatus.Enabled = isOnline;
         }
@@ -265,7 +265,7 @@ namespace PintoNS
                 }));
             };
 
-            try 
+            try
             {
                 Program.Console.WriteMessage($"[Networking] Connecting at {ip}:{port} as {username}...");
                 NetHandler = await NetClientHandlerFactory.Create(this, ip, port, changeConnectionStatus);
@@ -283,14 +283,14 @@ namespace PintoNS
 
                 StartLoginPacketCheckThread(ip, port);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Disconnect();
                 lConnectingStatus.Text = "";
                 if (!(ex is PintoVerificationException))
                 {
                     Program.Console.WriteMessage($"[Networking] Unable to connect to {ip}:{port}: {ex}");
-                    MsgBox.Show(this, $"Unable to connect to {ip}:{port}: {ex.Message}", 
+                    MsgBox.Show(this, $"Unable to connect to {ip}:{port}: {ex.Message}",
                         "Connection Error", MsgBoxIconType.ERROR);
                 }
             }

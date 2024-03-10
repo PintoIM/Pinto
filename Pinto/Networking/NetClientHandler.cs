@@ -1,14 +1,14 @@
-﻿using PintoNS.Contacts;
+﻿using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Security;
+using PintoNS.Contacts;
+using PintoNS.Forms;
+using PintoNS.Networking.Packets;
 using System;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using PintoNS.Networking.Packets;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Security;
 using System.Net.Sockets;
 using System.Reflection;
-using PintoNS.Forms;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PintoNS.Networking
 {
@@ -81,7 +81,7 @@ namespace PintoNS.Networking
         {
             try
             {
-                if (!(packet is PacketKeepAlive)) 
+                if (!(packet is PacketKeepAlive))
                     Program.Console.WriteMessage($"[Networking] Received {packet.GetType().Name}");
 
                 if (packetsHandler == null)
@@ -115,7 +115,7 @@ namespace PintoNS.Networking
             NetManager.Close();
         }
 
-        private static string GetPasswordHash(string password) 
+        private static string GetPasswordHash(string password)
         {
             return BitConverter.ToString(new SHA256Managed()
                 .ComputeHash(Encoding.UTF8.GetBytes(password)))
@@ -126,7 +126,7 @@ namespace PintoNS.Networking
         public void Login(string username, string password)
         {
             Username = username;
-            SendPacket(new PacketLogin(Program.PROTOCOL_VERSION, Program.VERSION_STRING, 
+            SendPacket(new PacketLogin(Program.PROTOCOL_VERSION, Program.VERSION_STRING,
                 username, GetPasswordHash(password)));
         }
 

@@ -21,7 +21,7 @@ namespace PintoNS.Forms
             Program.Console.WriteMessage($"[General] Created NetMonitorForm instance");
         }
 
-        public void AddPacket(IPacket packet, byte[] data, bool received) 
+        public void AddPacket(IPacket packet, byte[] data, bool received)
         {
             byte[] dataNoID = data.Skip(4).ToArray();
             DataGridViewRow row = new DataGridViewRow();
@@ -30,7 +30,7 @@ namespace PintoNS.Forms
             lock (packetsToAdd) packetsToAdd.Add(row);
         }
 
-        public void UpdateMonitor() 
+        public void UpdateMonitor()
         {
             int prevRowCount = dgvPackets.Rows.Count;
             dgvPackets.Rows.AddRange(packetsToAdd.ToArray());
@@ -39,7 +39,7 @@ namespace PintoNS.Forms
             packetsToAdd.Clear();
         }
 
-        public void Clear() 
+        public void Clear()
         {
             dgvPackets.Rows.Clear();
         }
@@ -51,7 +51,7 @@ namespace PintoNS.Forms
             Hide();
         }
 
-        private void ClearSelection() 
+        private void ClearSelection()
         {
             hbData.ByteProvider = null;
             lID.Text = "ID: -";
@@ -60,7 +60,7 @@ namespace PintoNS.Forms
 
         private void dgvPackets_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvPackets.SelectedRows.Count < 1) 
+            if (dgvPackets.SelectedRows.Count < 1)
             {
                 ClearSelection();
                 return;
@@ -69,7 +69,7 @@ namespace PintoNS.Forms
             byte[] value = (byte[])row.Cells["data"].Value;
             lID.Text = $"ID: {(string)row.Cells["name"].Value} ({(int)row.Cells["id"].Value})";
             lSize.Text = $"Size: {value.Length}";
-            hbData.ByteProvider = new DynamicByteProvider(value); 
+            hbData.ByteProvider = new DynamicByteProvider(value);
         }
 
         private void NetMonitorForm_VisibleChanged(object sender, EventArgs e)

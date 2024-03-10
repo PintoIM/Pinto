@@ -119,16 +119,16 @@ namespace PintoNS.Forms
             return style;
         }
 
-        public void WriteRTF(string rtf) 
+        public void WriteRTF(string rtf)
         {
             Invoke(new Action(() =>
             {
-                try 
+                try
                 {
                     rtxtMessages.SelectionStart = rtxtMessages.Text.Length;
                     rtxtMessages.SelectedRtf = rtf;
                 }
-                catch 
+                catch
                 {
                     WriteMessage("(INVALID RTF) ", Color.Red, false);
                     WriteMessage(rtf, Color.Red);
@@ -136,7 +136,7 @@ namespace PintoNS.Forms
             }));
         }
 
-        public void WriteMessage(string msg, Color color, bool newLine = true, bool bold = false, 
+        public void WriteMessage(string msg, Color color, bool newLine = true, bool bold = false,
             bool italic = false, bool strikeout = false, bool underLine = false)
         {
             Invoke(new Action(() =>
@@ -273,7 +273,7 @@ namespace PintoNS.Forms
                 return;
             }
 
-            if (rtxtInput.Text.StartsWith("/")) 
+            if (rtxtInput.Text.StartsWith("/"))
                 input = rtxtInput.Text;
 
             rtxtInput.Clear();

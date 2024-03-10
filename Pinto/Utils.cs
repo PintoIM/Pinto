@@ -31,7 +31,7 @@ namespace PintoNS
             return dict.TryGetValue(key, out var value) ? value : @default;
         }
 
-        public static Form ConstructTextOnlyForm(string text, string title) 
+        public static Form ConstructTextOnlyForm(string text, string title)
         {
             Form form = new Form
             {
