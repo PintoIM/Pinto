@@ -39,10 +39,7 @@ namespace PintoNS.Forms
             packetsToAdd.Clear();
         }
 
-        public void Clear()
-        {
-            dgvPackets.Rows.Clear();
-        }
+        public void Clear() => dgvPackets.Rows.Clear();
 
         private void NetMonitorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -72,9 +69,12 @@ namespace PintoNS.Forms
             hbData.ByteProvider = new DynamicByteProvider(value);
         }
 
-        private void NetMonitorForm_VisibleChanged(object sender, EventArgs e)
-        {
-            dgvPackets.ClearSelection();
-        }
+        private void NetMonitorForm_VisibleChanged(object sender, EventArgs e) => dgvPackets.ClearSelection();
+
+        private void tsmiCMSSelectAll_Click(object sender, EventArgs e) => hbData.SelectAll();
+
+        private void tsmiCMSCopyHex_Click(object sender, EventArgs e) => hbData.CopyHex();
+
+        private void tsmiCMSCopyPlain_Click(object sender, EventArgs e) => hbData.Copy();
     }
 }

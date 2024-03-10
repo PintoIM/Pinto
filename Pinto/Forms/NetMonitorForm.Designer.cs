@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvPackets = new System.Windows.Forms.DataGridView();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,11 +41,17 @@
             this.lSize = new System.Windows.Forms.Label();
             this.lID = new System.Windows.Forms.Label();
             this.hbData = new Be.Windows.Forms.HexBox();
+            this.cmsHexBox = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiCMSCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCMSCopyHex = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCMSCopyPlain = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCMSSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPackets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).BeginInit();
             this.scSections.Panel1.SuspendLayout();
             this.scSections.Panel2.SuspendLayout();
             this.scSections.SuspendLayout();
+            this.cmsHexBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvPackets
@@ -175,16 +182,57 @@
             this.hbData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.hbData.ContextMenuStrip = this.cmsHexBox;
             this.hbData.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.hbData.LineInfoVisible = true;
             this.hbData.Location = new System.Drawing.Point(3, 58);
             this.hbData.Name = "hbData";
             this.hbData.ReadOnly = true;
             this.hbData.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hbData.Size = new System.Drawing.Size(782, 179);
+            this.hbData.Size = new System.Drawing.Size(782, 181);
             this.hbData.StringViewVisible = true;
             this.hbData.TabIndex = 1;
             this.hbData.VScrollBarVisible = true;
+            // 
+            // cmsHexBox
+            // 
+            this.cmsHexBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCMSCopy,
+            this.tsmiCMSSelectAll});
+            this.cmsHexBox.Name = "cmsHexBox";
+            this.cmsHexBox.ShowImageMargin = false;
+            this.cmsHexBox.Size = new System.Drawing.Size(98, 48);
+            // 
+            // tsmiCMSCopy
+            // 
+            this.tsmiCMSCopy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCMSCopyHex,
+            this.tsmiCMSCopyPlain});
+            this.tsmiCMSCopy.Name = "tsmiCMSCopy";
+            this.tsmiCMSCopy.Size = new System.Drawing.Size(97, 22);
+            this.tsmiCMSCopy.Text = "Copy";
+            this.tsmiCMSCopy.Click += new System.EventHandler(this.tsmiCMSCopyHex_Click);
+            // 
+            // tsmiCMSCopyHex
+            // 
+            this.tsmiCMSCopyHex.Name = "tsmiCMSCopyHex";
+            this.tsmiCMSCopyHex.Size = new System.Drawing.Size(116, 22);
+            this.tsmiCMSCopyHex.Text = "As hex";
+            this.tsmiCMSCopyHex.Click += new System.EventHandler(this.tsmiCMSCopyHex_Click);
+            // 
+            // tsmiCMSCopyPlain
+            // 
+            this.tsmiCMSCopyPlain.Name = "tsmiCMSCopyPlain";
+            this.tsmiCMSCopyPlain.Size = new System.Drawing.Size(116, 22);
+            this.tsmiCMSCopyPlain.Text = "As plain";
+            this.tsmiCMSCopyPlain.Click += new System.EventHandler(this.tsmiCMSCopyPlain_Click);
+            // 
+            // tsmiCMSSelectAll
+            // 
+            this.tsmiCMSSelectAll.Name = "tsmiCMSSelectAll";
+            this.tsmiCMSSelectAll.Size = new System.Drawing.Size(97, 22);
+            this.tsmiCMSSelectAll.Text = "Select All";
+            this.tsmiCMSSelectAll.Click += new System.EventHandler(this.tsmiCMSSelectAll_Click);
             // 
             // NetMonitorForm
             // 
@@ -202,6 +250,7 @@
             this.scSections.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).EndInit();
             this.scSections.ResumeLayout(false);
+            this.cmsHexBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -220,5 +269,10 @@
         private System.Windows.Forms.Label lSize;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ContextMenuStrip cmsHexBox;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCMSCopy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCMSCopyHex;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCMSCopyPlain;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCMSSelectAll;
     }
 }
