@@ -125,7 +125,7 @@ namespace PintoNS.Networking
                 }
 
                 // Write the packet
-                binaryWriter.WriteInt(packet.GetID());
+                binaryWriter.WriteBEInt(packet.GetID());
                 packet.Write(binaryWriter);
 
                 aes.GenerateIV();

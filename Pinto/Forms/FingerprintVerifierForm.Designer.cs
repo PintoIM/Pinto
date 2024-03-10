@@ -1,6 +1,6 @@
 ﻿namespace PintoNS.Forms
 {
-    partial class RSAKeyVerifierForm
+    partial class FingerprintVerifierForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RSAKeyVerifierForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FingerprintVerifierForm));
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnOnlyOnce = new System.Windows.Forms.Button();
-            this.rtxtPublicKey = new System.Windows.Forms.RichTextBox();
+            this.rtxtFingerprint = new System.Windows.Forms.RichTextBox();
             this.tcSections = new System.Windows.Forms.TabControl();
             this.tpUnknown = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -88,18 +88,18 @@
             this.btnOnlyOnce.UseVisualStyleBackColor = true;
             this.btnOnlyOnce.Click += new System.EventHandler(this.btnOnlyOnce_Click);
             // 
-            // rtxtPublicKey
+            // rtxtFingerprint
             // 
-            this.rtxtPublicKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.rtxtFingerprint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtxtPublicKey.BackColor = System.Drawing.SystemColors.Window;
-            this.rtxtPublicKey.Location = new System.Drawing.Point(12, 236);
-            this.rtxtPublicKey.Name = "rtxtPublicKey";
-            this.rtxtPublicKey.ReadOnly = true;
-            this.rtxtPublicKey.Size = new System.Drawing.Size(503, 96);
-            this.rtxtPublicKey.TabIndex = 3;
-            this.rtxtPublicKey.Text = "";
+            this.rtxtFingerprint.BackColor = System.Drawing.SystemColors.Window;
+            this.rtxtFingerprint.Location = new System.Drawing.Point(12, 236);
+            this.rtxtFingerprint.Name = "rtxtFingerprint";
+            this.rtxtFingerprint.ReadOnly = true;
+            this.rtxtFingerprint.Size = new System.Drawing.Size(503, 96);
+            this.rtxtFingerprint.TabIndex = 3;
+            this.rtxtFingerprint.Text = "";
             // 
             // tcSections
             // 
@@ -131,7 +131,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(395, 91);
+            this.label2.Size = new System.Drawing.Size(393, 91);
             this.label2.TabIndex = 2;
             this.label2.Text = resources.GetString("label2.Text");
             // 
@@ -151,9 +151,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(44, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 25);
+            this.label1.Size = new System.Drawing.Size(305, 25);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Unknown Server Public Key";
+            this.label1.Text = "Unknown Server Fingerprint";
             // 
             // tpFailed
             // 
@@ -178,18 +178,18 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(265, 39);
             this.label6.TabIndex = 7;
-            this.label6.Text = "This could mean 2 things:\r\n- YOUR CONNECTION IS BEING TAMPERED\r\n- The public key " +
-    "has changed (less likely)";
+            this.label6.Text = "This could mean 2 things:\r\n- YOUR CONNECTION IS BEING TAMPERED\r\n- The fingerprint" +
+    " has changed (less likely)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 41);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(481, 13);
+            this.label5.Size = new System.Drawing.Size(479, 13);
             this.label5.TabIndex = 6;
-            this.label5.Text = "The server you are trying to connect to (%SERVER%) has a different public key tha" +
-    "n the known one.\r\n";
+            this.label5.Text = "The server you are trying to connect to (%SERVER%) has a different fingerprint th" +
+    "an the known one.\r\n";
             // 
             // label3
             // 
@@ -216,30 +216,30 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(44, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(333, 25);
+            this.label4.Size = new System.Drawing.Size(335, 25);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Mismatched Server Public Key";
+            this.label4.Text = "Mismatched Server Fingerprint";
             // 
             // tEnableButtons
             // 
             this.tEnableButtons.Interval = 1000;
             this.tEnableButtons.Tick += new System.EventHandler(this.tEnableButtons_Tick);
             // 
-            // RSAKeyVerifierForm
+            // FingerprintVerifierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(527, 379);
             this.Controls.Add(this.tcSections);
-            this.Controls.Add(this.rtxtPublicKey);
+            this.Controls.Add(this.rtxtFingerprint);
             this.Controls.Add(this.btnOnlyOnce);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.btnDisconnect);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(543, 418);
-            this.Name = "RSAKeyVerifierForm";
-            this.Text = "Pinto! - Server Public Key Verification";
+            this.Name = "FingerprintVerifierForm";
+            this.Text = "Pinto! - Server Fingerprint Verification";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RSAKeyVerifierForm_FormClosing);
             this.Load += new System.EventHandler(this.RSAKeyVerifierForm_Load);
             this.tcSections.ResumeLayout(false);
@@ -258,7 +258,7 @@
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Button btnOnlyOnce;
-        private System.Windows.Forms.RichTextBox rtxtPublicKey;
+        private System.Windows.Forms.RichTextBox rtxtFingerprint;
         private System.Windows.Forms.TabControl tcSections;
         private System.Windows.Forms.TabPage tpUnknown;
         private System.Windows.Forms.TabPage tpFailed;

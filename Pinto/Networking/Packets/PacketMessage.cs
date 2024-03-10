@@ -33,7 +33,7 @@ namespace PintoNS.Networking.Packets
             writer.WritePintoString(ContactName, NetBaseHandler.USERNAME_MAX);
             writer.WritePintoString(Sender, NetBaseHandler.USERNAME_MAX);
             byte[] payload = Payload.Encode();
-            writer.WriteInt(payload.Length);
+            writer.WriteBEInt(payload.Length);
             writer.WriteBytes(payload);
         }
 

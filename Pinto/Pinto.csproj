@@ -225,6 +225,7 @@
     <Compile Include="Networking\Packets\PacketTyping.cs" />
     <Compile Include="Networking\PintoConnectionException.cs" />
     <Compile Include="Networking\PintoVerificationException.cs" />
+    <Compile Include="Networking\FingerprintValidator.cs" />
     <Compile Include="UI\Controls\ExRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -321,11 +322,11 @@
     <Compile Include="Forms\PopupForm.Designer.cs">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RSAKeyVerifierForm.cs">
+    <Compile Include="Forms\FingerprintVerifierForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\RSAKeyVerifierForm.Designer.cs">
-      <DependentUpon>RSAKeyVerifierForm.cs</DependentUpon>
+    <Compile Include="Forms\FingerprintVerifierForm.Designer.cs">
+      <DependentUpon>FingerprintVerifierForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ServerListForm.cs">
       <SubType>Form</SubType>
@@ -439,8 +440,8 @@
     <EmbeddedResource Include="Forms\PopupForm.resx">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RSAKeyVerifierForm.resx">
-      <DependentUpon>RSAKeyVerifierForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FingerprintVerifierForm.resx">
+      <DependentUpon>FingerprintVerifierForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ServerListForm.resx">
       <DependentUpon>ServerListForm.cs</DependentUpon>

@@ -217,7 +217,7 @@ namespace PintoNS
             UnhandledExceptionHandler(e.ExceptionObject);
         }
 
-        private static void UnhandledExceptionHandler(object ex)
+        public static void UnhandledExceptionHandler(object ex)
         {
             FatalErrorForm fatalErrorForm = new FatalErrorForm();
             fatalErrorForm.rtxtLog.Text = $"{ex}";

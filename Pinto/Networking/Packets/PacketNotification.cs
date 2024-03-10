@@ -40,7 +40,7 @@ namespace PintoNS.Networking.Packets
         public void Write(BinaryWriter writer)
         {
             writer.Write(Type);
-            writer.WriteInt(AutoCloseDelay);
+            writer.WriteBEInt(AutoCloseDelay);
             writer.WritePintoString(Title, 32);
             writer.WritePintoString(Body, 1024);
         }

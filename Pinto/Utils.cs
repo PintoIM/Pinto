@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PintoNS
@@ -60,6 +62,22 @@ namespace PintoNS
             form.Controls.Add(textBox);
 
             return form;
+        }
+
+        public static string GetSHA1Hash(byte[] data)
+        {
+            return BitConverter.ToString(new SHA1Managed()
+                .ComputeHash(data))
+                .Replace("-", "")
+                .ToUpper();
+        }
+
+        public static string GetSHA256Hash(byte[] data)
+        {
+            return BitConverter.ToString(new SHA256Managed()
+                .ComputeHash(data))
+                .Replace("-", "")
+                .ToUpper();
         }
     }
 }

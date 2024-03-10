@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label2.Text" xml:space="preserve">
-    <value>The server you are trying to connect to (%SERVER%) has an unknown public key.
+    <value>The server you are trying to connect to (%SERVER%) has an unknown fingerprint.
 You have no way to know if the server is who you think it is.
-If you have a known public key, make sure to compare it against the one bellow.
+If you have a known fingerprint, make sure to compare it against the one bellow.
 
-Press "Accept" to continue connecting and trust the public key
-Press "Only Once" to continue connecting but to not trust the public key
+Press "Accept" to continue connecting and trust the fingerprint
+Press "Only Once" to continue connecting but to not trust the fingerprint
 Press "Disconnect" to abort the connection
 </value>
   </data>
@@ -131,7 +131,7 @@ Press "Disconnect" to abort the connection
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAABt1JREFUWEftVntMW9cdvkBtEiqWpVvSZGwJA5SGPqZVTVuSjqxLQqXSpdmUpZ2S
+        wAAADsABataJCQAABt1JREFUWEftVntMW9cdvkBtEiqWpVvSZGwJA5SGPqZVTVuSjqxLQqXSpdmUpZ2S
         JZXa0EjTUrVaknV/bOv+mbqQFwb72hjbsXkFDMYmBhtsZuJXsA0mvAkpyrJAIDYYO5hg1rTffte+Wztt
         Uro2qTZpn/TpXN9zzu/7ve45Zv6P/0nIlQpBk8HwXmND47tyueK7/OsvDyqVcpvB0DJnaXeAHCiWSNhk
         fur+g2Ul36yuqbtms5lgtzfAYDAtyWTlP+On7z8UCvnxRp0N5ubDuGheB4vFDLVG202ZeIhfcv8glbLP
@@ -164,18 +164,18 @@ Press "Disconnect" to abort the connection
 </value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>If you are certain the public key has changed, you can safely continue.
+    <value>If you are certain the fingerprint has changed, you can safely continue.
 Otherwise imediately abort the connection and try changing your network configuration.
 
-Press "Accept" to continue connecting and update the known public key
-Press "Only Once" to continue connecting but do not update the known public key
+Press "Accept" to continue connecting and update the known fingerprint
+Press "Only Once" to continue connecting but do not update the known fingerprint
 Press "Disconnect" to abort the connection (recommended)
 </value>
   </data>
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAACNxJREFUWEfFV2lsVNcV5l8gJJAEkkgRQmxOAjisYTGLMWFx2KFlKYsS/0hoFKRE
+        wAAADsABataJCQAACNxJREFUWEfFV2lsVNcV5l8gJJAEkkgRQmxOAjisYTGLMWFx2KFlKYsS/0hoFKRE
         +ZEGEqJUQipUVIkaERpq4w3HC96wwfUA9ixexzNjj+0Zz3jswZ4ZL9gem63UBWPe1+88v3EtQltQVfVI
         R8+ed+/5vrPe+0Y9qRz6+OMwagz1FNVI9VPvaSp/y2/yTtaEadv+e6GxqN98/nn8kcOHbyckJPQbjcaH
         TU1NuNHXhwcPHqgqf8tv8k7WyFrZI3s1M08v3Dzt6NGjP/7+xIlbBoPhYW8wqAQ9jUp7cbHiTUuH+4fT

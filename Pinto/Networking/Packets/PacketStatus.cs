@@ -28,7 +28,7 @@ namespace PintoNS.Networking.Packets
         public void Write(BinaryWriter writer)
         {
             writer.WritePintoString(ContactName, NetBaseHandler.USERNAME_MAX);
-            writer.WriteInt((int)Status);
+            writer.WriteBEInt((int)Status);
             writer.WritePintoString(MOTD, 64);
         }
 

@@ -24,7 +24,7 @@ namespace PintoNS.Networking.Packets
 
         public void Write(BinaryWriter writer)
         {
-            writer.WriteInt((int)CallStatus);
+            writer.WriteBEInt((int)CallStatus);
             writer.WritePintoString(Details, 64);
         }
 

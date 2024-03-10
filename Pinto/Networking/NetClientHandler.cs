@@ -36,6 +36,9 @@ namespace PintoNS.Networking
             // Receive the public RSA key
             int sizeOfPublicKey = binaryReader.ReadBEInt();
             byte[] publicKey = binaryReader.ReadBytes(sizeOfPublicKey);
+            
+            if (!FingerprintValidator.Validate(publicKey, this))
+                throw new PintoVerificationException();
 
             // Parse RSA key
             RsaKeyParameters rsaKeyParameters = (RsaKeyParameters)PublicKeyFactory.CreateKey(publicKey);
@@ -56,7 +59,7 @@ namespace PintoNS.Networking
 
             // Send the encrypted AES key
             byte[] encryptedAESKey = rsa.Encrypt(aes.Key, false);
-            binaryWriter.WriteInt(encryptedAESKey.Length);
+            binaryWriter.WriteBEInt(encryptedAESKey.Length);
             binaryWriter.Write(encryptedAESKey);
 
             NetManager.OnHandshaked(aes);
@@ -115,26 +118,18 @@ namespace PintoNS.Networking
             NetManager.Close();
         }
 
-        private static string GetPasswordHash(string password)
-        {
-            return BitConverter.ToString(new SHA256Managed()
-                .ComputeHash(Encoding.UTF8.GetBytes(password)))
-                .Replace("-", "")
-                .ToUpper();
-        }
-
         public void Login(string username, string password)
         {
             Username = username;
             SendPacket(new PacketLogin(Program.PROTOCOL_VERSION, Program.VERSION_STRING,
-                username, GetPasswordHash(password)));
+                username, Utils.GetSHA256Hash(Encoding.UTF8.GetBytes(password))));
         }
 
         public void Register(string username, string password)
         {
             Username = username;
             SendPacket(new PacketRegister(Program.PROTOCOL_VERSION, Program.VERSION_STRING,
-                username, GetPasswordHash(password)));
+                username, Utils.GetSHA256Hash(Encoding.UTF8.GetBytes(password))));
         }
 
         public void SendStatusChange(UserStatus status, string motd)

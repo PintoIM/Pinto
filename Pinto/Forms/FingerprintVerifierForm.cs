@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace PintoNS.Forms
 {
-    public partial class RSAKeyVerifierForm : Form
+    public partial class FingerprintVerifierForm : Form
     {
         private int secondsTillEnabled = 5;
         public Action<VerifierResult> Callback;
@@ -12,18 +12,19 @@ namespace PintoNS.Forms
 
         public enum VerifierResult
         {
+            NONE,
             ACCEPT,
             ONLY_ONCE,
             DISCONNECT
         }
 
-        public RSAKeyVerifierForm(string server, string publicKey, bool failed)
+        public FingerprintVerifierForm(string server, string fingerprint, bool failed)
         {
             InitializeComponent();
             Icon = Program.GetFormIcon();
             label2.Text = label2.Text.Replace("%SERVER%", server);
             label5.Text = label5.Text.Replace("%SERVER%", server);
-            rtxtPublicKey.Text = publicKey;
+            rtxtFingerprint.Text = fingerprint;
             tcSections.SelectedTab = failed ? tpFailed : tpUnknown;
         }
 
