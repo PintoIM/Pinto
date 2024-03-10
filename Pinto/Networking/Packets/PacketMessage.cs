@@ -4,7 +4,7 @@ namespace PintoNS.Networking.Packets
 {
     public class PacketMessage : IPacket
     {
-        public const int PAYLOAD_MAX_LENGTH = 8388608;
+        public const int PAYLOAD_MAX_LENGTH = 0x800000; // 8 MB
         public string ContactName { get; protected set; }
         public string Sender { get; protected set; }
         public PMSGMessage Payload { get; protected set; }
@@ -39,8 +39,7 @@ namespace PintoNS.Networking.Packets
 
         public int GetPacketSize()
         {
-            // TODO: Figure this crap out
-            return (NetBaseHandler.USERNAME_MAX * 2) /*+ PAYLOAD_MAX_LENGTH*/;
+            return (NetBaseHandler.USERNAME_MAX * 2) + PAYLOAD_MAX_LENGTH;
         }
 
         public int GetID()

@@ -279,7 +279,7 @@ namespace PintoNS.Networking
 
         public void ProcessReceivedPackets()
         {
-            if (sendQueueByteLength > 0x100000) // A megabyte
+            if (sendQueueByteLength > 0x1_000_000) // 16 megabytes
                 Shutdown("Send buffer overflow");
 
             if (readPackets.Count == 0 && timeSinceLastRead++ == 600) // 30 seconds
