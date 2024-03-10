@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace PintoNS
 {
@@ -27,6 +29,37 @@ namespace PintoNS
             TKey key, TValue @default)
         {
             return dict.TryGetValue(key, out var value) ? value : @default;
+        }
+
+        public static Form ConstructTextOnlyForm(string text, string title) 
+        {
+            Form form = new Form
+            {
+                Text = $"Pinto! - {title}",
+                Size = new Size(300, 225),
+                Icon = Program.GetFormIcon(),
+                ShowInTaskbar = false
+            };
+            RichTextBox textBox = new RichTextBox
+            {
+                Text = text,
+                Dock = DockStyle.Fill,
+                ReadOnly = true,
+                BackColor = SystemColors.Window
+            };
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            ToolStripMenuItem copyItem = new ToolStripMenuItem("Copy");
+
+            copyItem.Click += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(textBox.SelectedText)) return;
+                Clipboard.SetText(textBox.SelectedText);
+            };
+            contextMenu.Items.Add(copyItem);
+            textBox.ContextMenuStrip = contextMenu;
+            form.Controls.Add(textBox);
+
+            return form;
         }
     }
 }

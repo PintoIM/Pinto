@@ -26,10 +26,7 @@ namespace PintoNS.Forms
 
         private void lCommit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ViewAllPopupContentForm form = new ViewAllPopupContentForm();
-            form.Text = "Commit";
-            form.rtxtContent.Text = Program.VERSION_COMMIT;
-            form.ShowDialog();
+            Utils.ConstructTextOnlyForm(Program.VERSION_COMMIT, "Build Commit").ShowDialog();
         }
     }
 }

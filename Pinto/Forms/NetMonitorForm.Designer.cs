@@ -35,11 +35,11 @@
             this.sender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scSections = new System.Windows.Forms.SplitContainer();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lSize = new System.Windows.Forms.Label();
             this.lID = new System.Windows.Forms.Label();
             this.hbData = new Be.Windows.Forms.HexBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPackets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scSections)).BeginInit();
             this.scSections.Panel1.SuspendLayout();
@@ -130,6 +130,19 @@
             this.scSections.SplitterWidth = 3;
             this.scSections.TabIndex = 1;
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(372, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(413, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Some of the packets leak sensitive information, you have been warned!";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -168,21 +181,10 @@
             this.hbData.Name = "hbData";
             this.hbData.ReadOnly = true;
             this.hbData.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hbData.Size = new System.Drawing.Size(782, 178);
+            this.hbData.Size = new System.Drawing.Size(782, 179);
             this.hbData.StringViewVisible = true;
             this.hbData.TabIndex = 1;
             this.hbData.VScrollBarVisible = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(372, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(413, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Some of the packets leak sensitive information, you have been warned!";
             // 
             // NetMonitorForm
             // 

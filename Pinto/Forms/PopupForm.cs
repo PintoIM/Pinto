@@ -54,9 +54,7 @@ namespace PintoNS.Forms
 
         private void lSeeContent_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ViewAllPopupContentForm viewAllPopupContentForm = new ViewAllPopupContentForm();
-            viewAllPopupContentForm.rtxtContent.Text = lBody.Text;
-            viewAllPopupContentForm.Show();
+            Utils.ConstructTextOnlyForm(lBody.Text, "Popup Content").Show();
         }
 
         private void tAutoClose_Tick(object sender, EventArgs e)

@@ -70,6 +70,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Be.Windows.Forms.HexBox">
       <HintPath>Lib\Be.Windows.Forms.HexBox.dll</HintPath>
@@ -329,12 +332,6 @@
     <Compile Include="Forms\UsingPintoForm.Designer.cs">
       <DependentUpon>UsingPintoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ViewAllPopupContentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ViewAllPopupContentForm.Designer.cs">
-      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Calls\AudioPlayer.cs" />
     <Compile Include="Calls\CallManager.cs" />
     <Compile Include="Calls\CallStatus.cs" />
@@ -440,9 +437,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UsingPintoForm.resx">
       <DependentUpon>UsingPintoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ViewAllPopupContentForm.resx">
-      <DependentUpon>ViewAllPopupContentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logo.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
