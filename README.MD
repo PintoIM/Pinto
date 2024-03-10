@@ -15,19 +15,20 @@ A modernish IM client inspired by Skype 0.97
 # ⚠️ Warning
 Pinto! IM is currently not finished and will take a lot of time to be fully perfected and done, it is not yet ready to be used as a daily IM platform
 
-# 📌 Information
+# ℹ️ Information
 - Written in C# (.NET Framework 4.0)
 - The classic look and feel of Skype 0.97
 - Fully open and transparent design
 
-# 📌 Features
+# 📌 Features / Roadmap
 - Instant Messaging ✅
+- Group messaging ✅ (proof of concept at the moment)
 - File sharing ❎
-- Calls ✅ (proof of concept at the moment)
-- Group messaging ❎
+- Calls ❎
 - Server browser  ✅ (proof of concept at the moment)
 - Secure protocol communication ✅ (using RSA to transmit a randomly generated AES-256 key)
 - Fully customizable interface ❎
+- Scripting ✅ (not very friendly at the moment)
 
 # ♥️ Third-party attributions
 Thanks to all of these great projects that made Pinto! possible!<br>
@@ -40,8 +41,8 @@ The version that Pinto! uses is listed next to the links
 - [Bouncycastle](https://www.bouncycastle.org/csharp/index.html) v1.8.4
 - [Hexbox](https://sourceforge.net/projects/hexbox/) v1.6.0
 
-# 🖥️ Server
-Looking for a server implementation?<br>
+# 🛜 Server
+Looking for the server software?<br>
 [Here](https://github.com/vlOd2/PintoServer) you can find an official implementation
 
 # 👨‍💻 Contributing
