@@ -17,9 +17,10 @@ namespace PintoNS
     {
         // Constants
         public static ConsoleForm Console;
-        public const string VERSION_STRING = "b1.2";
+        public const string VERSION_STRING = "b1.2-rc";
         public const string VERSION_COMMIT = "-";
         public const byte PROTOCOL_VERSION = 13;
+        public const bool IS_RELEASE_CANDIDATE = true;
 
         // Data paths
         public static readonly string DataFolder = Path.Combine(Environment.GetFolderPath(
@@ -95,6 +96,7 @@ namespace PintoNS
             Console.WriteMessage($"Version: {VERSION_STRING}");
             Console.WriteMessage($"Protocol Version: {PROTOCOL_VERSION}");
             Console.WriteMessage($"Commit: {VERSION_COMMIT}");
+            Console.WriteMessage($"Release Candidate: {IS_RELEASE_CANDIDATE}");
 
             if (wineVersion != null)
                 Console.WriteMessage($"[General] Running under wine ({wineVersion})");

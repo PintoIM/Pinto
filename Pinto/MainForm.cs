@@ -373,13 +373,12 @@ namespace PintoNS
         private async void MainForm_Load(object sender, EventArgs e)
         {
             Program.Console.WriteMessage("[General] Performing first time initialization...");
-
             OnLogout(true);
-            isPortable = true;
+
             if (File.Exists(".IS_PORTABLE_CHECK"))
                 isPortable = true;
 
-            if (Settings.AutoCheckForUpdates && !isPortable)
+            if (Settings.AutoCheckForUpdates && !isPortable && !Program.IS_RELEASE_CANDIDATE)
                 await CheckForUpdates(false);
 
             Program.Scripts.ForEach((IPintoScript script) => { script.OnPintoInit(); });
@@ -589,7 +588,14 @@ namespace PintoNS
             if (isPortable)
             {
                 MsgBox.Show(this, "Checking for updates is not available on the portable version!",
-                    "Updates Unavailable", MsgBoxIconType.WARNING, true);
+                    "Updates Unavailable", MsgBoxIconType.ERROR, true);
+                return;
+            }
+
+            if (Program.IS_RELEASE_CANDIDATE) 
+            {
+                MsgBox.Show(this, "Checking for updates on a release candidate build is not available!", 
+                    "Updates Unavailable", MsgBoxIconType.ERROR, true);
                 return;
             }
 
