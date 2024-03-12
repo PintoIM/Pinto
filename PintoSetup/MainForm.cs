@@ -125,7 +125,7 @@ namespace PintoSetupNS
                 pbInstallProgress.Value = 0;
                 pbInstallProgress.Maximum = zipFile.Count;
 
-                await Task.Factory.StartNew(new Action(() =>
+                await TaskEx.Run(new Action(() =>
                 {
                     for (int i = 0; i < zipFile.Count; i++)
                     {
