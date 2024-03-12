@@ -41,7 +41,7 @@ namespace PintoSetupNS
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!IsUpgrading) txtPath.Text = Setup.DEFAULT_INSTALL_PATH;
+            if (!IsUpgrading) txtPath.Text = Setup.DefaultInstallPath;
             if (IsUpgrading) btnInstall.PerformClick();
         }
 
@@ -50,9 +50,7 @@ namespace PintoSetupNS
             DialogResult result = fbdBrowse.ShowDialog();
 
             if (result == DialogResult.OK)
-            {
                 txtPath.Text = fbdBrowse.SelectedPath;
-            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

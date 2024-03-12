@@ -12,14 +12,14 @@ namespace PintoSetupNS
 {
     public static class Setup
     {
-        public static readonly string DISPLAY_NAME = $"Pinto! Beta";
-        public static readonly string DISPLAY_VERSION = $"b1.1";
-        public static readonly string DEFAULT_INSTALL_PATH =
+        public const string DISPLAY_NAME = "Pinto! Beta";
+        public const string DISPLAY_VERSION = "b1.1";
+        public const string PROGRAM_EXE = "Pinto.exe";
+        public static readonly string DefaultInstallPath =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Pinto!");
-        public static readonly string PROGRAM_EXE = "Pinto.exe";
-        public static readonly string DESKTOP_SHORTCUT = Path.Combine(Environment.GetFolderPath(
+        public static readonly string DesktopShortcut = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.CommonDesktopDirectory), $"{DISPLAY_NAME}.lnk");
-        public static readonly string STARTMENU_SHORTCUT = Path.Combine(Environment.GetFolderPath(
+        public static readonly string StartMenuShortcut = Path.Combine(Environment.GetFolderPath(
             Environment.SpecialFolder.CommonStartMenu), $"{DISPLAY_NAME}.lnk");
 
         [ComImport]
@@ -159,14 +159,14 @@ namespace PintoSetupNS
             link.SetDescription("A modernish IM client inspired by Skype 0.97");
 
             IPersistFile file = (IPersistFile)link;
-            if (desktop) file.Save(DESKTOP_SHORTCUT, false);
-            file.Save(STARTMENU_SHORTCUT, false);
+            if (desktop) file.Save(DesktopShortcut, false);
+            file.Save(StartMenuShortcut, false);
         }
 
         public static void DeleteShortcuts()
         {
-            if (File.Exists(DESKTOP_SHORTCUT)) File.Delete(DESKTOP_SHORTCUT);
-            if (File.Exists(STARTMENU_SHORTCUT)) File.Delete(STARTMENU_SHORTCUT);
+            if (File.Exists(DesktopShortcut)) File.Delete(DesktopShortcut);
+            if (File.Exists(StartMenuShortcut)) File.Delete(StartMenuShortcut);
         }
 
         public static void PerformUninstall(string installLocation, out bool unableToDeleteFiles)
@@ -174,9 +174,9 @@ namespace PintoSetupNS
             try
             {
                 Directory.Delete(installLocation, true);
+                unableToDeleteFiles = false;
             }
             catch { unableToDeleteFiles = true; }
-            unableToDeleteFiles = false;
 
             try
             {
