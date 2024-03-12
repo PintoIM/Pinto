@@ -170,8 +170,7 @@ namespace PintoSetupNS
             }
             catch (Exception ex)
             {
-                bool unableToDeleteFiles = false;
-                if (!IsUpgrading) Setup.PerformUninstall(installFolder, out unableToDeleteFiles);
+                if (!IsUpgrading) Setup.PerformUninstall(installFolder);
 
                 lTitle.Text = "Pinto! Setup Failed";
                 ShowInstallEnd("Pinto! was unable to be successfully installed on your computer",
@@ -179,11 +178,6 @@ namespace PintoSetupNS
                 MessageBox.Show($"Pinto! was unable to be successfully" +
                     $" installed on your computer:{Environment.NewLine}{ex}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                if (unableToDeleteFiles)
-                    MessageBox.Show($"Pinto! Setup was unable to delete the installation files. ({installFolder})" +
-                        $"{Environment.NewLine}They can be safely removed manually.",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
