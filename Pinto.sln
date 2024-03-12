@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinto", "Pinto\Pinto.csproj", "{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PintoSetup", "PintoSetup\PintoSetup.csproj", "{60B929EE-BC83-4AFC-B170-A7A382006996}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8} = {3C666CE0-2F98-4C12-8B7D-AF1AFC5480B8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
