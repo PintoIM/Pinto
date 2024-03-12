@@ -160,7 +160,13 @@ namespace PintoSetupNS
                 else
                     Close();
 
-                Process.Start(Path.Combine(installFolder, Setup.PROGRAM_EXE));
+                Process process = new Process();
+                process.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = Path.Combine(installFolder, Setup.PROGRAM_EXE),
+                    WorkingDirectory = installFolder
+                };
+                process.Start();
             }
             catch (Exception ex)
             {

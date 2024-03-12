@@ -80,11 +80,7 @@ namespace PintoSetupNS
             UninstallForm uninstallForm = new UninstallForm();
             new Thread(new ThreadStart(() => uninstallForm.ShowDialog())).Start();
 
-            Setup.PerformUninstall(installPath, out bool unableToDeleteFiles);
-            if (unableToDeleteFiles)
-                MessageBox.Show($"Pinto! Setup was unable to delete the installation files. ({installPath})" +
-                    $"{Environment.NewLine}They can be safely removed manually.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            Setup.PerformUninstall(installPath);
             uninstallForm.CanClose = true;
             uninstallForm.Close();
 
@@ -95,7 +91,7 @@ namespace PintoSetupNS
             ProcessStartInfo Info = new ProcessStartInfo()
             {
                 FileName = "cmd.exe",
-                Arguments = $"/c ping 127.0.0.1 -n 1 -w 3000 > nul & rd /s /q \"{installPath}\"",
+                Arguments = $"/c ping 127.0.0.1 -n 2 -w 3000 > nul & rd /s /q \"{installPath}\"",
                 CreateNoWindow = true,
                 WindowStyle = ProcessWindowStyle.Hidden
             };

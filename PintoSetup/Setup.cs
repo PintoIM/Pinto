@@ -157,6 +157,7 @@ namespace PintoSetupNS
             link.SetPath(filePath);
             link.SetIconLocation(filePath, 0);
             link.SetDescription("A modernish IM client inspired by Skype 0.97");
+            link.SetWorkingDirectory(installLocation);
 
             IPersistFile file = (IPersistFile)link;
             if (desktop) file.Save(DesktopShortcut, false);
@@ -169,14 +170,13 @@ namespace PintoSetupNS
             if (File.Exists(StartMenuShortcut)) File.Delete(StartMenuShortcut);
         }
 
-        public static void PerformUninstall(string installLocation, out bool unableToDeleteFiles)
+        public static void PerformUninstall(string installLocation)
         {
             try
             {
                 Directory.Delete(installLocation, true);
-                unableToDeleteFiles = false;
             }
-            catch { unableToDeleteFiles = true; }
+            catch { }
 
             try
             {
