@@ -1,13 +1,6 @@
 <p align="center">
     <img src="Logo.png" width="256" height="256" />
 </p>
-<p align="center">
-    <img src="https://img.shields.io/badge/.NET%20Framework-4.0-blue" />
-    <img src="https://img.shields.io/badge/Instant-Messaging-brightgreen" />
-    <img src="https://img.shields.io/badge/License-GPLv3-brightgreen" />
-    <a href="https://www.codefactor.io/repository/github/pintoim/pinto/overview/main"><img src="https://www.codefactor.io/repository/github/pintoim/pinto/badge/main" alt="CodeFactor" /></a>
-    <a href="https://stand-with-ukraine.pp.ua"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg" /></a>
-</p>
 
 # NOT MAINTAINED
 I won't be maintaing this project, as the codebase is anything but desirable or what I would write today<br>
