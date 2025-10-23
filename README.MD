@@ -9,18 +9,18 @@
     <a href="https://stand-with-ukraine.pp.ua"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg" /></a>
 </p>
 
-# 💬 Pinto IM
+# NOT MAINTAINED
+I won't be maintaing this project, as the codebase is anything but desirable or what I would write today<br>
+
+# Pinto IM
 A modernish IM client inspired by Skype 0.97
 
-# ⚠️ Warning
-Pinto! IM is currently not finished and will take a lot of time to be fully perfected and done, it is not yet ready to be used as a daily IM platform
-
-# ℹ️ Information
+# Information
 - Written in C# (.NET Framework 4.0)
 - The classic look and feel of Skype 0.97
 - Fully open and transparent design
 
-# 📌 Features / Roadmap
+# Features / Roadmap
 - Instant Messaging ✅
 - Group messaging ✅ (proof of concept at the moment)
 - File sharing ❎
@@ -30,7 +30,7 @@ Pinto! IM is currently not finished and will take a lot of time to be fully perf
 - Fully customizable interface ❎
 - Scripting ✅ (not very friendly at the moment)
 
-# ♥️ Third-party attributions
+# Third-party attributions
 Thanks to all of these great projects that made Pinto! possible!<br>
 The version that Pinto! uses is listed next to the links
 - [CS-Script](https://www.csscript.net/) v3.24.2
@@ -41,19 +41,6 @@ The version that Pinto! uses is listed next to the links
 - [Bouncycastle](https://www.bouncycastle.org/csharp/index.html) v1.8.4
 - [Hexbox](https://sourceforge.net/projects/hexbox/) v1.6.0
 
-# 🛜 Server
+# Server
 Looking for the server software?<br>
 [Here](https://github.com/vlOd2/PintoServer) you can find an official implementation
-
-# 👨‍💻 Contributing
-You may proceed with the following steps if you wish to contribute to this project
-
-1. Fork or clone this repository
-2. Make your changes
-3. Commit & push your changes
-4. Submit a pull request here
-
-# ⚖ License
-This project is licensed under the GPLv3 license
-<br>
-You may refer to the "LICENSE" file for more information
